@@ -1,103 +1,98 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <header className="text-center py-12">
+          <h1 className="text-5xl font-bold text-gray-800 mb-4">
+            👨‍👩‍👧‍👦 Who's Your Papa?
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            AI 얼굴 분석으로 가족 유사도를 확인해보세요!
+            <br />
+            부모와 아이, 누구를 더 닮았는지 재미있게 알아보는 서비스입니다.
+          </p>
+        </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {/* Feature Cards */}
+        <main className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <Link href="/face-match" className="group">
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+              <div className="text-6xl mb-4">👶➡️👨</div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-3">얼굴 일치율</h3>
+              <p className="text-gray-600 mb-4">
+                부모와 아이의 얼굴이 얼마나 닮았는지 정확한 퍼센트로 확인해보세요.
+              </p>
+              <div className="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+                시작하기 →
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/find-parents" className="group">
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+              <div className="text-6xl mb-4">🕵️‍♂️👨‍👩‍👧</div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-3">부모 찾기</h3>
+              <p className="text-gray-600 mb-4">
+                여러 사람 중에서 진짜 부모님을 찾아보는 재미있는 게임입니다.
+              </p>
+              <div className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+                게임 시작 →
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/who-resembles" className="group">
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+              <div className="text-6xl mb-4">👨⚖️👩</div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-3">닮은꼴 분석</h3>
+              <p className="text-gray-600 mb-4">
+                엄마와 아빠 중 누구를 더 닮았는지 정확한 분석 결과를 확인하세요.
+              </p>
+              <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">
+                분석하기 →
+              </div>
+            </div>
+          </Link>
+        </main>
+
+        {/* How it works */}
+        <section className="mt-20 text-center">
+          <h2 className="text-3xl font-bold text-gray-800 mb-12">어떻게 작동하나요?</h2>
+          <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">📸</span>
+              </div>
+              <h4 className="font-semibold text-gray-800 mb-2">1. 사진 업로드</h4>
+              <p className="text-sm text-gray-600">비교할 사진들을 업로드하세요</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">🤖</span>
+              </div>
+              <h4 className="font-semibold text-gray-800 mb-2">2. AI 분석</h4>
+              <p className="text-sm text-gray-600">AWS AI가 얼굴을 정밀 분석합니다</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">📊</span>
+              </div>
+              <h4 className="font-semibold text-gray-800 mb-2">3. 결과 계산</h4>
+              <p className="text-sm text-gray-600">유사도를 정확히 계산합니다</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-4">
+                <span className="text-2xl">🎉</span>
+              </div>
+              <h4 className="font-semibold text-gray-800 mb-2">4. 결과 확인</h4>
+              <p className="text-sm text-gray-600">재미있는 결과를 확인하고 공유하세요</p>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

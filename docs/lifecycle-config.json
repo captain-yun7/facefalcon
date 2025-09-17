@@ -1,0 +1,14 @@
+{
+    "Rules": [
+        {
+            "ID": "DeleteTemporaryImages",
+            "Status": "Enabled",
+            "Filter": {
+                "Prefix": "uploads/"
+            },
+            "Expiration": {
+                "Days": 1
+            }
+        }
+    ]
+}
