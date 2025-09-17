@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>얼굴 유사도 - Who's Your Papa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+            margin-bottom: 40px;
+        }
+
+        .back-link {
+            position: absolute;
+            left: 24px;
+            top: 50px;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .back-link:hover {
+            color: #4f46e5;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .upload-area {
+            background: white;
+            border: 2px dashed #d1d5db;
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: #4f46e5;
+            background: #f9fafb;
+        }
+
+        .upload-area.has-image {
+            border-style: solid;
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #9ca3af;
+        }
+
+        .upload-area.has-image .upload-icon {
+            color: #10b981;
+        }
+
+        .upload-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .upload-text {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 16px;
+            object-fit: cover;
+        }
+
+        /* Action Section */
+        .action-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .analyze-button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .analyze-button:hover {
+            background: #4338ca;
+            transform: translateY(-2px);
+        }
+
+        .analyze-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Result Section */
+        .result-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .result-percentage {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #4f46e5;
+            margin-bottom: 16px;
+        }
+
+        .result-text {
+            font-size: 1.3rem;
+            color: #374151;
+            margin-bottom: 24px;
+        }
+
+        .result-insight {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 20px;
+            font-size: 1rem;
+            color: #6b7280;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .comparison-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .comparison-image {
+            border-radius: 12px;
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff40;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .upload-section {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .comparison-images {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-percentage {
+                font-size: 3rem;
+            }
+            
+            .back-link {
+                position: static;
+                display: block;
+                text-align: left;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/" class="back-link">← 돌아가기</a>
+        <div class="container">
+            <h1 class="page-title">얼굴 유사도</h1>
+            <p class="page-subtitle">두 사진을 업로드해서 닮은 정도를 확인해보세요</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="upload-section">
+            <div class="upload-area" onclick="selectFile('source')">
+                <div class="upload-icon">📷</div>
+                <div class="upload-title">첫 번째 사진</div>
+                <div class="upload-text">클릭해서 사진을 선택하세요</div>
+                <img id="source-preview" class="image-preview" style="display: none;">
+            </div>
+
+            <div class="upload-area" onclick="selectFile('target')">
+                <div class="upload-icon">📷</div>
+                <div class="upload-title">두 번째 사진</div>
+                <div class="upload-text">클릭해서 사진을 선택하세요</div>
+                <img id="target-preview" class="image-preview" style="display: none;">
+            </div>
+        </div>
+
+        <div class="action-section">
+            <button class="analyze-button" id="analyze-btn" disabled onclick="analyzeFaces()">
+                <span id="btn-text">비교하기</span>
+            </button>
+        </div>
+
+        <div class="result-section" id="result-section" style="display: none;">
+            <div class="result-percentage" id="result-percentage">0%</div>
+            <div class="result-text" id="result-text">유사도</div>
+            <div class="comparison-images">
+                <img id="result-source" class="comparison-image">
+                <img id="result-target" class="comparison-image">
+            </div>
+            <div class="result-insight" id="result-insight">
+                분석 결과가 여기에 표시됩니다.
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="source-input" accept="image/*" style="display: none;" onchange="handleFileSelect('source', this)">
+    <input type="file" id="target-input" accept="image/*" style="display: none;" onchange="handleFileSelect('target', this)">
+
+    <script>
+        let sourceImage = null;
+        let targetImage = null;
+
+        function selectFile(type) {
+            document.getElementById(type + '-input').click();
+        }
+
+        function handleFileSelect(type, input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById(type + '-preview');
+                const area = preview.closest('.upload-area');
+                
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                area.classList.add('has-image');
+                
+                if (type === 'source') {
+                    sourceImage = e.target.result;
+                } else {
+                    targetImage = e.target.result;
+                }
+                
+                checkReadyToAnalyze();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function checkReadyToAnalyze() {
+            const button = document.getElementById('analyze-btn');
+            if (sourceImage && targetImage) {
+                button.disabled = false;
+            }
+        }
+
+        function analyzeFaces() {
+            const button = document.getElementById('analyze-btn');
+            const btnText = document.getElementById('btn-text');
+            
+            button.disabled = true;
+            btnText.innerHTML = '<div class="loading"><div class="spinner"></div>분석 중...</div>';
+            
+            // 실제 API 호출 시뮬레이션
+            setTimeout(() => {
+                showResult(Math.floor(Math.random() * 100));
+                button.disabled = false;
+                btnText.textContent = '다시 비교하기';
+            }, 2000);
+        }
+
+        function showResult(percentage) {
+            const resultSection = document.getElementById('result-section');
+            const resultPercentage = document.getElementById('result-percentage');
+            const resultText = document.getElementById('result-text');
+            const resultInsight = document.getElementById('result-insight');
+            const resultSource = document.getElementById('result-source');
+            const resultTarget = document.getElementById('result-target');
+            
+            resultPercentage.textContent = percentage + '%';
+            resultSource.src = sourceImage;
+            resultTarget.src = targetImage;
+            
+            let insight = '';
+            if (percentage >= 80) {
+                insight = '매우 높은 유사도입니다! 가족이거나 매우 닮은 관계로 보입니다.';
+            } else if (percentage >= 60) {
+                insight = '상당한 유사도가 있습니다. 친척이거나 닮은 부분이 많네요.';
+            } else if (percentage >= 40) {
+                insight = '보통 정도의 유사도입니다. 몇 가지 공통점이 있어보입니다.';
+            } else if (percentage >= 20) {
+                insight = '약간의 유사도가 있습니다. 일부 특징이 비슷해보입니다.';
+            } else {
+                insight = '유사도가 낮습니다. 서로 다른 특징을 가지고 있네요.';
+            }
+            
+            resultInsight.textContent = insight;
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

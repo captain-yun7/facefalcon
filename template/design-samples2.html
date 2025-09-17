@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디자인 샘플 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #fafafa;
+        }
+
+        .design-selector {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .design-tab {
+            padding: 8px 14px;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .design-tab.active {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .design-container {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .design-container.active {
+            display: block;
+        }
+
+        /* Design 1: 미니멀 프리미엄 */
+        .design1 {
+            background: #fafafa;
+            color: #171717;
+        }
+
+        .design1 .header {
+            padding: 140px 20px;
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .design1 h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #171717;
+            letter-spacing: -0.01em;
+        }
+
+        .design1 p {
+            font-size: 1rem;
+            color: #737373;
+            font-weight: 300;
+        }
+
+        .design1 .upload-area {
+            max-width: 700px;
+            margin: 100px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            padding: 0 20px;
+        }
+
+        .design1 .upload-box {
+            aspect-ratio: 3/4;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a3a3a3;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            font-weight: 300;
+        }
+
+        .design1 .upload-box:hover {
+            border-color: #d4d4d4;
+        }
+
+        .design1 .button {
+            background: #171717;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin: 80px auto;
+            display: block;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+
+        /* Design 2: 유리 형태 */
+        .design2 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+        }
+
+        .design2 .header {
+            padding: 120px 20px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .design2 h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .design2 p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .design2 .upload-area {
+            max-width: 900px;
+            margin: 80px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .design2 .upload-box {
+            aspect-ratio: 4/3;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .design2 .upload-box:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .design2 .button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 60px auto;
+            display: block;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .design2 .button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Design 3: 색상 블록 */
+        .design3 {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .design3 .header {
+            padding: 100px 20px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .design3 h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 24px;
+            color: #0f172a;
+        }
+
+        .design3 p {
+            font-size: 1.1rem;
+            color: #475569;
+        }
+
+        .design3 .upload-area {
+            max-width: 850px;
+            margin: 80px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .design3 .upload-box {
+            aspect-ratio: 1;
+            background: white;
+            border: none;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .design3 .upload-box:first-child {
+            border-left: 6px solid #ef4444;
+        }
+
+        .design3 .upload-box:last-child {
+            border-left: 6px solid #3b82f6;
+        }
+
+        .design3 .upload-box:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .design3 .button {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            border-radius: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 60px auto;
+            display: block;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Design 4: 부드러운 곡선 */
+        .design4 {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            color: #2d3436;
+        }
+
+        .design4 .header {
+            padding: 120px 20px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .design4 h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 24px;
+            color: #2d3436;
+        }
+
+        .design4 p {
+            font-size: 1.2rem;
+            color: #636e72;
+        }
+
+        .design4 .upload-area {
+            max-width: 900px;
+            margin: 80px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 0 20px;
+        }
+
+        .design4 .upload-box {
+            aspect-ratio: 4/3;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #636e72;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(45, 52, 54, 0.1);
+        }
+
+        .design4 .upload-box:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 30px 60px rgba(45, 52, 54, 0.15);
+        }
+
+        .design4 .button {
+            background: #fd79a8;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 60px auto;
+            display: block;
+            cursor: pointer;
+            box-shadow: 0 15px 30px rgba(253, 121, 168, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .design4 .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(253, 121, 168, 0.5);
+        }
+
+        /* Design 5: 포토그래피 스타일 */
+        .design5 {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .design5 .header {
+            padding: 140px 20px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .design5 h1 {
+            font-size: 2.8rem;
+            font-weight: 200;
+            margin-bottom: 30px;
+            color: #ffffff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .design5 p {
+            font-size: 0.95rem;
+            color: #cccccc;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .design5 .upload-area {
+            max-width: 1000px;
+            margin: 100px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 0 20px;
+        }
+
+        .design5 .upload-box {
+            aspect-ratio: 5/4;
+            background: #262626;
+            border: 2px solid #404040;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999999;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .design5 .upload-box:hover {
+            border-color: #666666;
+            background: #2d2d2d;
+        }
+
+        .design5 .button {
+            background: transparent;
+            color: white;
+            border: 2px solid #ffffff;
+            padding: 15px 30px;
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 300;
+            margin: 80px auto;
+            display: block;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .design5 .button:hover {
+            background: white;
+            color: #1a1a1a;
+        }
+
+        @media (max-width: 768px) {
+            .upload-area {
+                grid-template-columns: 1fr !important;
+                gap: 30px !important;
+            }
+            
+            h1 {
+                font-size: 2.2rem !important;
+            }
+            
+            .design-selector {
+                gap: 8px;
+                padding: 15px;
+            }
+            
+            .design-tab {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="design-selector">
+        <button class="design-tab active" onclick="showDesign(1)">미니멀 프리미엄</button>
+        <button class="design-tab" onclick="showDesign(2)">유리 형태</button>
+        <button class="design-tab" onclick="showDesign(3)">색상 블록</button>
+        <button class="design-tab" onclick="showDesign(4)">부드러운 곡선</button>
+        <button class="design-tab" onclick="showDesign(5)">포토그래피</button>
+    </div>
+
+    <!-- Design 1: 미니멀 프리미엄 -->
+    <div class="design-container design1 active" id="design1">
+        <div class="header">
+            <h1>Face Similarity</h1>
+            <p>Compare facial features with precision</p>
+        </div>
+        <div class="upload-area">
+            <div class="upload-box">Select first image</div>
+            <div class="upload-box">Select second image</div>
+        </div>
+        <button class="button">ANALYZE</button>
+    </div>
+
+    <!-- Design 2: 유리 형태 -->
+    <div class="design-container design2" id="design2">
+        <div class="header">
+            <h1>Face Match</h1>
+            <p>Advanced facial recognition technology</p>
+        </div>
+        <div class="upload-area">
+            <div class="upload-box">Upload Image 1</div>
+            <div class="upload-box">Upload Image 2</div>
+        </div>
+        <button class="button">Compare Images</button>
+    </div>
+
+    <!-- Design 3: 색상 블록 -->
+    <div class="design-container design3" id="design3">
+        <div class="header">
+            <h1>FACE MATCH</h1>
+            <p>Bold and modern facial analysis</p>
+        </div>
+        <div class="upload-area">
+            <div class="upload-box">UPLOAD A</div>
+            <div class="upload-box">UPLOAD B</div>
+        </div>
+        <button class="button">COMPARE</button>
+    </div>
+
+    <!-- Design 4: 부드러운 곡선 -->
+    <div class="design-container design4" id="design4">
+        <div class="header">
+            <h1>Face Similarity</h1>
+            <p>Gentle and intuitive face comparison</p>
+        </div>
+        <div class="upload-area">
+            <div class="upload-box">Choose Photo 1</div>
+            <div class="upload-box">Choose Photo 2</div>
+        </div>
+        <button class="button">Start Analysis</button>
+    </div>
+
+    <!-- Design 5: 포토그래피 -->
+    <div class="design-container design5" id="design5">
+        <div class="header">
+            <h1>SIMILARITY</h1>
+            <p>Professional facial analysis</p>
+        </div>
+        <div class="upload-area">
+            <div class="upload-box">Image A</div>
+            <div class="upload-box">Image B</div>
+        </div>
+        <button class="button">PROCESS</button>
+    </div>
+
+    <script>
+        function showDesign(designNumber) {
+            // 모든 탭과 디자인 숨기기
+            document.querySelectorAll('.design-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.design-container').forEach(container => container.classList.remove('active'));
+            
+            // 선택된 탭과 디자인 보이기
+            document.querySelector(`[onclick="showDesign(${designNumber})"]`).classList.add('active');
+            document.getElementById(`design${designNumber}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

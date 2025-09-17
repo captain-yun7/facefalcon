@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 메뉴 - Who's Your Papa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #4f46e5;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #4f46e5;
+            background: #f0f4ff;
+        }
+
+        .nav-link.active {
+            color: #4f46e5;
+            background: #f0f4ff;
+        }
+
+        .back-button {
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: #e5e7eb;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: #6b7280;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto 8px;
+        }
+
+        .page-description {
+            color: #9ca3af;
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Feature Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: #d1d5db;
+        }
+
+        .card-content {
+            padding: 40px 32px;
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 36px;
+        }
+
+        .card-icon.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .card-icon.success {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: white;
+        }
+
+        .card-icon.purple {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #6b46c1;
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #111827;
+        }
+
+        .card-description {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .card-features li {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-features li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .card-action {
+            display: inline-flex;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4f46e5;
+            transition: all 0.2s ease;
+            padding: 12px 24px;
+            background: #f0f4ff;
+            border-radius: 12px;
+        }
+
+        .feature-card:hover .card-action {
+            color: white;
+            background: #4f46e5;
+        }
+
+        .arrow {
+            margin-left: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .feature-card:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-badge.new {
+            background: #ef4444;
+        }
+
+        .status-badge.popular {
+            background: #f59e0b;
+        }
+
+        /* Additional Info Section */
+        .info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        .info-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #374151;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 24px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .info-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .info-item p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                border-bottom: 1px solid #e5e7eb;
+                flex-direction: column;
+                padding: 16px 24px;
+                gap: 16px;
+            }
+
+            .nav-menu.open {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin: 40px 0;
+            }
+            
+            .header {
+                padding: 40px 0;
+            }
+            
+            .card-content {
+                padding: 32px 24px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0 16px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .card-content {
+                padding: 24px 20px;
+            }
+
+            .info-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                👨‍👩‍👧‍👦 Who's Your Papa?
+            </a>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/" class="nav-link">얼굴 유사도</a>
+                <a href="/find-parents" class="nav-link">부모 찾기</a>
+                <a href="/who-resembles" class="nav-link">닮은꼴 분석</a>
+                <a href="/menu" class="nav-link active">전체 메뉴</a>
+            </div>
+            
+            <button class="mobile-toggle" onclick="toggleMobileMenu()">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="page-title">모든 기능</h1>
+            <p class="page-subtitle">얼굴 유사도 분석의 모든 기능을 확인해보세요</p>
+            <p class="page-description">가족간의 닮은 정도를 다양한 방식으로 분석할 수 있습니다</p>
+        </header>
+
+        <main class="features">
+            <a href="/" class="feature-card">
+                <div class="status-badge popular">메인</div>
+                <div class="card-content">
+                    <div class="card-icon primary">👨‍👩‍👧‍👦</div>
+                    <h3 class="card-title">부모-자식 유사도</h3>
+                    <p class="card-description">부모님과 아이의 얼굴 유사도를 정확한 퍼센트로 확인</p>
+                    <ul class="card-features">
+                        <li>가족 유전자 분석</li>
+                        <li>상세한 특징 비교</li>
+                        <li>즉시 결과 확인</li>
+                        <li>유전적 연결고리 분석</li>
+                    </ul>
+                    <div class="card-action">
+                        지금 확인하기 <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/find-parents" class="feature-card">
+                <div class="status-badge">게임</div>
+                <div class="card-content">
+                    <div class="card-icon success">🕵️‍♂️</div>
+                    <h3 class="card-title">진짜 부모 찾기</h3>
+                    <p class="card-description">가족 게임: 여러 후보자 중에서 진짜 부모님을 찾아보세요!</p>
+                    <ul class="card-features">
+                        <li>최대 6명까지 비교</li>
+                        <li>게임 형식의 재미</li>
+                        <li>순위별 결과 발표</li>
+                        <li>가족 모임에 최적</li>
+                    </ul>
+                    <div class="card-action">
+                        게임 시작하기 <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/who-resembles" class="feature-card">
+                <div class="status-badge new">신규</div>
+                <div class="card-content">
+                    <div class="card-icon purple">⚖️</div>
+                    <h3 class="card-title">닮은꼴 분석</h3>
+                    <p class="card-description">엄마와 아빠 중 누구를 더 닮았는지 정확한 분석 결과 제공</p>
+                    <ul class="card-features">
+                        <li>엄마 vs 아빠 비교</li>
+                        <li>비율 차트 제공</li>
+                        <li>특징별 상세 분석</li>
+                        <li>가족 구성원 분석</li>
+                    </ul>
+                    <div class="card-action">
+                        분석 시작하기 <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+        </main>
+
+        <!-- Additional Info Section -->
+        <section class="info-section">
+            <h2 class="info-title">🌟 서비스 특징</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-icon">🚀</div>
+                    <h4>빠른 분석</h4>
+                    <p>몇 초 만에 정확한 얼굴 유사도 결과를 확인할 수 있습니다</p>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🔒</div>
+                    <h4>개인정보 보호</h4>
+                    <p>업로드된 사진은 분석 후 즉시 삭제되어 안전합니다</p>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📱</div>
+                    <h4>모바일 최적화</h4>
+                    <p>스마트폰에서도 편리하게 사용할 수 있도록 최적화되었습니다</p>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🎯</div>
+                    <h4>정확한 결과</h4>
+                    <p>최신 얼굴 인식 기술을 사용하여 높은 정확도를 제공합니다</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('open');
+        }
+
+        // 페이지 로드 시 애니메이션
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        });
+
+        // 클릭 외부 영역 시 모바일 메뉴 닫기
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('nav-menu');
+            const toggle = document.querySelector('.mobile-toggle');
+            
+            if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+                menu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
