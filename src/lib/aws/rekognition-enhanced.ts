@@ -1,5 +1,5 @@
 import { RekognitionClient, CompareFacesCommand, DetectFacesCommand, QualityFilter } from '@aws-sdk/client-rekognition';
-import { FaceComparisonResult, FaceDetails, ApiResponse } from '@/lib/types';
+import { FaceComparisonResult, ApiResponse } from '@/lib/types';
 
 const rekognitionClient = new RekognitionClient({
   region: process.env.AWS_REGION!,
@@ -79,7 +79,7 @@ export async function enhancedCompareFaces(
 
     // 4. 결과 분석 및 개선
     const analysisNotes: string[] = [];
-    let finalSimilarity = response.FaceMatches?.[0]?.Similarity || 0;
+    const finalSimilarity = response.FaceMatches?.[0]?.Similarity || 0;
 
     // 품질이 낮으면 경고 추가
     if (sourceQuality.averageQuality < 70) {

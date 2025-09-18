@@ -1,4 +1,4 @@
-import { FaceComparisonResult, SimilarityResult } from '@/lib/types';
+import { SimilarityResult } from '@/lib/types';
 
 export function calculateAverageScore(similarities: number[]): number {
   if (similarities.length === 0) return 0;

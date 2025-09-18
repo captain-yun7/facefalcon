@@ -1,13 +1,11 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 
 export default function MenuPage() {
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    setMounted(true);
+    // Component mounted
   }, []);
 
   return (
@@ -29,7 +27,7 @@ export default function MenuPage() {
           {/* Header */}
           <header className="text-center py-16">
             <h1 className="font-playfair text-6xl lg:text-7xl font-black mb-6 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent drop-shadow-sm leading-tight">
-              Who's your papa
+              Who&apos;s your papa
             </h1>
             <p className="font-roboto text-xl lg:text-2xl text-blue-800/80 mb-8 max-w-2xl mx-auto font-light tracking-wide">
               인공지능이 만들어내는 놀라운 얼굴 분석과 이미지 생성

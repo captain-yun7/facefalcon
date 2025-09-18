@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
 import { UploadedImage } from '@/lib/types';
