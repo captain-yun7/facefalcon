@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageUploader from '@/components/ImageUploader';
+import Navbar from '@/components/Navbar';
 import { UploadedImage } from '@/lib/types';
 import { calculateFamilyResemblance, getSimilarityLevel, formatPercentage } from '@/lib/utils/similarity-calculator';
 
@@ -86,28 +87,37 @@ export default function WhoResemblesPage() {
   const familyAnalysis = result ? calculateFamilyResemblance(result.childMother, result.childFather) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-block mb-4 text-blue-600 hover:text-blue-800">
-            ← 홈으로 돌아가기
-          </Link>
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            👨⚖️👩 닮은꼴 분석
-          </h1>
-          <p className="text-lg text-gray-600">
-            엄마와 아빠 중 누구를 더 닮았는지 정확한 분석 결과를 확인하세요
-          </p>
-        </div>
+    <>
+      <Navbar />
+      
+      {/* Floating Shapes Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute w-[350px] h-[350px] rounded-full bg-gradient-to-br from-blue-300/20 to-blue-200/20 blur-[80px] top-[15%] left-[15%] animate-float"></div>
+        <div className="absolute w-[450px] h-[450px] rounded-full bg-gradient-to-br from-blue-400/20 to-blue-300/20 blur-[80px] bottom-[15%] right-[10%] animate-float animation-delay-2000"></div>
+        <div className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-br from-blue-500/20 to-blue-400/20 blur-[80px] top-[45%] left-[45%] animate-float animation-delay-4000"></div>
+        <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-br from-blue-100/30 to-gray-50/30 blur-[80px] top-[70%] left-[20%] animate-float animation-delay-6000"></div>
+      </div>
+
+      <div className="min-h-screen bg-gradient-to-br from-white via-white/90 to-blue-50/30 relative z-10">
+        <div className="absolute inset-0 bg-white/70 backdrop-blur-[100px]"></div>
+        <div className="container mx-auto px-4 py-8 relative">
+          {/* Header */}
+          <header className="text-center mb-12">
+            <h1 className="font-playfair text-5xl lg:text-6xl font-black mb-4 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent drop-shadow-sm leading-tight">
+              누굴 더 닮았나요
+            </h1>
+            <p className="font-roboto text-lg text-blue-800/80 max-w-2xl mx-auto font-light tracking-wide">
+              엄마와 아빠 중 누구를 더 닮았는지 정확한 분석 결과를 확인하세요
+            </p>
+          </header>
 
         <div className="max-w-6xl mx-auto">
           {/* Image Upload Section */}
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             {/* Child */}
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-                👶 아이
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50">
+              <h3 className="font-montserrat text-xl font-semibold text-blue-900 mb-6 text-center">
+                아이
               </h3>
               <ImageUploader
                 onImageUpload={setChildImage}
@@ -118,9 +128,9 @@ export default function WhoResemblesPage() {
             </div>
 
             {/* Mother */}
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-                👩 엄마
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50">
+              <h3 className="font-montserrat text-xl font-semibold text-blue-900 mb-6 text-center">
+                엄마
               </h3>
               <ImageUploader
                 onImageUpload={setMotherImage}
@@ -131,9 +141,9 @@ export default function WhoResemblesPage() {
             </div>
 
             {/* Father */}
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-                👨 아빠
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50">
+              <h3 className="font-montserrat text-xl font-semibold text-blue-900 mb-6 text-center">
+                아빠
               </h3>
               <ImageUploader
                 onImageUpload={setFatherImage}
@@ -150,10 +160,10 @@ export default function WhoResemblesPage() {
               onClick={handleAnalyze}
               disabled={!childImage || !motherImage || !fatherImage || isAnalyzing}
               className={`
-                px-8 py-4 rounded-full text-lg font-semibold transition-all
+                font-montserrat px-8 py-4 rounded-full text-lg font-semibold transition-all tracking-wider
                 ${!childImage || !motherImage || !fatherImage || isAnalyzing
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-purple-600 text-white hover:bg-purple-700 transform hover:scale-105'
+                  : 'bg-gradient-to-r from-blue-700 to-blue-500 text-white hover:shadow-lg hover:shadow-blue-500/30 transform hover:scale-105'
                 }
               `}
             >
@@ -166,7 +176,7 @@ export default function WhoResemblesPage() {
                   닮은꼴 분석 중...
                 </span>
               ) : (
-                '🤖 닮은꼴 분석 시작'
+                '닮은꼴 분석 시작'
               )}
             </button>
           </div>
@@ -174,39 +184,35 @@ export default function WhoResemblesPage() {
           {/* Error Message */}
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
-              <p className="text-red-600 text-center">{error}</p>
+              <p className="font-roboto text-red-600 text-center">{error}</p>
             </div>
           )}
 
           {/* Results */}
           {result && familyAnalysis && (
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-                🎉 닮은꼴 분석 결과
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50">
+              <h2 className="font-playfair text-3xl font-bold text-center text-blue-900 mb-8">
+                닮은꼴 분석 결과
               </h2>
 
               {/* Main Result */}
               <div className="text-center mb-12">
                 {familyAnalysis.moreResembledParent === 'equal' ? (
                   <div>
-                    <div className="text-6xl mb-4">⚖️</div>
-                    <h3 className="text-3xl font-bold text-purple-600 mb-4">
+                    <h3 className="font-montserrat text-3xl font-bold text-blue-600 mb-8">
                       엄마와 아빠를 똑같이 닮았어요!
                     </h3>
-                    <p className="text-xl text-gray-600">
-                      놀라운 균형을 보여주는 완벽한 조화입니다! 🎯
+                    <p className="font-roboto text-xl text-blue-600/80 font-light">
+                      놀라운 균형을 보여주는 완벽한 조화입니다!
                     </p>
                   </div>
                 ) : (
                   <div>
-                    <div className="text-6xl mb-4">
-                      {familyAnalysis.moreResembledParent === 'parent1' ? '👩' : '👨'}
-                    </div>
-                    <h3 className="text-3xl font-bold text-purple-600 mb-4">
+                    <h3 className="font-montserrat text-3xl font-bold text-blue-600 mb-8">
                       {familyAnalysis.moreResembledParent === 'parent1' ? '엄마' : '아빠'}를 더 닮았어요!
                     </h3>
-                    <p className="text-xl text-gray-600">
-                      {familyAnalysis.difference.toFixed(1)}% 차이로 {familyAnalysis.moreResembledParent === 'parent1' ? '엄마' : '아빠'} 쪽 유전자가 더 강해요! ✨
+                    <p className="font-roboto text-xl text-blue-600/80 font-light">
+                      {familyAnalysis.difference.toFixed(1)}% 차이로 {familyAnalysis.moreResembledParent === 'parent1' ? '엄마' : '아빠'} 쪽 유전자가 더 강해요!
                     </p>
                   </div>
                 )}
@@ -216,8 +222,7 @@ export default function WhoResemblesPage() {
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                 {/* Mother Similarity */}
                 <div className="text-center p-6 bg-pink-50 rounded-xl">
-                  <div className="text-4xl mb-4">👩</div>
-                  <h4 className="text-2xl font-bold text-gray-800 mb-4">엄마와의 유사도</h4>
+                  <h4 className="font-montserrat text-2xl font-bold text-blue-900 mb-6">엄마와의 유사도</h4>
                   <div className="text-5xl font-bold text-pink-600 mb-4">
                     {formatPercentage(result.childMother)}
                   </div>
@@ -227,18 +232,17 @@ export default function WhoResemblesPage() {
                       style={{ width: `${Math.min(result.childMother, 100)}%` }}
                     ></div>
                   </div>
-                  <p className="text-lg text-gray-600">
+                  <p className="font-roboto text-lg text-blue-600/80 font-light">
                     {getSimilarityLevel(result.childMother).description}
                   </p>
-                  <div className="mt-4 text-xl font-semibold text-pink-600">
+                  <div className="font-montserrat mt-4 text-xl font-semibold text-pink-600">
                     전체의 {familyAnalysis.percentage.parent1.toFixed(1)}%
                   </div>
                 </div>
 
                 {/* Father Similarity */}
                 <div className="text-center p-6 bg-blue-50 rounded-xl">
-                  <div className="text-4xl mb-4">👨</div>
-                  <h4 className="text-2xl font-bold text-gray-800 mb-4">아빠와의 유사도</h4>
+                  <h4 className="font-montserrat text-2xl font-bold text-blue-900 mb-6">아빠와의 유사도</h4>
                   <div className="text-5xl font-bold text-blue-600 mb-4">
                     {formatPercentage(result.childFather)}
                   </div>
@@ -248,10 +252,10 @@ export default function WhoResemblesPage() {
                       style={{ width: `${Math.min(result.childFather, 100)}%` }}
                     ></div>
                   </div>
-                  <p className="text-lg text-gray-600">
+                  <p className="font-roboto text-lg text-blue-600/80 font-light">
                     {getSimilarityLevel(result.childFather).description}
                   </p>
-                  <div className="mt-4 text-xl font-semibold text-blue-600">
+                  <div className="font-montserrat mt-4 text-xl font-semibold text-blue-600">
                     전체의 {familyAnalysis.percentage.parent2.toFixed(1)}%
                   </div>
                 </div>
@@ -259,7 +263,7 @@ export default function WhoResemblesPage() {
 
               {/* Overall Similarity Bar */}
               <div className="mb-8">
-                <h4 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                <h4 className="font-montserrat text-xl font-semibold text-blue-900 mb-4 text-center">
                   전체 유사도 비교
                 </h4>
                 <div className="flex h-8 rounded-full overflow-hidden">
@@ -276,7 +280,7 @@ export default function WhoResemblesPage() {
                     {familyAnalysis.percentage.parent2 > 15 && '👨 아빠'}
                   </div>
                 </div>
-                <div className="flex justify-between text-sm text-gray-500 mt-2">
+                <div className="font-roboto flex justify-between text-sm text-blue-500/70 mt-2">
                   <span>엄마 {familyAnalysis.percentage.parent1.toFixed(1)}%</span>
                   <span>아빠 {familyAnalysis.percentage.parent2.toFixed(1)}%</span>
                 </div>
@@ -286,21 +290,22 @@ export default function WhoResemblesPage() {
               <div className="flex justify-center space-x-4">
                 <button
                   onClick={handleReset}
-                  className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                  className="font-montserrat px-6 py-3 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors font-semibold"
                 >
                   다시 분석하기
                 </button>
                 <Link
                   href="/find-parents"
-                  className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  className="font-montserrat px-6 py-3 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all font-semibold"
                 >
                   부모 찾기 게임 →
                 </Link>
               </div>
             </div>
           )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

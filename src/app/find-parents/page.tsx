@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageUploader from '@/components/ImageUploader';
+import Navbar from '@/components/Navbar';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
 import { getSimilarityLevel, formatPercentage } from '@/lib/utils/similarity-calculator';
 
@@ -72,27 +73,36 @@ export default function FindParentsPage() {
   const bestMatch = results.length > 0 ? results[0] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-block mb-4 text-blue-600 hover:text-blue-800">
-            ← 홈으로 돌아가기
-          </Link>
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            🕵️‍♂️👨‍👩‍👧 부모 찾기 게임
-          </h1>
-          <p className="text-lg text-gray-600">
-            여러 사람 중에서 누가 진짜 부모인지 AI가 찾아드려요!
-          </p>
-        </div>
+    <>
+      <Navbar />
+      
+      {/* Floating Shapes Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute w-[350px] h-[350px] rounded-full bg-gradient-to-br from-blue-300/20 to-blue-200/20 blur-[80px] top-[15%] left-[15%] animate-float"></div>
+        <div className="absolute w-[450px] h-[450px] rounded-full bg-gradient-to-br from-blue-400/20 to-blue-300/20 blur-[80px] bottom-[15%] right-[10%] animate-float animation-delay-2000"></div>
+        <div className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-br from-blue-500/20 to-blue-400/20 blur-[80px] top-[45%] left-[45%] animate-float animation-delay-4000"></div>
+        <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-br from-blue-100/30 to-gray-50/30 blur-[80px] top-[70%] left-[20%] animate-float animation-delay-6000"></div>
+      </div>
+
+      <div className="min-h-screen bg-gradient-to-br from-white via-white/90 to-blue-50/30 relative z-10">
+        <div className="absolute inset-0 bg-white/70 backdrop-blur-[100px]"></div>
+        <div className="container mx-auto px-4 py-8 relative">
+          {/* Header */}
+          <header className="text-center mb-12">
+            <h1 className="font-playfair text-5xl lg:text-6xl font-black mb-4 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent drop-shadow-sm leading-tight">
+              부모 찾기
+            </h1>
+            <p className="font-roboto text-lg text-blue-800/80 max-w-2xl mx-auto font-light tracking-wide">
+              여러 사람 중에서 누가 진짜 부모인지 AI가 찾아드려요!
+            </p>
+          </header>
 
         {!showResults ? (
           <div className="max-w-6xl mx-auto">
             {/* Child Image Upload */}
-            <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-                👶 아이 사진을 업로드하세요
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50 mb-8">
+              <h3 className="font-montserrat text-xl font-semibold text-blue-900 mb-6 text-center">
+                아이 사진을 업로드하세요
               </h3>
               <div className="max-w-sm mx-auto">
                 <ImageUploader
@@ -105,9 +115,9 @@ export default function FindParentsPage() {
             </div>
 
             {/* Candidate Images */}
-            <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-                👨‍👩‍👧‍👦 후보자들의 사진을 업로드하세요 (2-6명)
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50 mb-8">
+              <h3 className="font-montserrat text-xl font-semibold text-blue-900 mb-6 text-center">
+                후보자들의 사진을 업로드하세요 (2-6명)
               </h3>
               
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6">
@@ -130,7 +140,7 @@ export default function FindParentsPage() {
                         </svg>
                       </button>
                     </div>
-                    <p className="text-sm text-gray-600 text-center mt-2">후보자 {index + 1}</p>
+                    <p className="font-roboto text-sm text-blue-700/70 text-center mt-2">후보자 {index + 1}</p>
                   </div>
                 ))}
                 
@@ -145,7 +155,7 @@ export default function FindParentsPage() {
                 )}
               </div>
               
-              <p className="text-center text-sm text-gray-500">
+              <p className="font-roboto text-center text-sm text-blue-600/70 font-light">
                 현재 {candidateImages.length}명의 후보자가 등록되었습니다.
                 {candidateImages.length < 2 && " (최소 2명 필요)"}
               </p>
@@ -157,10 +167,10 @@ export default function FindParentsPage() {
                 onClick={handleAnalyze}
                 disabled={!childImage || candidateImages.length < 2 || isAnalyzing}
                 className={`
-                  px-8 py-4 rounded-full text-lg font-semibold transition-all
+                  font-montserrat px-8 py-4 rounded-full text-lg font-semibold transition-all tracking-wider
                   ${!childImage || candidateImages.length < 2 || isAnalyzing
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-green-600 text-white hover:bg-green-700 transform hover:scale-105'
+                    : 'bg-gradient-to-r from-blue-700 to-blue-500 text-white hover:shadow-lg hover:shadow-blue-500/30 transform hover:scale-105'
                   }
                 `}
               >
@@ -173,7 +183,7 @@ export default function FindParentsPage() {
                     AI가 부모를 찾는 중...
                   </span>
                 ) : (
-                  '🤖 부모 찾기 시작!'
+                  '부모 찾기 시작!'
                 )}
               </button>
             </div>
@@ -181,23 +191,22 @@ export default function FindParentsPage() {
             {/* Error Message */}
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
-                <p className="text-red-600 text-center">{error}</p>
+                <p className="font-roboto text-red-600 text-center">{error}</p>
               </div>
             )}
           </div>
         ) : (
           /* Results */
           <div className="max-w-6xl mx-auto">
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-                🎉 부모 찾기 결과!
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50">
+              <h2 className="font-playfair text-3xl font-bold text-center text-blue-900 mb-8">
+                부모 찾기 결과!
               </h2>
 
               {/* Winner */}
               {bestMatch && (
                 <div className="text-center mb-12">
-                  <div className="text-6xl mb-4">🏆</div>
-                  <h3 className="text-2xl font-bold text-green-600 mb-4">
+                  <h3 className="font-montserrat text-2xl font-bold text-blue-700 mb-8">
                     가장 가능성이 높은 부모님
                   </h3>
                   <div className="max-w-sm mx-auto mb-4">
@@ -206,14 +215,14 @@ export default function FindParentsPage() {
                         src={candidateImages[bestMatch.imageIndex]?.preview || ''}
                         alt="Best match"
                         fill
-                        className="object-cover rounded-lg border-4 border-green-500"
+                        className="object-cover rounded-lg border-4 border-blue-500"
                       />
                     </div>
                   </div>
-                  <div className="text-4xl font-bold text-green-600 mb-2">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent mb-2">
                     {formatPercentage(bestMatch.similarity)}
                   </div>
-                  <p className="text-lg text-gray-600">
+                  <p className="font-roboto text-lg text-blue-600/80 font-light">
                     {getSimilarityLevel(bestMatch.similarity).description}
                   </p>
                 </div>
@@ -221,8 +230,8 @@ export default function FindParentsPage() {
 
               {/* All Results Ranking */}
               <div className="mb-8">
-                <h4 className="text-xl font-semibold text-gray-800 mb-6 text-center">
-                  📊 전체 순위
+                <h4 className="font-montserrat text-xl font-semibold text-blue-900 mb-6 text-center">
+                  전체 순위
                 </h4>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {results.map((result, index) => {
@@ -235,14 +244,14 @@ export default function FindParentsPage() {
                         className={`
                           p-4 rounded-lg border-2 transition-all
                           ${index === 0 
-                            ? 'border-green-500 bg-green-50' 
-                            : 'border-gray-200 bg-gray-50'
+                            ? 'border-blue-500 bg-blue-50' 
+                            : 'border-blue-200 bg-blue-50'
                           }
                         `}
                       >
                         <div className="text-center">
-                          <div className="text-2xl mb-2">
-                            {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}위`}
+                          <div className="text-2xl mb-2 font-bold text-blue-700">
+                            {index + 1}위
                           </div>
                           <div className="relative aspect-square w-32 mx-auto mb-3">
                             <Image
@@ -252,7 +261,7 @@ export default function FindParentsPage() {
                               className="object-cover rounded-lg"
                             />
                           </div>
-                          <div className="text-xl font-bold text-gray-800 mb-1">
+                          <div className="font-montserrat text-xl font-bold text-blue-900 mb-1">
                             {formatPercentage(result.similarity)}
                           </div>
                           <div className={`text-sm ${getSimilarityLevel(result.similarity).color}`}>
@@ -269,13 +278,13 @@ export default function FindParentsPage() {
               <div className="flex justify-center space-x-4">
                 <button
                   onClick={handleReset}
-                  className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                  className="font-montserrat px-6 py-3 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors font-semibold"
                 >
                   다시 시도하기
                 </button>
                 <Link
                   href="/who-resembles"
-                  className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                  className="font-montserrat px-6 py-3 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all font-semibold"
                 >
                   닮은꼴 분석하기 →
                 </Link>
@@ -283,7 +292,8 @@ export default function FindParentsPage() {
             </div>
           </div>
         )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
