@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { findSimilarFaces } from '@/lib/aws/rekognition';
+import { hybridFaceAnalysis } from '@/lib/hybrid-face-analysis';
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Use images as-is (already compressed on client side)
-    const result = await findSimilarFaces(sourceImage, targetImages);
+    const result = await hybridFaceAnalysis.findSimilarFaces(sourceImage, targetImages);
 
     if (!result.success) {
       return NextResponse.json(

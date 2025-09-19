@@ -40,6 +40,12 @@ export async function compareFaces(
     console.log('Sending request to AWS Rekognition...');
     const response = await rekognitionClient.send(command);
     console.log('Raw AWS response:', JSON.stringify(response, null, 2));
+    
+    // 사용량 추적 (서버사이드에서는 DB나 파일에 저장하도록 수정 필요)
+    if (typeof window === 'undefined') {
+      // 서버사이드: 로그로만 기록
+      console.log('[Usage Tracking] compareFaces API called');
+    }
 
     const result: FaceComparisonResult = {
       similarity: response.FaceMatches?.[0]?.Similarity || 0,

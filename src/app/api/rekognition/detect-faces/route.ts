@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { detectFaces } from '@/lib/aws/rekognition';
+import { hybridFaceAnalysis } from '@/lib/hybrid-face-analysis';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +13,20 @@ export async function POST(request: NextRequest) {
     }
 
     // Use image as-is (already compressed on client side)
-    const result = await detectFaces(image);
+    const result = await hybridFaceAnalysis.detectFaces(image);
+
+    // 사용량 추적
+    if (result.success) {
+      try {
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/monitoring/usage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ operation: 'detectFaces' }),
+        });
+      } catch (trackingError) {
+        console.warn('Failed to track usage:', trackingError);
+      }
+    }
 
     if (!result.success) {
       return NextResponse.json(

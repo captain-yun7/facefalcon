@@ -5,6 +5,7 @@ import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
 import { UploadedImage, FaceComparisonResult } from '@/lib/types';
 import { getSimilarityLevel, generateInsightMessage, formatPercentage } from '@/lib/utils/similarity-calculator';
+import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 
 export default function Home() {
   const [sourceImage, setSourceImage] = useState<UploadedImage | null>(null);
@@ -20,15 +21,14 @@ export default function Home() {
     setError("");
 
     try {
-      const response = await fetch('/api/rekognition/compare-faces', {
+      const response = await fetch('/api/family-similarity', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          sourceImage: sourceImage.base64,
-          targetImage: targetImage.base64,
-          similarityThreshold: 1,
+          parentImage: sourceImage.base64,
+          childImage: targetImage.base64,
         }),
       });
 
@@ -38,7 +38,15 @@ export default function Home() {
         throw new Error(data.error || 'Analysis failed');
       }
 
-      setResult(data.data);
+      // 가족 유사도 데이터를 기존 형식에 맞게 변환
+      setResult({
+        similarity: data.data.family_similarity,
+        faceMatches: [],
+        sourceImageFace: undefined,
+        unmatchedFaces: [],
+        // 추가 가족 분석 데이터 저장
+        familyData: data.data
+      } as any);
     } catch (err) {
       console.error('Error analyzing faces:', err);
       setError(err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.');
@@ -57,6 +65,10 @@ export default function Home() {
   const similarity = result?.similarity || 0;
   const similarityInfo = getSimilarityLevel(similarity);
   const insightMessage = generateInsightMessage(similarity, 'parent-child');
+  const familyData = (result as any)?.familyData;
+  
+  // 엔터테이닝 메시지 가져오기
+  const entertainingMessage = getFamilySimilarityMessage(similarity);
 
   return (
     <>
@@ -81,7 +93,7 @@ export default function Home() {
               우리 아빠 맞나요
             </h1>
             <p className="font-roboto text-lg text-blue-800/80 max-w-2xl mx-auto font-light tracking-wide">
-              두 사진의 얼굴 유사도를 정확하게 측정해보세요
+              부모와 아이의 닮은 정도를 재미있게 분석해보세요
             </p>
           </header>
 
@@ -132,10 +144,10 @@ export default function Home() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    AI 분석 중...
+                    분석 중...
                   </span>
                 ) : (
-                  'AI 분석 시작'
+                  'AI 분석하기'
                 )}
               </button>
             </div>
@@ -154,40 +166,18 @@ export default function Home() {
                   분석 결과
                 </h2>
 
-                {/* Similarity Score */}
+                {/* Simple Entertaining Message */}
                 <div className="text-center mb-8">
-                  <div className="text-6xl font-bold mb-4 bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent">
-                    {formatPercentage(similarity)}
+                  <div className="text-8xl mb-6">
+                    {entertainingMessage.emoji}
                   </div>
-                  <div className="font-montserrat text-2xl font-semibold mb-2 text-blue-700">
-                    유사도: {similarityInfo.level}
+                  <div className="font-playfair text-4xl font-bold mb-6 text-blue-800">
+                    {entertainingMessage.title}
                   </div>
-                  <p className="font-roboto text-lg text-blue-600/80 mb-4 font-light">
-                    {similarityInfo.description}
+                  <p className="font-roboto text-2xl font-medium text-blue-700 leading-relaxed max-w-3xl mx-auto">
+                    {entertainingMessage.message}
                   </p>
-                  <p className="font-roboto text-xl font-medium text-blue-800">
-                    {insightMessage}
-                  </p>
-                </div>
-
-                {/* Similarity Bar */}
-                <div className="mb-8">
-                  <div className="w-full bg-blue-100 rounded-full h-4">
-                    <div
-                      className={`h-4 rounded-full transition-all duration-1000 ${
-                        similarity >= 80 ? 'bg-gradient-to-r from-green-500 to-green-400' :
-                        similarity >= 60 ? 'bg-gradient-to-r from-blue-500 to-blue-400' :
-                        similarity >= 40 ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' :
-                        'bg-gradient-to-r from-red-500 to-red-400'
-                      }`}
-                      style={{ width: `${Math.min(similarity, 100)}%` }}
-                    ></div>
-                  </div>
-                  <div className="flex justify-between text-sm text-blue-600/70 mt-2 font-montserrat">
-                    <span>0%</span>
-                    <span>50%</span>
-                    <span>100%</span>
-                  </div>
+                  
                 </div>
 
                 {/* Action Buttons */}

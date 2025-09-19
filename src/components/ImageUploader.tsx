@@ -98,7 +98,6 @@ export default function ImageUploader({
             </svg>
           </button>
         </div>
-        <p className="text-sm text-gray-600 text-center mt-2">{uploadedImage.file.name}</p>
       </div>
     );
   }

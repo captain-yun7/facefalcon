@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ImageUploader from '@/components/ImageUploader';
 import { UploadedImage, FaceComparisonResult } from '@/lib/types';
 import { getSimilarityLevel, generateInsightMessage, formatPercentage } from '@/lib/utils/similarity-calculator';
+import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 
 export default function FaceMatchPage() {
   const [sourceImage, setSourceImage] = useState<UploadedImage | null>(null);
@@ -20,15 +21,14 @@ export default function FaceMatchPage() {
     setError("");
 
     try {
-      const response = await fetch('/api/rekognition/compare-faces', {
+      const response = await fetch('/api/family-similarity', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          sourceImage: sourceImage.base64,
-          targetImage: targetImage.base64,
-          similarityThreshold: 1,
+          parentImage: sourceImage.base64,
+          childImage: targetImage.base64,
         }),
       });
 
@@ -38,7 +38,15 @@ export default function FaceMatchPage() {
         throw new Error(data.error || 'Analysis failed');
       }
 
-      setResult(data.data);
+      // 가족 유사도 데이터를 기존 형식에 맞게 변환
+      setResult({
+        similarity: data.data.family_similarity,
+        faceMatches: [],
+        sourceImageFace: undefined,
+        unmatchedFaces: [],
+        // 추가 가족 분석 데이터 저장
+        familyData: data.data
+      } as any);
     } catch (err) {
       console.error('Error analyzing faces:', err);
       setError(err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.');
@@ -57,6 +65,10 @@ export default function FaceMatchPage() {
   const similarity = result?.similarity || 0;
   const similarityInfo = getSimilarityLevel(similarity);
   const insightMessage = generateInsightMessage(similarity, 'parent-child');
+  const familyData = (result as any)?.familyData;
+  
+  // 엔터테이닝 메시지 가져오기
+  const entertainingMessage = getFamilySimilarityMessage(similarity);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
@@ -121,10 +133,10 @@ export default function FaceMatchPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  AI 분석 중...
+                  분석 중...
                 </span>
               ) : (
-                '🤖 AI 분석 시작'
+                'AI 분석하기'
               )}
             </button>
           </div>
@@ -140,43 +152,21 @@ export default function FaceMatchPage() {
           {result && (
             <div className="bg-white rounded-xl p-8 shadow-lg">
               <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-                🎉 분석 결과
+                분석 결과
               </h2>
 
-              {/* Similarity Score */}
+              {/* Simple Entertaining Message */}
               <div className="text-center mb-8">
-                <div className="text-6xl font-bold mb-4" style={{ color: similarityInfo.color.replace('text-', '') }}>
-                  {formatPercentage(similarity)}
+                <div className="text-8xl mb-6">
+                  {entertainingMessage.emoji}
                 </div>
-                <div className={`text-2xl font-semibold mb-2 ${similarityInfo.color}`}>
-                  유사도: {similarityInfo.level}
+                <div className="text-4xl font-bold mb-6 text-purple-700">
+                  {entertainingMessage.title}
                 </div>
-                <p className="text-lg text-gray-600 mb-4">
-                  {similarityInfo.description}
+                <p className="text-2xl font-medium text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                  {entertainingMessage.message}
                 </p>
-                <p className="text-xl font-medium text-purple-600">
-                  {insightMessage}
-                </p>
-              </div>
-
-              {/* Similarity Bar */}
-              <div className="mb-8">
-                <div className="w-full bg-gray-200 rounded-full h-4">
-                  <div
-                    className={`h-4 rounded-full transition-all duration-1000 ${
-                      similarity >= 80 ? 'bg-green-500' :
-                      similarity >= 60 ? 'bg-blue-500' :
-                      similarity >= 40 ? 'bg-yellow-500' :
-                      'bg-red-500'
-                    }`}
-                    style={{ width: `${Math.min(similarity, 100)}%` }}
-                  ></div>
-                </div>
-                <div className="flex justify-between text-sm text-gray-500 mt-2">
-                  <span>0%</span>
-                  <span>50%</span>
-                  <span>100%</span>
-                </div>
+                
               </div>
 
               {/* Action Buttons */}

@@ -1,0 +1,742 @@
+[
+  {
+    "timestamp": "2025-09-16T00:49:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 529382
+    }
+  },
+  {
+    "timestamp": "2025-09-16T13:22:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 993662
+    }
+  },
+  {
+    "timestamp": "2025-09-15T20:32:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 335861
+    }
+  },
+  {
+    "timestamp": "2025-09-16T08:05:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 78759
+    }
+  },
+  {
+    "timestamp": "2025-09-16T10:34:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 497385
+    }
+  },
+  {
+    "timestamp": "2025-09-16T08:49:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 767418
+    }
+  },
+  {
+    "timestamp": "2025-09-16T13:28:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 449054
+    }
+  },
+  {
+    "timestamp": "2025-09-17T09:16:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 655840
+    }
+  },
+  {
+    "timestamp": "2025-09-17T05:07:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 559112
+    }
+  },
+  {
+    "timestamp": "2025-09-17T02:06:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 455208
+    }
+  },
+  {
+    "timestamp": "2025-09-17T09:54:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 378112
+    }
+  },
+  {
+    "timestamp": "2025-09-16T17:41:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 790246
+    }
+  },
+  {
+    "timestamp": "2025-09-17T06:21:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 915823
+    }
+  },
+  {
+    "timestamp": "2025-09-16T18:38:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 231050
+    }
+  },
+  {
+    "timestamp": "2025-09-18T10:02:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 139163
+    }
+  },
+  {
+    "timestamp": "2025-09-18T01:23:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 913881
+    }
+  },
+  {
+    "timestamp": "2025-09-18T00:03:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 760472
+    }
+  },
+  {
+    "timestamp": "2025-09-18T05:12:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 249482
+    }
+  },
+  {
+    "timestamp": "2025-09-17T16:59:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 665567
+    }
+  },
+  {
+    "timestamp": "2025-09-17T21:22:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 849378
+    }
+  },
+  {
+    "timestamp": "2025-09-12T09:34:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 587322
+    }
+  },
+  {
+    "timestamp": "2025-09-12T13:17:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 82342
+    }
+  },
+  {
+    "timestamp": "2025-09-12T10:04:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 656338
+    }
+  },
+  {
+    "timestamp": "2025-09-12T04:18:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 852536
+    }
+  },
+  {
+    "timestamp": "2025-09-12T07:14:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 419270
+    }
+  },
+  {
+    "timestamp": "2025-09-13T04:16:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 993147
+    }
+  },
+  {
+    "timestamp": "2025-09-13T06:59:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 965296
+    }
+  },
+  {
+    "timestamp": "2025-09-13T00:37:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 760484
+    }
+  },
+  {
+    "timestamp": "2025-09-12T22:12:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 924510
+    }
+  },
+  {
+    "timestamp": "2025-09-13T09:07:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 798417
+    }
+  },
+  {
+    "timestamp": "2025-09-13T23:22:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 553306
+    }
+  },
+  {
+    "timestamp": "2025-09-14T07:01:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 384987
+    }
+  },
+  {
+    "timestamp": "2025-09-14T14:03:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 508480
+    }
+  },
+  {
+    "timestamp": "2025-09-14T06:20:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 599497
+    }
+  },
+  {
+    "timestamp": "2025-09-14T09:15:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 190499
+    }
+  },
+  {
+    "timestamp": "2025-09-15T04:10:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 363141
+    }
+  },
+  {
+    "timestamp": "2025-09-15T00:29:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 181361
+    }
+  },
+  {
+    "timestamp": "2025-09-15T01:15:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 417626
+    }
+  },
+  {
+    "timestamp": "2025-09-14T16:09:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 800931
+    }
+  },
+  {
+    "timestamp": "2025-09-14T21:53:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 1034148
+    }
+  },
+  {
+    "timestamp": "2025-09-15T05:18:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 179611
+    }
+  },
+  {
+    "timestamp": "2025-09-14T21:28:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 688663
+    }
+  },
+  {
+    "timestamp": "2025-09-14T15:57:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 455003
+    }
+  },
+  {
+    "timestamp": "2025-09-14T23:21:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 777605
+    }
+  },
+  {
+    "timestamp": "2025-09-14T22:12:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 751340
+    }
+  },
+  {
+    "timestamp": "2025-09-16T12:21:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 189738
+    }
+  },
+  {
+    "timestamp": "2025-09-16T13:46:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 1048998
+    }
+  },
+  {
+    "timestamp": "2025-09-16T04:10:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 73073
+    }
+  },
+  {
+    "timestamp": "2025-09-16T03:32:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 185680
+    }
+  },
+  {
+    "timestamp": "2025-09-15T16:44:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 627827
+    }
+  },
+  {
+    "timestamp": "2025-09-16T10:14:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 975680
+    }
+  },
+  {
+    "timestamp": "2025-09-16T06:11:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 190776
+    }
+  },
+  {
+    "timestamp": "2025-09-16T02:08:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 419077
+    }
+  },
+  {
+    "timestamp": "2025-09-17T08:13:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 251248
+    }
+  },
+  {
+    "timestamp": "2025-09-17T07:35:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 261558
+    }
+  },
+  {
+    "timestamp": "2025-09-16T20:21:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 461681
+    }
+  },
+  {
+    "timestamp": "2025-09-17T06:32:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 551315
+    }
+  },
+  {
+    "timestamp": "2025-09-16T15:08:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 755867
+    }
+  },
+  {
+    "timestamp": "2025-09-17T09:01:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 832629
+    }
+  },
+  {
+    "timestamp": "2025-09-17T01:11:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 564202
+    }
+  },
+  {
+    "timestamp": "2025-09-17T10:51:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 627441
+    }
+  },
+  {
+    "timestamp": "2025-09-17T07:47:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 519195
+    }
+  },
+  {
+    "timestamp": "2025-09-17T21:31:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 967883
+    }
+  },
+  {
+    "timestamp": "2025-09-18T04:10:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 268123
+    }
+  },
+  {
+    "timestamp": "2025-09-17T15:46:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 148916
+    }
+  },
+  {
+    "timestamp": "2025-09-18T11:58:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 531599
+    }
+  },
+  {
+    "timestamp": "2025-09-18T03:43:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 938984
+    }
+  },
+  {
+    "timestamp": "2025-09-18T09:25:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 791503
+    }
+  },
+  {
+    "timestamp": "2025-09-18T08:36:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 506922
+    }
+  },
+  {
+    "timestamp": "2025-09-18T05:34:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 987540
+    }
+  },
+  {
+    "timestamp": "2025-09-18T10:09:00.000Z",
+    "operation": "compareFaces",
+    "metadata": {
+      "imageSize": 453802
+    }
+  },
+  {
+    "timestamp": "2025-09-17T18:00:00.000Z",
+    "operation": "detectFaces",
+    "metadata": {
+      "imageSize": 682045
+    }
+  },
+  {
+    "timestamp": "2025-09-19T05:36:14.394Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:36:36.666Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:45:08.353Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:45:17.702Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:45:24.257Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:46:15.870Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:46:23.284Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:46:31.463Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:46:37.098Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T05:46:50.462Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:10:02.671Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:10:34.555Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:12:05.017Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:12:18.983Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:16:15.686Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:16:41.671Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:17:08.872Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:18:56.200Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:19:21.348Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:20:02.989Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:24:18.604Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:28:08.484Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:28:44.347Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:28:58.459Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:29:18.281Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:29:38.105Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:29:57.880Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:30:32.726Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:30:45.037Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:31:07.760Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:31:26.379Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:32:12.267Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:32:27.431Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:35:09.816Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:35:28.291Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:35:51.700Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:36:34.532Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:38:10.884Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:38:21.562Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:38:33.321Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:38:37.568Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:38:48.906Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:38:59.135Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:39:23.403Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:42:43.936Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:42:53.120Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:43:05.868Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:43:13.795Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:43:25.630Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:43:47.237Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:43:57.751Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:44:08.750Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:44:50.237Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T06:49:31.572Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T07:00:45.423Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T07:02:17.001Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T07:02:35.684Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T07:02:55.335Z",
+    "operation": "compareFaces"
+  },
+  {
+    "timestamp": "2025-09-19T07:19:50.719Z",
+    "operation": "compareFaces"
+  }
+]
