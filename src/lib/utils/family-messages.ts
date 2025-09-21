@@ -100,19 +100,19 @@ const identicalPersonMessages: Record<number, FamilyMessage[]> = {
 // 60-79: 극강의 닮음 (최고 가족 유사도)
 const extremeSimilarityMessages: Record<number, FamilyMessage[]> = {
   79: [
-    { title: "친자 확인 완료!", message: "유전자 파워 폭발! 완전 복사+붙여넣기! 🖨️", emoji: "🖨️" },
-    { title: "DNA 인증!", message: "이 정도면 유전자 검사 필요 없어요! 🧬", emoji: "🧬" }
+    { title: "완벽한 닮음!", message: "대박! 완전 똑같이 생기셨네요! 🖨️", emoji: "🖨️" },
+    { title: "판박이 인증!", message: "이 정도면 누가 봐도 가족이에요! 🧬", emoji: "🧬" }
   ],
   78: [
-    { title: "아빠/엄마 맞습니다!", message: "판박이 수준! 아빠/엄마 어린시절 사진인줄 😲", emoji: "😲" },
-    { title: "붕어빵 인증!", message: "누가 봐도 아빠/엄마 자식이에요! 👨‍👦", emoji: "👨‍👦" }
+    { title: "완벽한 가족!", message: "대박! 아빠/엄마 어린시절 모습 그대로네요! 😲", emoji: "😲" },
+    { title: "붕어빵 인증!", message: "누가 봐도 가족이라는 게 다 드러나요! 👨‍👦", emoji: "👨‍👦" }
   ],
   77: [
-    { title: "DNA 파워!", message: "완전 복사+붙여넣기! 🖨️", emoji: "🖨️" },
-    { title: "유전자 확인!", message: "이건 진짜 부모 자식 맞네요! 🧬", emoji: "🧬" }
+    { title: "유전자 파워!", message: "완전 복사+붙여넣기! 🖨️", emoji: "🖨️" },
+    { title: "가족 확인!", message: "이건 진짜 부모 자식 맞네요! 🧬", emoji: "🧬" }
   ],
   76: [
-    { title: "친자 확인!", message: "유전자 검사 필요 없어요! 판박이네요", emoji: "✅" },
+    { title: "가족 확실!", message: "완전 판박이! 가족 맞네요", emoji: "✅" },
     { title: "완벽한 닮음!", message: "이 정도면 쌍둥이급 유사도! 😱", emoji: "😱" }
   ],
   75: [
@@ -434,75 +434,107 @@ const uniqueCharacterMessages: Record<number, FamilyMessage[]> = {
 };
 
 /**
+ * AI 점수를 사용자 친화적 퍼센트로 변환
+ * @param aiScore 0.0-1.0 사이의 AI 유사도 점수
+ * @returns 사용자에게 표시할 퍼센트 (1-99)
+ */
+function convertAiScoreToUserPercent(aiScore: number): number {
+  // AI 점수 범위별로 사용자 친화적 퍼센트로 매핑
+  if (aiScore >= 0.6) {
+    // 85-99% 범위로 매핑 (매우 높은 유사도)
+    return Math.round(85 + (aiScore - 0.6) * 35);
+  } else if (aiScore >= 0.4) {
+    // 60-84% 범위로 매핑 (높은 가족 유사도)
+    return Math.round(60 + (aiScore - 0.4) * 120);
+  } else if (aiScore >= 0.2) {
+    // 30-59% 범위로 매핑 (보통 가족 유사도)
+    return Math.round(30 + (aiScore - 0.2) * 145);
+  } else if (aiScore >= 0.1) {
+    // 10-29% 범위로 매핑 (낮은 유사도)
+    return Math.round(10 + (aiScore - 0.1) * 190);
+  } else {
+    // 1-9% 범위로 매핑 (매우 낮은 유사도)
+    return Math.round(1 + Math.max(0, aiScore) * 80);
+  }
+}
+
+/**
  * 유사도에 따른 엔터테이닝 메시지 반환
  * @param similarity 0-1 사이의 유사도 값
- * @returns 재미있는 메시지 객체
+ * @returns 재미있는 메시지 객체와 표시용 퍼센트
  */
-export function getFamilySimilarityMessage(similarity: number): FamilyMessage {
-  // similarity가 이미 0-100 범위인지 0-1 범위인지 확인
-  let percentage: number;
-  if (similarity > 1) {
-    // 이미 0-100 범위
-    percentage = Math.round(similarity);
-  } else {
-    // 0-1 범위이므로 100 곱하기
-    percentage = Math.round(similarity * 100);
-  }
-  
+export function getFamilySimilarityMessage(similarity: number): FamilyMessage & { displayPercent: number } {
+  // AI 점수를 사용자 친화적 퍼센트로 변환
+  const displayPercent = convertAiScoreToUserPercent(similarity);
   
   let messagePool: FamilyMessage[] = [];
   
-  // 퍼센트에 따라 해당하는 메시지 풀 선택
-  if (percentage >= 80) {
-    messagePool = identicalPersonMessages[percentage];
+  // 표시용 퍼센트에 따라 해당하는 메시지 풀 선택
+  if (displayPercent >= 85) {
+    // 85-99%: 매우 높은 유사도 (동일인 의심)
+    const key = Math.min(99, Math.max(85, displayPercent));
+    messagePool = identicalPersonMessages[key];
     if (!messagePool) {
-      // 80대 메시지가 없으면 기본 80 메시지 사용
       messagePool = [
         { title: "동일인일 수도!", message: "이 정도면 같은 분의 다른 사진인가요? 🤔", emoji: "🤔" },
         { title: "본인 의심!", message: "가족 비교를 위해 다른 분의 사진을 올려주세요", emoji: "📸" }
       ];
     }
-  } else if (percentage >= 60) {
-    messagePool = extremeSimilarityMessages[percentage];
+  } else if (displayPercent >= 60) {
+    // 60-84%: 높은 가족 유사도
+    const key = Math.min(84, Math.max(60, displayPercent));
+    messagePool = extremeSimilarityMessages[key] || extremeSimilarityMessages[79] || extremeSimilarityMessages[70];
     if (!messagePool) {
-      messagePool = extremeSimilarityMessages[60] || [
-        { title: "확실한 가족!", message: "아빠/엄마 맞습니다! 유전자 검사 필요 없어요! 🧬", emoji: "🧬" }
+      messagePool = [
+        { title: "확실한 가족!", message: "아빠/엄마 맞습니다! 강한 가족 유사성이에요! 🧬", emoji: "🧬" }
       ];
     }
-  } else if (percentage >= 40) {
-    messagePool = definiteFamilyMessages[percentage];
+  } else if (displayPercent >= 30) {
+    // 30-59%: 보통 가족 유사도  
+    const key = Math.min(59, Math.max(30, displayPercent));
+    messagePool = definiteFamilyMessages[key] || definiteFamilyMessages[50] || definiteFamilyMessages[40];
     if (!messagePool) {
-      messagePool = definiteFamilyMessages[40] || [
-        { title: "분명한 가족!", message: "가족 맞네요! 특히 미소가 닮았어요 😊", emoji: "😊" }
+      messagePool = [
+        { title: "꽤 닮았어요!", message: "가족 맞네요! 특히 미소가 닮았어요 😊", emoji: "😊" }
       ];
     }
-  } else if (percentage >= 25) {
-    messagePool = subtleSimilarityMessages[percentage];
+  } else if (displayPercent >= 10) {
+    // 10-29%: 낮은 유사도
+    const key = Math.min(29, Math.max(10, displayPercent));
+    messagePool = subtleSimilarityMessages[key] || subtleSimilarityMessages[25];
     if (!messagePool) {
-      messagePool = subtleSimilarityMessages[25] || [
-        { title: "은근한 유사!", message: "표정이나 분위기가 닮았어요! 😊", emoji: "😊" }
+      messagePool = [
+        { title: "조금 닮았어요!", message: "자세히 보면 닮은 구석이 있네요! 🔍", emoji: "🔍" }
       ];
     }
   } else {
-    messagePool = uniqueCharacterMessages[percentage];
+    // 1-9%: 매우 낮은 유사도
+    const key = Math.min(9, Math.max(1, displayPercent));
+    messagePool = uniqueCharacterMessages[key] || uniqueCharacterMessages[0];
     if (!messagePool) {
-      messagePool = uniqueCharacterMessages[0] || [
-        { title: "각자의 매력!", message: "외모는 독특해도 성격은 닮았겠죠? 😊", emoji: "😊" }
+      messagePool = [
+        { title: "각자의 매력!", message: "외모는 독특해도 가족의 정은 진짜! ❤️", emoji: "❤️" }
       ];
     }
   }
   
   // 메시지 풀에서 랜덤 선택
+  let selectedMessage: FamilyMessage;
   if (messagePool && messagePool.length > 0) {
     const randomIndex = Math.floor(Math.random() * messagePool.length);
-    return messagePool[randomIndex];
+    selectedMessage = messagePool[randomIndex];
+  } else {
+    // 기본 메시지 (혹시 모를 에러 대비)
+    selectedMessage = {
+      title: "분석 완료!",
+      message: `유사도가 측정되었습니다.`,
+      emoji: "🤖"
+    };
   }
   
-  // 기본 메시지 (혹시 모를 에러 대비)
   return {
-    title: "분석 완료!",
-    message: `유사도가 측정되었습니다.`,
-    emoji: "🤖"
+    ...selectedMessage,
+    displayPercent
   };
 }
 

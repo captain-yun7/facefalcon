@@ -40,7 +40,7 @@ class HybridFaceAnalysisClient {
     if (isBatch && this.config.usePythonForBatch) {
       const pythonHealthy = await pythonApiClient.isHealthy();
       if (pythonHealthy) {
-        console.log(`📦 Using Python for batch ${operation}`);
+        console.log(`Using Python for batch ${operation}`);
         return 'python';
       }
     }
@@ -48,16 +48,16 @@ class HybridFaceAnalysisClient {
     // Provider 설정에 따른 선택
     switch (this.config.provider) {
       case 'aws':
-        console.log(`☁️ Using AWS for ${operation}`);
+        console.log(`Using AWS for ${operation}`);
         return 'aws';
       
       case 'python':
         const pythonHealthy = await pythonApiClient.isHealthy();
         if (pythonHealthy) {
-          console.log(`🐍 Using Python for ${operation}`);
+          console.log(`Using Python for ${operation}`);
           return 'python';
         } else if (this.config.fallbackEnabled) {
-          console.log(`⚠️ Python unavailable, falling back to AWS for ${operation}`);
+          console.log(`Python unavailable, falling back to AWS for ${operation}`);
           return 'aws';
         } else {
           throw new Error('Python API is unavailable and fallback is disabled');
@@ -68,10 +68,10 @@ class HybridFaceAnalysisClient {
         if (this.config.primaryProvider === 'python') {
           const pythonHealthy = await pythonApiClient.isHealthy();
           if (pythonHealthy) {
-            console.log(`🐍 Using primary Python for ${operation}`);
+            console.log(`Using primary Python for ${operation}`);
             return 'python';
           } else if (this.config.fallbackEnabled) {
-            console.log(`⚠️ Primary Python unavailable, using fallback AWS for ${operation}`);
+            console.log(`Primary Python unavailable, using fallback AWS for ${operation}`);
             return 'aws';
           }
         } else {
@@ -322,7 +322,7 @@ class HybridFaceAnalysisClient {
 
   updateConfig(newConfig: Partial<HybridConfig>): void {
     this.config = { ...this.config, ...newConfig };
-    console.log('🔄 Hybrid config updated:', this.config);
+    console.log('Hybrid config updated:', this.config);
   }
 }
 

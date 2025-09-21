@@ -34,6 +34,8 @@ export default function Home() {
 
       const data = await response.json();
 
+      console.log("HERE : " + data.data.similarity)
+
       if (!data.success) {
         throw new Error(data.error || 'Analysis failed');
       }
@@ -67,8 +69,15 @@ export default function Home() {
   const insightMessage = generateInsightMessage(similarity, 'parent-child');
   const familyData = (result as any)?.familyData;
   
-  // 엔터테이닝 메시지 가져오기
-  const entertainingMessage = getFamilySimilarityMessage(similarity);
+  // 나이 보정된 유사도 사용 (만약 제공된 경우)
+  const adjustedSimilarity = familyData?.age_corrected_similarity || similarity;
+  
+  // 엔터테이닝 메시지 가져오기 (개선된 메시지와 퍼센트 포함)
+  const entertainingMessage = getFamilySimilarityMessage(adjustedSimilarity);
+  
+  // 나이 정보 추출
+  const parentAge = familyData?.parent_face?.age;
+  const childAge = familyData?.child_face?.age;
 
   return (
     <>
@@ -171,6 +180,12 @@ export default function Home() {
                   <div className="text-8xl mb-6">
                     {entertainingMessage.emoji}
                   </div>
+                  
+                  {/* 퍼센트 표시 */}
+                  <div className="font-playfair text-6xl font-bold mb-4 text-blue-600">
+                    {entertainingMessage.displayPercent}%
+                  </div>
+                  
                   <div className="font-playfair text-4xl font-bold mb-6 text-blue-800">
                     {entertainingMessage.title}
                   </div>
@@ -178,6 +193,23 @@ export default function Home() {
                     {entertainingMessage.message}
                   </p>
                   
+                  {/* 나이 정보 표시 (선택적) */}
+                  {(parentAge || childAge) && (
+                    <div className="mt-6 text-sm text-blue-600 opacity-75">
+                      {parentAge && childAge ? (
+                        <p>추정 나이: 부모 {parentAge}세, 자녀 {childAge}세</p>
+                      ) : parentAge ? (
+                        <p>추정 부모 나이: {parentAge}세</p>
+                      ) : (
+                        <p>추정 자녀 나이: {childAge}세</p>
+                      )}
+                      {Math.abs((parentAge || 30) - (childAge || 5)) > 15 && (
+                        <p className="text-xs mt-1 opacity-60">
+                          나이 차이를 고려하여 보정된 결과입니다
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Action Buttons */}
