@@ -83,17 +83,28 @@ export interface PythonEmbeddingData {
 }
 
 export interface PythonFamilySimilarityData {
-  family_similarity: number;
-  base_similarity: number;
-  age_corrected_similarity: number;
-  feature_breakdown: {
-    [key: string]: number;
+  similarity: number;         // 0.0-1.0 범위
+  confidence: number;         // 0.0-1.0 범위
+  parent_face: {
+    bounding_box: {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    };
+    confidence: number;
+    age?: number;
   };
-  confidence: number;
-  explanation: {
-    [key: string]: string;
+  child_face: {
+    bounding_box: {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    };
+    confidence: number;
+    age?: number;
   };
-  similarity_level: string;
 }
 
 class PythonApiClient {
@@ -155,9 +166,17 @@ class PythonApiClient {
     similarityThreshold: number = 0.6
   ): Promise<ApiResponse<FaceComparisonResult>> {
     try {
+      // base64 데이터를 data URI 형식으로 변환
+      const sourceDataUri = sourceImageBase64.startsWith('data:') 
+        ? sourceImageBase64 
+        : `data:image/jpeg;base64,${sourceImageBase64}`;
+      const targetDataUri = targetImageBase64.startsWith('data:') 
+        ? targetImageBase64 
+        : `data:image/jpeg;base64,${targetImageBase64}`;
+        
       const response = await this.makeRequest<PythonComparisonData>('/compare-faces', {
-        source_image: sourceImageBase64,
-        target_image: targetImageBase64,
+        source_image: sourceDataUri,
+        target_image: targetDataUri,
         similarity_threshold: similarityThreshold,
       });
 
@@ -190,8 +209,13 @@ class PythonApiClient {
 
   async detectFaces(imageBase64: string): Promise<ApiResponse<FaceDetails[]>> {
     try {
+      // base64 데이터를 data URI 형식으로 변환
+      const imageDataUri = imageBase64.startsWith('data:') 
+        ? imageBase64 
+        : `data:image/jpeg;base64,${imageBase64}`;
+        
       const response = await this.makeRequest<PythonDetectionData>('/detect-faces', {
-        image: imageBase64,
+        image: imageDataUri,
         include_landmarks: true,
         include_attributes: true,
         max_faces: 10,
@@ -229,8 +253,13 @@ class PythonApiClient {
     faceId: number = 0
   ): Promise<ApiResponse<{ embedding: number[]; confidence: number }>> {
     try {
+      // base64 데이터를 data URI 형식으로 변환
+      const imageDataUri = imageBase64.startsWith('data:') 
+        ? imageBase64 
+        : `data:image/jpeg;base64,${imageBase64}`;
+        
       const response = await this.makeRequest<PythonEmbeddingData>('/extract-embedding', {
-        image: imageBase64,
+        image: imageDataUri,
         face_id: faceId,
         normalize: true,
       });
@@ -267,9 +296,17 @@ class PythonApiClient {
     childAge?: number
   ): Promise<ApiResponse<PythonFamilySimilarityData>> {
     try {
+      // base64 데이터를 data URI 형식으로 변환
+      const parentDataUri = parentImageBase64.startsWith('data:') 
+        ? parentImageBase64 
+        : `data:image/jpeg;base64,${parentImageBase64}`;
+      const childDataUri = childImageBase64.startsWith('data:') 
+        ? childImageBase64 
+        : `data:image/jpeg;base64,${childImageBase64}`;
+        
       const response = await this.makeRequest<PythonFamilySimilarityData>('/compare-family-faces', {
-        parent_image: parentImageBase64,
-        child_image: childImageBase64,
+        parent_image: parentDataUri,
+        child_image: childDataUri,
         parent_age: parentAge,
         child_age: childAge,
       });
@@ -281,25 +318,10 @@ class PythonApiClient {
         };
       }
 
-      // 가족 유사도 데이터는 0.0-1.0 범위이므로 백분율로 변환
-      const processedData = {
-        ...response.data,
-        family_similarity: response.data.family_similarity * 100,
-        base_similarity: response.data.base_similarity * 100,
-        age_corrected_similarity: response.data.age_corrected_similarity * 100,
-        confidence: response.data.confidence * 100,
-        // feature_breakdown은 이미 0.0-1.0 범위이므로 백분율로 변환
-        feature_breakdown: Object.fromEntries(
-          Object.entries(response.data.feature_breakdown).map(([key, value]) => [
-            key,
-            value * 100
-          ])
-        ),
-      };
-
+      // Raw 데이터 그대로 반환 (0.0-1.0 범위 유지)
       return {
         success: true,
-        data: processedData,
+        data: response.data,
       };
 
     } catch (error) {

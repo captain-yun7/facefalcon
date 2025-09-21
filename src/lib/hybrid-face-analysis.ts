@@ -304,40 +304,10 @@ class HybridFaceAnalysisClient {
         return result;
         
       } else {
-        // AWS는 가족 특화 분석을 지원하지 않으므로 일반적인 얼굴 비교로 대체
-        console.log('⚠️ AWS does not support family-specific analysis, using regular face comparison');
-        
-        const awsResult = await awsCompareFaces(parentImageBase64, childImageBase64, 1);
-        
-        if (awsResult.success && awsResult.data) {
-          // AWS 결과를 가족 유사도 형식으로 변환
-          const mockFamilyData: PythonFamilySimilarityData = {
-            family_similarity: awsResult.data.similarity,
-            base_similarity: awsResult.data.similarity,
-            age_corrected_similarity: awsResult.data.similarity,
-            feature_breakdown: {
-              'overall_similarity': awsResult.data.similarity,
-              'general_features': awsResult.data.similarity,
-            },
-            confidence: awsResult.data.sourceImageFace?.confidence || 95,
-            explanation: {
-              'overall_similarity': `일반 얼굴 비교 (${awsResult.data.similarity.toFixed(1)}%)`,
-              'general_features': 'AWS Rekognition 기반 일반 분석',
-            },
-            similarity_level: awsResult.data.similarity > 80 ? '높은 유사도' : 
-                             awsResult.data.similarity > 60 ? '보통 유사도' : 
-                             awsResult.data.similarity > 40 ? '낮은 유사도' : '매우 낮은 유사도'
-          };
-
-          return {
-            success: true,
-            data: mockFamilyData,
-          };
-        }
-
+        // AWS는 가족 특화 분석을 지원하지 않음
         return {
           success: false,
-          error: awsResult.error || 'AWS face comparison failed',
+          error: 'AWS does not support family-specific analysis. Please use the family analysis page with Python API.',
         };
       }
 

@@ -1,75 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
-import ImageUploader from '@/components/ImageUploader';
-import { UploadedImage, FaceComparisonResult } from '@/lib/types';
-import { getSimilarityLevel, generateInsightMessage, formatPercentage } from '@/lib/utils/similarity-calculator';
-import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 
 export default function FaceMatchPage() {
-  const [sourceImage, setSourceImage] = useState<UploadedImage | null>(null);
-  const [targetImage, setTargetImage] = useState<UploadedImage | null>(null);
-  const [result, setResult] = useState<FaceComparisonResult | null>(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [error, setError] = useState<string>("");
-
-  const handleAnalyze = async () => {
-    if (!sourceImage?.base64 || !targetImage?.base64) return;
-
-    setIsAnalyzing(true);
-    setError("");
-
-    try {
-      const response = await fetch('/api/family-similarity', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          parentImage: sourceImage.base64,
-          childImage: targetImage.base64,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.error || 'Analysis failed');
-      }
-
-      // 가족 유사도 데이터를 기존 형식에 맞게 변환
-      setResult({
-        similarity: data.data.family_similarity,
-        faceMatches: [],
-        sourceImageFace: undefined,
-        unmatchedFaces: [],
-        // 추가 가족 분석 데이터 저장
-        familyData: data.data
-      } as any);
-    } catch (err) {
-      console.error('Error analyzing faces:', err);
-      setError(err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.');
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
-
-  const handleReset = () => {
-    setSourceImage(null);
-    setTargetImage(null);
-    setResult(null);
-    setError("");
-  };
-
-  const similarity = result?.similarity || 0;
-  const similarityInfo = getSimilarityLevel(similarity);
-  const insightMessage = generateInsightMessage(similarity, 'parent-child');
-  const familyData = (result as any)?.familyData;
-  
-  // 엔터테이닝 메시지 가져오기
-  const entertainingMessage = getFamilySimilarityMessage(similarity);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
       <div className="container mx-auto px-4 py-8">
@@ -79,113 +12,97 @@ export default function FaceMatchPage() {
             ← 홈으로 돌아가기
           </Link>
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            👶➡️👨 얼굴 일치율 분석
+            얼굴 분석 방법 선택
           </h1>
           <p className="text-lg text-gray-600">
-            두 사진의 얼굴 유사도를 정확하게 측정해보세요
+            분석 목적에 맞는 방법을 선택해주세요
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto">
-          {/* Image Upload Section */}
+        <div className="max-w-4xl mx-auto">
+          {/* Analysis Method Options */}
           <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-                첫 번째 사진 (부모)
-              </h3>
-              <ImageUploader
-                onImageUpload={setSourceImage}
-                onImageRemove={() => setSourceImage(null)}
-                uploadedImage={sourceImage || undefined}
-                label="부모 사진 업로드"
-              />
-            </div>
+            {/* Family Analysis */}
+            <Link href="/family-analysis" className="block">
+              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-indigo-200">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">👨‍👩‍👧‍👦</div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                    가족 닮음 분석
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    부모-자녀 관계를 고려한 정밀한 유사도 분석
+                  </p>
+                  <div className="bg-indigo-50 rounded-lg p-4 mb-4">
+                    <div className="text-sm text-indigo-800">
+                      <div className="font-semibold mb-2">특징:</div>
+                      <div>• InsightFace 가족 특화 알고리즘</div>
+                      <div>• 512차원 얼굴 특징 벡터 분석</div>
+                      <div>• 정밀한 코사인 유사도 측정</div>
+                      <div>• 얼굴 영역 및 신뢰도 정보 제공</div>
+                    </div>
+                  </div>
+                  <div className="text-indigo-600 font-semibold">
+                    가족 관계 확인에 최적화
+                  </div>
+                </div>
+              </div>
+            </Link>
 
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-                두 번째 사진 (아이)
-              </h3>
-              <ImageUploader
-                onImageUpload={setTargetImage}
-                onImageRemove={() => setTargetImage(null)}
-                uploadedImage={targetImage || undefined}
-                label="아이 사진 업로드"
-              />
-            </div>
+            {/* General Comparison */}
+            <Link href="/general-comparison" className="block">
+              <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 border-2 border-transparent hover:border-orange-200">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">⚡</div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                    일반 얼굴 비교
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    빠르고 안정적인 기본 얼굴 유사도 측정
+                  </p>
+                  <div className="bg-orange-50 rounded-lg p-4 mb-4">
+                    <div className="text-sm text-orange-800">
+                      <div className="font-semibold mb-2">특징:</div>
+                      <div>• AWS Rekognition 엔진</div>
+                      <div>• 머신러닝 기반 얼굴 분석</div>
+                      <div>• 실시간 처리 및 높은 안정성</div>
+                      <div>• 매칭/비매칭 얼굴 구분</div>
+                    </div>
+                  </div>
+                  <div className="text-orange-600 font-semibold">
+                    일반적인 얼굴 비교에 최적화
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
 
-          {/* Analysis Button */}
-          <div className="text-center mb-8">
-            <button
-              onClick={handleAnalyze}
-              disabled={!sourceImage || !targetImage || isAnalyzing}
-              className={`
-                px-8 py-4 rounded-full text-lg font-semibold transition-all
-                ${!sourceImage || !targetImage || isAnalyzing
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-blue-600 text-white hover:bg-blue-700 transform hover:scale-105'
-                }
-              `}
-            >
-              {isAnalyzing ? (
-                <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  분석 중...
-                </span>
-              ) : (
-                'AI 분석하기'
-              )}
-            </button>
+          {/* Comparison Guide */}
+          <div className="bg-white rounded-xl p-6 shadow-lg">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+              언제 어떤 방법을 사용할까요?
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="text-center">
+                <h4 className="font-semibold text-indigo-700 mb-2">가족 닮음 분석</h4>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <div>✓ 부모와 자녀 관계 확인</div>
+                  <div>✓ 가족 유사도 정밀 측정</div>
+                  <div>✓ 세부 얼굴 정보 필요</div>
+                  <div>✓ 높은 정확도 요구</div>
+                </div>
+              </div>
+              <div className="text-center">
+                <h4 className="font-semibold text-orange-700 mb-2">일반 얼굴 비교</h4>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <div>✓ 닮은꼴 찾기</div>
+                  <div>✓ 빠른 결과 필요</div>
+                  <div>✓ 기본적인 유사도 측정</div>
+                  <div>✓ 안정적인 처리 필요</div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
-              <p className="text-red-600 text-center">{error}</p>
-            </div>
-          )}
-
-          {/* Results */}
-          {result && (
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-                분석 결과
-              </h2>
-
-              {/* Simple Entertaining Message */}
-              <div className="text-center mb-8">
-                <div className="text-8xl mb-6">
-                  {entertainingMessage.emoji}
-                </div>
-                <div className="text-4xl font-bold mb-6 text-purple-700">
-                  {entertainingMessage.title}
-                </div>
-                <p className="text-2xl font-medium text-gray-700 leading-relaxed max-w-3xl mx-auto">
-                  {entertainingMessage.message}
-                </p>
-                
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex justify-center space-x-4">
-                <button
-                  onClick={handleReset}
-                  className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-                >
-                  다시 분석하기
-                </button>
-                <Link
-                  href="/who-resembles"
-                  className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                >
-                  닮은꼴 분석하기 →
-                </Link>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
