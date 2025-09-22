@@ -6,6 +6,7 @@ import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
 import SimilarityGauge from '@/components/SimilarityGauge';
 import AdBanner from '@/components/AdBanner';
+import AnalyzingAdScreen from '@/components/AnalyzingAdScreen';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
@@ -29,15 +30,22 @@ export default function Home() {
   
   // Common states
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [showAdScreen, setShowAdScreen] = useState(false);
+  const [pendingAnalysisResult, setPendingAnalysisResult] = useState<any>(null);
+  const [pendingAnalysisError, setPendingAnalysisError] = useState<any>(null);
   const [error, setError] = useState<string>("");
 
   const handleFamilyAnalyze = async () => {
     if (!parentImage?.base64 || !childImage?.base64) return;
 
+    console.log('🚀 가족 분석 시작');
     setIsAnalyzing(true);
     setError("");
+    setPendingAnalysisResult(null);
+    setPendingAnalysisError(null);
 
     try {
+      console.log('📡 API 호출 시작');
       const response = await fetch('/api/family-similarity', {
         method: 'POST',
         headers: {
@@ -49,19 +57,35 @@ export default function Home() {
         }),
       });
 
+      console.log('✅ API 응답 받음');
       const data = await response.json();
 
       if (!data.success) {
         throw new Error(data.error || 'Family analysis failed');
       }
 
-      setFamilyResult(data.data);
+      setPendingAnalysisResult(data.data);
+      console.log('✨ 분석 완료, 광고 화면 표시');
     } catch (err) {
-      console.error('Error analyzing family similarity:', err);
-      setError(err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.');
-    } finally {
-      setIsAnalyzing(false);
+      console.error('❌ 에러 발생:', err);
+      setPendingAnalysisError(err);
     }
+
+    // 광고 화면 표시
+    setShowAdScreen(true);
+  };
+
+  const handleAdComplete = () => {
+    setShowAdScreen(false);
+    setIsAnalyzing(false);
+    
+    if (pendingAnalysisError) {
+      setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : '분석 중 오류가 발생했습니다.');
+    } else if (pendingAnalysisResult) {
+      setFamilyResult(pendingAnalysisResult);
+    }
+    
+    console.log('🏁 가족 분석 종료');
   };
 
   const handleComparisonAnalyze = async () => {
@@ -212,7 +236,7 @@ export default function Home() {
 
         <div className="max-w-4xl mx-auto">
           {/* Family Mode */}
-          {mode === 'family' && !familyResult && (
+          {mode === 'family' && !familyResult && !showAdScreen && (
             <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {/* Parent Image */}
@@ -278,6 +302,13 @@ export default function Home() {
                   )}
                 </button>
               </div>
+            </div>
+          )}
+
+          {/* 광고 화면 - 기존 업로드 섹션 자리에 표시 */}
+          {mode === 'family' && !familyResult && showAdScreen && (
+            <div className="mb-8">
+              <AnalyzingAdScreen onComplete={handleAdComplete} />
             </div>
           )}
 
@@ -403,6 +434,47 @@ export default function Home() {
                 <p className="text-gray-600">
                   분석 신뢰도: {displayConfidence}%
                 </p>
+              </div>
+
+              {/* 분석 대상 사진들 */}
+              <div className="mb-8">
+                <div className="flex items-center justify-center gap-6 mb-6">
+                  {/* 부모 사진 */}
+                  <div className="text-center">
+                    <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
+                      <Image
+                        src={parentImage?.preview || ''}
+                        alt="부모"
+                        fill
+                        className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+                      />
+                    </div>
+                    <span className="text-sm text-gray-600 font-medium">부모</span>
+                  </div>
+
+                  {/* 하트 아이콘 */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-8 h-8 text-pink-500 mb-1">
+                      <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                      </svg>
+                    </div>
+                    <span className="text-xs text-gray-500">닮음</span>
+                  </div>
+
+                  {/* 자녀 사진 */}
+                  <div className="text-center">
+                    <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
+                      <Image
+                        src={childImage?.preview || ''}
+                        alt="자녀"
+                        fill
+                        className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+                      />
+                    </div>
+                    <span className="text-sm text-gray-600 font-medium">자녀</span>
+                  </div>
+                </div>
               </div>
 
               {/* Similarity Gauge */}

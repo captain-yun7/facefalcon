@@ -18,10 +18,13 @@ export default function FamilyAnalysisPage() {
   const handleAnalyze = async () => {
     if (!parentImage?.base64 || !childImage?.base64) return;
 
+    console.log('🚀 분석 시작');
     setIsAnalyzing(true);
     setError("");
 
     try {
+      console.log('📡 API 호출 시작');
+      // 먼저 API 호출을 실행
       const response = await fetch('/api/family-similarity', {
         method: 'POST',
         headers: {
@@ -33,17 +36,30 @@ export default function FamilyAnalysisPage() {
         }),
       });
 
+      console.log('✅ API 응답 받음');
       const data = await response.json();
 
       if (!data.success) {
         throw new Error(data.error || 'Family analysis failed');
       }
 
+      console.log('⏱️ 5초 지연 시작');
+      // API 호출 완료 후 광고용 5초 추가 지연
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      console.log('⏱️ 5초 지연 완료');
+
       setResult(data.data);
+      console.log('✨ 결과 설정 완료');
     } catch (err) {
-      console.error('Error analyzing family similarity:', err);
+      console.error('❌ 에러 발생:', err);
       setError(err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.');
+      
+      // 에러가 발생해도 5초 지연
+      console.log('⏱️ 에러 후 5초 지연 시작');
+      await new Promise(resolve => setTimeout(resolve, 5000));
+      console.log('⏱️ 에러 후 5초 지연 완료');
     } finally {
+      console.log('🏁 분석 종료');
       setIsAnalyzing(false);
     }
   };
