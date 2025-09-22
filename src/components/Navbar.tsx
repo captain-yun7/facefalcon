@@ -8,9 +8,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { href: "/menu", label: "메뉴", icon: "" },
     { href: "/", label: "우리 아빠 맞나요", icon: "" },
-    { href: "/find-parents", label: "부모 찾기", icon: "" },
   ];
 
   return (
