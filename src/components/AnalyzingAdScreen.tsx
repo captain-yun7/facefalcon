@@ -35,24 +35,9 @@ export default function AnalyzingAdScreen({ onComplete }: AnalyzingAdScreenProps
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
           AI가 열심히 분석 중입니다
         </h2>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 mb-8">
           정확한 결과를 위해 잠시만 기다려주세요
         </p>
-
-        {/* 광고 영역 */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 mb-6">
-          <div className="text-blue-800 font-semibold mb-2">💡 잠깐!</div>
-          <h3 className="text-lg font-bold text-blue-900 mb-2">
-            더 정확한 분석을 원하시나요?
-          </h3>
-          <p className="text-blue-700 text-sm mb-3">
-            프리미엄 서비스로 더 자세한 분석 결과와<br/>
-            가족 유사도 히스토리를 확인해보세요!
-          </p>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-            프리미엄 알아보기
-          </button>
-        </div>
 
         {/* 카운트다운 */}
         <div className="text-sm text-gray-500">

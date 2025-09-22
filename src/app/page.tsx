@@ -2,15 +2,18 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
 import SimilarityGauge from '@/components/SimilarityGauge';
 import AdBanner from '@/components/AdBanner';
 import AnalyzingAdScreen from '@/components/AnalyzingAdScreen';
+import Footer from '@/components/Footer';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 import { getSimilarityLevel, formatPercentage } from '@/lib/utils/similarity-calculator';
+import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
 
 type AnalysisMode = 'family' | 'comparison';
 
@@ -86,6 +89,62 @@ export default function Home() {
     }
     
     console.log('🏁 가족 분석 종료');
+  };
+
+  const handleDownloadResult = async () => {
+    if (!familyResult || !parentImage || !childImage || !familyMessage) {
+      return;
+    }
+
+    try {
+      const resultData: ResultImageData = {
+        parentImageUrl: parentImage.preview,
+        childImageUrl: childImage.preview,
+        similarity: familyResult.similarity,
+        confidence: familyResult.confidence * 100,
+        displayPercent: familyMessage.displayPercent
+      };
+
+      const imageDataUrl = await generateResultImage(resultData);
+      downloadImage(imageDataUrl);
+    } catch (error) {
+      console.error('이미지 생성 실패:', error);
+      alert('이미지 생성에 실패했습니다. 다시 시도해주세요.');
+    }
+  };
+
+  const handleShareResult = async () => {
+    if (!familyResult || !parentImage || !childImage || !familyMessage) {
+      return;
+    }
+
+    try {
+      const resultData: ResultImageData = {
+        parentImageUrl: parentImage.preview,
+        childImageUrl: childImage.preview,
+        similarity: familyResult.similarity,
+        confidence: familyResult.confidence * 100,
+        displayPercent: familyMessage.displayPercent
+      };
+
+      const imageDataUrl = await generateResultImage(resultData);
+      const shared = await shareResultImage(imageDataUrl, familyMessage.displayPercent);
+      
+      if (!shared) {
+        // Web Share API 미지원 시 폴백: 클립보드에 텍스트 복사
+        const shareText = `우리 아이 닮음 분석 결과: ${familyMessage.displayPercent}% 닮았네요! 😊\nwhos-your-papa.com에서 분석해보세요`;
+        const copied = await copyToClipboard(shareText);
+        
+        if (copied) {
+          alert('공유 텍스트가 클립보드에 복사되었습니다!\n메신저나 SNS에 붙여넣기 해주세요.');
+        } else {
+          alert('이 브라우저에서는 직접 공유가 지원되지 않습니다.\n"이미지 다운로드" 버튼을 사용해주세요.');
+        }
+      }
+    } catch (error) {
+      console.error('공유 실패:', error);
+      alert('공유에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   const handleComparisonAnalyze = async () => {
@@ -494,17 +553,21 @@ export default function Home() {
                   다시 분석하기
                 </button>
                 <button
-                  className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
-                  onClick={() => {
-                    if (navigator.share) {
-                      navigator.share({
-                        title: '우리 아이 닮음 분석 결과',
-                        text: `${familyMessage.displayPercent}% 닮았네요!`,
-                        url: window.location.href
-                      });
-                    }
-                  }}
+                  onClick={handleDownloadResult}
+                  className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-medium flex items-center justify-center gap-2"
                 >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  이미지 다운로드
+                </button>
+                <button
+                  onClick={handleShareResult}
+                  className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                  </svg>
                   결과 공유하기
                 </button>
               </div>
@@ -652,25 +715,27 @@ export default function Home() {
               <div className="text-center mt-16 mb-8">
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    놀라운 AI 기술을 무료로 체험해보세요!
+                    이 서비스가 마음에 드시나요?
                   </h3>
                   <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                    몇 초 만에 결과를 확인할 수 있는 최첨단 얼굴 분석 기술
+                    AI 이미지 모델과 웹 기술을 활용해 만든 프로젝트입니다.<br/>                    
                   </p>
-                  <button
-                    onClick={() => {
-                      document.querySelector('.container')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
-                  >
-                    지금 바로 시작하기
-                  </button>
+                  <div className="flex flex-col sm:flex-row justify-center">
+                    <Link
+                      href="/about"
+                      className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
+                    >
+                      개발자 소개 보기
+                    </Link>                    
+                  </div>
                 </div>
               </div>
             </>
           )}
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
