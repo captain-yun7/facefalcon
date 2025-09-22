@@ -3,19 +3,20 @@
 import { useState } from 'react';
 import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
-import { UploadedImage, FaceComparisonResult } from '@/lib/types';
-import { getSimilarityLevel, generateInsightMessage, formatPercentage } from '@/lib/utils/similarity-calculator';
+import SimilarityGauge from '@/components/SimilarityGauge';
+import { UploadedImage } from '@/lib/types';
+import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 
 export default function Home() {
-  const [sourceImage, setSourceImage] = useState<UploadedImage | null>(null);
-  const [targetImage, setTargetImage] = useState<UploadedImage | null>(null);
-  const [result, setResult] = useState<FaceComparisonResult | null>(null);
+  const [parentImage, setParentImage] = useState<UploadedImage | null>(null);
+  const [childImage, setChildImage] = useState<UploadedImage | null>(null);
+  const [result, setResult] = useState<PythonFamilySimilarityData | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string>("");
 
   const handleAnalyze = async () => {
-    if (!sourceImage?.base64 || !targetImage?.base64) return;
+    if (!parentImage?.base64 || !childImage?.base64) return;
 
     setIsAnalyzing(true);
     setError("");
@@ -27,30 +28,20 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          parentImage: sourceImage.base64,
-          childImage: targetImage.base64,
+          parentImage: parentImage.base64,
+          childImage: childImage.base64,
         }),
       });
 
       const data = await response.json();
 
-      console.log("HERE : " + data.data.similarity)
-
       if (!data.success) {
-        throw new Error(data.error || 'Analysis failed');
+        throw new Error(data.error || 'Family analysis failed');
       }
 
-      // 가족 유사도 데이터를 기존 형식에 맞게 변환
-      setResult({
-        similarity: data.data.family_similarity,
-        faceMatches: [],
-        sourceImageFace: undefined,
-        unmatchedFaces: [],
-        // 추가 가족 분석 데이터 저장
-        familyData: data.data
-      } as any);
+      setResult(data.data);
     } catch (err) {
-      console.error('Error analyzing faces:', err);
+      console.error('Error analyzing family similarity:', err);
       setError(err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.');
     } finally {
       setIsAnalyzing(false);
@@ -58,92 +49,79 @@ export default function Home() {
   };
 
   const handleReset = () => {
-    setSourceImage(null);
-    setTargetImage(null);
+    setParentImage(null);
+    setChildImage(null);
     setResult(null);
     setError("");
   };
 
-  const similarity = result?.similarity || 0;
-  const similarityInfo = getSimilarityLevel(similarity);
-  const insightMessage = generateInsightMessage(similarity, 'parent-child');
-  const familyData = (result as any)?.familyData;
+  // 연령 정보 추출 (Python API에서 제공하는 경우)
+  const parentAge = result?.parent_face?.age;
+  const childAge = result?.child_face?.age;
   
-  // 나이 보정된 유사도 사용 (만약 제공된 경우)
-  const adjustedSimilarity = familyData?.age_corrected_similarity || similarity;
-  
-  // 엔터테이닝 메시지 가져오기 (개선된 메시지와 퍼센트 포함)
-  const entertainingMessage = getFamilySimilarityMessage(adjustedSimilarity);
-  
-  // 나이 정보 추출
-  const parentAge = familyData?.parent_face?.age;
-  const childAge = familyData?.child_face?.age;
+  // 스마트 점수 보정 시스템 적용 (연령 정보 포함)
+  const familyMessage = result ? getFamilySimilarityMessage(result.similarity, parentAge, childAge) : null;
+  const displayConfidence = result ? (result.confidence * 100).toFixed(1) : "0";
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
       <Navbar />
       
-      {/* Floating Shapes Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute w-[350px] h-[350px] rounded-full bg-gradient-to-br from-blue-300/20 to-blue-200/20 blur-[80px] top-[15%] left-[15%] animate-float"></div>
-        <div className="absolute w-[450px] h-[450px] rounded-full bg-gradient-to-br from-blue-400/20 to-blue-300/20 blur-[80px] bottom-[15%] right-[10%] animate-float animation-delay-2000"></div>
-        <div className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-br from-blue-500/20 to-blue-400/20 blur-[80px] top-[45%] left-[45%] animate-float animation-delay-4000"></div>
-        <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-br from-blue-100/30 to-gray-50/30 blur-[80px] top-[70%] left-[20%] animate-float animation-delay-6000"></div>
-      </div>
+      {/* Hero Section */}
+      <div className="container mx-auto px-4 pt-20 pb-8">
+        <div className="text-center mb-10">
+          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            우리 아이, 누굴 닮았나?
+          </h1>
+          <p className="text-xl text-gray-600">
+            부모님과 자녀의 사진을 업로드하여 닮은 정도를 AI로 분석해보세요
+          </p>
+          <div className="mt-2 text-sm text-indigo-600 font-medium">
+            InsightFace 가족 특화 알고리즘 사용
+          </div>
+        </div>
 
-      {/* Main Content */}
-      <div className="min-h-screen bg-gradient-to-br from-white via-white/90 to-blue-50/30 relative z-10">
-        <div className="absolute inset-0 bg-white/70 backdrop-blur-[100px]"></div>
-        <div className="container mx-auto px-4 py-8 relative">
-          
-          {/* Header */}
-          <header className="text-center mb-12">
-            <h1 className="font-playfair text-5xl lg:text-6xl font-black mb-4 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent drop-shadow-sm leading-tight">
-              우리 아빠 맞나요
-            </h1>
-            <p className="font-roboto text-lg text-blue-800/80 max-w-2xl mx-auto font-light tracking-wide">
-              부모와 아이의 닮은 정도를 재미있게 분석해보세요
-            </p>
-          </header>
-
-          <div className="max-w-6xl mx-auto">
-            {/* Image Upload Section */}
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50">
-                <h3 className="font-montserrat text-xl font-semibold text-blue-900 mb-6 text-center">
-                  첫 번째 사진 (부모)
+        <div className="max-w-6xl mx-auto">
+          {/* Image Upload Section */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Parent Image */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-700">
+                  부모 사진
                 </h3>
                 <ImageUploader
-                  onImageUpload={setSourceImage}
-                  onImageRemove={() => setSourceImage(null)}
-                  uploadedImage={sourceImage || undefined}
-                  label="부모 사진 업로드"
+                  onImageUpload={setParentImage}
+                  onImageRemove={() => setParentImage(null)}
+                  uploadedImage={parentImage || undefined}
+                  label="부모 사진 선택"
                 />
               </div>
 
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50">
-                <h3 className="font-montserrat text-xl font-semibold text-blue-900 mb-6 text-center">
-                  두 번째 사진 (아이)
+              {/* Child Image */}
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-700">
+                  자녀 사진
                 </h3>
                 <ImageUploader
-                  onImageUpload={setTargetImage}
-                  onImageRemove={() => setTargetImage(null)}
-                  uploadedImage={targetImage || undefined}
-                  label="아이 사진 업로드"
+                  onImageUpload={setChildImage}
+                  onImageRemove={() => setChildImage(null)}
+                  uploadedImage={childImage || undefined}
+                  label="자녀 사진 선택"
                 />
               </div>
             </div>
 
             {/* Analysis Button */}
-            <div className="text-center mb-8">
+            <div className="mt-8 text-center">
               <button
                 onClick={handleAnalyze}
-                disabled={!sourceImage || !targetImage || isAnalyzing}
+                disabled={!parentImage || !childImage || isAnalyzing}
                 className={`
-                  font-montserrat px-8 py-4 rounded-full text-lg font-semibold transition-all tracking-wider
-                  ${!sourceImage || !targetImage || isAnalyzing
+                  px-8 py-3 rounded-full text-lg font-semibold transition-all
+                  ${!parentImage || !childImage || isAnalyzing
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-blue-700 to-blue-500 text-white hover:shadow-lg hover:shadow-blue-500/30 transform hover:scale-105'
+                    : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 transform hover:scale-105'
                   }
                 `}
               >
@@ -156,82 +134,80 @@ export default function Home() {
                     분석 중...
                   </span>
                 ) : (
-                  'AI 분석하기'
+                  '닮은 정도 분석하기'
                 )}
               </button>
             </div>
+          </div>
 
-            {/* Error Message */}
-            {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
-                <p className="font-roboto text-red-600 text-center">{error}</p>
-              </div>
-            )}
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
+              <p className="text-red-600 text-center">{error}</p>
+            </div>
+          )}
 
-            {/* Results */}
-            {result && (
-              <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-50">
-                <h2 className="font-playfair text-3xl font-bold text-center text-blue-900 mb-8">
-                  분석 결과
-                </h2>
+          {/* Results Section */}
+          {result && familyMessage && (
+            <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+              <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                분석 결과
+              </h2>
 
-                {/* Simple Entertaining Message */}
-                <div className="text-center mb-8">
-                  <div className="text-8xl mb-6">
-                    {entertainingMessage.emoji}
-                  </div>
-                  
-                  {/* 퍼센트 표시 */}
-                  <div className="font-playfair text-6xl font-bold mb-4 text-blue-600">
-                    {entertainingMessage.displayPercent}%
-                  </div>
-                  
-                  <div className="font-playfair text-4xl font-bold mb-6 text-blue-800">
-                    {entertainingMessage.title}
-                  </div>
-                  <p className="font-roboto text-2xl font-medium text-blue-700 leading-relaxed max-w-3xl mx-auto">
-                    {entertainingMessage.message}
-                  </p>
-                  
-                  {/* 나이 정보 표시 (선택적) */}
-                  {(parentAge || childAge) && (
-                    <div className="mt-6 text-sm text-blue-600 opacity-75">
-                      {parentAge && childAge ? (
-                        <p>추정 나이: 부모 {parentAge}세, 자녀 {childAge}세</p>
-                      ) : parentAge ? (
-                        <p>추정 부모 나이: {parentAge}세</p>
-                      ) : (
-                        <p>추정 자녀 나이: {childAge}세</p>
-                      )}
-                      {Math.abs((parentAge || 30) - (childAge || 5)) > 15 && (
-                        <p className="text-xs mt-1 opacity-60">
-                          나이 차이를 고려하여 보정된 결과입니다
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex justify-center space-x-4">
-                  <button
-                    onClick={handleReset}
-                    className="font-montserrat px-6 py-3 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors font-semibold"
-                  >
-                    다시 분석하기
-                  </button>
-                  <a
-                    href="/who-resembles"
-                    className="font-montserrat px-6 py-3 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/30 transition-all font-semibold"
-                  >
-                    닮은꼴 분석하기 →
-                  </a>
+              <div className="text-center mb-6">
+                <div className="text-lg text-gray-600">
+                  분석 신뢰도: {displayConfidence}%
                 </div>
               </div>
-            )}
+
+              {/* Similarity Gauge */}
+              <div className="mb-8">
+                <SimilarityGauge 
+                  percentage={familyMessage.displayPercent} 
+                  isAnimating={true}
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-center space-x-4">
+                <button
+                  onClick={handleReset}
+                  className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                >
+                  다시 분석하기
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Feature Cards */}
+          <div className="grid md:grid-cols-3 gap-6 mt-12">
+            <div className="bg-white rounded-xl p-6 shadow-md">
+              <div className="text-3xl mb-3">🔬</div>
+              <h3 className="text-lg font-semibold mb-2">정확한 AI 분석</h3>
+              <p className="text-gray-600 text-sm">
+                최신 InsightFace 기술로 높은 정확도의 얼굴 유사도 분석
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 shadow-md">
+              <div className="text-3xl mb-3">👨‍👩‍👧‍👦</div>
+              <h3 className="text-lg font-semibold mb-2">가족 특화 분석</h3>
+              <p className="text-gray-600 text-sm">
+                부모-자녀 관계를 고려한 특별한 유사도 분석 알고리즘
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 shadow-md">
+              <div className="text-3xl mb-3">🔒</div>
+              <h3 className="text-lg font-semibold mb-2">개인정보 보호</h3>
+              <p className="text-gray-600 text-sm">
+                업로드된 이미지는 분석 후 즉시 삭제되어 안전합니다
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

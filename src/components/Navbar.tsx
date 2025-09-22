@@ -10,7 +10,6 @@ export default function Navbar() {
   const navItems = [
     { href: "/menu", label: "메뉴", icon: "" },
     { href: "/", label: "우리 아빠 맞나요", icon: "" },
-    { href: "/who-resembles", label: "누굴 더 닮았나요", icon: "" },
     { href: "/find-parents", label: "부모 찾기", icon: "" },
   ];
 

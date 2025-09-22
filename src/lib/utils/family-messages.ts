@@ -439,33 +439,92 @@ const uniqueCharacterMessages: Record<number, FamilyMessage[]> = {
  * @returns 사용자에게 표시할 퍼센트 (1-99)
  */
 function convertAiScoreToUserPercent(aiScore: number): number {
-  // AI 점수 범위별로 사용자 친화적 퍼센트로 매핑
-  if (aiScore >= 0.6) {
-    // 85-99% 범위로 매핑 (매우 높은 유사도)
-    return Math.round(85 + (aiScore - 0.6) * 35);
-  } else if (aiScore >= 0.4) {
-    // 60-84% 범위로 매핑 (높은 가족 유사도)
-    return Math.round(60 + (aiScore - 0.4) * 120);
+  console.log(aiScore)
+  // AI 점수 범위별로 사용자 친화적 퍼센트로 매핑 (대폭 부스트된 버전)
+  if (aiScore >= 0.5) {
+    // 95-99% 범위로 매핑 (매우 높은 유사도)
+    return Math.round(95 + (aiScore - 0.5) * 8);
+  } else if (aiScore >= 0.35) {
+    // 85-94% 범위로 매핑 (높은 가족 유사도)
+    return Math.round(85 + (aiScore - 0.35) * 60);
   } else if (aiScore >= 0.2) {
-    // 30-59% 범위로 매핑 (보통 가족 유사도)
-    return Math.round(30 + (aiScore - 0.2) * 145);
+    // 65-84% 범위로 매핑 (보통 가족 유사도) - 대폭 부스트!
+    return Math.round(65 + (aiScore - 0.2) * 126.7);
   } else if (aiScore >= 0.1) {
-    // 10-29% 범위로 매핑 (낮은 유사도)
-    return Math.round(10 + (aiScore - 0.1) * 190);
+    // 40-64% 범위로 매핑 (낮은 유사도)
+    return Math.round(40 + (aiScore - 0.1) * 240);
   } else {
-    // 1-9% 범위로 매핑 (매우 낮은 유사도)
-    return Math.round(1 + Math.max(0, aiScore) * 80);
+    // 10-39% 범위로 매핑 (매우 낮은 유사도)
+    return Math.round(10 + Math.max(0, aiScore) * 290);
   }
+}
+
+/**
+ * 세분화된 연령 기반 보정 적용
+ * @param rawScore 원본 유사도 점수 (0-1)
+ * @param parentAge 부모 나이
+ * @param childAge 자녀 나이
+ * @returns 보정된 유사도 점수
+ */
+function applyDetailedAgeBoost(rawScore: number, parentAge?: number, childAge?: number): number {
+
+  console.log(`유사도 : ${rawScore}, 부모 나이: ${parentAge}, 아이 나이: ${childAge}`)
+
+  if (!parentAge || !childAge) return rawScore;
+  
+  const ageDiff = Math.abs(parentAge - childAge);
+  let boostFactor = 1.0;
+  
+  // 케이스 1: 영유아 (0-3세)와 성인 비교
+  if (childAge <= 3 && ageDiff >= 20) {
+    boostFactor = 1.35;  // 35% 부스트 (아기는 얼굴이 많이 달라서 강한 보정)
+  }
+  // 케이스 2: 유아 (4-6세)와 성인 비교  
+  else if (childAge <= 6 && ageDiff >= 20) {
+    boostFactor = 1.25;  // 25% 부스트
+  }
+  // 케이스 3: 어린이 (7-12세)와 성인 비교
+  else if (childAge <= 12 && ageDiff >= 15) {
+    boostFactor = 1.20;  // 20% 부스트
+  }
+  // 케이스 4: 청소년 (13-17세)와 성인 비교
+  else if (childAge <= 17 && ageDiff >= 15) {
+    boostFactor = 1.15;  // 15% 부스트
+  }
+  // 케이스 5: 큰 연령 차이 (30년 이상) - 조부모 가능성
+  else if (ageDiff >= 30) {
+    boostFactor = 1.10;  // 10% 부스트 (세대 차이 고려)
+  }
+  
+  // 보정 적용 (최대 95% 제한)
+  const boostedScore = Math.min(rawScore * boostFactor, 0.95);
+  
+  // 디버그 로그
+  console.log(`연령 보정: 자녀 ${childAge}세, 부모 ${parentAge}세, 차이 ${ageDiff}년`);
+  console.log(`보정 계수: ${boostFactor}, 원본: ${rawScore.toFixed(3)}, 보정 후: ${boostedScore.toFixed(3)}`);
+  
+  return boostedScore;
 }
 
 /**
  * 유사도에 따른 엔터테이닝 메시지 반환
  * @param similarity 0-1 사이의 유사도 값
+ * @param parentAge 부모 나이 (선택)
+ * @param childAge 자녀 나이 (선택)
  * @returns 재미있는 메시지 객체와 표시용 퍼센트
  */
-export function getFamilySimilarityMessage(similarity: number): FamilyMessage & { displayPercent: number } {
+export function getFamilySimilarityMessage(
+  similarity: number, 
+  parentAge?: number, 
+  childAge?: number
+): FamilyMessage & { displayPercent: number; ageBoostApplied: boolean } {
+  // 연령 보정 적용
+  const originalSimilarity = similarity;
+  const boostedSimilarity = applyDetailedAgeBoost(similarity, parentAge, childAge);
+  const ageBoostApplied = boostedSimilarity > originalSimilarity;
+  
   // AI 점수를 사용자 친화적 퍼센트로 변환
-  const displayPercent = convertAiScoreToUserPercent(similarity);
+  const displayPercent = convertAiScoreToUserPercent(boostedSimilarity);
   
   let messagePool: FamilyMessage[] = [];
   
@@ -534,7 +593,8 @@ export function getFamilySimilarityMessage(similarity: number): FamilyMessage & 
   
   return {
     ...selectedMessage,
-    displayPercent
+    displayPercent,
+    ageBoostApplied
   };
 }
 

@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import ImageUploader from '@/components/ImageUploader';
+import SimilarityGauge from '@/components/SimilarityGauge';
 import { UploadedImage } from '@/lib/types';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
+import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 
 export default function FamilyAnalysisPage() {
   const [parentImage, setParentImage] = useState<UploadedImage | null>(null);
@@ -53,20 +55,13 @@ export default function FamilyAnalysisPage() {
     setError("");
   };
 
-  // 0.0-1.0 범위를 백분율로 변환하여 표시
-  const displaySimilarity = result ? (result.similarity * 100).toFixed(1) : "0";
+  // 연령 정보 추출 (Python API에서 제공하는 경우)
+  const parentAge = result?.parent_face?.age;
+  const childAge = result?.child_face?.age;
+  
+  // 스마트 점수 보정 시스템 적용 (연령 정보 포함)
+  const familyMessage = result ? getFamilySimilarityMessage(result.similarity, parentAge, childAge) : null;
   const displayConfidence = result ? (result.confidence * 100).toFixed(1) : "0";
-
-  // 유사도 레벨 계산
-  const getSimilarityLevel = (similarity: number) => {
-    const percentage = similarity * 100;
-    if (percentage >= 60) return { level: '매우 높음', color: 'text-green-600', emoji: '🎯' };
-    if (percentage >= 40) return { level: '높음', color: 'text-blue-600', emoji: '👍' };
-    if (percentage >= 20) return { level: '보통', color: 'text-yellow-600', emoji: '🤔' };
-    return { level: '낮음', color: 'text-red-600', emoji: '🤷' };
-  };
-
-  const similarityInfo = result ? getSimilarityLevel(result.similarity) : null;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
@@ -150,66 +145,24 @@ export default function FamilyAnalysisPage() {
           )}
 
           {/* Results */}
-          {result && similarityInfo && (
+          {result && familyMessage && (
             <div className="bg-white rounded-xl p-8 shadow-lg">
               <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
                 가족 분석 결과
               </h2>
 
-              {/* Main Result */}
-              <div className="text-center mb-8">
-                <div className="text-8xl mb-6">
-                  {similarityInfo.emoji}
-                </div>
-                <div className="text-4xl font-bold mb-4 text-indigo-700">
-                  {displaySimilarity}% 닮음
-                </div>
-                <div className={`text-2xl font-medium mb-2 ${similarityInfo.color}`}>
-                  유사도: {similarityInfo.level}
-                </div>
+              <div className="text-center mb-6">
                 <div className="text-lg text-gray-600">
                   분석 신뢰도: {displayConfidence}%
                 </div>
               </div>
 
-              {/* Face Analysis Details */}
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-gray-800 mb-2">부모 얼굴 정보</h4>
-                  <div className="text-sm text-gray-600">
-                    <div>감지 신뢰도: {(result.parent_face.confidence * 100).toFixed(1)}%</div>
-                    <div>
-                      얼굴 영역: {result.parent_face.bounding_box.width.toFixed(0)} × {result.parent_face.bounding_box.height.toFixed(0)}px
-                    </div>
-                    {result.parent_face.age && (
-                      <div>나이: {result.parent_face.age}세</div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="bg-green-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-gray-800 mb-2">자녀 얼굴 정보</h4>
-                  <div className="text-sm text-gray-600">
-                    <div>감지 신뢰도: {(result.child_face.confidence * 100).toFixed(1)}%</div>
-                    <div>
-                      얼굴 영역: {result.child_face.bounding_box.width.toFixed(0)} × {result.child_face.bounding_box.height.toFixed(0)}px
-                    </div>
-                    {result.child_face.age && (
-                      <div>나이: {result.child_face.age}세</div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Analysis Method Info */}
-              <div className="bg-indigo-50 rounded-lg p-4 mb-8">
-                <h4 className="font-semibold text-gray-800 mb-2">분석 방법</h4>
-                <div className="text-sm text-gray-600">
-                  <div>• InsightFace Buffalo-L 모델 사용</div>
-                  <div>• 512차원 얼굴 특징 벡터 분석</div>
-                  <div>• 코사인 유사도 측정 (0.0-1.0 범위)</div>
-                  <div>• 가족 관계 특화 알고리즘 적용</div>
-                </div>
+              {/* 퍼센트 바 게이지 */}
+              <div className="mb-8">
+                <SimilarityGauge 
+                  percentage={familyMessage.displayPercent} 
+                  isAnimating={true}
+                />
               </div>
 
               {/* Action Buttons */}
