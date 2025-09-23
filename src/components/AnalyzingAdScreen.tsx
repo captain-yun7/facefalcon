@@ -8,13 +8,14 @@ interface AnalyzingAdScreenProps {
 
 export default function AnalyzingAdScreen({ onComplete }: AnalyzingAdScreenProps) {
   const [countdown, setCountdown] = useState(5);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown(prev => {
         if (prev <= 1) {
           clearInterval(timer);
-          onComplete();
+          setIsComplete(true);
           return 0;
         }
         return prev - 1;
@@ -22,7 +23,13 @@ export default function AnalyzingAdScreen({ onComplete }: AnalyzingAdScreenProps
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [onComplete]);
+  }, []);
+
+  useEffect(() => {
+    if (isComplete) {
+      onComplete();
+    }
+  }, [isComplete, onComplete]);
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 text-center">

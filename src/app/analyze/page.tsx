@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
@@ -10,13 +10,14 @@ import Footer from '@/components/Footer';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
-import { getSimilarityLevel, formatPercentage } from '@/lib/utils/similarity-calculator';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
 
 type AnalysisType = 'parent-child' | 'who-most-similar' | '';
 
 export default function AnalyzePage() {
   const [selectedAnalysis, setSelectedAnalysis] = useState<AnalysisType>('parent-child');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   
   // Family mode states
   const [parentImage, setParentImage] = useState<UploadedImage | null>(null);
@@ -38,8 +39,62 @@ export default function AnalyzePage() {
 
   const handleAnalysisChange = (value: AnalysisType) => {
     setSelectedAnalysis(value);
+    setIsDropdownOpen(false);
     handleReset();
   };
+
+  const analysisOptions = [
+    {
+      value: 'parent-child' as AnalysisType,
+      title: '부모-자녀 닮음 분석',
+      description: '부모와 자녀 사진을 비교해서 닮은 정도를 분석합니다',
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      ),
+      color: 'blue'
+    },
+    {
+      value: 'who-most-similar' as AnalysisType,
+      title: '부모 찾기',
+      description: '아이와 여러 후보자를 비교해서 가장 닮은 사람을 찾습니다',
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+      ),
+      color: 'green'
+    },
+    {
+      value: '' as AnalysisType,
+      title: '연예인 닮은꼴',
+      description: '곧 출시될 예정입니다',
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5C14.8 4.1 13.6 3 12 3C10.4 3 9.2 4.1 9 5.5L3 7V9L9 7.5V10.5C9 12.4 9.6 14.1 10.6 15.4L9 16V18H11V16.5C11.3 16.8 11.6 17 12 17C12.4 17 12.7 16.8 13 16.5V18H15V16L13.4 15.4C14.4 14.1 15 12.4 15 10.5V7.5L21 9Z"/>
+        </svg>
+      ),
+      color: 'gray',
+      disabled: true
+    }
+  ];
+
+  const selectedOption = analysisOptions.find(opt => opt.value === selectedAnalysis);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleFamilyAnalyze = async () => {
     if (!parentImage?.base64 || !childImage?.base64) return;
@@ -162,6 +217,8 @@ export default function AnalyzePage() {
 
     setIsAnalyzing(true);
     setError("");
+    setPendingAnalysisResult(null);
+    setPendingAnalysisError(null);
 
     try {
       const targetImages = candidateImages.map(img => img.base64!);
@@ -223,7 +280,7 @@ export default function AnalyzePage() {
         console.log('📡 응답 상태:', response.status, response.statusText);
       } catch (networkError) {
         console.error('🌐 네트워크 에러:', networkError);
-        throw new Error(`네트워크 연결 실패: ${networkError.message}`);
+        throw new Error(`네트워크 연결 실패: ${networkError instanceof Error ? networkError.message : String(networkError)}`);
       }
 
       let data;
@@ -262,25 +319,34 @@ export default function AnalyzePage() {
       
       // 결과가 없는 경우에만 에러 표시
       if (matches.length === 0) {
-        setError('분석할 수 있는 얼굴을 찾지 못했습니다. 얼굴이 선명하게 보이는 정면 사진을 사용해주세요.');
-        return;
+        setPendingAnalysisError(new Error('분석할 수 있는 얼굴을 찾지 못했습니다. 얼굴이 선명하게 보이는 정면 사진을 사용해주세요.'));
+      } else {
+        // 0% 유사도도 정상적인 결과로 처리 (얼굴은 감지되었지만 닮지 않은 경우)
+        console.log('✅ 유효한 매치 결과 확인:', matches.map((m: any) => ({ index: m.imageIndex, similarity: m.similarity })));
+        setPendingAnalysisResult(matches);
       }
-      
-      // 0% 유사도도 정상적인 결과로 처리 (얼굴은 감지되었지만 닮지 않은 경우)
-      console.log('✅ 유효한 매치 결과 확인:', matches.map(m => ({ index: m.imageIndex, similarity: m.similarity })));
-      
-      setComparisonResults(matches);
-      setShowComparisonResults(true);
-      console.log('🎯 결과 화면 표시 완료');
     } catch (err) {
       console.error('❌ 비교 분석 에러:', err);
-      const errorMessage = err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.';
-      console.log('에러 메시지:', errorMessage);
-      setError(errorMessage);
-    } finally {
-      setIsAnalyzing(false);
-      console.log('🏁 비교 분석 종료');
+      setPendingAnalysisError(err);
     }
+
+    // 광고 화면 표시
+    setShowAdScreen(true);
+  };
+
+  const handleComparisonAdComplete = () => {
+    setShowAdScreen(false);
+    setIsAnalyzing(false);
+    
+    if (pendingAnalysisError) {
+      setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : '분석 중 오류가 발생했습니다.');
+    } else if (pendingAnalysisResult) {
+      setComparisonResults(pendingAnalysisResult);
+      setShowComparisonResults(true);
+      console.log('🎯 결과 화면 표시 완료');
+    }
+    
+    console.log('🏁 비교 분석 종료');
   };
 
   const handleAddCandidate = (image: UploadedImage) => {
@@ -345,31 +411,102 @@ export default function AnalyzePage() {
           </div>
 
           {/* Analysis Type Selector */}
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
-            <label htmlFor="analysis-type" className="block text-lg font-semibold text-gray-900 mb-3">
-              분석 유형 선택
-            </label>
-            <select
-              id="analysis-type"
-              value={selectedAnalysis}
-              onChange={(e) => handleAnalysisChange(e.target.value as AnalysisType)}
-              className="w-full p-4 border border-gray-300 rounded-xl text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-            >
-              <option value="">분석 유형을 선택하세요</option>
-              <option value="parent-child">부모-자녀 닮음 분석</option>
-              <option value="who-most-similar">누굴 제일 닮았나요?</option>
-              <option disabled>연예인 닮은꼴 (준비중)</option>
-            </select>
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                어떤 분석을 원하시나요?
+              </h2>
+              <p className="text-gray-600">
+                원하는 분석 유형을 선택해주세요
+              </p>
+            </div>
+            
+            {/* Custom Dropdown */}
+            <div ref={dropdownRef} className="relative max-w-2xl mx-auto">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="w-full p-4 border-2 border-gray-300 rounded-xl text-left bg-white hover:border-blue-400 focus:border-blue-500 focus:outline-none transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  {selectedOption ? (
+                    <div className="flex items-center space-x-3">
+                      <div className={`
+                        w-10 h-10 rounded-lg flex items-center justify-center
+                        ${selectedOption.color === 'blue' ? 'bg-blue-500 text-white' : 
+                          selectedOption.color === 'green' ? 'bg-green-500 text-white' : 
+                          'bg-gray-200 text-gray-600'}
+                      `}>
+                        {selectedOption.icon}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-900">{selectedOption.title}</div>
+                        <div className="text-sm text-gray-600">{selectedOption.description}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-gray-500 font-medium">분석 유형을 선택하세요</div>
+                  )}
+                  <svg 
+                    className={`w-5 h-5 text-gray-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+
+              {/* Dropdown Options */}
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-50 max-h-80 overflow-y-auto">
+                  {analysisOptions.map((option, index) => (
+                    <button
+                      key={index}
+                      onClick={() => !option.disabled && handleAnalysisChange(option.value)}
+                      disabled={option.disabled}
+                      className={`
+                        w-full p-4 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0
+                        ${option.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+                        ${selectedAnalysis === option.value ? 'bg-blue-50' : ''}
+                      `}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className={`
+                          w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0
+                          ${option.color === 'blue' ? 'bg-blue-500 text-white' : 
+                            option.color === 'green' ? 'bg-green-500 text-white' : 
+                            'bg-gray-200 text-gray-600'}
+                        `}>
+                          {option.icon}
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-gray-900 mb-1">{option.title}</div>
+                          <div className="text-sm text-gray-600">{option.description}</div>
+                        </div>
+                        {option.disabled && (
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-200 text-gray-600">
+                            준비중
+                          </span>
+                        )}
+                        {selectedAnalysis === option.value && !option.disabled && (
+                          <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Analysis Content */}
           {selectedAnalysis === 'parent-child' && (
             <>
               {!familyResult && !showAdScreen && (
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-                  <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">
-                    부모-자녀 닮음 분석
-                  </h2>
+                <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">                  
                   <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                     {/* Parent Image */}
                     <div className="space-y-4">
@@ -545,7 +682,7 @@ export default function AnalyzePage() {
 
           {selectedAnalysis === 'who-most-similar' && (
             <>
-              {!showComparisonResults && (
+              {!showComparisonResults && !showAdScreen && (
                 <>
                   {/* Child Image Upload */}
                   <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
@@ -638,40 +775,71 @@ export default function AnalyzePage() {
                 </>
               )}
 
+              {/* 광고 화면 */}
+              {!showComparisonResults && showAdScreen && (
+                <div className="mb-8">
+                  <AnalyzingAdScreen onComplete={handleComparisonAdComplete} />
+                </div>
+              )}
+
               {/* Comparison Results Section */}
               {showComparisonResults && (
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-                  <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
-                    부모 찾기 결과!
-                  </h2>
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-800 rounded-full mb-4">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="font-medium">분석 완료</span>
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                      부모 찾기 분석 결과
+                    </h2>                    
+                  </div>
 
-                  {/* Winner */}
-                  {bestMatch && (
-                    <div className="text-center mb-12">
-                      <h3 className="text-2xl font-bold text-blue-700 mb-8">
-                        가장 가능성이 높은 부모님
-                      </h3>
-                      <div className="max-w-sm mx-auto mb-4">
-                        <div className="relative aspect-square w-full">
+                  {/* 분석 대상 사진들 */}
+                  <div className="mb-8">
+                    <div className="flex items-center justify-center gap-6 mb-6">
+                      {/* 아이 사진 */}
+                      <div className="text-center">
+                        <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
                           <Image
-                            src={candidateImages[bestMatch.imageIndex]?.preview || ''}
-                            alt="Best match"
+                            src={targetChildImage?.preview || ''}
+                            alt="아이"
                             fill
-                            className="object-cover rounded-lg border-4 border-blue-500"
+                            className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
                           />
                         </div>
+                        <span className="text-sm text-gray-600 font-medium">아이</span>
                       </div>
-                      <div className="text-4xl font-bold bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent mb-2">
-                        {formatPercentage(bestMatch.similarity)}
+
+                      {/* 하트 아이콘 */}
+                      <div className="flex flex-col items-center">
+                        <div className="w-8 h-8 text-pink-500 mb-1">
+                          <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                          </svg>
+                        </div>
+                        <span className="text-xs text-gray-500">닮음</span>
                       </div>
-                      <p className="text-lg text-blue-600">
-                        {bestMatch.similarity === 0 
-                          ? "얼굴 감지가 어려워 정확한 분석이 힘듭니다" 
-                          : getSimilarityLevel(bestMatch.similarity).description
-                        }
-                      </p>
+
+                      {/* 가장 닮은 사람 사진 */}
+                      {bestMatch && (
+                        <div className="text-center">
+                          <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
+                            <Image
+                              src={candidateImages[bestMatch.imageIndex]?.preview || ''}
+                              alt="가장 닮은 사람"
+                              fill
+                              className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+                            />
+                          </div>
+                          <span className="text-sm text-gray-600 font-medium">가장 닮은 사람</span>
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
+
 
                   {/* All Results Ranking */}
                   <div className="mb-8">
@@ -706,12 +874,6 @@ export default function AnalyzePage() {
                                   className="object-cover rounded-lg"
                                 />
                               </div>
-                              <div className="text-xl font-bold text-blue-900 mb-1">
-                                {formatPercentage(result.similarity)}
-                              </div>
-                              <div className={`text-sm ${result.similarity === 0 ? 'text-gray-500' : getSimilarityLevel(result.similarity).color}`}>
-                                {result.similarity === 0 ? '얼굴 감지 어려움' : getSimilarityLevel(result.similarity).level}
-                              </div>
                             </div>
                           </div>
                         );
@@ -725,7 +887,7 @@ export default function AnalyzePage() {
                       onClick={handleReset}
                       className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
                     >
-                      다시 시도하기
+                      다시 분석하기
                     </button>
                   </div>
                 </div>
