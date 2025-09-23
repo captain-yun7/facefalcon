@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useTranslations } from '@/lib/simple-i18n';
 
 export default function AboutPage() {
+  const { t, locale } = useTranslations();
+  
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -13,10 +16,10 @@ export default function AboutPage() {
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            개발자 소개
+            {t('pages.about.title')}
           </h1>
           <p className="text-xl text-gray-600 leading-relaxed">
-            AI와 웹 기술을 활용한 재미있는 서비스를 만드는 개발자입니다
+            {t('pages.about.subtitle')}
           </p>
         </div>
 
@@ -30,19 +33,15 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
-                이 프로젝트는 어떻게 시작되었나요?
+                {t('pages.about.projectStory.title')}
               </h2>
             </div>
             <div className="prose prose-gray max-w-none">
               <p className="text-gray-700 leading-relaxed mb-4">
-                "우리 아이가 누굴 더 닮았을까?" - 모든 부모들이 한 번쯤 궁금해하는 질문에서 시작되었습니다.
-                단순한 호기심을 AI 기술로 해결해보고 싶었고, 가족들이 재미있게 사용할 수 있는 
-                웹 서비스를 만들어보았습니다.
+                {t('pages.about.projectStory.content1')}
               </p>
               <p className="text-gray-700 leading-relaxed">
-                개발 과정에서 다양한 얼굴 인식 API를 테스트하고, 사용자 경험을 고민하며 
-                현재의 서비스가 완성되었습니다. 매일 많은 가족들이 사용해주시는 것을 보며 
-                기술이 일상에 재미를 더할 수 있다는 것을 느끼고 있습니다.
+                {t('pages.about.projectStory.content2')}
               </p>
             </div>
           </div>
@@ -57,12 +56,12 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
-                사용된 기술 스택
+                {t('pages.about.techStack.title')}
               </h2>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">Frontend</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">{t('pages.about.techStack.frontend')}</h3>
                 <ul className="space-y-2">
                   <li className="flex items-center text-gray-700">
                     <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
@@ -83,7 +82,7 @@ export default function AboutPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">Backend & AI</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">{t('pages.about.techStack.backendAI')}</h3>
                 <ul className="space-y-2">
                   <li className="flex items-center text-gray-700">
                     <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
@@ -115,25 +114,46 @@ export default function AboutPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
-                개발자 정보
+                {t('pages.about.developerInfo.title')}
               </h2>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">전문 분야</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('pages.about.developerInfo.expertise')}</h3>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• 풀스택 웹 개발</li>
-                  <li>• AI/ML 서비스 개발</li>
-                  <li>• AWS 클라우드 및 인프라 구축</li>
-                  <li>• 서비스 아키텍처 디자인</li>
+                  {locale === 'en' ? (
+                    <>
+                      <li>• Full-stack web development</li>
+                      <li>• AI/ML service development</li>
+                      <li>• AWS cloud and infrastructure construction</li>
+                      <li>• Service architecture design</li>
+                    </>
+                  ) : (
+                    <>
+                      <li>• 풀스택 웹 개발</li>
+                      <li>• AI/ML 서비스 개발</li>
+                      <li>• AWS 클라우드 및 인프라 구축</li>
+                      <li>• 서비스 아키텍처 디자인</li>
+                    </>
+                  )}
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">관심 분야</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('pages.about.developerInfo.interests')}</h3>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• AI 모델 분석 </li>
-                  <li>• AI/ML 서비스 개발</li>
-                  <li>• 자동화</li>                  
+                  {locale === 'en' ? (
+                    <>
+                      <li>• AI model analysis</li>
+                      <li>• AI/ML service development</li>
+                      <li>• Automation</li>                  
+                    </>
+                  ) : (
+                    <>
+                      <li>• AI 모델 분석</li>
+                      <li>• AI/ML 서비스 개발</li>
+                      <li>• 자동화</li>                  
+                    </>
+                  )}
                 </ul>
               </div>
             </div>
@@ -148,7 +168,7 @@ export default function AboutPage() {
                 </svg>
               </div> */}
               <h2 className="text-2xl font-bold text-gray-900">
-                강의 & 외주 문의
+                {t('pages.about.contact.title')}
               </h2>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
@@ -159,14 +179,26 @@ export default function AboutPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-800">제공 서비스</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">{t('pages.about.contact.services')}</h3>
                 </div>
                 <ul className="space-y-2 text-gray-700 text-sm">
-                  <li>• <strong>AI 서비스 개발</strong> </li>
-                  <li>• <strong>홈페이지 및 웹/앱 애플리케이션 구축</strong></li>
-                  <li>• <strong>클라우드 인프라 구축 및 운영</strong></li>
-                  <li>• <strong>AI 개발 및 클라우드 강의</strong></li>                  
-                  <li>• <strong>기술 멘토링</strong></li>                  
+                  {locale === 'en' ? (
+                    <>
+                      <li>• <strong>AI service development</strong></li>
+                      <li>• <strong>Website and web/app application development</strong></li>
+                      <li>• <strong>Cloud infrastructure construction and operation</strong></li>
+                      <li>• <strong>AI development and cloud lectures</strong></li>
+                      <li>• <strong>Technical mentoring</strong></li>
+                    </>
+                  ) : (
+                    <>
+                      <li>• <strong>AI 서비스 개발</strong></li>
+                      <li>• <strong>홈페이지 및 웹/앱 애플리케이션 구축</strong></li>
+                      <li>• <strong>클라우드 인프라 구축 및 운영</strong></li>
+                      <li>• <strong>AI 개발 및 클라우드 강의</strong></li>
+                      <li>• <strong>기술 멘토링</strong></li>
+                    </>
+                  )}                  
                 </ul>
               </div>
               <div>
@@ -176,7 +208,7 @@ export default function AboutPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-800">문의하기</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">{t('pages.about.contact.contact')}</h3>
                 </div>
                 <div className="space-y-3">
                   <a 
@@ -200,7 +232,7 @@ export default function AboutPage() {
               href="/analyze"
               className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
             >
-              ← 닮음 분석하러 가기
+              {t('pages.about.backToAnalyze')}
             </Link>
           </div>
         </div>

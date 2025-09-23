@@ -14,8 +14,10 @@ import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 import { getSimilarityLevel, formatPercentage } from '@/lib/utils/similarity-calculator';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
+import { useTranslations } from '@/lib/simple-i18n';
 
 export default function Home() {
+  const { t, locale } = useTranslations();
   
   // Family mode states
   const [parentImage, setParentImage] = useState<UploadedImage | null>(null);
@@ -33,14 +35,14 @@ export default function Home() {
   const handleFamilyAnalyze = async () => {
     if (!parentImage?.base64 || !childImage?.base64) return;
 
-    console.log('🚀 가족 분석 시작');
+    console.log('🚀 Family analysis started');
     setIsAnalyzing(true);
     setError("");
     setPendingAnalysisResult(null);
     setPendingAnalysisError(null);
 
     try {
-      console.log('📡 API 호출 시작');
+      console.log('📡 API call started');
       const response = await fetch('/api/family-similarity', {
         method: 'POST',
         headers: {
@@ -52,7 +54,7 @@ export default function Home() {
         }),
       });
 
-      console.log('✅ API 응답 받음');
+      console.log('✅ API response received');
       const data = await response.json();
 
       if (!data.success) {
@@ -60,9 +62,9 @@ export default function Home() {
       }
 
       setPendingAnalysisResult(data.data);
-      console.log('✨ 분석 완료, 광고 화면 표시');
+      console.log('✨ Analysis complete, showing ad screen');
     } catch (err) {
-      console.error('❌ 에러 발생:', err);
+      console.error('❌ Error occurred:', err);
       setPendingAnalysisError(err);
     }
 
@@ -75,12 +77,12 @@ export default function Home() {
     setIsAnalyzing(false);
     
     if (pendingAnalysisError) {
-      setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : '분석 중 오류가 발생했습니다.');
+      setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : t('errors.analysisFailure'));
     } else if (pendingAnalysisResult) {
       setFamilyResult(pendingAnalysisResult);
     }
     
-    console.log('🏁 가족 분석 종료');
+    console.log('🏁 Family analysis completed');
   };
 
   const handleDownloadResult = async () => {
@@ -100,8 +102,8 @@ export default function Home() {
       const imageDataUrl = await generateResultImage(resultData);
       downloadImage(imageDataUrl);
     } catch (error) {
-      console.error('이미지 생성 실패:', error);
-      alert('이미지 생성에 실패했습니다. 다시 시도해주세요.');
+      console.error('Image generation failed:', error);
+      alert(t('errors.imageGenerationFailed'));
     }
   };
 
@@ -124,18 +126,18 @@ export default function Home() {
       
       if (!shared) {
         // Web Share API 미지원 시 폴백: 클립보드에 텍스트 복사
-        const shareText = `우리 아이 닮음 분석 결과: ${familyMessage.displayPercent}% 닮았네요! 😊\nwhos-your-papa.com에서 분석해보세요`;
+        const shareText = t('share.resultText', { percent: familyMessage.displayPercent });
         const copied = await copyToClipboard(shareText);
         
         if (copied) {
-          alert('공유 텍스트가 클립보드에 복사되었습니다!\n메신저나 SNS에 붙여넣기 해주세요.');
+          alert(t('share.clipboardCopied'));
         } else {
-          alert('이 브라우저에서는 직접 공유가 지원되지 않습니다.\n"이미지 다운로드" 버튼을 사용해주세요.');
+          alert(t('share.shareNotSupported'));
         }
       }
     } catch (error) {
-      console.error('공유 실패:', error);
-      alert('공유에 실패했습니다. 다시 시도해주세요.');
+      console.error('Share failed:', error);
+      alert(t('errors.shareFailed'));
     }
   };
 
@@ -165,17 +167,17 @@ export default function Home() {
         <div className="text-center mb-12">
           <div className="mb-4">
             <span className="inline-block px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-4">
-              대표 서비스
+              {t('home.hero.title')}
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900 leading-tight">
-            우리 아이, 부모님 중 누굴 닮았나?
+            {t('home.hero.subtitle')}
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            부모님과 자녀의 사진을 업로드하여 닮은 정도를 정확하게 분석해드립니다
+            {t('home.hero.description')}
           </p>
           <div className="mt-4 text-sm text-gray-500">
-            InsightFace 기반 고정밀 분석 엔진
+            {t('home.hero.badge')}
           </div>
         </div>
 
@@ -192,14 +194,14 @@ export default function Home() {
                       <span className="text-blue-600 font-semibold text-sm">1</span>
                     </div>
                     <h3 className="text-lg font-medium text-gray-900">
-                      부모 사진
+                      {t('home.upload.parentPhoto')}
                     </h3>
                   </div>
                   <ImageUploader
                     onImageUpload={setParentImage}
                     onImageRemove={() => setParentImage(null)}
                     uploadedImage={parentImage || undefined}
-                    label="부모 사진 업로드"
+                    label={t('parentChildAnalysis.uploadParent')}
                   />
                 </div>
 
@@ -210,14 +212,14 @@ export default function Home() {
                       <span className="text-blue-600 font-semibold text-sm">2</span>
                     </div>
                     <h3 className="text-lg font-medium text-gray-900">
-                      자녀 사진
+                      {t('home.upload.childPhoto')}
                     </h3>
                   </div>
                   <ImageUploader
                     onImageUpload={setChildImage}
                     onImageRemove={() => setChildImage(null)}
                     uploadedImage={childImage || undefined}
-                    label="자녀 사진 업로드"
+                    label={t('parentChildAnalysis.uploadChild')}
                   />
                 </div>
               </div>
@@ -241,10 +243,10 @@ export default function Home() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      AI 분석 중...
+                      {t('home.upload.analyzing')}
                     </span>
                   ) : (
-                    '닮은 정도 분석 시작'
+                    t('home.upload.startAnalysis')
                   )}
                 </button>
               </div>
@@ -279,13 +281,13 @@ export default function Home() {
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="font-medium">분석 완료</span>
+                  <span className="font-medium">{t('home.results.analysisComplete')}</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                  닮음 정도 결과
+                  {t('home.results.resultTitle')}
                 </h2>
                 <p className="text-gray-600">
-                  분석 신뢰도: {displayConfidence}%
+                  {t('home.results.confidence', { confidence: displayConfidence })}
                 </p>
               </div>
 
@@ -297,12 +299,12 @@ export default function Home() {
                     <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
                       <Image
                         src={parentImage?.preview || ''}
-                        alt="부모"
+                        alt={t('home.results.parentLabel')}
                         fill
                         className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
                       />
                     </div>
-                    <span className="text-sm text-gray-600 font-medium">부모</span>
+                    <span className="text-sm text-gray-600 font-medium">{t('home.results.parentLabel')}</span>
                   </div>
 
                   {/* 하트 아이콘 */}
@@ -312,7 +314,7 @@ export default function Home() {
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                       </svg>
                     </div>
-                    <span className="text-xs text-gray-500">닮음</span>
+                    <span className="text-xs text-gray-500">{t('home.results.similarity')}</span>
                   </div>
 
                   {/* 자녀 사진 */}
@@ -320,12 +322,12 @@ export default function Home() {
                     <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
                       <Image
                         src={childImage?.preview || ''}
-                        alt="자녀"
+                        alt={t('home.results.childLabel')}
                         fill
                         className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
                       />
                     </div>
-                    <span className="text-sm text-gray-600 font-medium">자녀</span>
+                    <span className="text-sm text-gray-600 font-medium">{t('home.results.childLabel')}</span>
                   </div>
                 </div>
               </div>
@@ -344,7 +346,7 @@ export default function Home() {
                   onClick={handleReset}
                   className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
                 >
-                  다시 분석하기
+                  {t('home.results.tryAgain')}
                 </button>
                 <button
                   onClick={handleDownloadResult}
@@ -353,7 +355,7 @@ export default function Home() {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
-                  이미지 다운로드
+                  {t('home.results.downloadImage')}
                 </button>
                 <button
                   onClick={handleShareResult}
@@ -362,7 +364,7 @@ export default function Home() {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                   </svg>
-                  결과 공유하기
+                  {t('home.results.shareResult')}
                 </button>
               </div>
             </div>
@@ -372,17 +374,16 @@ export default function Home() {
           <div className="text-center mt-12 mb-8">
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6">
               <h3 className="text-xl font-bold text-gray-900 mb-3">
-                더 많은 분석 기능을 원하시나요?
+                {t('home.cta.moreAnalysis')}
               </h3>
               <p className="text-gray-600 mb-4 max-w-md mx-auto">
-                누굴 제일 닮았나 찾기, 형제자매 분석 등<br/>
-                다양한 분석 도구를 사용해보세요
+                <span dangerouslySetInnerHTML={{ __html: t('home.cta.moreFeatures') }} />
               </p>
               <Link
                 href="/analyze"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
-                더 많은 분석 보러가기 →
+                {t('home.cta.viewMore')}
               </Link>
             </div>
           </div>
@@ -397,9 +398,9 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3 text-gray-900">정확한 AI 분석</h3>
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900">{t('home.features.aiAnalysis.title')}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    최신 InsightFace 기술로 높은 정확도의 얼굴 유사도 분석을 제공합니다
+                    {t('home.features.aiAnalysis.description')}
                   </p>
                 </div>
                 
@@ -409,9 +410,9 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3 text-gray-900">다양한 분석 모드</h3>
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900">{t('home.features.multipleMode.title')}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    부모-자녀 닮음 분석부터 여러 후보자 중 가장 닮은 사람 찾기까지 지원합니다
+                    {t('home.features.multipleMode.description')}
                   </p>
                 </div>
                 
@@ -421,9 +422,9 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3 text-gray-900">개인정보 보호</h3>
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900">{t('home.features.privacy.title')}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    업로드된 이미지는 분석 후 즉시 삭제되어 개인정보를 안전하게 보호합니다
+                    {t('home.features.privacy.description')}
                   </p>
                 </div>
               </div>
@@ -432,16 +433,16 @@ export default function Home() {
               <div className="text-center mt-16 mb-8">
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                    이 서비스가 마음에 드시나요?
+                    {t('home.devCta.title')}
                   </h3>
                   <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                    AI 이미지 모델과 웹 기술을 활용해 만든 프로젝트입니다
+                    {t('home.devCta.description')}
                   </p>
                   <Link
                     href="/about"
                     className="px-6 py-4 bg-white text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium border border-gray-200"
                   >
-                    개발자 소개
+                    {t('home.devCta.link')}
                   </Link>
                 </div>
               </div>

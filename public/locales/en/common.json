@@ -1,0 +1,275 @@
+{
+  "appName": "Who's your papa",
+  "navigation": {
+    "home": "Home",
+    "analyze": "Analyze",
+    "service": "Service Info",
+    "guide": "User Guide",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "AI Face Analysis Tool",
+    "subtitle": "Choose your preferred analysis type and get started right away"
+  },
+  "analysisSelector": {
+    "title": "What kind of analysis do you want?",
+    "subtitle": "Please select your preferred analysis type",
+    "placeholder": "Select analysis type",
+    "parentChild": {
+      "title": "Parent-Child Similarity Analysis",
+      "description": "Compare parent and child photos to analyze similarity"
+    },
+    "whoMostSimilar": {
+      "title": "Find Parent",
+      "description": "Compare a child with multiple candidates to find the most similar person"
+    },
+    "celebrity": {
+      "title": "Celebrity Look-alike",
+      "description": "Coming soon",
+      "status": "Coming Soon"
+    }
+  },
+  "parentChildAnalysis": {
+    "title": "Parent-Child Similarity Analysis",
+    "parentPhoto": "Parent Photo",
+    "childPhoto": "Child Photo",
+    "uploadParent": "Upload Parent Photo",
+    "uploadChild": "Upload Child Photo",
+    "analyzeButton": "Start Similarity Analysis",
+    "analyzing": "AI Analyzing..."
+  },
+  "whoMostSimilarAnalysis": {
+    "title": "Find Parent",
+    "uploadChild": "Upload child's photo",
+    "uploadChildLabel": "Upload Child Photo",
+    "uploadCandidates": "Upload candidate photos (2-6 people)",
+    "candidateCount": "Currently {{count}} candidates registered.",
+    "candidateMinRequired": " (minimum 2 required)",
+    "candidate": "Candidate {{number}}",
+    "analyzeButton": "Start Finding Parent!",
+    "analyzing": "AI is finding the parent..."
+  },
+  "results": {
+    "analysisComplete": "Analysis Complete",
+    "similarityResult": "Similarity Analysis Result",
+    "parentFindingResult": "Parent Finding Analysis Result",
+    "confidence": "Analysis confidence: {{confidence}}%",
+    "parent": "Parent",
+    "child": "Child",
+    "similarity": "Similarity",
+    "mostSimilar": "Most Similar Person",
+    "ranking": "Overall Ranking",
+    "rank": "{{rank}}th",
+    "tryAgain": "Analyze Again",
+    "downloadImage": "Download Image",
+    "shareResult": "Share Result"
+  },
+  "imageUpload": {
+    "label": "Upload Image",
+    "dragDrop": "Drag and drop an image or click to select",
+    "dragActive": "Drop the image here",
+    "processing": "Processing image...",
+    "formats": "JPEG, PNG, WebP (max 10MB)",
+    "remove": "Remove image"
+  },
+  "analyzing": {
+    "title": "AI is working hard to analyze",
+    "subtitle": "Please wait a moment for accurate results",
+    "countdown": "Results will appear in {{seconds}} seconds..."
+  },
+  "errors": {
+    "analysisError": "Analysis Error",
+    "tryRefresh": "If the problem persists, please refresh the page or re-upload the images.",
+    "imageProcessingError": "An error occurred while processing the image.",
+    "noFacesDetected": "No analyzable faces were found. Please use clear frontal photos with visible faces.",
+    "analysisFailure": "An error occurred during analysis.",
+    "imageGenerationFailed": "Image generation failed. Please try again.",
+    "shareFailed": "Sharing failed. Please try again."
+  },
+  "share": {
+    "clipboardCopied": "Share text has been copied to clipboard!\\nPlease paste it in messenger or SNS.",
+    "shareNotSupported": "Direct sharing is not supported in this browser.\\nPlease use the \"Download Image\" button.",
+    "resultText": "Our child similarity analysis result: {{percent}}% similar! 😊\\nAnalyze at whos-your-papa.com"
+  },
+  "footer": {
+    "madeWith": "Made with",
+    "copyright": "© 2024 Who's your papa. All rights reserved."
+  },
+  "pages": {
+    "about": {
+      "title": "About Developer",
+      "subtitle": "A developer who creates fun services using AI and web technologies",
+      "projectStory": {
+        "title": "How did this project start?",
+        "content1": "\"Who does our child look more like?\" - It started with a question that all parents wonder about at some point. I wanted to solve simple curiosity with AI technology and create a web service that families could use for fun.",
+        "content2": "During the development process, I tested various face recognition APIs and considered user experience to complete the current service. Seeing many families use it every day, I feel that technology can add fun to everyday life."
+      },
+      "techStack": {
+        "title": "Tech Stack Used",
+        "frontend": "Frontend",
+        "backendAI": "Backend & AI"
+      },
+      "developerInfo": {
+        "title": "Developer Info",
+        "expertise": "Expertise",
+        "interests": "Interests",
+        "expertiseList": [
+          "Full-stack web development",
+          "AI/ML service development",
+          "AWS cloud and infrastructure construction",
+          "Service architecture design"
+        ],
+        "interestsList": [
+          "AI model analysis",
+          "AI/ML service development",
+          "Automation"
+        ]
+      },
+      "contact": {
+        "title": "Lectures & Freelance Inquiries",
+        "services": "Services Offered",
+        "contact": "Contact",
+        "servicesList": [
+          "AI service development",
+          "Website and web/app application development",
+          "Cloud infrastructure construction and operation",
+          "AI development and cloud lectures",
+          "Technical mentoring"
+        ]
+      },
+      "backToAnalyze": "← Go to Analysis"
+    },
+    "service": {
+      "title": "Facial Similarity Analysis with",
+      "titleGradient": "AI Technology",
+      "subtitle": "An innovative service that accurately analyzes facial similarity between two people through the latest facial recognition AI technology and provides objective numerical results.",
+      "aiTechnology": {
+        "title": "AI Facial Recognition Technology",
+        "description": "Utilizing InsightFace's latest Buffalo model to precisely extract and analyze key facial features.",
+        "features": [
+          "Detection of 68 key facial landmarks",
+          "Generation of high-dimensional facial embedding vectors",
+          "3D facial structure analysis support"
+        ]
+      },
+      "similarityCalculation": {
+        "title": "Accurate Similarity Calculation",
+        "description": "Numerically calculates similarity between two faces by comparing extracted facial embedding vectors.",
+        "features": [
+          "Accurate similarity measurement based on vector distance",
+          "Correction algorithm considering age differences",
+          "Results provided with confidence scores"
+        ]
+      },
+      "howItWorks": {
+        "title": "How the Service Works",
+        "step1": {
+          "title": "Upload Images",
+          "description": "Upload front-facing photos of parent and child respectively."
+        },
+        "step2": {
+          "title": "AI Analysis",
+          "description": "InsightFace AI detects faces and extracts features."
+        },
+        "step3": {
+          "title": "Calculate Similarity",
+          "description": "Compare facial embedding vectors to calculate similarity."
+        },
+        "step4": {
+          "title": "Provide Results",
+          "description": "Provides overall similarity and confidence scores together."
+        }
+      },
+      "features": {
+        "privacy": {
+          "title": "Privacy Protection",
+          "description": "Uploaded images are automatically deleted immediately after analysis completion and are not stored in any form."
+        },
+        "speed": {
+          "title": "Fast Processing",
+          "description": "Quickly provides analysis results with optimized InsightFace model."
+        },
+        "accuracy": {
+          "title": "High Accuracy",
+          "description": "InsightFace model trained on large-scale data provides highly accurate analysis results."
+        }
+      }
+    },
+    "analyze": {
+      "parentPhoto": "Parent Photo",
+      "childPhoto": "Child Photo",
+      "uploadChild": "Upload child's photo",
+      "uploadCandidates": "Upload candidate photos (2-6 people)",
+      "candidateCount": "Currently {{count}} candidates registered.",
+      "candidate": "Candidate {{number}}",
+      "analysisCompleted": "Analysis Complete",
+      "similarityResult": "Similarity Result",
+      "parentFindingResult": "Parent Finding Analysis Result",
+      "confidence": "Analysis confidence: {{confidence}}%",
+      "parent": "Parent",
+      "child": "Child",
+      "childLabel": "Child",
+      "similarity": "Similarity",
+      "mostSimilarPerson": "Most Similar Person",
+      "overallRanking": "Overall Ranking",
+      "rank": "{{rank}}th",
+      "tryAgainButton": "Analyze Again",
+      "downloadImage": "Download Image",
+      "shareResult": "Share Result",
+      "analyzing": "AI Analyzing...",
+      "findingParent": "AI is finding the parent...",
+      "startAnalysis": "Start Similarity Analysis",
+      "startFindingParent": "Start Finding Parent!"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Main Service",
+      "subtitle": "Who does our child look more like?",
+      "description": "Upload photos of parent and child to accurately analyze their similarity",
+      "badge": "High-precision analysis engine based on InsightFace"
+    },
+    "upload": {
+      "parentPhoto": "Parent Photo",
+      "childPhoto": "Child Photo",
+      "analyzing": "AI Analyzing...",
+      "startAnalysis": "Start Similarity Analysis"
+    },
+    "results": {
+      "analysisComplete": "Analysis Complete",
+      "resultTitle": "Similarity Result",
+      "confidence": "Analysis confidence: {{confidence}}%",
+      "parentLabel": "Parent",
+      "childLabel": "Child",
+      "similarity": "Similarity",
+      "tryAgain": "Analyze Again",
+      "downloadImage": "Download Image",
+      "shareResult": "Share Result"
+    },
+    "cta": {
+      "moreAnalysis": "Want more analysis features?",
+      "moreFeatures": "Find who you look most like, sibling analysis, etc.<br/>Try various analysis tools",
+      "viewMore": "View More Analysis →"
+    },
+    "features": {
+      "aiAnalysis": {
+        "title": "Accurate AI Analysis",
+        "description": "Provides high-accuracy facial similarity analysis with the latest InsightFace technology"
+      },
+      "multipleMode": {
+        "title": "Various Analysis Modes",
+        "description": "Supports from parent-child similarity analysis to finding the most similar person among multiple candidates"
+      },
+      "privacy": {
+        "title": "Privacy Protection",
+        "description": "Uploaded images are immediately deleted after analysis to safely protect personal information"
+      }
+    },
+    "devCta": {
+      "title": "Do you like this service?",
+      "description": "A project created using AI image models and web technology",
+      "link": "About Developer"
+    }
+  }
+}

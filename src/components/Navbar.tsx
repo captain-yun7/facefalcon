@@ -2,17 +2,20 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useTranslations } from "@/lib/i18n";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslations();
 
   const navItems = [
-    { href: "/", label: "홈" },
-    { href: "/analyze", label: "분석하기" },
-    { href: "/service", label: "서비스 소개" },
-    { href: "/guide", label: "이용 가이드" },
-    { href: "/blog", label: "AI 기술 정보" },
+    { href: "/", label: t("navigation.home") },
+    { href: "/analyze", label: t("navigation.analyze") },
+    { href: "/service", label: t("navigation.service") },
+    { href: "/guide", label: t("navigation.guide") },
+    { href: "/blog", label: t("navigation.blog") },
   ];
 
   return (
@@ -27,26 +30,29 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`
-                    font-montserrat flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
-                    ${isActive 
-                      ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/25" 
-                      : "text-blue-700 hover:bg-blue-50 hover:text-blue-800"
-                    }
-                  `}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+          <div className="hidden md:flex items-center space-x-4">
+            <nav className="flex items-center space-x-1">
+              {navItems.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`
+                      font-montserrat flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
+                      ${isActive 
+                        ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/25" 
+                        : "text-blue-700 hover:bg-blue-50 hover:text-blue-800"
+                      }
+                    `}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+            <LanguageSwitcher />
+          </div>
 
           {/* Mobile Menu Button */}
           <button
