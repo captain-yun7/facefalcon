@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import AnalysisCTA from '@/components/AnalysisCTA';
 
 export const metadata = {
   title: '서비스 소개 | Who\'s Your Papa?',
@@ -19,11 +19,11 @@ export default function ServicePage() {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               AI 기술로 분석하는
               <span className="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent block mt-2">
-                가족 닮음 서비스
+                얼굴 유사도 분석 서비스
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              최신 얼굴 인식 AI 기술을 통해 부모와 자녀의 유사도를 정확하게 분석하고 
+              최신 얼굴 인식 AI 기술을 통해 두 사람의 얼굴 유사도를 정확하게 분석하고 
               객관적인 수치로 제공하는 혁신적인 서비스입니다.
             </p>
           </div>
@@ -40,13 +40,13 @@ export default function ServicePage() {
                 <h2 className="text-2xl font-bold text-gray-900">AI 얼굴 인식 기술</h2>
               </div>
               <p className="text-gray-700 mb-4">
-                딥러닝 기반의 얼굴 특징점 추출 알고리즘을 사용하여 눈, 코, 입, 얼굴형 등 
-                수백 개의 특징점을 정밀하게 분석합니다.
+                InsightFace의 최신 Buffalo 모델을 활용하여 얼굴의 주요 특징점을 
+                정밀하게 추출하고 분석합니다.
               </p>
               <ul className="text-sm text-gray-600 space-y-2">
-                <li>• 468개 얼굴 랜드마크 포인트 분석</li>
-                <li>• 다각도 얼굴 형태 비교</li>
-                <li>• 실시간 특징점 매칭</li>
+                <li>• 68개 핵심 얼굴 랜드마크 검출</li>
+                <li>• 고차원 얼굴 임베딩 벡터 생성</li>
+                <li>• 3D 얼굴 구조 분석 지원</li>
               </ul>
             </div>
 
@@ -60,13 +60,13 @@ export default function ServicePage() {
                 <h2 className="text-2xl font-bold text-gray-900">정확한 유사도 계산</h2>
               </div>
               <p className="text-gray-700 mb-4">
-                추출된 특징점들을 벡터화하여 코사인 유사도와 유클리드 거리를 계산하고, 
-                가중평균을 통해 최종 유사도를 도출합니다.
+                추출된 얼굴 임베딩 벡터를 비교하여 두 얼굴 간의 
+                유사도를 수치적으로 계산합니다.
               </p>
               <ul className="text-sm text-gray-600 space-y-2">
-                <li>• 0-100% 정밀 유사도 제공</li>
-                <li>• 부위별 세부 분석</li>
-                <li>• 통계적 신뢰도 검증</li>
+                <li>• 벡터 거리 기반 정확한 유사도 측정</li>
+                <li>• 연령 차이를 고려한 보정 알고리즘</li>
+                <li>• 신뢰도 점수와 함께 결과 제공</li>
               </ul>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function ServicePage() {
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">AI 분석</h3>
                 <p className="text-sm text-gray-600">
-                  AI가 얼굴 특징점을 추출하고 비교 분석을 시작합니다.
+                  InsightFace AI가 얼굴을 감지하고 특징을 추출합니다.
                 </p>
               </div>
 
@@ -102,7 +102,7 @@ export default function ServicePage() {
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">유사도 계산</h3>
                 <p className="text-sm text-gray-600">
-                  수백 개의 특징점을 비교하여 정확한 유사도를 계산합니다.
+                  얼굴 임베딩 벡터를 비교하여 유사도를 계산합니다.
                 </p>
               </div>
 
@@ -112,7 +112,7 @@ export default function ServicePage() {
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">결과 제공</h3>
                 <p className="text-sm text-gray-600">
-                  부위별 세부 분석과 함께 종합 유사도를 제공합니다.
+                  종합 유사도와 신뢰도 점수를 함께 제공합니다.
                 </p>
               </div>
             </div>
@@ -141,8 +141,8 @@ export default function ServicePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">빠른 처리</h3>
               <p className="text-gray-700">
-                최적화된 알고리즘으로 5초 이내에 
-                정확한 분석 결과를 제공합니다.
+                최적화된 InsightFace 모델로 빠르게 
+                분석 결과를 제공합니다.
               </p>
             </div>
 
@@ -154,25 +154,14 @@ export default function ServicePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">높은 정확도</h3>
               <p className="text-gray-700">
-                수천 장의 데이터로 훈련된 AI 모델로 
-                95% 이상의 높은 정확도를 자랑합니다.
+                대규모 데이터로 훈련된 InsightFace 모델이 
+                높은 정확도의 분석 결과를 제공합니다.
               </p>
             </div>
           </div>
 
           {/* CTA 섹션 */}
-          <div className="text-center bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-8 md:p-12 text-white">
-            <h2 className="text-3xl font-bold mb-4">지금 바로 체험해보세요!</h2>
-            <p className="text-xl mb-8 text-blue-100">
-              AI 기술로 가족의 닮은 정도를 정확하게 분석해보세요
-            </p>
-            <Link 
-              href="/"
-              className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-xl hover:bg-gray-50 transition-colors font-semibold text-lg"
-            >
-              무료로 분석하기 →
-            </Link>
-          </div>
+          <AnalysisCTA variant="gradient" />
         </div>
       </div>
 

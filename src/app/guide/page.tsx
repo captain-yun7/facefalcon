@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import AnalysisCTA from '@/components/AnalysisCTA';
 
 export const metadata = {
   title: '이용 가이드 | Who\'s Your Papa?',
-  description: 'AI 가족 닮음 분석 서비스 사용법과 최적의 결과를 얻는 방법, 자주 묻는 질문들을 안내합니다.',
+  description: 'AI 얼굴 유사도 분석 서비스 사용법과 최적의 결과를 얻는 방법, 자주 묻는 질문들을 안내합니다.',
 };
 
 export default function GuidePage() {
@@ -60,15 +61,15 @@ export default function GuidePage() {
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>부모 사진을 첫 번째 영역에 업로드</span>
+                    <span>비교할 사진들을 각각 업로드 영역에 추가</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>자녀 사진을 두 번째 영역에 업로드</span>
+                    <span>필요한 분석 모드를 선택 (개별 비교, 그룹 분석 등)</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>"분석 시작" 버튼을 클릭하고 5초간 대기</span>
+                    <span>"분석 시작" 버튼을 클릭하고 결과 확인</span>
                   </li>
                 </ul>
               </div>
@@ -129,25 +130,28 @@ export default function GuidePage() {
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">종합 유사도 점수</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">유사도 점수 해석</h3>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="bg-red-50 p-4 rounded-lg text-center border border-red-200">
-                    <div className="text-2xl font-bold text-red-600 mb-1">0-30%</div>
-                    <div className="text-sm text-red-700">유사도 낮음</div>
+                    <div className="text-2xl font-bold text-red-600 mb-1">0-40%</div>
+                    <div className="text-sm text-red-700">낮은 유사도</div>
+                    <p className="text-xs text-gray-600 mt-1">서로 다른 특징</p>
                   </div>
                   <div className="bg-yellow-50 p-4 rounded-lg text-center border border-yellow-200">
-                    <div className="text-2xl font-bold text-yellow-600 mb-1">31-70%</div>
-                    <div className="text-sm text-yellow-700">보통 유사도</div>
+                    <div className="text-2xl font-bold text-yellow-600 mb-1">41-70%</div>
+                    <div className="text-sm text-yellow-700">중간 유사도</div>
+                    <p className="text-xs text-gray-600 mt-1">부분적으로 닮음</p>
                   </div>
                   <div className="bg-green-50 p-4 rounded-lg text-center border border-green-200">
                     <div className="text-2xl font-bold text-green-600 mb-1">71-100%</div>
                     <div className="text-sm text-green-700">높은 유사도</div>
+                    <p className="text-xs text-gray-600 mt-1">매우 닮음</p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">부위별 분석</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">얼굴 특징별 비교</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
@@ -191,8 +195,8 @@ export default function GuidePage() {
                   Q. 분석 결과가 정확한가요?
                 </h3>
                 <p className="text-gray-700">
-                  AI는 95% 이상의 정확도를 가지고 있지만, 조명, 각도, 표정 등에 따라 결과가 달라질 수 있습니다. 
-                  참고용으로 활용해주시고, 의학적 또는 법적 근거로는 사용하지 마세요.
+                  AI 분석은 높은 정확도를 보이지만, 조명, 각도, 표정, 화장 등에 따라 결과가 달라질 수 있습니다. 
+                  재미와 참고용으로 활용해주시고, 의학적 또는 법적 근거로는 사용하지 마세요.
                 </p>
               </div>
 
@@ -221,8 +225,18 @@ export default function GuidePage() {
                   Q. 여러 명이 함께 있는 사진도 가능한가요?
                 </h3>
                 <p className="text-gray-700">
-                  현재는 한 사람의 얼굴만 있는 사진에서 최적의 결과를 제공합니다. 
-                  여러 명이 있는 경우 얼굴이 겹치거나 부정확한 결과가 나올 수 있습니다.
+                  사진당 한 명의 얼굴만 있을 때 가장 정확한 결과를 얻을 수 있습니다. 
+                  여러 명이 있는 경우 AI가 주요 얼굴을 선택하므로 원하지 않는 결과가 나올 수 있습니다.
+                </p>
+              </div>
+
+              <div className="border-b border-gray-200 pb-6 last:border-b-0">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Q. 어떤 관계의 사람들을 비교할 수 있나요?
+                </h3>
+                <p className="text-gray-700">
+                  가족(부모-자녀, 형제자매), 친구, 연인, 연예인 닮은꼴 등 
+                  모든 관계의 사람들을 비교할 수 있습니다. 두 사람의 얼굴 유사도를 객관적으로 분석합니다.
                 </p>
               </div>
 
@@ -274,20 +288,7 @@ export default function GuidePage() {
           </div>
 
           {/* CTA 섹션 */}
-          <div className="text-center">
-            <div className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-8 text-white">
-              <h2 className="text-2xl font-bold mb-4">준비되셨나요?</h2>
-              <p className="text-blue-100 mb-6">
-                가이드를 참고하여 정확한 분석 결과를 확인해보세요
-              </p>
-              <Link 
-                href="/"
-                className="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-xl hover:bg-gray-50 transition-colors font-semibold"
-              >
-                분석 시작하기 →
-              </Link>
-            </div>
-          </div>
+          <AnalysisCTA variant="minimal" />
         </div>
       </div>
 
