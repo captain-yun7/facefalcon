@@ -15,6 +15,7 @@ export default function FindParentsPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string>("");
   const [showResults, setShowResults] = useState(false);
+  const [useFamilyAnalysis, setUseFamilyAnalysis] = useState(true);
 
   const handleAddCandidate = (image: UploadedImage) => {
     if (candidateImages.length < 6) {
@@ -35,15 +36,22 @@ export default function FindParentsPage() {
     try {
       const targetImages = candidateImages.map(img => img.base64!);
       
-      const response = await fetch('/api/rekognition/find-similar', {
+      // 두 옵션 모두 Python 백엔드 사용 (가족 분석 vs 기본 분석은 파라미터로 구분)
+      const endpoint = '/api/family/find-parent';
+      
+      const requestBody = {
+        childImage: childImage.base64,
+        parentImages: targetImages,
+        childAge: undefined, // 필요시 나이 입력 필드 추가 가능
+        useFamilyAnalysis: useFamilyAnalysis, // 분석 방법 구분
+      };
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          sourceImage: childImage.base64,
-          targetImages,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       const data = await response.json();
@@ -51,7 +59,6 @@ export default function FindParentsPage() {
       if (!data.success) {
         throw new Error(data.error || 'Analysis failed');
       }
-
       setResults(data.data.matches || []);
       setShowResults(true);
     } catch (err) {
@@ -161,6 +168,44 @@ export default function FindParentsPage() {
               </p>
             </div>
 
+            {/* Analysis Method Selection */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg border border-blue-50 mb-8">
+              <h3 className="font-montserrat text-lg font-semibold text-blue-900 mb-4 text-center">
+                분석 방법 선택
+              </h3>
+              <div className="flex justify-center space-x-4">
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="analysisMethod"
+                    checked={useFamilyAnalysis}
+                    onChange={() => setUseFamilyAnalysis(true)}
+                    className="mr-2 text-blue-600"
+                  />
+                  <span className="font-roboto text-blue-800">
+                    🧬 가족 특화 분석 (추천)
+                  </span>
+                </label>
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="analysisMethod"
+                    checked={!useFamilyAnalysis}
+                    onChange={() => setUseFamilyAnalysis(false)}
+                    className="mr-2 text-blue-600"
+                  />
+                  <span className="font-roboto text-blue-800">
+                    📊 기본 얼굴 비교
+                  </span>
+                </label>
+              </div>
+              <p className="font-roboto text-sm text-blue-600/70 text-center mt-2">
+                {useFamilyAnalysis 
+                  ? "부모-자녀 특화 AI가 가족 유사도를 정밀하게 분석합니다" 
+                  : "일반적인 얼굴 유사도로 비교합니다"}
+              </p>
+            </div>
+
             {/* Analysis Button */}
             <div className="text-center mb-8">
               <button
@@ -180,10 +225,10 @@ export default function FindParentsPage() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    AI가 부모를 찾는 중...
+                    {useFamilyAnalysis ? '가족 특화 AI가 분석 중...' : 'AI가 부모를 찾는 중...'}
                   </span>
                 ) : (
-                  '부모 찾기 시작!'
+                  `${useFamilyAnalysis ? '🧬 가족 특화' : '📊 기본'} 분석 시작!`
                 )}
               </button>
             </div>

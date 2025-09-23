@@ -15,21 +15,13 @@ import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 import { getSimilarityLevel, formatPercentage } from '@/lib/utils/similarity-calculator';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
 
-type AnalysisMode = 'family' | 'comparison';
-
 export default function Home() {
-  const [mode, setMode] = useState<AnalysisMode>('family');
   
   // Family mode states
   const [parentImage, setParentImage] = useState<UploadedImage | null>(null);
   const [childImage, setChildImage] = useState<UploadedImage | null>(null);
   const [familyResult, setFamilyResult] = useState<PythonFamilySimilarityData | null>(null);
   
-  // Comparison mode states
-  const [targetChildImage, setTargetChildImage] = useState<UploadedImage | null>(null);
-  const [candidateImages, setCandidateImages] = useState<UploadedImage[]>([]);
-  const [comparisonResults, setComparisonResults] = useState<SimilarityResult[]>([]);
-  const [showComparisonResults, setShowComparisonResults] = useState(false);
   
   // Common states
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -147,69 +139,12 @@ export default function Home() {
     }
   };
 
-  const handleComparisonAnalyze = async () => {
-    if (!targetChildImage?.base64 || candidateImages.length < 2) return;
-
-    setIsAnalyzing(true);
-    setError("");
-
-    try {
-      const targetImages = candidateImages.map(img => img.base64!);
-      
-      const response = await fetch('/api/rekognition/find-similar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          sourceImage: targetChildImage.base64,
-          targetImages,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.error || 'Analysis failed');
-      }
-
-      setComparisonResults(data.data.matches || []);
-      setShowComparisonResults(true);
-    } catch (err) {
-      console.error('Error analyzing faces:', err);
-      setError(err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.');
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
-
-  const handleAddCandidate = (image: UploadedImage) => {
-    if (candidateImages.length < 6) {
-      setCandidateImages(prev => [...prev, image]);
-    }
-  };
-
-  const handleRemoveCandidate = (index: number) => {
-    setCandidateImages(prev => prev.filter((_, i) => i !== index));
-  };
 
   const handleReset = () => {
-    if (mode === 'family') {
-      setParentImage(null);
-      setChildImage(null);
-      setFamilyResult(null);
-    } else {
-      setTargetChildImage(null);
-      setCandidateImages([]);
-      setComparisonResults([]);
-      setShowComparisonResults(false);
-    }
+    setParentImage(null);
+    setChildImage(null);
+    setFamilyResult(null);
     setError("");
-  };
-
-  const handleModeChange = (newMode: AnalysisMode) => {
-    setMode(newMode);
-    handleReset();
   };
 
   // 연령 정보 추출 (Python API에서 제공하는 경우)
@@ -220,27 +155,6 @@ export default function Home() {
   const familyMessage = familyResult ? getFamilySimilarityMessage(familyResult.similarity, parentAge, childAge) : null;
   const displayConfidence = familyResult ? (familyResult.confidence * 100).toFixed(1) : "0";
   
-  // Comparison mode data
-  const bestMatch = comparisonResults.length > 0 ? comparisonResults[0] : null;
-
-  // Mode-specific content
-  const getModeContent = () => {
-    if (mode === 'family') {
-      return {
-        badge: "가족 분석",
-        title: "우리 아이, 부모님 중 누굴 닮았나?",
-        description: "부모님과 자녀의 사진을 업로드하여 닮은 정도를 정확하게 분석해드립니다"
-      };
-    } else {
-      return {
-        badge: "비교 분석", 
-        title: "여러 사람 중 누굴 제일 닮았나?",
-        description: "아이와 여러 후보자들의 사진을 비교하여 가장 닮은 사람을 찾아드립니다"
-      };
-    }
-  };
-
-  const modeContent = getModeContent();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -251,51 +165,24 @@ export default function Home() {
         <div className="text-center mb-12">
           <div className="mb-4">
             <span className="inline-block px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-4">
-              {modeContent.badge}
+              대표 서비스
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900 leading-tight">
-            {modeContent.title}
+            우리 아이, 부모님 중 누굴 닮았나?
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            {modeContent.description}
+            부모님과 자녀의 사진을 업로드하여 닮은 정도를 정확하게 분석해드립니다
           </p>
           <div className="mt-4 text-sm text-gray-500">
             InsightFace 기반 고정밀 분석 엔진
           </div>
         </div>
 
-        {/* Mode Selection Tabs */}
-        <div className="max-w-4xl mx-auto mb-8">
-          <div className="flex justify-center">
-            <div className="bg-white rounded-2xl border border-gray-200 p-2 inline-flex shadow-lg">
-              <button
-                onClick={() => handleModeChange('family')}
-                className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 cursor-pointer transform ${
-                  mode === 'family'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg scale-105'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-102'
-                }`}
-              >
-                부모-자녀 닮음 분석
-              </button>
-              <button
-                onClick={() => handleModeChange('comparison')}
-                className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 cursor-pointer transform ${
-                  mode === 'comparison'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg scale-105'
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50 hover:scale-102'
-                }`}
-              >
-                누굴 제일 닮았나요?
-              </button>
-            </div>
-          </div>
-        </div>
 
         <div className="max-w-4xl mx-auto">
-          {/* Family Mode */}
-          {mode === 'family' && !familyResult && !showAdScreen && (
+          {/* Family Analysis */}
+          {!familyResult && !showAdScreen && (
             <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
               <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                 {/* Parent Image */}
@@ -365,105 +252,12 @@ export default function Home() {
           )}
 
           {/* 광고 화면 - 기존 업로드 섹션 자리에 표시 */}
-          {mode === 'family' && !familyResult && showAdScreen && (
+          {!familyResult && showAdScreen && (
             <div className="mb-8">
               <AnalyzingAdScreen onComplete={handleAdComplete} />
             </div>
           )}
 
-          {/* Comparison Mode */}
-          {mode === 'comparison' && !showComparisonResults && (
-            <>
-              {/* Child Image Upload */}
-              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-6 text-center">
-                  아이 사진을 업로드하세요
-                </h3>
-                <div className="max-w-sm mx-auto">
-                  <ImageUploader
-                    onImageUpload={setTargetChildImage}
-                    onImageRemove={() => setTargetChildImage(null)}
-                    uploadedImage={targetChildImage || undefined}
-                    label="아이 사진 업로드"
-                  />
-                </div>
-              </div>
-
-              {/* Candidate Images */}
-              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-6 text-center">
-                  후보자들의 사진을 업로드하세요 (2-6명)
-                </h3>
-                
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6">
-                  {candidateImages.map((image, index) => (
-                    <div key={index} className="relative">
-                      <div className="relative aspect-square w-full">
-                        <Image
-                          src={image.preview}
-                          alt={`Candidate ${index + 1}`}
-                          fill
-                          className="object-cover rounded-lg border-2 border-gray-200"
-                        />
-                        <button
-                          onClick={() => handleRemoveCandidate(index)}
-                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
-                          aria-label="Remove candidate"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </div>
-                      <p className="text-sm text-gray-600 text-center mt-2">후보자 {index + 1}</p>
-                    </div>
-                  ))}
-                  
-                  {candidateImages.length < 6 && (
-                    <div className="aspect-square">
-                      <ImageUploader
-                        onImageUpload={handleAddCandidate}
-                        label={`후보자 ${candidateImages.length + 1}`}
-                        className="h-full"
-                      />
-                    </div>
-                  )}
-                </div>
-                
-                <p className="text-center text-sm text-gray-600">
-                  현재 {candidateImages.length}명의 후보자가 등록되었습니다.
-                  {candidateImages.length < 2 && " (최소 2명 필요)"}
-                </p>
-              </div>
-
-              {/* Analysis Button */}
-              <div className="text-center mb-8">
-                <button
-                  onClick={handleComparisonAnalyze}
-                  disabled={!targetChildImage || candidateImages.length < 2 || isAnalyzing}
-                  className={`
-                    w-full md:w-auto px-8 py-4 rounded-xl text-lg font-medium transition-all duration-200
-                    ${!targetChildImage || candidateImages.length < 2 || isAnalyzing
-                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                      : 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
-                    }
-                  `}
-                >
-                  {isAnalyzing ? (
-                    <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      AI가 부모를 찾는 중...
-                    </span>
-                  ) : (
-                    '부모 찾기 시작!'
-                  )}
-                </button>
-              </div>
-            </>
-          )}
 
           {/* Error Message */}
           {error && (
@@ -478,7 +272,7 @@ export default function Home() {
           )}
 
           {/* Family Results Section */}
-          {mode === 'family' && familyResult && familyMessage && (
+          {familyResult && familyMessage && (
             <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
               <div className="text-center mb-8">
                 <div className="inline-flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-800 rounded-full mb-4">
@@ -574,104 +368,27 @@ export default function Home() {
             </div>
           )}
 
-          {/* Comparison Results Section */}
-          {mode === 'comparison' && showComparisonResults && (
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">
-                부모 찾기 결과!
-              </h2>
-
-              {/* Winner */}
-              {bestMatch && (
-                <div className="text-center mb-12">
-                  <h3 className="text-2xl font-bold text-blue-700 mb-8">
-                    가장 가능성이 높은 부모님
-                  </h3>
-                  <div className="max-w-sm mx-auto mb-4">
-                    <div className="relative aspect-square w-full">
-                      <Image
-                        src={candidateImages[bestMatch.imageIndex]?.preview || ''}
-                        alt="Best match"
-                        fill
-                        className="object-cover rounded-lg border-4 border-blue-500"
-                      />
-                    </div>
-                  </div>
-                  <div className="text-4xl font-bold bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent mb-2">
-                    {formatPercentage(bestMatch.similarity)}
-                  </div>
-                  <p className="text-lg text-blue-600">
-                    {getSimilarityLevel(bestMatch.similarity).description}
-                  </p>
-                </div>
-              )}
-
-              {/* All Results Ranking */}
-              <div className="mb-8">
-                <h4 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-                  전체 순위
-                </h4>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {comparisonResults.map((result, index) => {
-                    const candidateImage = candidateImages[result.imageIndex];
-                    if (!candidateImage) return null;
-                    
-                    return (
-                      <div
-                        key={result.imageIndex}
-                        className={`
-                          p-4 rounded-lg border-2 transition-all
-                          ${index === 0 
-                            ? 'border-blue-500 bg-blue-50' 
-                            : 'border-blue-200 bg-blue-50'
-                          }
-                        `}
-                      >
-                        <div className="text-center">
-                          <div className="text-2xl mb-2 font-bold text-blue-700">
-                            {index + 1}위
-                          </div>
-                          <div className="relative aspect-square w-32 mx-auto mb-3">
-                            <Image
-                              src={candidateImage.preview}
-                              alt={`Candidate ${result.imageIndex + 1}`}
-                              fill
-                              className="object-cover rounded-lg"
-                            />
-                          </div>
-                          <div className="text-xl font-bold text-blue-900 mb-1">
-                            {formatPercentage(result.similarity)}
-                          </div>
-                          <div className={`text-sm ${getSimilarityLevel(result.similarity).color}`}>
-                            {getSimilarityLevel(result.similarity).level}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
-                <button
-                  onClick={handleReset}
-                  className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
-                >
-                  다시 시도하기
-                </button>
-                <button
-                  onClick={() => handleModeChange('family')}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
-                >
-                  부모-자녀 분석하기 →
-                </button>
-              </div>
+          {/* 더 많은 분석 CTA - 분석 컴포넌트 바로 아래 */}
+          <div className="text-center mt-12 mb-8">
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                더 많은 분석 기능을 원하시나요?
+              </h3>
+              <p className="text-gray-600 mb-4 max-w-md mx-auto">
+                누굴 제일 닮았나 찾기, 형제자매 분석 등<br/>
+                다양한 분석 도구를 사용해보세요
+              </p>
+              <Link
+                href="/analyze"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                더 많은 분석 보러가기 →
+              </Link>
             </div>
-          )}
+          </div>
 
           {/* Feature Cards - 결과가 없을 때만 표시 */}
-          {!familyResult && !showComparisonResults && (
+          {!familyResult && (
             <>
               <div className="grid md:grid-cols-3 gap-6 mt-16">
                 <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-shadow">
@@ -711,23 +428,21 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Bottom CTA */}
+              {/* Bottom CTA - 개발자 소개 */}
               <div className="text-center mt-16 mb-8">
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">
                     이 서비스가 마음에 드시나요?
                   </h3>
                   <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                    AI 이미지 모델과 웹 기술을 활용해 만든 프로젝트입니다.<br/>                    
+                    AI 이미지 모델과 웹 기술을 활용해 만든 프로젝트입니다
                   </p>
-                  <div className="flex flex-col sm:flex-row justify-center">
-                    <Link
-                      href="/about"
-                      className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
-                    >
-                      개발자 소개 보기
-                    </Link>                    
-                  </div>
+                  <Link
+                    href="/about"
+                    className="px-6 py-4 bg-white text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium border border-gray-200"
+                  >
+                    개발자 소개
+                  </Link>
                 </div>
               </div>
             </>

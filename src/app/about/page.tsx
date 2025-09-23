@@ -197,7 +197,7 @@ export default function AboutPage() {
           {/* Back to Home */}
           <div className="text-center">
             <Link 
-              href="/"
+              href="/analyze"
               className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
             >
               ← 닮음 분석하러 가기

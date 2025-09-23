@@ -128,7 +128,7 @@ export default async function BlogPostPage({
             </Link>
             
             <Link 
-              href="/"
+              href="/analyze"
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold group"
             >
               AI 분석 체험하기

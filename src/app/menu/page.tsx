@@ -50,7 +50,7 @@ export default function MenuPage() {
 
           {/* Feature Cards */}
           <main className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-12">
-            <Link href="/" className="group">
+            <Link href="/analyze" className="group">
               <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2 border border-blue-50 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative z-10">

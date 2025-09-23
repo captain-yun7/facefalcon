@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-
+    
     // Use images as-is (already compressed on client side)
     const result = await hybridFaceAnalysis.findSimilarFaces(sourceImage, targetImages);
 
@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Find the best match
     const matches = result.data?.matches || [];
     const bestMatch = matches.length > 0 ? matches[0] : null;
 

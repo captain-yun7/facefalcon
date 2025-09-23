@@ -21,7 +21,7 @@ export default function AnalysisCTA({
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">{title}</h2>
           <p className="text-gray-300 mb-6 text-sm md:text-base">{description}</p>
           <Link 
-            href="/"
+            href="/analyze"
             className="inline-flex items-center px-6 py-3 bg-white text-gray-900 rounded-full hover:bg-gray-100 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             {buttonText}
@@ -53,7 +53,7 @@ export default function AnalysisCTA({
               {description}
             </p>
             <Link 
-              href="/"
+              href="/analyze"
               className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold text-lg shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1"
             >
               {buttonText}
@@ -85,7 +85,7 @@ export default function AnalysisCTA({
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/"
+              href="/analyze"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
             >
               {buttonText}

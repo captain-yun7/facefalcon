@@ -182,31 +182,59 @@ class HybridFaceAnalysisClient {
       const provider = await this.selectProvider('findSimilarFaces', isBatch);
       
       if (provider === 'python') {
-        // Python API를 사용한 배치 처리
         const matches = [];
 
         for (let i = 0; i < targetImagesBase64.length; i++) {
-          const comparisonResult = await pythonApiClient.compareFaces(
-            sourceImageBase64,
-            targetImagesBase64[i],
-            0.01 // Python 0.0-1.0 범위에서 낮은 임계값
-          );
+          try {
+            const comparisonResult = await pythonApiClient.compareFaces(
+              sourceImageBase64,
+              targetImagesBase64[i],
+              0.01 // Python 0.0-1.0 범위에서 낮은 임계값
+            );
 
-          if (comparisonResult.success && comparisonResult.data) {
-            // Python API 클라이언트에서 이미 백분율로 변환되어 돌아옴
-            const similarity = comparisonResult.data.similarity;
+            if (comparisonResult.success && comparisonResult.data) {
+              // Python API 클라이언트에서 이미 백분율로 변환되어 돌아옴
+              const similarity = comparisonResult.data.similarity;
 
-            // 얼굴 세부정보 가져오기
-            const faceDetailsResult = await pythonApiClient.detectFaces(targetImagesBase64[i]);
-            const faceDetails = faceDetailsResult.success && faceDetailsResult.data 
-              ? faceDetailsResult.data[0] 
-              : undefined;
+              // 얼굴 세부정보 가져오기
+              const faceDetailsResult = await pythonApiClient.detectFaces(targetImagesBase64[i]);
+              const faceDetails = faceDetailsResult.success && faceDetailsResult.data 
+                ? faceDetailsResult.data[0] 
+                : undefined;
 
-            matches.push({
-              imageIndex: i,
-              similarity,
-              faceDetails,
-            });
+              matches.push({
+                imageIndex: i,
+                similarity,
+                faceDetails,
+              });
+            } else {
+              // 에러 메시지 정규화
+              const errorMsg = String(comparisonResult.error || '').toLowerCase();
+              
+              // 얼굴을 찾지 못한 경우에도 0% 유사도로 결과에 포함
+              if (errorMsg.includes('얼굴을 찾을 수 없습니다') || 
+                  errorMsg.includes('얼굴을 찾지') ||
+                  errorMsg.includes('no face') ||
+                  errorMsg.includes('face not found') ||
+                  errorMsg.includes('얼굴 비교 실패') ||
+                  errorMsg.includes('얼굴을 감지') ||
+                  errorMsg.includes('face detection')) {
+                matches.push({
+                  imageIndex: i,
+                  similarity: 0,
+                  faceDetails: undefined,
+                });
+              } else {
+                // 기타 에러도 0%로 처리하여 결과에서 완전히 누락되지 않도록 함
+                matches.push({
+                  imageIndex: i,
+                  similarity: 0,
+                  faceDetails: undefined,
+                });
+              }
+            }
+          } catch (err) {
+            console.error(`Error processing image ${i + 1}:`, err);
           }
         }
 
@@ -313,6 +341,39 @@ class HybridFaceAnalysisClient {
 
     } catch (error) {
       console.error('Hybrid compareFamilyFaces error:', error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      };
+    }
+  }
+
+  async findMostSimilarParentWithFamilyAnalysis(
+    childImageBase64: string,
+    parentImagesBase64: string[],
+    childAge?: number,
+    useFamilyAnalysis: boolean = true
+  ): Promise<ApiResponse<{ matches: Array<{ imageIndex: number; similarity: number; faceDetails?: any }> }>> {
+    try {
+      const provider = await this.selectProvider('findMostSimilarParent');
+      
+      if (provider === 'python') {
+        const result = await pythonApiClient.findMostSimilarParent(
+          childImageBase64,
+          parentImagesBase64,
+          childAge,
+          useFamilyAnalysis // 파라미터로 전달받은 값 사용
+        );
+
+        return result;
+
+      } else {
+        // AWS의 기본 findSimilarFaces 함수 사용
+        return await this.findSimilarFaces(childImageBase64, parentImagesBase64);
+      }
+
+    } catch (error) {
+      console.error('Family analysis error:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',

@@ -9,6 +9,7 @@ export default function Navbar() {
 
   const navItems = [
     { href: "/", label: "홈" },
+    { href: "/analyze", label: "분석하기" },
     { href: "/service", label: "서비스 소개" },
     { href: "/guide", label: "이용 가이드" },
     { href: "/blog", label: "AI 기술 정보" },
