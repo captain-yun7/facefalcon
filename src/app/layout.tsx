@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Roboto, Playfair_Display, Fredoka } from "next/font/google";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${roboto.variable} ${playfair.variable} ${fredoka.variable} antialiased`}
       >
+        <GoogleAnalytics />
         {children}
       </body>
     </html>

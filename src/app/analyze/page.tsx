@@ -11,6 +11,7 @@ import { UploadedImage, SimilarityResult } from '@/lib/types';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
+import { analytics } from '@/components/GoogleAnalytics';
 
 type AnalysisType = 'parent-child' | 'who-most-similar' | '';
 
@@ -38,6 +39,11 @@ export default function AnalyzePage() {
   const [error, setError] = useState<string>("");
 
   const handleAnalysisChange = (value: AnalysisType) => {
+    // Track analysis type change
+    if (selectedAnalysis !== value) {
+      analytics.trackAnalysisTypeChange(selectedAnalysis, value);
+    }
+    
     setSelectedAnalysis(value);
     setIsDropdownOpen(false);
     handleReset();
@@ -100,6 +106,11 @@ export default function AnalyzePage() {
     if (!parentImage?.base64 || !childImage?.base64) return;
 
     console.log('🚀 가족 분석 시작');
+    const startTime = Date.now();
+    
+    // Track analysis start
+    analytics.trackAnalysisStart('parent-child');
+    
     setIsAnalyzing(true);
     setError("");
     setPendingAnalysisResult(null);
@@ -127,9 +138,22 @@ export default function AnalyzePage() {
 
       setPendingAnalysisResult(data.data);
       console.log('✨ 분석 완료, 광고 화면 표시');
+      
+      // Track successful analysis
+      const processingTime = Date.now() - startTime;
+      analytics.trackAnalysisComplete(
+        'parent-child',
+        data.data?.similarity,
+        data.data?.confidence ? data.data.confidence * 100 : undefined,
+        processingTime
+      );
     } catch (err) {
       console.error('❌ 에러 발생:', err);
       setPendingAnalysisError(err);
+      
+      // Track analysis error
+      const errorMessage = err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.';
+      analytics.trackAnalysisError('parent-child', 'api_error', errorMessage);
     }
 
     // 광고 화면 표시
@@ -165,6 +189,9 @@ export default function AnalyzePage() {
 
       const imageDataUrl = await generateResultImage(resultData);
       downloadImage(imageDataUrl);
+      
+      // Track result download
+      analytics.trackResultShare('download', 'parent-child');
     } catch (error) {
       console.error('이미지 생성 실패:', error);
       alert('이미지 생성에 실패했습니다. 다시 시도해주세요.');
@@ -195,9 +222,12 @@ export default function AnalyzePage() {
         
         if (copied) {
           alert('공유 텍스트가 클립보드에 복사되었습니다!\n메신저나 SNS에 붙여넣기 해주세요.');
+          analytics.trackResultShare('clipboard', 'parent-child');
         } else {
           alert('이 브라우저에서는 직접 공유가 지원되지 않습니다.\n"이미지 다운로드" 버튼을 사용해주세요.');
         }
+      } else {
+        analytics.trackResultShare('web_share', 'parent-child');
       }
     } catch (error) {
       console.error('공유 실패:', error);
@@ -214,6 +244,11 @@ export default function AnalyzePage() {
       console.log('❌ 조건 미충족 - 대상 이미지:', !!targetChildImage?.base64, '후보자 수:', candidateImages.length);
       return;
     }
+
+    const startTime = Date.now();
+    
+    // Track analysis start
+    analytics.trackAnalysisStart('who-most-similar');
 
     setIsAnalyzing(true);
     setError("");
@@ -319,15 +354,31 @@ export default function AnalyzePage() {
       
       // 결과가 없는 경우에만 에러 표시
       if (matches.length === 0) {
-        setPendingAnalysisError(new Error('분석할 수 있는 얼굴을 찾지 못했습니다. 얼굴이 선명하게 보이는 정면 사진을 사용해주세요.'));
+        const errorMsg = '분석할 수 있는 얼굴을 찾지 못했습니다. 얼굴이 선명하게 보이는 정면 사진을 사용해주세요.';
+        setPendingAnalysisError(new Error(errorMsg));
+        analytics.trackAnalysisError('who-most-similar', 'no_faces_detected', errorMsg);
       } else {
         // 0% 유사도도 정상적인 결과로 처리 (얼굴은 감지되었지만 닮지 않은 경우)
         console.log('✅ 유효한 매치 결과 확인:', matches.map((m: any) => ({ index: m.imageIndex, similarity: m.similarity })));
         setPendingAnalysisResult(matches);
+        
+        // Track successful analysis
+        const processingTime = Date.now() - startTime;
+        const bestMatch = matches[0];
+        analytics.trackAnalysisComplete(
+          'who-most-similar',
+          bestMatch?.similarity,
+          bestMatch?.faceDetails?.confidence ? bestMatch.faceDetails.confidence * 100 : undefined,
+          processingTime
+        );
       }
     } catch (err) {
       console.error('❌ 비교 분석 에러:', err);
       setPendingAnalysisError(err);
+      
+      // Track analysis error
+      const errorMessage = err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.';
+      analytics.trackAnalysisError('who-most-similar', 'api_error', errorMessage);
     }
 
     // 광고 화면 표시
@@ -357,6 +408,7 @@ export default function AnalyzePage() {
     });
     if (candidateImages.length < 6) {
       setCandidateImages(prev => [...prev, image]);
+      analytics.trackImageUpload('candidate', image.file.size, image.file.type);
       console.log('✅ 후보자 추가 완료, 총', candidateImages.length + 1, '명');
     } else {
       console.log('❌ 후보자 최대 수 초과');
@@ -519,7 +571,10 @@ export default function AnalyzePage() {
                         </h3>
                       </div>
                       <ImageUploader
-                        onImageUpload={setParentImage}
+                        onImageUpload={(image) => {
+                          setParentImage(image);
+                          analytics.trackImageUpload('parent', image.file.size, image.file.type);
+                        }}
                         onImageRemove={() => setParentImage(null)}
                         uploadedImage={parentImage || undefined}
                         label="부모 사진 업로드"
@@ -537,7 +592,10 @@ export default function AnalyzePage() {
                         </h3>
                       </div>
                       <ImageUploader
-                        onImageUpload={setChildImage}
+                        onImageUpload={(image) => {
+                          setChildImage(image);
+                          analytics.trackImageUpload('child', image.file.size, image.file.type);
+                        }}
                         onImageRemove={() => setChildImage(null)}
                         uploadedImage={childImage || undefined}
                         label="자녀 사진 업로드"
@@ -691,7 +749,10 @@ export default function AnalyzePage() {
                     </h3>
                     <div className="max-w-sm mx-auto">
                       <ImageUploader
-                        onImageUpload={setTargetChildImage}
+                        onImageUpload={(image) => {
+                          setTargetChildImage(image);
+                          analytics.trackImageUpload('child', image.file.size, image.file.type);
+                        }}
                         onImageRemove={() => setTargetChildImage(null)}
                         uploadedImage={targetChildImage || undefined}
                         label="아이 사진 업로드"
