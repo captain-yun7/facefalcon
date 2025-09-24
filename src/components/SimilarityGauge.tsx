@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from '@/lib/simple-i18n';
 
 interface SimilarityGaugeProps {
   percentage: number;
@@ -8,6 +9,7 @@ interface SimilarityGaugeProps {
 }
 
 export default function SimilarityGauge({ percentage, isAnimating = true }: SimilarityGaugeProps) {
+  const { t, locale } = useTranslations();
   const [animatedPercentage, setAnimatedPercentage] = useState(0);
 
   useEffect(() => {
@@ -32,11 +34,19 @@ export default function SimilarityGauge({ percentage, isAnimating = true }: Simi
 
   // 구간별 해석
   const getInterpretation = (value: number) => {
-    if (value >= 80) return '거의 동일인 수준';
-    if (value >= 60) return '확실한 가족';
-    if (value >= 40) return '꽤 닮았음';
-    if (value >= 20) return '은근 닮은 구석';
-    return '각자의 매력';
+    if (locale === 'en') {
+      if (value >= 80) return 'Almost identical';
+      if (value >= 60) return 'Definite family';
+      if (value >= 40) return 'Quite similar';
+      if (value >= 20) return 'Some resemblance';
+      return 'Unique charm';
+    } else {
+      if (value >= 80) return '거의 동일인 수준';
+      if (value >= 60) return '확실한 가족';
+      if (value >= 40) return '꽤 닮았음';
+      if (value >= 20) return '은근 닮은 구석';
+      return '각자의 매력';
+    }
   };
 
   return (

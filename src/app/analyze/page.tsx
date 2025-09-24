@@ -17,7 +17,7 @@ import { useTranslations } from '@/lib/simple-i18n';
 type AnalysisType = 'parent-child' | 'who-most-similar' | '';
 
 export default function AnalyzePage() {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
   const [selectedAnalysis, setSelectedAnalysis] = useState<AnalysisType>('parent-child');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -180,17 +180,24 @@ export default function AnalyzePage() {
       return;
     }
 
+    console.log('🎨 Download function - current locale:', locale);
+    console.log('🎨 useTranslations hook - locale:', locale);
+    
     try {
       const resultData: ResultImageData = {
         parentImageUrl: parentImage.preview,
         childImageUrl: childImage.preview,
         similarity: familyResult.similarity,
         confidence: familyResult.confidence * 100,
-        displayPercent: familyMessage.displayPercent
+        displayPercent: familyMessage.displayPercent,
+        locale
       };
 
+      console.log('🎨 ResultImageData:', resultData);
+      console.log('🎨 About to call generateResultImage with locale:', resultData.locale);
       const imageDataUrl = await generateResultImage(resultData);
-      downloadImage(imageDataUrl);
+      console.log('🎨 About to call downloadImage with locale:', locale);
+      downloadImage(imageDataUrl, undefined, locale);
       
       // Track result download
       analytics.trackResultShare('download', 'parent-child');
@@ -205,22 +212,26 @@ export default function AnalyzePage() {
       return;
     }
 
+    console.log('📤 Share function - current locale:', locale);
+
     try {
       const resultData: ResultImageData = {
         parentImageUrl: parentImage.preview,
         childImageUrl: childImage.preview,
         similarity: familyResult.similarity,
         confidence: familyResult.confidence * 100,
-        displayPercent: familyMessage.displayPercent
+        displayPercent: familyMessage.displayPercent,
+        locale
       };
 
+      console.log('📤 ResultImageData locale:', resultData.locale);
       const imageDataUrl = await generateResultImage(resultData);
-      const shared = await shareResultImage(imageDataUrl, familyMessage.displayPercent);
+      const shared = await shareResultImage(imageDataUrl, familyMessage.displayPercent, locale);
       
       if (!shared) {
         // Web Share API 미지원 시 폴백: 클립보드에 텍스트 복사
         const shareText = t('share.resultText', { percent: familyMessage.displayPercent });
-        const copied = await copyToClipboard(shareText);
+        const copied = await copyToClipboard(shareText, locale);
         
         if (copied) {
           alert(t('share.clipboardCopied'));

@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from '@/lib/simple-i18n';
 
 interface AnalyzingAdScreenProps {
   onComplete: () => void;
 }
 
 export default function AnalyzingAdScreen({ onComplete }: AnalyzingAdScreenProps) {
+  const { t } = useTranslations();
   const [countdown, setCountdown] = useState(5);
   const [isComplete, setIsComplete] = useState(false);
 
@@ -40,15 +42,15 @@ export default function AnalyzingAdScreen({ onComplete }: AnalyzingAdScreenProps
 
         {/* AI 분석 중 텍스트 */}
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          AI가 열심히 분석 중입니다
+          {t('analyzing.title')}
         </h2>
         <p className="text-gray-600 mb-8">
-          정확한 결과를 위해 잠시만 기다려주세요
+          {t('analyzing.subtitle')}
         </p>
 
         {/* 카운트다운 */}
         <div className="text-sm text-gray-500">
-          {countdown}초 후 결과가 나타납니다...
+          {t('analyzing.countdown', { seconds: countdown })}
         </div>
     </div>
   );

@@ -49,9 +49,11 @@ const loadTranslations = async (locale: Locale) => {
 
 // 언어 변경 함수
 const changeGlobalLocale = (newLocale: Locale) => {
+  console.log('🌍 Changing locale from', globalLocale, 'to', newLocale);
   if (typeof window !== 'undefined' && globalLocale !== newLocale) {
     localStorage.setItem('locale', newLocale);
     globalLocale = newLocale;
+    console.log('🌍 globalLocale updated to:', globalLocale);
     loadTranslations(newLocale);
   }
 };
@@ -109,7 +111,7 @@ export function useTranslations() {
   };
 
   return {
-    locale: globalLocale || 'ko',
+    locale: globalLocale || getInitialLocale(),
     t,
     changeLocale: changeGlobalLocale,
     loading: globalLoading
