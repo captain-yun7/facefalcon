@@ -5,6 +5,7 @@ import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { validateImageFile, compressImage } from '@/lib/utils/image-processing';
 import { UploadedImage } from '@/lib/types';
+import { useTranslations } from '@/lib/simple-i18n';
 
 interface ImageUploaderProps {
   onImageUpload: (image: UploadedImage) => void;
@@ -18,11 +19,14 @@ export default function ImageUploader({
   onImageUpload,
   onImageRemove,
   uploadedImage,
-  label = "이미지 업로드",
+  label,
   className = "",
 }: ImageUploaderProps) {
+  const { t } = useTranslations();
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string>("");
+  
+  const defaultLabel = label || t('imageUpload.label');
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
@@ -55,11 +59,11 @@ export default function ImageUploader({
       onImageUpload(uploadedImage);
     } catch (err) {
       console.error('Error processing image:', err);
-      setError("이미지 처리 중 오류가 발생했습니다.");
+      setError(t('errors.imageProcessingError'));
     } finally {
       setIsProcessing(false);
     }
-  }, [onImageUpload]);
+  }, [onImageUpload, t]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -117,18 +121,18 @@ export default function ImageUploader({
         {isProcessing ? (
           <div className="flex flex-col items-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mb-4"></div>
-            <p className="text-gray-600">이미지 처리 중...</p>
+            <p className="text-gray-600">{t('imageUpload.processing')}</p>
           </div>
         ) : (
           <div className="flex flex-col items-center">
             <svg className="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
-            <p className="text-lg font-medium text-gray-700 mb-2">{label}</p>
+            <p className="text-lg font-medium text-gray-700 mb-2">{defaultLabel}</p>
             <p className="text-sm text-gray-500 mb-1">
-              {isDragActive ? "여기에 이미지를 놓아주세요" : "이미지를 끌어다 놓거나 클릭하여 선택하세요"}
+              {isDragActive ? t('imageUpload.dragActive') : t('imageUpload.dragDrop')}
             </p>
-            <p className="text-xs text-gray-400">JPEG, PNG, WebP (최대 10MB)</p>
+            <p className="text-xs text-gray-400">{t('imageUpload.formats')}</p>
           </div>
         )}
       </div>
