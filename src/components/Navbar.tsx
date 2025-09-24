@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { useTranslations } from "@/lib/i18n";
+import { useTranslations } from "@/lib/simple-i18n";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -108,6 +108,12 @@ export default function Navbar() {
                 );
               })}
             </nav>
+            {/* Mobile Language Switcher */}
+            <div className="mt-4 pt-4 border-t border-blue-100">
+              <div className="px-4">
+                <LanguageSwitcher />
+              </div>
+            </div>
           </div>
         )}
       </div>
