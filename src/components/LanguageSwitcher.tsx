@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useTranslations, Locale } from '@/lib/simple-i18n';
+import Image from 'next/image';
 
 interface Language {
   code: Locale;
@@ -10,8 +11,8 @@ interface Language {
 }
 
 const languages: Language[] = [
-  { code: 'ko', name: '한국어', flag: '🇰🇷' },
-  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'ko', name: '한국어', flag: '/flags/kr.svg' },
+  { code: 'en', name: 'English', flag: '/flags/us.svg' },
 ];
 
 export default function LanguageSwitcher() {
@@ -49,7 +50,14 @@ export default function LanguageSwitcher() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-blue-700 bg-white/80 backdrop-blur-sm hover:bg-blue-50 border border-blue-200/50 rounded-lg transition-all duration-200 hover:shadow-md hover:shadow-blue-500/10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
       >
-        <span className="text-lg">{currentLanguage.flag}</span>
+        <div className="relative w-6 h-4 rounded overflow-hidden">
+          <Image
+            src={currentLanguage.flag}
+            alt={`${currentLanguage.name} flag`}
+            fill
+            className="object-cover"
+          />
+        </div>
         <span className="hidden sm:inline">{currentLanguage.name}</span>
         <svg 
           className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
@@ -74,7 +82,14 @@ export default function LanguageSwitcher() {
                   : 'text-gray-700 hover:text-blue-700'
               }`}
             >
-              <span className="text-lg">{language.flag}</span>
+              <div className="relative w-6 h-4 rounded overflow-hidden">
+                <Image
+                  src={language.flag}
+                  alt={`${language.name} flag`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <span>{language.name}</span>
               {locale === language.code && (
                 <svg className="w-4 h-4 ml-auto text-blue-600" fill="currentColor" viewBox="0 0 24 24">
