@@ -17,7 +17,7 @@
     "subtitle": "Please select your preferred analysis type",
     "placeholder": "Select analysis type",
     "parentChild": {
-      "title": "Parent-Child Similarity Analysis",
+      "title": "Paternity Test",
       "description": "Compare parent and child photos to analyze similarity"
     },
     "whoMostSimilar": {

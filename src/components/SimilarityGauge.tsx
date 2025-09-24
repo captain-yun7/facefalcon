@@ -63,15 +63,15 @@ export default function SimilarityGauge({ percentage, isAnimating = true }: Simi
       </div>
       
       {/* 퍼센트 표시 */}
-      <div className="text-center mb-2">
-        <span className="text-3xl font-bold" style={{ color: getColor(animatedPercentage) }}>
+      <div className="text-center mb-3">
+        <span className="text-4xl md:text-5xl font-bold" style={{ color: getColor(animatedPercentage) }}>
           {Math.round(animatedPercentage)}%
         </span>
       </div>
 
       {/* 구간 해석 */}
       <div className="text-center">
-        <span className="text-lg text-gray-600">
+        <span className="text-xl md:text-2xl text-gray-600 font-medium">
           {getInterpretation(animatedPercentage)}
         </span>
       </div>

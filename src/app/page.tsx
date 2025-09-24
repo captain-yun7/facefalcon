@@ -275,97 +275,98 @@ export default function Home() {
 
           {/* Family Results Section */}
           {familyResult && familyMessage && (
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-800 rounded-full mb-4">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="font-medium">{t('home.results.analysisComplete')}</span>
-                </div>
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm mb-8">
+              {/* Analysis Title Header */}
+              <div className="text-center p-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                  {t('home.results.resultTitle')}
+                  {t('analysisSelector.parentChild.title')}
                 </h2>
-                <p className="text-gray-600">
-                  {t('home.results.confidence', { confidence: displayConfidence })}
+                <p className="text-sm md:text-base text-blue-600 font-semibold">
+                  Whos your papa AI {t('home.results.analysisResult') || '분석 결과'}
                 </p>
               </div>
-
-              {/* 분석 대상 사진들 */}
-              <div className="mb-8">
-                <div className="flex items-center justify-center gap-6 mb-6">
+              
+              {/* Photo Grid */}
+              <div className="p-6 md:p-8">
+                <div className="flex items-center justify-center gap-12 md:gap-16 mb-6">
                   {/* 부모 사진 */}
                   <div className="text-center">
-                    <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
+                    <div className="text-lg font-medium text-gray-700 mb-4">
+                      {t('home.results.parentLabel')}
+                    </div>
+                    <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
                       <Image
                         src={parentImage?.preview || ''}
                         alt={t('home.results.parentLabel')}
                         fill
-                        className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+                        className="object-cover"
                       />
                     </div>
-                    <span className="text-sm text-gray-600 font-medium">{t('home.results.parentLabel')}</span>
                   </div>
-
-                  {/* 하트 아이콘 */}
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 text-pink-500 mb-1">
-                      <svg fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                      </svg>
+                  
+                  {/* 하트 이모지 */}
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="w-20 h-20 mb-3 flex items-center justify-center text-4xl">
+                      ❤️
                     </div>
-                    <span className="text-xs text-gray-500">{t('home.results.similarity')}</span>
                   </div>
-
+                  
                   {/* 자녀 사진 */}
                   <div className="text-center">
-                    <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
+                    <div className="text-lg font-medium text-gray-700 mb-4">
+                      {t('home.results.childLabel')}
+                    </div>
+                    <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
                       <Image
                         src={childImage?.preview || ''}
                         alt={t('home.results.childLabel')}
                         fill
-                        className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+                        className="object-cover"
                       />
                     </div>
-                    <span className="text-sm text-gray-600 font-medium">{t('home.results.childLabel')}</span>
                   </div>
                 </div>
+                
+                {/* Similarity Gauge */}
+                <div className="bg-white rounded-xl p-6 mb-6 border border-gray-200">
+                  <SimilarityGauge 
+                    percentage={familyMessage.displayPercent} 
+                    isAnimating={true}
+                  />
+                </div>
               </div>
-
-              {/* Similarity Gauge */}
-              <div className="mb-8">
-                <SimilarityGauge 
-                  percentage={familyMessage.displayPercent} 
-                  isAnimating={true}
-                />
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
-                <button
-                  onClick={handleReset}
-                  className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
-                >
-                  {t('home.results.tryAgain')}
-                </button>
-                <button
-                  onClick={handleDownloadResult}
-                  className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-medium flex items-center justify-center gap-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  {t('home.results.downloadImage')}
-                </button>
-                <button
-                  onClick={handleShareResult}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                  </svg>
-                  {t('home.results.shareResult')}
-                </button>
+              
+              {/* Actions */}
+              <div className="border-t border-gray-100 bg-gray-50">
+                <div className="grid grid-cols-3 divide-x divide-gray-200">
+                  <button
+                    onClick={handleReset}
+                    className="px-4 py-4 text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    {t('home.results.tryAgain')}
+                  </button>
+                  <button
+                    onClick={handleDownloadResult}
+                    className="px-4 py-4 text-sm font-medium text-green-600 hover:bg-green-50 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    {t('home.results.downloadImage')}
+                  </button>
+                  <button
+                    onClick={handleShareResult}
+                    className="px-4 py-4 text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                    </svg>
+                    {t('home.results.shareResult')}
+                  </button>
+                </div>
               </div>
             </div>
           )}

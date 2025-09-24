@@ -17,7 +17,7 @@
     "subtitle": "원하는 분석 유형을 선택해주세요",
     "placeholder": "분석 유형을 선택하세요",
     "parentChild": {
-      "title": "부모-자녀 닮음 분석",
+      "title": "친자 확인",
       "description": "부모와 자녀 사진을 비교해서 닮은 정도를 분석합니다"
     },
     "whoMostSimilar": {

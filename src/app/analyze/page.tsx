@@ -654,31 +654,26 @@ export default function AnalyzePage() {
 
               {/* Family Results Section - Modern Vertical Stack */}
               {familyResult && familyMessage && (
-                <div className="bg-white rounded-2xl border border-gray-200 shadow-sm max-w-2xl mx-auto mb-8 overflow-hidden">
-                  {/* Large Number Header */}
+                <div className="bg-white rounded-xl border border-gray-200 shadow-sm mb-8">
+                  {/* Analysis Title Header */}
                   <div className="text-center p-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
-                    <div className="inline-flex items-center space-x-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium mb-4">
-                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      {t('pages.analyze.analysisCompleted')}
-                    </div>
-                    <div className="text-6xl md:text-8xl font-black leading-none text-gray-900 mb-2">
-                      {familyMessage.displayPercent}%
-                    </div>
-                    <div className="text-sm md:text-base text-gray-600 font-medium">
-                      {locale === 'en' ? 'Similarity Match' : '닮음 정도'}
-                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                      {selectedOption?.title || t('analysisSelector.parentChild.title')}
+                    </h2>
+                    <p className="text-sm md:text-base text-blue-600 font-semibold">
+                      Whos your papa AI {locale === 'en' ? 'Analysis Result' : '분석 결과'}
+                    </p>
                   </div>
                   
                   {/* Photo Grid */}
                   <div className="p-6 md:p-8">
-                    <div className="grid grid-cols-2 gap-6 mb-6">
+                    <div className="flex items-center justify-center gap-12 md:gap-16 mb-6">
+                      {/* 부모 사진 */}
                       <div className="text-center">
-                        <div className="text-sm font-medium text-gray-700 mb-3">
+                        <div className="text-lg font-medium text-gray-700 mb-4">
                           {t('pages.analyze.parent')}
                         </div>
-                        <div className="relative aspect-square rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
+                        <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
                           <Image
                             src={parentImage?.preview || ''}
                             alt={t('pages.analyze.parent')}
@@ -687,11 +682,20 @@ export default function AnalyzePage() {
                           />
                         </div>
                       </div>
+                      
+                      {/* 하트 이모지 */}
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="w-20 h-20 mb-3 flex items-center justify-center text-4xl">
+                          ❤️
+                        </div>
+                      </div>
+                      
+                      {/* 자녀 사진 */}
                       <div className="text-center">
-                        <div className="text-sm font-medium text-gray-700 mb-3">
+                        <div className="text-lg font-medium text-gray-700 mb-4">
                           {t('pages.analyze.child')}
                         </div>
-                        <div className="relative aspect-square rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
+                        <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
                           <Image
                             src={childImage?.preview || ''}
                             alt={t('pages.analyze.child')}
@@ -702,39 +706,12 @@ export default function AnalyzePage() {
                       </div>
                     </div>
                     
-                    {/* Stats */}
-                    <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                      <div className="text-sm font-semibold text-gray-700 mb-3">
-                        {locale === 'en' ? 'Analysis Details' : '분석 상세정보'}
-                      </div>
-                      <div className="grid grid-cols-3 gap-4 text-center">
-                        <div>
-                          <div className="text-2xl font-bold text-blue-600">{displayConfidence}%</div>
-                          <div className="text-xs text-gray-500 font-medium">
-                            {locale === 'en' ? 'Confidence' : '신뢰도'}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-green-600">
-                            {familyMessage.displayPercent >= 80 ? 'A' : 
-                             familyMessage.displayPercent >= 60 ? 'B' : 
-                             familyMessage.displayPercent >= 40 ? 'C' : 'D'}
-                          </div>
-                          <div className="text-xs text-gray-500 font-medium">
-                            {locale === 'en' ? 'Grade' : '등급'}
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-2xl font-bold text-purple-600">
-                            {familyMessage.displayPercent >= 70 ? '😊' : 
-                             familyMessage.displayPercent >= 50 ? '🙂' : 
-                             familyMessage.displayPercent >= 30 ? '😐' : '🤔'}
-                          </div>
-                          <div className="text-xs text-gray-500 font-medium">
-                            {locale === 'en' ? 'Result' : '결과'}
-                          </div>
-                        </div>
-                      </div>
+                    {/* Similarity Gauge */}
+                    <div className="bg-white rounded-xl p-6 mb-6 border border-gray-200">
+                      <SimilarityGauge 
+                        percentage={familyMessage.displayPercent} 
+                        isAnimating={true}
+                      />
                     </div>
                   </div>
                   
