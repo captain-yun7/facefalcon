@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Similarity Analysis - Clean Design Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .subtle-shadow {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .progress-circle {
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: calc(251.2 - (251.2 * var(--progress)) / 100);
+            transition: stroke-dashoffset 0.5s ease-in-out;
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto space-y-16">
+        
+        <!-- Design Option 1: Ultra Minimal -->
+        <section>
+            <h2 class="text-2xl font-bold mb-8 text-gray-800">옵션 1: Ultra Minimal</h2>
+            <div class="bg-white rounded-lg border border-gray-200 p-8 max-w-2xl mx-auto">
+                <!-- Simple Header -->
+                <div class="text-center mb-8">
+                    <div class="w-3 h-3 bg-green-500 rounded-full mx-auto mb-4"></div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-1">분석 완료</h3>
+                    <p class="text-sm text-gray-500">신뢰도 94.2%</p>
+                </div>
+                
+                <!-- Photos Row -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex-1 text-center">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full mx-auto mb-3 flex items-center justify-center">
+                            <span class="text-xs text-gray-500">부모</span>
+                        </div>
+                        <div class="text-xs text-gray-400">Parent</div>
+                    </div>
+                    
+                    <div class="flex-1 text-center">
+                        <div class="text-4xl font-bold text-gray-900 mb-2">72%</div>
+                        <div class="text-xs text-gray-400">유사도</div>
+                    </div>
+                    
+                    <div class="flex-1 text-center">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full mx-auto mb-3 flex items-center justify-center">
+                            <span class="text-xs text-gray-500">자녀</span>
+                        </div>
+                        <div class="text-xs text-gray-400">Child</div>
+                    </div>
+                </div>
+                
+                <!-- Simple Actions -->
+                <div class="flex gap-3 justify-center">
+                    <button class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50">다시 분석</button>
+                    <button class="px-4 py-2 text-sm bg-gray-900 text-white rounded hover:bg-gray-800">다운로드</button>
+                    <button class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50">공유</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Option 2: Monospace Clean -->
+        <section>
+            <h2 class="text-2xl font-bold mb-8 text-gray-800">옵션 2: Monospace Clean</h2>
+            <div class="bg-white border border-gray-300 max-w-2xl mx-auto" style="font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;">
+                
+                <!-- Terminal-like header -->
+                <div class="border-b border-gray-300 px-6 py-4 bg-gray-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                        <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                        <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                    </div>
+                    <div class="text-sm text-gray-600">family_similarity_analysis.result</div>
+                </div>
+                
+                <div class="p-6">
+                    <!-- Code-like output -->
+                    <div class="text-sm space-y-2 mb-6">
+                        <div class="text-gray-400">$ analyzing faces...</div>
+                        <div class="text-gray-400">$ calculating similarity...</div>
+                        <div class="text-green-600">✓ analysis complete</div>
+                    </div>
+                    
+                    <!-- Results in table format -->
+                    <div class="text-sm space-y-1 mb-6">
+                        <div class="flex">
+                            <span class="text-gray-500 w-20">parent:</span>
+                            <span class="text-gray-900">detected ✓</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-gray-500 w-20">child:</span>
+                            <span class="text-gray-900">detected ✓</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-gray-500 w-20">similarity:</span>
+                            <span class="text-gray-900 font-bold">72.4%</span>
+                        </div>
+                        <div class="flex">
+                            <span class="text-gray-500 w-20">confidence:</span>
+                            <span class="text-gray-900">94.2%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Command-like buttons -->
+                    <div class="text-sm space-y-2">
+                        <div><span class="text-gray-500">$ </span><button class="text-blue-600 hover:underline">retry_analysis</button></div>
+                        <div><span class="text-gray-500">$ </span><button class="text-blue-600 hover:underline">download_result</button></div>
+                        <div><span class="text-gray-500">$ </span><button class="text-blue-600 hover:underline">share_result</button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Option 3: Swiss/Brutalist -->
+        <section>
+            <h2 class="text-2xl font-bold mb-8 text-gray-800">옵션 3: Swiss Style</h2>
+            <div class="bg-white border-2 border-black max-w-2xl mx-auto">
+                
+                <!-- Header with typography hierarchy -->
+                <div class="border-b-2 border-black p-8">
+                    <div class="text-xs uppercase tracking-widest text-black mb-2">FAMILY ANALYSIS</div>
+                    <div class="text-6xl font-bold text-black leading-none">72%</div>
+                    <div class="text-sm text-gray-600 mt-2">SIMILARITY DETECTED</div>
+                </div>
+                
+                <!-- Grid layout -->
+                <div class="p-8">
+                    <div class="grid grid-cols-3 gap-8 mb-8">
+                        <div>
+                            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">PARENT</div>
+                            <div class="w-full aspect-square bg-gray-100 border border-gray-300"></div>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-black">→</div>
+                                <div class="text-xs text-gray-500 mt-2">MATCH</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">CHILD</div>
+                            <div class="w-full aspect-square bg-gray-100 border border-gray-300"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Data table -->
+                    <div class="border-t border-gray-300 pt-4 mb-8">
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-gray-500">CONFIDENCE</div>
+                                <div class="font-bold">94.2%</div>
+                            </div>
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-gray-500">GRADE</div>
+                                <div class="font-bold">A</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action grid -->
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="border-2 border-black px-4 py-3 text-sm font-bold uppercase tracking-wide hover:bg-black hover:text-white transition-colors">
+                            RETRY
+                        </button>
+                        <button class="bg-black text-white px-4 py-3 text-sm font-bold uppercase tracking-wide hover:bg-gray-800 transition-colors">
+                            SAVE
+                        </button>
+                        <button class="border-2 border-black px-4 py-3 text-sm font-bold uppercase tracking-wide hover:bg-black hover:text-white transition-colors">
+                            SHARE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Swiss Style Variations -->
+        <section class="mt-20">
+            <h2 class="text-2xl font-bold mb-8 text-gray-800">Swiss Style 추가 변형</h2>
+            
+            <!-- Swiss Option 4: Vertical Layout -->
+            <div class="mb-12">
+                <h3 class="text-lg font-medium mb-6 text-gray-700">변형 4: Vertical Stack</h3>
+                <div class="bg-white border-2 border-black max-w-lg mx-auto">
+                    <!-- Large Number Header -->
+                    <div class="text-center p-8 border-b-2 border-black">
+                        <div class="text-8xl font-black leading-none">72</div>
+                        <div class="text-lg uppercase tracking-widest mt-2">PERCENT MATCH</div>
+                    </div>
+                    
+                    <!-- Photo Grid -->
+                    <div class="p-6">
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="text-center">
+                                <div class="aspect-square bg-gray-100 border-2 border-black mb-2"></div>
+                                <div class="text-xs uppercase tracking-widest font-bold">PARENT / 부모</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="aspect-square bg-gray-100 border-2 border-black mb-2"></div>
+                                <div class="text-xs uppercase tracking-widest font-bold">CHILD / 자녀</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats -->
+                        <div class="border-t-2 border-black pt-4">
+                            <div class="text-xs uppercase tracking-widest text-gray-600 mb-2">ANALYSIS METRICS</div>
+                            <div class="text-sm space-y-1">
+                                <div class="flex justify-between">
+                                    <span>CONFIDENCE</span>
+                                    <span class="font-bold">94.2%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>ACCURACY</span>
+                                    <span class="font-bold">HIGH</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="border-t-2 border-black">
+                        <div class="grid grid-cols-3">
+                            <button class="px-4 py-4 border-r-2 border-black text-xs uppercase tracking-widest font-bold hover:bg-black hover:text-white transition-colors">
+                                RETRY
+                            </button>
+                            <button class="px-4 py-4 border-r-2 border-black text-xs uppercase tracking-widest font-bold hover:bg-black hover:text-white transition-colors">
+                                SAVE
+                            </button>
+                            <button class="px-4 py-4 text-xs uppercase tracking-widest font-bold hover:bg-black hover:text-white transition-colors">
+                                SHARE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swiss Option 5: Split Screen -->
+            <div class="mb-12">
+                <h3 class="text-lg font-medium mb-6 text-gray-700">변형 5: Split Screen</h3>
+                <div class="bg-white border-2 border-black max-w-3xl mx-auto">
+                    <div class="grid grid-cols-2">
+                        <!-- Left Side: Photos -->
+                        <div class="p-8 border-r-2 border-black">
+                            <div class="text-xs uppercase tracking-widest mb-6">COMPARISON</div>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">01 / PARENT</div>
+                                    <div class="aspect-square bg-gray-100 border border-gray-400"></div>
+                                </div>
+                                <div>
+                                    <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">02 / CHILD</div>
+                                    <div class="aspect-square bg-gray-100 border border-gray-400"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Side: Results -->
+                        <div class="p-8">
+                            <div class="text-xs uppercase tracking-widest mb-6">ANALYSIS RESULT</div>
+                            
+                            <div class="mb-8">
+                                <div class="text-7xl font-black leading-none mb-2">72%</div>
+                                <div class="text-xs uppercase tracking-widest">SIMILARITY DETECTED</div>
+                            </div>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex justify-between text-sm">
+                                    <span class="uppercase tracking-wide">CONFIDENCE</span>
+                                    <span class="font-bold">94.2%</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="uppercase tracking-wide">GRADE</span>
+                                    <span class="font-bold">A</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="uppercase tracking-wide">STATUS</span>
+                                    <span class="font-bold">MATCH</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <button class="w-full border-2 border-black px-4 py-3 text-xs font-bold uppercase tracking-wide hover:bg-black hover:text-white transition-colors">
+                                    DOWNLOAD RESULT
+                                </button>
+                                <button class="w-full border-2 border-black px-4 py-3 text-xs font-bold uppercase tracking-wide hover:bg-black hover:text-white transition-colors">
+                                    SHARE ANALYSIS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swiss Option 6: Magazine Layout -->
+            <div class="mb-12">
+                <h3 class="text-lg font-medium mb-6 text-gray-700">변형 6: Magazine Style</h3>
+                <div class="bg-white border-2 border-black max-w-2xl mx-auto">
+                    <!-- Header -->
+                    <div class="border-b-2 border-black p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-gray-500">FAMILY ANALYSIS</div>
+                                <div class="text-3xl font-black">SIMILARITY REPORT</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-4xl font-black">72%</div>
+                                <div class="text-xs uppercase tracking-widest">MATCH</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content Grid -->
+                    <div class="p-6">
+                        <div class="grid grid-cols-3 gap-6 mb-6">
+                            <!-- Photo 1 -->
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">SUBJECT A</div>
+                                <div class="aspect-square bg-gray-100 border border-gray-400 mb-2"></div>
+                                <div class="text-xs">부모 / PARENT</div>
+                            </div>
+                            
+                            <!-- Arrow/Connection -->
+                            <div class="flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="text-3xl font-bold">→</div>
+                                    <div class="text-xs uppercase tracking-widest mt-2">COMPARISON</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Photo 2 -->
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-gray-500 mb-2">SUBJECT B</div>
+                                <div class="aspect-square bg-gray-100 border border-gray-400 mb-2"></div>
+                                <div class="text-xs">자녀 / CHILD</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Data Table -->
+                        <div class="border-2 border-black p-4 mb-6">
+                            <div class="text-xs uppercase tracking-widest mb-3">ANALYSIS DATA</div>
+                            <div class="grid grid-cols-3 gap-4 text-sm">
+                                <div>
+                                    <div class="font-bold">94.2%</div>
+                                    <div class="text-xs uppercase tracking-widest text-gray-500">CONFIDENCE</div>
+                                </div>
+                                <div>
+                                    <div class="font-bold">HIGH</div>
+                                    <div class="text-xs uppercase tracking-widest text-gray-500">ACCURACY</div>
+                                </div>
+                                <div>
+                                    <div class="font-bold">A</div>
+                                    <div class="text-xs uppercase tracking-widest text-gray-500">GRADE</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Bar -->
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-black text-white px-4 py-3 text-xs font-bold uppercase tracking-wide hover:bg-gray-800 transition-colors">
+                                DOWNLOAD
+                            </button>
+                            <button class="px-6 py-3 border-2 border-black text-xs font-bold uppercase tracking-wide hover:bg-black hover:text-white transition-colors">
+                                RETRY
+                            </button>
+                            <button class="px-6 py-3 border-2 border-black text-xs font-bold uppercase tracking-wide hover:bg-black hover:text-white transition-colors">
+                                SHARE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swiss Option 7: Minimal Card -->
+            <div class="mb-12">
+                <h3 class="text-lg font-medium mb-6 text-gray-700">변형 7: Card Style</h3>
+                <div class="bg-white border-2 border-black max-w-md mx-auto">
+                    <!-- Card Header -->
+                    <div class="border-b-2 border-black bg-black text-white p-4 text-center">
+                        <div class="text-xs uppercase tracking-widest mb-1">FAMILY MATCH</div>
+                        <div class="text-5xl font-black">72%</div>
+                    </div>
+                    
+                    <!-- Card Body -->
+                    <div class="p-6">
+                        <!-- Photos in a row -->
+                        <div class="flex justify-center gap-4 mb-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gray-100 border-2 border-black mb-2"></div>
+                                <div class="text-xs uppercase tracking-widest">PARENT</div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="text-2xl font-bold">←→</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gray-100 border-2 border-black mb-2"></div>
+                                <div class="text-xs uppercase tracking-widest">CHILD</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Single metric -->
+                        <div class="text-center mb-6">
+                            <div class="text-xs uppercase tracking-widest text-gray-500 mb-1">CONFIDENCE LEVEL</div>
+                            <div class="text-2xl font-bold">94.2%</div>
+                        </div>
+                        
+                        <!-- Single action -->
+                        <button class="w-full bg-black text-white py-4 text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
+                            SAVE RESULT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Swiss Style Download Images -->
+        <section class="mt-20">
+            <h2 class="text-2xl font-bold mb-8 text-gray-800">Swiss Style 다운로드 이미지</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <!-- Download Option 1: Classic Swiss -->
+                <div class="bg-white border-2 border-black">
+                    <div class="border-b-2 border-black p-4 text-center">
+                        <div class="text-xs uppercase tracking-widest mb-1">FAMILY</div>
+                        <div class="text-3xl font-bold">72%</div>
+                        <div class="text-xs uppercase tracking-widest">MATCH</div>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-gray-500 mb-1">PARENT</div>
+                                <div class="aspect-square bg-gray-100 border border-gray-300"></div>
+                            </div>
+                            <div>
+                                <div class="text-xs uppercase tracking-widest text-gray-500 mb-1">CHILD</div>
+                                <div class="aspect-square bg-gray-100 border border-gray-300"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="text-xs uppercase tracking-widest text-gray-500">ANALYSIS BY</div>
+                            <div class="text-xs font-bold">WHOS-YOUR-PAPA.COM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Option 2: Vertical Number -->
+                <div class="bg-white border-2 border-black">
+                    <div class="text-center p-4">
+                        <div class="text-xs uppercase tracking-widest mb-2">WHO'S YOUR PAPA</div>
+                        <div class="text-5xl font-black leading-none mb-2">72</div>
+                        <div class="text-xs uppercase tracking-widest">PERCENT</div>
+                    </div>
+                    
+                    <div class="border-t-2 border-black p-4">
+                        <div class="flex justify-center gap-3 mb-4">
+                            <div class="w-8 h-8 bg-gray-100 border border-gray-400"></div>
+                            <div class="flex items-center text-xs">→</div>
+                            <div class="w-8 h-8 bg-gray-100 border border-gray-400"></div>
+                        </div>
+                        
+                        <div class="text-center text-xs">
+                            <div class="uppercase tracking-widest text-gray-500 mb-1">FAMILY ANALYSIS</div>
+                            <div class="font-bold">WHOS-YOUR-PAPA.COM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Option 3: Data Sheet -->
+                <div class="bg-white border-2 border-black">
+                    <div class="bg-black text-white p-3 text-center">
+                        <div class="text-xs uppercase tracking-widest">SIMILARITY REPORT</div>
+                    </div>
+                    
+                    <div class="p-4 space-y-3">
+                        <div class="text-center">
+                            <div class="text-3xl font-black">72%</div>
+                        </div>
+                        
+                        <div class="border border-gray-300 p-2">
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="w-full aspect-square bg-gray-100"></div>
+                                <div class="w-full aspect-square bg-gray-100"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-xs text-center space-y-1">
+                            <div>CONFIDENCE: 94.2%</div>
+                            <div class="font-bold">WHOS-YOUR-PAPA.COM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
