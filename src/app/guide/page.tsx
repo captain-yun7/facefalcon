@@ -1,14 +1,14 @@
+'use client';
+
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnalysisCTA from '@/components/AnalysisCTA';
-
-export const metadata = {
-  title: '이용 가이드 | Who\'s Your Papa?',
-  description: 'AI 얼굴 유사도 분석 서비스 사용법과 최적의 결과를 얻는 방법, 자주 묻는 질문들을 안내합니다.',
-};
+import { useTranslations } from '@/lib/simple-i18n';
 
 export default function GuidePage() {
+  const { t, locale } = useTranslations();
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -18,11 +18,10 @@ export default function GuidePage() {
           {/* 헤더 섹션 */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              이용 가이드
+              {t('guide.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Who's Your Papa? 서비스를 효과적으로 이용하는 방법과 
-              정확한 분석 결과를 얻는 팁을 알려드립니다.
+              {t('guide.subtitle')}
             </p>
           </div>
 
@@ -34,42 +33,42 @@ export default function GuidePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              빠른 시작 가이드
+              {t('guide.quickStart.title')}
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">1단계: 사진 준비</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('guide.quickStart.step1Title')}</h3>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span><strong>정면 사진:</strong> 얼굴이 정면을 향한 사진을 준비하세요</span>
+                    <span dangerouslySetInnerHTML={{ __html: t('guide.quickStart.step1.item1').replace(/(.*?:)/, '<strong>$1</strong>') }} />
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span><strong>고화질:</strong> 최소 200x200 픽셀 이상의 선명한 사진</span>
+                    <span dangerouslySetInnerHTML={{ __html: t('guide.quickStart.step1.item2').replace(/(.*?:)/, '<strong>$1</strong>') }} />
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span><strong>밝은 조명:</strong> 얼굴이 잘 보이는 밝은 환경에서 촬영</span>
+                    <span dangerouslySetInnerHTML={{ __html: t('guide.quickStart.step1.item3').replace(/(.*?:)/, '<strong>$1</strong>') }} />
                   </li>
                 </ul>
               </div>
               
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">2단계: 분석 실행</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('guide.quickStart.step2Title')}</h3>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>비교할 사진들을 각각 업로드 영역에 추가</span>
+                    <span>{t('guide.quickStart.step2.item1')}</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>필요한 분석 모드를 선택 (개별 비교, 그룹 분석 등)</span>
+                    <span>{t('guide.quickStart.step2.item2')}</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <span>"분석 시작" 버튼을 클릭하고 결과 확인</span>
+                    <span>{t('guide.quickStart.step2.item3')}</span>
                   </li>
                 </ul>
               </div>
@@ -85,32 +84,52 @@ export default function GuidePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              최적의 사진 촬영 팁
+              {t('guide.photoTips.title')}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-4">
                 <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                  <h4 className="font-semibold text-green-800 mb-2">✅ 좋은 사진의 조건</h4>
+                  <h4 className="font-semibold text-green-800 mb-2">{t('guide.photoTips.goodPhoto.title')}</h4>
                   <ul className="text-sm text-green-700 space-y-1">
-                    <li>• 정면을 바라보는 자연스러운 표정</li>
-                    <li>• 머리카락이 얼굴을 가리지 않는 상태</li>
-                    <li>• 선글라스나 모자 없이 촬영</li>
-                    <li>• 자연광 또는 밝은 실내조명</li>
-                    <li>• 단색 배경 (흰색, 회색 권장)</li>
+                    {(locale === 'en' ? [
+                      'Natural expression looking forward',
+                      'Hair not covering the face',
+                      'Taken without sunglasses or hat',
+                      'Natural light or bright indoor lighting',
+                      'Solid background (white, gray recommended)'
+                    ] : [
+                      '정면을 바라보는 자연스러운 표정',
+                      '머리카락이 얼굴을 가리지 않는 상태',
+                      '선글라스나 모자 없이 촬영',
+                      '자연광 또는 밝은 실내조명',
+                      '단색 배경 (흰색, 회색 권장)'
+                    ]).map((item, index) => (
+                      <li key={index}>• {item}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div className="bg-red-50 p-4 rounded-lg border border-red-200">
-                  <h4 className="font-semibold text-red-800 mb-2">❌ 피해야 할 사진</h4>
+                  <h4 className="font-semibold text-red-800 mb-2">{t('guide.photoTips.badPhoto.title')}</h4>
                   <ul className="text-sm text-red-700 space-y-1">
-                    <li>• 측면이나 비스듬한 각도</li>
-                    <li>• 너무 어둡거나 역광인 상태</li>
-                    <li>• 얼굴이 너무 작거나 흐릿한 사진</li>
-                    <li>• 여러 명이 함께 있는 사진</li>
-                    <li>• 과도한 화장이나 필터 적용</li>
+                    {(locale === 'en' ? [
+                      'Side or angled views',
+                      'Too dark or backlit conditions',
+                      'Face too small or blurry',
+                      'Multiple people in the photo',
+                      'Excessive makeup or filters applied'
+                    ] : [
+                      '측면이나 비스듬한 각도',
+                      '너무 어둡거나 역광인 상태',
+                      '얼굴이 너무 작거나 흐릿한 사진',
+                      '여러 명이 함께 있는 사진',
+                      '과도한 화장이나 필터 적용'
+                    ]).map((item, index) => (
+                      <li key={index}>• {item}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -125,52 +144,52 @@ export default function GuidePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2-2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              분석 결과 이해하기
+              {t('guide.understandResults.title')}
             </h2>
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">유사도 점수 해석</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('guide.understandResults.similarityScore.title')}</h3>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="bg-red-50 p-4 rounded-lg text-center border border-red-200">
-                    <div className="text-2xl font-bold text-red-600 mb-1">0-40%</div>
-                    <div className="text-sm text-red-700">낮은 유사도</div>
-                    <p className="text-xs text-gray-600 mt-1">서로 다른 특징</p>
+                    <div className="text-2xl font-bold text-red-600 mb-1">{t('guide.understandResults.similarityScore.low.range')}</div>
+                    <div className="text-sm text-red-700">{t('guide.understandResults.similarityScore.low.label')}</div>
+                    <p className="text-xs text-gray-600 mt-1">{t('guide.understandResults.similarityScore.low.description')}</p>
                   </div>
                   <div className="bg-yellow-50 p-4 rounded-lg text-center border border-yellow-200">
-                    <div className="text-2xl font-bold text-yellow-600 mb-1">41-70%</div>
-                    <div className="text-sm text-yellow-700">중간 유사도</div>
-                    <p className="text-xs text-gray-600 mt-1">부분적으로 닮음</p>
+                    <div className="text-2xl font-bold text-yellow-600 mb-1">{t('guide.understandResults.similarityScore.medium.range')}</div>
+                    <div className="text-sm text-yellow-700">{t('guide.understandResults.similarityScore.medium.label')}</div>
+                    <p className="text-xs text-gray-600 mt-1">{t('guide.understandResults.similarityScore.medium.description')}</p>
                   </div>
                   <div className="bg-green-50 p-4 rounded-lg text-center border border-green-200">
-                    <div className="text-2xl font-bold text-green-600 mb-1">71-100%</div>
-                    <div className="text-sm text-green-700">높은 유사도</div>
-                    <p className="text-xs text-gray-600 mt-1">매우 닮음</p>
+                    <div className="text-2xl font-bold text-green-600 mb-1">{t('guide.understandResults.similarityScore.high.range')}</div>
+                    <div className="text-sm text-green-700">{t('guide.understandResults.similarityScore.high.label')}</div>
+                    <p className="text-xs text-gray-600 mt-1">{t('guide.understandResults.similarityScore.high.description')}</p>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">얼굴 특징별 비교</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('guide.understandResults.featureComparison.title')}</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                      <span className="font-medium text-blue-900">눈 모양</span>
-                      <span className="text-sm text-blue-700">눈꼬리, 쌍꺼풀, 눈 크기</span>
+                      <span className="font-medium text-blue-900">{t('guide.understandResults.featureComparison.eyes.label')}</span>
+                      <span className="text-sm text-blue-700">{t('guide.understandResults.featureComparison.eyes.details')}</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                      <span className="font-medium text-green-900">코 형태</span>
-                      <span className="text-sm text-green-700">콧대, 콧볼, 코끝</span>
+                      <span className="font-medium text-green-900">{t('guide.understandResults.featureComparison.nose.label')}</span>
+                      <span className="text-sm text-green-700">{t('guide.understandResults.featureComparison.nose.details')}</span>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
-                      <span className="font-medium text-purple-900">입 모양</span>
-                      <span className="text-sm text-purple-700">입술 두께, 입 크기</span>
+                      <span className="font-medium text-purple-900">{t('guide.understandResults.featureComparison.mouth.label')}</span>
+                      <span className="text-sm text-purple-700">{t('guide.understandResults.featureComparison.mouth.details')}</span>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
-                      <span className="font-medium text-orange-900">얼굴형</span>
-                      <span className="text-sm text-orange-700">윤곽, 턱선, 이마</span>
+                      <span className="font-medium text-orange-900">{t('guide.understandResults.featureComparison.faceShape.label')}</span>
+                      <span className="text-sm text-orange-700">{t('guide.understandResults.featureComparison.faceShape.details')}</span>
                     </div>
                   </div>
                 </div>
@@ -186,70 +205,25 @@ export default function GuidePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              자주 묻는 질문 (FAQ)
+              {t('guide.faq.title')}
             </h2>
 
             <div className="space-y-6">
-              <div className="border-b border-gray-200 pb-6 last:border-b-0">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Q. 분석 결과가 정확한가요?
-                </h3>
-                <p className="text-gray-700">
-                  AI 분석은 높은 정확도를 보이지만, 조명, 각도, 표정, 화장 등에 따라 결과가 달라질 수 있습니다. 
-                  재미와 참고용으로 활용해주시고, 의학적 또는 법적 근거로는 사용하지 마세요.
-                </p>
-              </div>
-
-              <div className="border-b border-gray-200 pb-6 last:border-b-0">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Q. 업로드한 사진이 저장되나요?
-                </h3>
-                <p className="text-gray-700">
-                  아니요. 업로드된 사진은 분석 완료 즉시 자동으로 삭제되며, 
-                  어떠한 형태로도 저장되지 않습니다. 개인정보 보호를 최우선으로 합니다.
-                </p>
-              </div>
-
-              <div className="border-b border-gray-200 pb-6 last:border-b-0">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Q. 어떤 파일 형식을 지원하나요?
-                </h3>
-                <p className="text-gray-700">
-                  JPG, PNG, JPEG 형식을 지원합니다. 파일 크기는 최대 10MB까지 가능하며, 
-                  최적의 분석을 위해 1-5MB 정도의 고화질 이미지를 권장합니다.
-                </p>
-              </div>
-
-              <div className="border-b border-gray-200 pb-6 last:border-b-0">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Q. 여러 명이 함께 있는 사진도 가능한가요?
-                </h3>
-                <p className="text-gray-700">
-                  사진당 한 명의 얼굴만 있을 때 가장 정확한 결과를 얻을 수 있습니다. 
-                  여러 명이 있는 경우 AI가 주요 얼굴을 선택하므로 원하지 않는 결과가 나올 수 있습니다.
-                </p>
-              </div>
-
-              <div className="border-b border-gray-200 pb-6 last:border-b-0">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Q. 어떤 관계의 사람들을 비교할 수 있나요?
-                </h3>
-                <p className="text-gray-700">
-                  가족(부모-자녀, 형제자매), 친구, 연인, 연예인 닮은꼴 등 
-                  모든 관계의 사람들을 비교할 수 있습니다. 두 사람의 얼굴 유사도를 객관적으로 분석합니다.
-                </p>
-              </div>
-
-              <div className="border-b border-gray-200 pb-6 last:border-b-0">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Q. 분석에 실패했어요. 어떻게 해야 하나요?
-                </h3>
-                <p className="text-gray-700">
-                  얼굴이 선명하게 보이는 정면 사진인지 확인해주세요. 
-                  그래도 안 되면 다른 사진으로 다시 시도하거나, 
-                  <a href="mailto:jslovejs182@gmail.com" className="text-blue-600 hover:underline">jslovejs182@gmail.com</a>으로 문의해주세요.
-                </p>
-              </div>
+              {[1, 2, 3, 4, 5, 6].map((num) => (
+                <div key={num} className="border-b border-gray-200 pb-6 last:border-b-0">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {t(`guide.faq.q${num}.question`)}
+                  </h3>
+                  <p className="text-gray-700">
+                    {t(`guide.faq.q${num}.answer`)}
+                    {num === 6 && (
+                      <a href="mailto:jslovejs182@gmail.com" className="text-blue-600 hover:underline ml-1">
+                        jslovejs182@gmail.com
+                      </a>
+                    )}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -261,27 +235,45 @@ export default function GuidePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
               </div>
-              문제 해결 가이드
+              {t('guide.troubleshooting.title')}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">업로드 문제</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('guide.troubleshooting.uploadIssues.title')}</h3>
                 <ul className="space-y-2 text-gray-700 text-sm">
-                  <li>• 파일 크기가 10MB를 초과하지 않는지 확인</li>
-                  <li>• JPG, PNG, JPEG 형식인지 확인</li>
-                  <li>• 인터넷 연결 상태 확인</li>
-                  <li>• 브라우저 새로고침 후 재시도</li>
+                  {(locale === 'en' ? [
+                    'Check file size does not exceed 10MB',
+                    'Verify it\'s JPG, PNG, or JPEG format',
+                    'Check internet connection',
+                    'Refresh browser and try again'
+                  ] : [
+                    '파일 크기가 10MB를 초과하지 않는지 확인',
+                    'JPG, PNG, JPEG 형식인지 확인',
+                    '인터넷 연결 상태 확인',
+                    '브라우저 새로고침 후 재시도'
+                  ]).map((item, index) => (
+                    <li key={index}>• {item}</li>
+                  ))}
                 </ul>
               </div>
               
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">분석 오류</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('guide.troubleshooting.analysisErrors.title')}</h3>
                 <ul className="space-y-2 text-gray-700 text-sm">
-                  <li>• 얼굴이 정면을 향하는지 확인</li>
-                  <li>• 이미지가 너무 어둡지 않은지 확인</li>
-                  <li>• 얼굴이 충분히 큰지 확인</li>
-                  <li>• 다른 브라우저에서 시도</li>
+                  {(locale === 'en' ? [
+                    'Verify face is facing forward',
+                    'Check image is not too dark',
+                    'Ensure face is large enough',
+                    'Try a different browser'
+                  ] : [
+                    '얼굴이 정면을 향하는지 확인',
+                    '이미지가 너무 어둡지 않은지 확인',
+                    '얼굴이 충분히 큰지 확인',
+                    '다른 브라우저에서 시도'
+                  ]).map((item, index) => (
+                    <li key={index}>• {item}</li>
+                  ))}
                 </ul>
               </div>
             </div>

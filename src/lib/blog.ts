@@ -4,7 +4,10 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const postsDirectory = path.join(process.cwd(), 'content/blog');
+const getPostsDirectory = (locale: string = 'ko') => {
+  const baseDir = path.join(process.cwd(), 'content/blog');
+  return locale === 'en' ? path.join(baseDir, 'en') : baseDir;
+};
 
 export interface BlogPost {
   slug: string;
@@ -31,8 +34,15 @@ export interface BlogPostMeta {
   excerpt: string;
 }
 
-export async function getAllPosts(): Promise<BlogPostMeta[]> {
-  // content/blog 디렉토리에서 모든 .md 파일 읽기
+export async function getAllPosts(locale: string = 'ko'): Promise<BlogPostMeta[]> {
+  // locale에 따른 디렉토리에서 모든 .md 파일 읽기
+  const postsDirectory = getPostsDirectory(locale);
+  
+  // 디렉토리가 존재하지 않으면 빈 배열 반환
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
+  
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = await Promise.all(
     fileNames
@@ -75,8 +85,9 @@ export async function getAllPosts(): Promise<BlogPostMeta[]> {
   });
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+export async function getPostBySlug(slug: string, locale: string = 'ko'): Promise<BlogPost | null> {
   try {
+    const postsDirectory = getPostsDirectory(locale);
     const fullPath = path.join(postsDirectory, `${slug}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     
@@ -113,24 +124,33 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   }
 }
 
-export async function getAllSlugs(): Promise<string[]> {
+export async function getAllSlugs(locale: string = 'ko'): Promise<string[]> {
+  const postsDirectory = getPostsDirectory(locale);
+  
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
+  
   const fileNames = fs.readdirSync(postsDirectory);
   return fileNames
     .filter((fileName) => fileName.endsWith('.md'))
     .map((fileName) => fileName.replace(/\.md$/, ''));
 }
 
-export function getCategories(): string[] {
+export function getCategories(locale: string = 'ko'): string[] {
+  if (locale === 'en') {
+    return ['Science', 'Genetics', 'Tips'];
+  }
   return ['과학 원리', '유전학 지식', '사용 팁'];
 }
 
-export async function getPostsByCategory(category: string): Promise<BlogPostMeta[]> {
-  const allPosts = await getAllPosts();
+export async function getPostsByCategory(category: string, locale: string = 'ko'): Promise<BlogPostMeta[]> {
+  const allPosts = await getAllPosts(locale);
   return allPosts.filter(post => post.category === category);
 }
 
-export async function getRelatedPosts(slug: string, category: string, limit = 2): Promise<BlogPostMeta[]> {
-  const allPosts = await getAllPosts();
+export async function getRelatedPosts(slug: string, category: string, locale: string = 'ko', limit = 2): Promise<BlogPostMeta[]> {
+  const allPosts = await getAllPosts(locale);
   return allPosts
     .filter(post => post.slug !== slug && post.category === category)
     .slice(0, limit);

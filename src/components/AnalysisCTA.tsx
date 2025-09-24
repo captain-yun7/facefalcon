@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslations } from '@/lib/simple-i18n';
 
 interface AnalysisCTAProps {
   title?: string;
@@ -8,23 +11,29 @@ interface AnalysisCTAProps {
 }
 
 export default function AnalysisCTA({
-  title = "지금 시작해보세요",
-  description = "AI 기술로 두 사람의 닮음 정도를 확인해보세요",
-  buttonText = "무료로 분석하기",
+  title,
+  description,
+  buttonText,
   variant = 'default'
 }: AnalysisCTAProps) {
+  const { t } = useTranslations();
+  
+  // 기본값 설정 - props가 없으면 번역 사용
+  const ctaTitle = title || t('cta.title');
+  const ctaDescription = description || t('cta.description');
+  const ctaButtonText = buttonText || t('cta.buttonText');
   
   if (variant === 'minimal') {
     return (
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 p-8 md:p-10">
         <div className="relative z-10 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">{title}</h2>
-          <p className="text-gray-300 mb-6 text-sm md:text-base">{description}</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">{ctaTitle}</h2>
+          <p className="text-gray-300 mb-6 text-sm md:text-base">{ctaDescription}</p>
           <Link 
             href="/analyze"
             className="inline-flex items-center px-6 py-3 bg-white text-gray-900 rounded-full hover:bg-gray-100 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
-            {buttonText}
+            {ctaButtonText}
             <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
@@ -47,16 +56,16 @@ export default function AnalysisCTA({
         <div className="bg-gray-900 rounded-3xl p-8 md:p-12">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
-              {title}
+              {ctaTitle}
             </h2>
             <p className="text-gray-300 mb-8 text-base md:text-lg max-w-md mx-auto">
-              {description}
+              {ctaDescription}
             </p>
             <Link 
               href="/analyze"
               className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold text-lg shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1"
             >
-              {buttonText}
+              {ctaButtonText}
               <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -78,17 +87,17 @@ export default function AnalysisCTA({
             </svg>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {title}
+            {ctaTitle}
           </h2>
           <p className="text-gray-600 mb-8 text-lg max-w-lg mx-auto">
-            {description}
+            {ctaDescription}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/analyze"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
             >
-              {buttonText}
+              {ctaButtonText}
               <svg className="ml-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
@@ -97,7 +106,7 @@ export default function AnalysisCTA({
               href="/guide"
               className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 rounded-2xl border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all duration-200 font-semibold text-lg"
             >
-              사용 가이드
+              {t('cta.guideButton')}
               <svg className="ml-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>

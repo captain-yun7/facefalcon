@@ -4,25 +4,28 @@ import { useState, useEffect } from 'react';
 
 export type Locale = 'ko' | 'en';
 
+// 초기 locale을 즉시 계산하는 함수
+const getInitialLocale = (): Locale => {
+  if (typeof window === 'undefined') return 'ko';
+  
+  const storedLocale = localStorage.getItem('locale');
+  if (storedLocale === 'en' || storedLocale === 'ko') {
+    return storedLocale as Locale;
+  }
+  
+  const browserLang = navigator.language.toLowerCase();
+  return browserLang.startsWith('en') ? 'en' : 'ko';
+};
+
 // 간단한 번역 훅
 export function useTranslations() {
-  const [locale, setCurrentLocale] = useState<Locale>('ko');
+  const [locale, setCurrentLocale] = useState<Locale>(getInitialLocale);
   const [translations, setTranslations] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 브라우저 언어 감지
-    const browserLang = typeof window !== 'undefined' ? navigator.language.toLowerCase() : 'ko';
-    const detectedLocale: Locale = browserLang.startsWith('en') ? 'en' : 'ko';
-    
-    // 저장된 언어 우선
-    const storedLocale = typeof window !== 'undefined' ? localStorage.getItem('locale') : null;
-    const currentLocale: Locale = (storedLocale === 'en' || storedLocale === 'ko') ? storedLocale as Locale : detectedLocale;
-    
-    setCurrentLocale(currentLocale);
-    
     // 번역 파일 로드
-    fetch(`/locales/${currentLocale}/common.json`)
+    fetch(`/locales/${locale}/common.json`)
       .then(res => res.json())
       .then(data => {
         setTranslations(data);
@@ -32,7 +35,7 @@ export function useTranslations() {
         console.error('Translation loading failed:', err);
         setLoading(false);
       });
-  }, []);
+  }, [locale]);
 
   const t = (key: string, params?: Record<string, string | number>): string => {
     if (!translations) {
@@ -67,7 +70,17 @@ export function useTranslations() {
   const changeLocale = (newLocale: Locale) => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('locale', newLocale);
-      window.location.reload();
+      setCurrentLocale(newLocale);
+      
+      // 번역 파일 다시 로드
+      fetch(`/locales/${newLocale}/common.json`)
+        .then(res => res.json())
+        .then(data => {
+          setTranslations(data);
+        })
+        .catch(err => {
+          console.error('Translation loading failed:', err);
+        });
     }
   };
 

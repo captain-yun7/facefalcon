@@ -1,62 +1,89 @@
+'use client';
+
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getAllSlugs, getRelatedPosts } from '@/lib/blog';
-import type { Metadata } from 'next';
-
-// 정적 파라미터 생성
-export async function generateStaticParams() {
-  const slugs = await getAllSlugs();
-  return slugs.map((slug) => ({
-    slug,
-  }));
+import { useTranslations } from '@/lib/simple-i18n';
+import { useState, useEffect } from 'react';
+interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  category: string;
+  date: string;
+  readTime: string;
+  author: string;
+  content: string;
+  excerpt: string;
 }
 
-// 메타데이터 생성
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { slug: string } 
-}): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
-
-  if (!post) {
-    return {
-      title: '페이지를 찾을 수 없습니다 | Who\'s Your Papa?',
-    };
-  }
-
-  return {
-    title: `${post.title} | Who's Your Papa?`,
-    description: post.description,
-    keywords: post.keywords,
-    authors: [{ name: post.author }],
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      type: 'article',
-      publishedTime: post.date,
-      authors: [post.author],
-    },
-    alternates: {
-      canonical: `/blog/${post.slug}`,
-    },
-  };
+interface BlogPostMeta {
+  slug: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  category: string;
+  date: string;
+  readTime: string;
+  author: string;
+  excerpt: string;
 }
 
-export default async function BlogPostPage({ 
+export default function BlogPostPage({ 
   params 
 }: { 
   params: { slug: string } 
 }) {
-  const post = await getPostBySlug(params.slug);
+  const { t, locale } = useTranslations();
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPostMeta[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  if (!post) {
-    notFound();
+  useEffect(() => {
+    const loadPost = async () => {
+      if (!locale) return;
+      
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/blog/${params.slug}?locale=${locale}`);
+        if (!response.ok) {
+          if (response.status === 404) {
+            notFound();
+            return;
+          }
+          throw new Error('Failed to fetch post');
+        }
+        
+        const data = await response.json();
+        setPost(data.post);
+        setRelatedPosts(data.relatedPosts);
+      } catch (error) {
+        console.error('Failed to load post:', error);
+        notFound();
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPost();
+  }, [params.slug, locale]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
-  const relatedPosts = await getRelatedPosts(post.slug, post.category);
+  if (!post) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
@@ -73,14 +100,14 @@ export default async function BlogPostPage({
               <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
               </svg>
-              AI 기술 정보로 돌아가기
+              {t('blog.backToList')}
             </Link>
             
             <div className="flex items-center gap-4 mb-8">
               <span className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-semibold rounded-full shadow-lg">
                 {post.category}
               </span>
-              <span className="text-slate-500 text-sm font-medium bg-slate-100 px-3 py-1 rounded-full">{post.readTime} 읽기</span>
+              <span className="text-slate-500 text-sm font-medium bg-slate-100 px-3 py-1 rounded-full">{post.readTime} {locale === 'en' ? '' : '읽기'}</span>
               <time className="text-slate-500 text-sm">{post.date}</time>
             </div>
             
@@ -124,14 +151,14 @@ export default async function BlogPostPage({
               <svg className="w-5 h-5 mr-3 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
               </svg>
-              목록으로 돌아가기
+              {t('blog.backToList')}
             </Link>
             
             <Link 
               href="/analyze"
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold group"
             >
-              AI 분석 체험하기
+              {t('blog.tryAnalysis')}
               <svg className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -143,7 +170,7 @@ export default async function BlogPostPage({
             <div className="mt-20 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-3xl transform -rotate-1"></div>
               <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl p-10 shadow-xl border border-white/50">
-                <h2 className="text-3xl font-black text-slate-800 mb-8 text-center">관련 글</h2>
+                <h2 className="text-3xl font-black text-slate-800 mb-8 text-center">{t('blog.relatedPosts')}</h2>
                 <div className="grid md:grid-cols-2 gap-8">
                   {relatedPosts.map((relatedPost) => (
                     <Link 

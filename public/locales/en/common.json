@@ -223,6 +223,182 @@
       "startFindingParent": "Start Finding Parent!"
     }
   },
+  "guide": {
+    "title": "User Guide",
+    "subtitle": "Learn how to effectively use the Who's Your Papa? service and get tips for accurate analysis results.",
+    "quickStart": {
+      "title": "Quick Start Guide",
+      "step1Title": "Step 1: Prepare Photos",
+      "step1": {
+        "item1": "Front-facing photo: Prepare a photo with the face facing forward",
+        "item2": "High quality: Clear photo of at least 200x200 pixels",
+        "item3": "Bright lighting: Taken in a bright environment where the face is clearly visible"
+      },
+      "step2Title": "Step 2: Run Analysis",
+      "step2": {
+        "item1": "Add photos to compare to each upload area",
+        "item2": "Select the required analysis mode (individual comparison, group analysis, etc.)",
+        "item3": "Click \"Start Analysis\" button and check results"
+      }
+    },
+    "photoTips": {
+      "title": "Best Photo Taking Tips",
+      "goodPhoto": {
+        "title": "✅ Good Photo Conditions",
+        "items": [
+          "Natural expression looking forward",
+          "Hair not covering the face",
+          "Taken without sunglasses or hat",
+          "Natural light or bright indoor lighting",
+          "Solid background (white, gray recommended)"
+        ]
+      },
+      "badPhoto": {
+        "title": "❌ Photos to Avoid",
+        "items": [
+          "Side or angled views",
+          "Too dark or backlit conditions",
+          "Face too small or blurry",
+          "Multiple people in the photo",
+          "Excessive makeup or filters applied"
+        ]
+      }
+    },
+    "understandResults": {
+      "title": "Understanding Analysis Results",
+      "similarityScore": {
+        "title": "Interpreting Similarity Scores",
+        "low": {
+          "range": "0-40%",
+          "label": "Low Similarity",
+          "description": "Different features"
+        },
+        "medium": {
+          "range": "41-70%",
+          "label": "Medium Similarity",
+          "description": "Partially similar"
+        },
+        "high": {
+          "range": "71-100%",
+          "label": "High Similarity",
+          "description": "Very similar"
+        }
+      },
+      "featureComparison": {
+        "title": "Feature-by-Feature Comparison",
+        "eyes": {
+          "label": "Eye Shape",
+          "details": "Eye corners, eyelids, eye size"
+        },
+        "nose": {
+          "label": "Nose Shape",
+          "details": "Nose bridge, nostrils, nose tip"
+        },
+        "mouth": {
+          "label": "Mouth Shape",
+          "details": "Lip thickness, mouth size"
+        },
+        "faceShape": {
+          "label": "Face Shape",
+          "details": "Contour, jawline, forehead"
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions (FAQ)",
+      "q1": {
+        "question": "Q. Are the analysis results accurate?",
+        "answer": "AI analysis shows high accuracy, but results may vary depending on lighting, angle, expression, makeup, etc. Please use it for fun and reference, and do not use it as medical or legal evidence."
+      },
+      "q2": {
+        "question": "Q. Are uploaded photos saved?",
+        "answer": "No. Uploaded photos are automatically deleted immediately after analysis and are not saved in any form. Privacy protection is our top priority."
+      },
+      "q3": {
+        "question": "Q. What file formats are supported?",
+        "answer": "JPG, PNG, JPEG formats are supported. File size is up to 10MB, and high-quality images of about 1-5MB are recommended for optimal analysis."
+      },
+      "q4": {
+        "question": "Q. Can I use photos with multiple people?",
+        "answer": "The most accurate results are obtained when there is only one face per photo. If there are multiple people, the AI selects the main face, which may produce undesired results."
+      },
+      "q5": {
+        "question": "Q. What relationships can be compared?",
+        "answer": "You can compare people of all relationships including family (parent-child, siblings), friends, couples, celebrity look-alikes, etc. It objectively analyzes facial similarity between two people."
+      },
+      "q6": {
+        "question": "Q. The analysis failed. What should I do?",
+        "answer": "Please check if the face is clearly visible in a front-facing photo. If it still doesn't work, try again with a different photo or contact us at"
+      }
+    },
+    "troubleshooting": {
+      "title": "Troubleshooting Guide",
+      "uploadIssues": {
+        "title": "Upload Issues",
+        "items": [
+          "Check file size does not exceed 10MB",
+          "Verify it's JPG, PNG, or JPEG format",
+          "Check internet connection",
+          "Refresh browser and try again"
+        ]
+      },
+      "analysisErrors": {
+        "title": "Analysis Errors",
+        "items": [
+          "Verify face is facing forward",
+          "Check image is not too dark",
+          "Ensure face is large enough",
+          "Try a different browser"
+        ]
+      }
+    }
+  },
+  "blog": {
+    "title": "AI Tech Info",
+    "subtitle": "Providing principles of facial similarity analysis and family resemblance science, and practical tips for accurate analysis.",
+    "readMore": "Read More",
+    "category": "Category",
+    "readTime": "min read",
+    "backToList": "Back to AI Tech Info",
+    "tryAnalysis": "Try AI Analysis",
+    "relatedPosts": "Related Posts",
+    "cta": {
+      "title": "Curious?",
+      "description": "Check the similarity between two people right now"
+    }
+  },
+  "cta": {
+    "title": "Get Started Now",
+    "description": "Check the similarity between two people with AI technology",
+    "buttonText": "Analyze for Free",
+    "guideButton": "User Guide"
+  },
+  "footer": {
+    "siteInfo": {
+      "title": "Who's Your Papa?",
+      "description": "A family resemblance analysis service using AI technology. We accurately analyze the similarity between parents and children.",
+      "security": "SSL Secure Connection"
+    },
+    "services": {
+      "title": "Services",
+      "familyAnalysis": "Family Resemblance Analysis",
+      "multipleComparison": "Multiple Person Comparison"
+    },
+    "support": {
+      "title": "Customer Support",
+      "emailInquiry": "Email Inquiry",
+      "technicalSupport": "Technical Support"
+    },
+    "legal": {
+      "title": "Legal Information",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "copyright": "© {{year}} Who's Your Papa?. All rights reserved.",
+    "disclaimer": "This service provides reference analysis results using AI technology.",
+    "legalNotice": "This website complies with the Personal Information Protection Act and the Act on Promotion of Information and Communications Network Utilization and Information Protection. Uploaded images are immediately deleted after analysis and are not stored separately. If you encounter any problems while using the service, please contact",
+    "madeWith": "Made with"
+  },
   "home": {
     "hero": {
       "title": "Main Service",
