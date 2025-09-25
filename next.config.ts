@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // 프로덕션 빌드 시 console.log 자동 제거 (error, warn은 유지)
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? {
+      exclude: ['error', 'warn']
+    } : false,
+  },
   // 서버사이드에서만 사용할 환경변수
   serverRuntimeConfig: {
     PYTHON_API_URL: process.env.PYTHON_API_URL || 'http://localhost:8000',
