@@ -467,9 +467,17 @@ export default function AnalyzePage() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-gray-900 relative inline-block pb-3">
+            <h1 className="text-5xl md:text-6xl font-extrabold mb-4 text-gray-900 relative inline-block pb-4">
               {t('hero.title')}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+              <svg className="absolute bottom-0 left-0 w-full h-2" viewBox="0 0 400 8" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="wavy-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#3B82F6" />
+                    <stop offset="100%" stopColor="#8B5CF6" />
+                  </linearGradient>
+                </defs>
+                <path d="M0,4 Q50,1 100,4 T200,4 Q250,1 300,4 T400,4" stroke="url(#wavy-gradient)" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+              </svg>
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               {t('hero.subtitle')}
@@ -705,12 +713,10 @@ export default function AnalyzePage() {
                         </div>
                       </div>
                       
-                      {/* 연결 요소 */}
+                      {/* 연결 요소 - 하트 */}
                       <div className="flex flex-col items-center justify-center">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center shadow-xl shadow-pink-500/30">
-                          <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                          </svg>
+                        <div className="text-4xl">
+                          ❤️
                         </div>
                       </div>
                       
@@ -932,10 +938,8 @@ export default function AnalyzePage() {
 
                       {/* 하트 아이콘 */}
                       <div className="flex flex-col items-center">
-                        <div className="w-8 h-8 text-pink-500 mb-1">
-                          <svg fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                          </svg>
+                        <div className="text-2xl mb-1">
+                          ❤️
                         </div>
                         <span className="text-xs text-gray-500">{t('pages.analyze.similarity')}</span>
                       </div>

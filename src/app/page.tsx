@@ -96,11 +96,12 @@ export default function Home() {
         childImageUrl: childImage.preview,
         similarity: familyResult.similarity,
         confidence: familyResult.confidence * 100,
-        displayPercent: familyMessage.displayPercent
+        displayPercent: familyMessage.displayPercent,
+        locale
       };
 
       const imageDataUrl = await generateResultImage(resultData);
-      downloadImage(imageDataUrl);
+      downloadImage(imageDataUrl, undefined, locale);
     } catch (error) {
       console.error('Image generation failed:', error);
       alert(t('errors.imageGenerationFailed'));
@@ -118,16 +119,17 @@ export default function Home() {
         childImageUrl: childImage.preview,
         similarity: familyResult.similarity,
         confidence: familyResult.confidence * 100,
-        displayPercent: familyMessage.displayPercent
+        displayPercent: familyMessage.displayPercent,
+        locale
       };
 
       const imageDataUrl = await generateResultImage(resultData);
-      const shared = await shareResultImage(imageDataUrl, familyMessage.displayPercent);
+      const shared = await shareResultImage(imageDataUrl, familyMessage.displayPercent, locale);
       
       if (!shared) {
         // Web Share API 미지원 시 폴백: 클립보드에 텍스트 복사
         const shareText = t('share.resultText', { percent: familyMessage.displayPercent });
-        const copied = await copyToClipboard(shareText);
+        const copied = await copyToClipboard(shareText, locale);
         
         if (copied) {
           alert(t('share.clipboardCopied'));
@@ -335,14 +337,10 @@ export default function Home() {
                     </div>
                   </div>
                   
-                  {/* 연결 요소 - DNA 스타일 */}
+                  {/* 연결 요소 - 하트 */}
                   <div className="flex flex-col items-center justify-center px-6">
-                    <div className="relative flex flex-col items-center space-y-2">
-                      <div className="w-1 h-8 bg-gradient-to-b from-blue-400/60 to-purple-400/60 rounded-full"></div>
-                      <div className="w-8 h-8 flex items-center justify-center text-2xl bg-white/20 rounded-full backdrop-blur-sm border border-white/30">
-                        ✨
-                      </div>
-                      <div className="w-1 h-8 bg-gradient-to-b from-purple-400/60 to-pink-400/60 rounded-full"></div>
+                    <div className="text-4xl">
+                      ❤️
                     </div>
                   </div>
                   

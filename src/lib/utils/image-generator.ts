@@ -8,173 +8,92 @@ export interface ResultImageData {
 }
 
 export async function generateResultImage(data: ResultImageData): Promise<string> {
-  console.log('🖼️ generateResultImage - received data.locale:', data.locale);
-  const isEnglish = data.locale === 'en';
-  console.log('🖼️ generateResultImage - isEnglish:', isEnglish);
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  
-  if (!ctx) {
-    throw new Error('Canvas context not available');
-  }
+  // html-to-image를 사용하는 방식으로 변경
+  return new Promise(async (resolve, reject) => {
+    try {
+      // React와 ReactDOM 동적 import
+      const React = (await import('react')).default;
+      const { createRoot } = await import('react-dom/client');
+      const { default: ResultImageComponent } = await import('@/components/ResultImageComponent');
+      const { toPng } = await import('html-to-image');
 
-  // Canvas 크기 설정
-  const width = 800;
-  const height = 600;
-  canvas.width = width;
-  canvas.height = height;
+      // 임시 DOM 요소 생성
+      const tempDiv = document.createElement('div');
+      tempDiv.style.position = 'absolute';
+      tempDiv.style.left = '-9999px';
+      tempDiv.style.top = '-9999px';
+      tempDiv.style.width = '800px';
+      tempDiv.style.fontFamily = 'system-ui, -apple-system, sans-serif';
+      
+      document.body.appendChild(tempDiv);
 
-  // 배경 그라디언트
-  const gradient = ctx.createLinearGradient(0, 0, 0, height);
-  gradient.addColorStop(0, '#f0f9ff'); // blue-50
-  gradient.addColorStop(1, '#e0e7ff'); // indigo-100
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
+      // React 컴포넌트 렌더링
+      const root = createRoot(tempDiv);
+      
+      // 컴포넌트 렌더링 완료를 기다리기 위한 Promise
+      const renderPromise = new Promise<void>((resolveRender) => {
+        const ComponentToRender = React.createElement(ResultImageComponent, {
+          parentImageUrl: data.parentImageUrl,
+          childImageUrl: data.childImageUrl,
+          similarity: data.similarity,
+          confidence: data.confidence,
+          displayPercent: data.displayPercent,
+          locale: data.locale
+        });
 
-  // 부모 이미지 로드 및 그리기
-  const parentImg = await loadImage(data.parentImageUrl);
-  const childImg = await loadImage(data.childImageUrl);
+        root.render(ComponentToRender);
+        
+        // 렌더링 완료 대기
+        setTimeout(() => resolveRender(), 300);
+      });
 
-  // 이미지 크기 및 위치 계산
-  const imgSize = 150;
-  const imgY = 200;
-  const parentX = width / 2 - imgSize - 50;
-  const childX = width / 2 + 50;
+      await renderPromise;
 
-  // 부모 이미지 그리기 (원형)
-  ctx.save();
-  drawCircularImage(ctx, parentImg, parentX, imgY, imgSize);
-  ctx.restore();
+      // 이미지 로드 대기
+      const images = tempDiv.querySelectorAll('img');
+      await Promise.all(Array.from(images).map(img => {
+        return new Promise((resolve) => {
+          if (img.complete) {
+            resolve(true);
+          } else {
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(true);
+          }
+        });
+      }));
 
-  // 자녀 이미지 그리기 (원형)
-  ctx.save();
-  drawCircularImage(ctx, childImg, childX, imgY, imgSize);
-  ctx.restore();
+      // html-to-image로 이미지 생성
+      setTimeout(async () => {
+        try {
+          const dataUrl = await toPng(tempDiv.firstElementChild as HTMLElement, {
+            width: 800,
+            height: 1000,
+            style: {
+              transform: 'scale(1)',
+              transformOrigin: 'top left'
+            },
+            pixelRatio: 2,
+            backgroundColor: '#ffffff'
+          });
 
-  // 하트 아이콘 (중앙)
-  drawHeart(ctx, width / 2, imgY + imgSize / 2, 30);
+          // cleanup
+          root.unmount();
+          document.body.removeChild(tempDiv);
+          resolve(dataUrl);
+        } catch (error) {
+          // cleanup on error
+          root.unmount();
+          document.body.removeChild(tempDiv);
+          reject(error);
+        }
+      }, 500);
 
-  // 브랜딩 (상단)
-  ctx.fillStyle = '#1e40af'; // blue-800
-  ctx.font = 'bold 32px Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('Who\'s Your Papa?', width / 2, 80);
-  
-  ctx.fillStyle = '#64748b'; // slate-500
-  ctx.font = '18px Arial, sans-serif';
-  ctx.fillText(isEnglish ? 'AI Family Similarity Analysis' : 'AI 가족 닮음 분석', width / 2, 110);
-
-  // 라벨 (부모, 자녀)
-  ctx.fillStyle = '#374151'; // gray-700
-  ctx.font = 'bold 16px Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(isEnglish ? 'Parent' : '부모', parentX + imgSize / 2, imgY + imgSize + 30);
-  ctx.fillText(isEnglish ? 'Child' : '자녀', childX + imgSize / 2, imgY + imgSize + 30);
-
-  // 닮음 점수 (하단)
-  ctx.fillStyle = '#1d4ed8'; // blue-700
-  ctx.font = 'bold 48px Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(`${data.displayPercent}%`, width / 2, 480);
-  
-  ctx.fillStyle = '#059669'; // emerald-600
-  ctx.font = 'bold 24px Arial, sans-serif';
-  ctx.fillText(isEnglish ? 'Similar!' : '닮았어요!', width / 2, 515);
-
-  // 신뢰도
-  ctx.fillStyle = '#6b7280'; // gray-500
-  ctx.font = '16px Arial, sans-serif';
-  ctx.fillText(
-    isEnglish ? `Confidence: ${data.confidence.toFixed(1)}%` : `분석 신뢰도: ${data.confidence.toFixed(1)}%`, 
-    width / 2, 550
-  );
-
-  // 사이트 링크 유도
-  ctx.fillStyle = '#3b82f6'; // blue-500
-  ctx.font = 'bold 18px Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(
-    isEnglish ? 'Try analysis at whos-your-papa.com!' : 'whos-your-papa.com에서 분석해보세요!', 
-    width / 2, height - 40
-  );
-
-  // 날짜
-  const now = new Date();
-  const dateStr = isEnglish ? now.toLocaleDateString('en-US') : now.toLocaleDateString('ko-KR');
-  ctx.fillStyle = '#9ca3af'; // gray-400
-  ctx.font = '14px Arial, sans-serif';
-  ctx.textAlign = 'right';
-  ctx.fillText(dateStr, width - 20, height - 20);
-
-  return canvas.toDataURL('image/png');
-}
-
-function loadImage(src: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src;
+    } catch (error) {
+      reject(error);
+    }
   });
 }
 
-function drawCircularImage(
-  ctx: CanvasRenderingContext2D, 
-  img: HTMLImageElement, 
-  x: number, 
-  y: number, 
-  size: number
-) {
-  const radius = size / 2;
-  const centerX = x + radius;
-  const centerY = y + radius;
-
-  // 원형 클리핑 경로 생성
-  ctx.beginPath();
-  ctx.arc(centerX, centerY, radius - 5, 0, Math.PI * 2);
-  ctx.clip();
-
-  // 이미지를 정사각형으로 크롭하여 그리기
-  const minDimension = Math.min(img.width, img.height);
-  const cropX = (img.width - minDimension) / 2;
-  const cropY = (img.height - minDimension) / 2;
-
-  ctx.drawImage(
-    img,
-    cropX, cropY, minDimension, minDimension,
-    x + 5, y + 5, size - 10, size - 10
-  );
-
-  // 테두리 그리기
-  ctx.beginPath();
-  ctx.arc(centerX, centerY, radius - 2, 0, Math.PI * 2);
-  ctx.strokeStyle = '#e5e7eb'; // gray-200
-  ctx.lineWidth = 4;
-  ctx.stroke();
-}
-
-function drawHeart(ctx: CanvasRenderingContext2D, x: number, y: number, size: number) {
-  ctx.fillStyle = '#ec4899'; // pink-500
-  ctx.beginPath();
-  
-  const heartPath = new Path2D();
-  const scale = size / 24; // 24는 원본 SVG 크기
-  
-  // 하트 모양 경로 (SVG path를 Canvas path로 변환)
-  heartPath.moveTo((12 * scale) + x, (21.35 * scale) + y);
-  heartPath.lineTo((10.55 * scale) + x, (20.03 * scale) + y);
-  
-  // 간단한 하트 모양으로 대체
-  const heartSize = size * 0.8;
-  const heartX = x - heartSize / 2;
-  const heartY = y - heartSize / 2;
-  
-  ctx.fillStyle = '#ec4899';
-  ctx.font = `${heartSize}px Arial`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('💕', x, y);
-}
 
 export function downloadImage(dataUrl: string, filename?: string, locale?: 'ko' | 'en') {
   console.log('💾 downloadImage - received locale:', locale);
@@ -183,8 +102,8 @@ export function downloadImage(dataUrl: string, filename?: string, locale?: 'ko' 
   const timestamp = now.toISOString().slice(0, 19).replace(/[-:]/g, '').replace('T', '_');
   
   const defaultFilename = locale === 'en' 
-    ? `similarity_analysis_${timestamp}.png`
-    : `닮음분석결과_${timestamp}.png`;
+    ? `WhosYourPapaAI_Analysis_${timestamp}.png`
+    : `우리엄마아빠맞나요_AI분석결과_${timestamp}.png`;
   
   console.log('💾 downloadImage - filename will be:', filename || defaultFilename);
   
