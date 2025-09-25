@@ -266,7 +266,6 @@ class PythonApiClient {
       
       console.log('✅ 정규화된 결과:', {
         similarity: result.similarity,
-        confidence: result.confidence,
         faceMatchesCount: result.faceMatches?.length || 0
       });
 
