@@ -9,7 +9,7 @@
     "contact": "문의"
   },
   "hero": {
-    "title": "AI 얼굴 분석 도구",
+    "title": "AI 얼굴 분석",
     "subtitle": "원하시는 분석 유형을 선택하고 바로 시작해보세요"
   },
   "analysisSelector": {
@@ -17,7 +17,7 @@
     "subtitle": "원하는 분석 유형을 선택해주세요",
     "placeholder": "분석 유형을 선택하세요",
     "parentChild": {
-      "title": "친자 확인",
+      "title": "친자 확인 분석",
       "description": "부모와 자녀 사진을 비교해서 닮은 정도를 분석합니다"
     },
     "whoMostSimilar": {
@@ -36,7 +36,7 @@
     "childPhoto": "자녀 사진",
     "uploadParent": "부모 사진 업로드",
     "uploadChild": "자녀 사진 업로드",
-    "analyzeButton": "닮은 정도 분석 시작",
+    "analyzeButton": "분석 시작",
     "analyzing": "AI 분석 중..."
   },
   "whoMostSimilarAnalysis": {
@@ -91,10 +91,6 @@
     "clipboardCopied": "공유 텍스트가 클립보드에 복사되었습니다!\\n메신저나 SNS에 붙여넣기 해주세요.",
     "shareNotSupported": "이 브라우저에서는 직접 공유가 지원되지 않습니다.\\n\"이미지 다운로드\" 버튼을 사용해주세요.",
     "resultText": "우리 아이 닮음 분석 결과: {{percent}}% 닮았네요! 😊\\nwhos-your-papa.com에서 분석해보세요"
-  },
-  "footer": {
-    "madeWith": "Made with",
-    "copyright": "© 2024 Who's your papa. All rights reserved."
   },
   "guide": {
     "title": "이용 가이드",
@@ -395,7 +391,7 @@
       "shareResult": "결과 공유하기",
       "analyzing": "AI 분석 중...",
       "findingParent": "AI가 부모를 찾는 중...",
-      "startAnalysis": "닮은 정도 분석 시작",
+      "startAnalysis": "분석 시작",
       "startFindingParent": "부모 찾기 시작!"
     }
   },
@@ -410,10 +406,11 @@
       "parentPhoto": "부모 사진",
       "childPhoto": "자녀 사진",
       "analyzing": "AI 분석 중...",
-      "startAnalysis": "닮은 정도 분석 시작"
+      "startAnalysis": "분석 시작"
     },
     "results": {
       "analysisComplete": "분석 완료",
+      "analysisResult": "분석 결과",
       "resultTitle": "닮음 정도 결과",
       "confidence": "분석 신뢰도: {{confidence}}%",
       "parentLabel": "부모",

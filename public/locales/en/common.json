@@ -9,7 +9,7 @@
     "contact": "Contact"
   },
   "hero": {
-    "title": "AI Face Analysis Tool",
+    "title": "AI Face Analysis",
     "subtitle": "Choose your preferred analysis type and get started right away"
   },
   "analysisSelector": {
@@ -17,7 +17,7 @@
     "subtitle": "Please select your preferred analysis type",
     "placeholder": "Select analysis type",
     "parentChild": {
-      "title": "Paternity Test",
+      "title": "Paternity Analysis",
       "description": "Compare parent and child photos to analyze similarity"
     },
     "whoMostSimilar": {
@@ -52,6 +52,7 @@
   },
   "results": {
     "analysisComplete": "Analysis Complete",
+    "analysisResult": "Analysis Result",
     "similarityResult": "Similarity Analysis Result",
     "parentFindingResult": "Parent Finding Analysis Result",
     "confidence": "Analysis confidence: {{confidence}}%",

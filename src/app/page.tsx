@@ -166,7 +166,7 @@ export default function Home() {
       <div className="container mx-auto px-4 pt-16 pb-8">
         <div className="text-center mb-12">
           <div className="mb-4">
-            <span className="inline-block px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-semibold rounded-full shadow-lg mb-4">
               {t('home.hero.title')}
             </span>
           </div>
@@ -273,75 +273,114 @@ export default function Home() {
             </div>
           )}
 
-          {/* Family Results Section */}
+          {/* Family Results Section - Ultra Modern Design */}
           {familyResult && familyMessage && (
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm mb-8">
-              {/* Analysis Title Header */}
-              <div className="text-center p-8 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            <div className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/20 to-purple-50/30 backdrop-blur-xl rounded-[2rem] border border-white/40 shadow-2xl shadow-blue-500/10 hover:shadow-3xl hover:shadow-blue-500/20 transition-shadow duration-500 mb-12 animate-fade-in">
+              {/* 글래스모피즘 오버레이 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-transparent"></div>
+              
+              {/* 데코레이티브 요소들 */}
+              <div className="absolute top-8 right-8 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl opacity-60"></div>
+              <div className="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-2xl opacity-40"></div>
+              
+              {/* Clean Modern Header */}
+              <div className="relative z-20 text-center p-8 border-b border-white/20 backdrop-blur-sm">
+                <div className="mb-6">
+                  <span className="px-6 py-3 bg-gradient-to-r from-blue-500/15 to-purple-500/15 text-blue-700 text-sm font-semibold rounded-full border border-blue-200/40 backdrop-blur-sm inline-block">
+                    AI 분석 완료
+                  </span>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 mb-4 leading-tight">
                   {t('analysisSelector.parentChild.title')}
                 </h2>
-                <p className="text-sm md:text-base text-blue-600 font-semibold">
-                  Whos your papa AI {t('home.results.analysisResult') || '분석 결과'}
-                </p>
+                <div className="flex items-center justify-center space-x-2 text-gray-600">
+                  <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="font-medium">Whos your papa AI {t('home.results.analysisResult')}</span>
+                </div>
               </div>
               
-              {/* Photo Grid */}
-              <div className="p-6 md:p-8">
-                <div className="flex items-center justify-center gap-12 md:gap-16 mb-6">
-                  {/* 부모 사진 */}
-                  <div className="text-center">
-                    <div className="text-lg font-medium text-gray-700 mb-4">
-                      {t('home.results.parentLabel')}
+              {/* Ultra Modern Photo Grid */}
+              <div className="relative z-20 p-6 md:p-10">
+                <div className="flex items-center justify-center gap-8 md:gap-12 mb-6">
+                  {/* 부모 사진 - 모던 디자인 */}
+                  <div className="group text-center">
+                    <div className="mb-6">
+                      <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-full border border-blue-200/30 backdrop-blur-sm">
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                        <span className="text-sm font-semibold text-blue-700">{t('home.results.parentLabel')}</span>
+                      </div>
                     </div>
-                    <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
-                      <Image
-                        src={parentImage?.preview || ''}
-                        alt={t('home.results.parentLabel')}
-                        fill
-                        className="object-cover"
-                      />
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-3xl blur-xl transform group-hover:scale-110 transition-transform duration-500"></div>
+                      <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-3xl border border-white/40 overflow-hidden shadow-2xl shadow-blue-500/20 group-hover:shadow-3xl group-hover:shadow-blue-500/30 transition-all duration-500 backdrop-blur-sm bg-white/10">
+                        <Image
+                          src={parentImage?.preview || ''}
+                          alt={t('home.results.parentLabel')}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
+                      </div>
                     </div>
                   </div>
                   
-                  {/* 하트 이모지 */}
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="w-20 h-20 mb-3 flex items-center justify-center text-4xl">
-                      ❤️
+                  {/* 연결 요소 - DNA 스타일 */}
+                  <div className="flex flex-col items-center justify-center px-6">
+                    <div className="relative flex flex-col items-center space-y-2">
+                      <div className="w-1 h-8 bg-gradient-to-b from-blue-400/60 to-purple-400/60 rounded-full"></div>
+                      <div className="w-8 h-8 flex items-center justify-center text-2xl bg-white/20 rounded-full backdrop-blur-sm border border-white/30">
+                        ✨
+                      </div>
+                      <div className="w-1 h-8 bg-gradient-to-b from-purple-400/60 to-pink-400/60 rounded-full"></div>
                     </div>
                   </div>
                   
-                  {/* 자녀 사진 */}
-                  <div className="text-center">
-                    <div className="text-lg font-medium text-gray-700 mb-4">
-                      {t('home.results.childLabel')}
+                  {/* 자녀 사진 - 모던 디자인 */}
+                  <div className="group text-center">
+                    <div className="mb-6">
+                      <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-200/30 backdrop-blur-sm">
+                        <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                        <span className="text-sm font-semibold text-purple-700">{t('home.results.childLabel')}</span>
+                      </div>
                     </div>
-                    <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
-                      <Image
-                        src={childImage?.preview || ''}
-                        alt={t('home.results.childLabel')}
-                        fill
-                        className="object-cover"
-                      />
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-3xl blur-xl transform group-hover:scale-110 transition-transform duration-500"></div>
+                      <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-3xl border border-white/40 overflow-hidden shadow-2xl shadow-purple-500/20 group-hover:shadow-3xl group-hover:shadow-purple-500/30 transition-all duration-500 backdrop-blur-sm bg-white/10">
+                        <Image
+                          src={childImage?.preview || ''}
+                          alt={t('home.results.childLabel')}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 
-                {/* Similarity Gauge */}
-                <div className="bg-white rounded-xl p-6 mb-6 border border-gray-200">
-                  <SimilarityGauge 
-                    percentage={familyMessage.displayPercent} 
-                    isAnimating={true}
-                  />
+                {/* Modern Similarity Results */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-white/90 via-blue-50/30 to-purple-50/20 backdrop-blur-sm rounded-3xl border border-white/40 shadow-xl p-6 md:p-8 mb-6">
+                  {/* 장식 요소 */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/10 to-transparent rounded-full blur-2xl"></div>
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-400/10 to-transparent rounded-full blur-xl"></div>
+                  
+                  <div className="relative z-10">
+                    <SimilarityGauge 
+                      percentage={familyMessage.displayPercent} 
+                      isAnimating={true}
+                    />
+                  </div>
                 </div>
               </div>
               
-              {/* Actions */}
-              <div className="border-t border-gray-100 bg-gray-50">
-                <div className="grid grid-cols-3 divide-x divide-gray-200">
+              {/* Modern Action Buttons */}
+              <div className="relative z-10 bg-gradient-to-r from-white/80 via-blue-50/40 to-purple-50/30 backdrop-blur-sm border-t border-white/20">
+                <div className="flex flex-wrap justify-center gap-3 p-6">
                   <button
                     onClick={handleReset}
-                    className="px-4 py-4 text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
+                    className="flex items-center gap-2 px-6 py-3 bg-white/60 hover:bg-white/80 backdrop-blur-sm text-gray-700 font-medium rounded-xl border border-white/40 hover:border-gray-200/60 shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -350,7 +389,7 @@ export default function Home() {
                   </button>
                   <button
                     onClick={handleDownloadResult}
-                    className="px-4 py-4 text-sm font-medium text-green-600 hover:bg-green-50 transition-colors flex items-center justify-center gap-2"
+                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/90 to-emerald-500/90 hover:from-green-600 hover:to-emerald-600 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -359,7 +398,7 @@ export default function Home() {
                   </button>
                   <button
                     onClick={handleShareResult}
-                    className="px-4 py-4 text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
+                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500/90 to-purple-500/90 hover:from-blue-600 hover:to-purple-600 text-white font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
