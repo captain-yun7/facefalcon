@@ -21,10 +21,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Who's your papa AI - AI 얼굴 분석 | 가족 닮음 분석 서비스",
+    default: "Who's your papa - AI 얼굴 분석 서비스",
     template: "%s | Who's your papa AI"
   },
-  description: "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스. 친자 확인, 가족 닮음 분석, 연예인 닮은꼴 찾기까지 한 번에! 재미있는 AI 얼굴 분석을 지금 체험해보세요.",
+  description: "AI로 부모-자녀 얼굴 유사도를 정확 분석하는 무료 서비스. 친자 확인부터 연예인 닮은꼴까지!",
   keywords: ["AI 얼굴 분석", "가족 닮음 분석", "친자 확인", "부모 자녀 닮음", "얼굴 유사도", "연예인 닮은꼴", "Who's your papa", "얼굴 비교", "가족 유사도 측정", "AI face analysis"],
   authors: [{ name: "Who's your papa AI Team" }],
   creator: "Who's your papa AI",
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     url: '/',
-    title: "Who's your papa AI - AI 얼굴 분석 서비스",
-    description: "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스. 친자 확인부터 연예인 닮은꼴까지!",
+    title: "Who's your papa - AI 얼굴 분석 서비스",
+    description: "AI로 부모-자녀 얼굴 유사도를 정확 분석하는 무료 서비스. 친자 확인부터 연예인 닮은꼴까지!",
     siteName: "Who's your papa AI",
     images: [
       {
@@ -60,8 +60,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Who's your papa AI - AI 얼굴 분석 서비스",
-    description: "AI로 가족 얼굴 유사도를 분석하는 재미있는 서비스",
+    title: "Who's your papa - AI 얼굴 분석 서비스",
+    description: "AI로 부모-자녀 얼굴 유사도를 정확 분석하는 무료 서비스. 친자 확인부터 연예인 닮은꼴까지!",
     images: ['/og-image.jpg'],
     creator: '@whosyourpapaai',
   },
@@ -104,7 +104,7 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
                 "name": "Who's your papa AI",
-                "description": "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스",
+                "description": "AI로 부모-자녀 얼굴 유사도를 정확 분석하는 무료 서비스. 친자 확인부터 연예인 닮은꼴까지!",
                 "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com',
                 "applicationCategory": "UtilitiesApplication",
                 "operatingSystem": "Web Browser",
