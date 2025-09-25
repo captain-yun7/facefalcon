@@ -42,8 +42,8 @@ export default function AnalyzePage() {
 
   const handleAnalysisChange = (value: AnalysisType) => {
     // Track analysis type change
-    if (selectedAnalysis !== value) {
-      analytics.trackAnalysisTypeChange(selectedAnalysis, value);
+    if (selectedAnalysis !== value && selectedAnalysis !== '' && value !== '') {
+      analytics.trackAnalysisTypeChange(selectedAnalysis as "parent-child" | "who-most-similar", value as "parent-child" | "who-most-similar");
     }
     
     setSelectedAnalysis(value);

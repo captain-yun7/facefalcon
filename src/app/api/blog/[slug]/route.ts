@@ -3,13 +3,14 @@ import { getPostBySlug, getRelatedPosts } from '@/lib/blog';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const locale = searchParams.get('locale') || 'ko';
+    const { slug } = await params;
     
-    const post = await getPostBySlug(params.slug, locale);
+    const post = await getPostBySlug(slug, locale);
     
     if (!post) {
       return NextResponse.json(
