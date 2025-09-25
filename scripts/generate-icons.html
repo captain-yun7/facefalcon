@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Icon Generator</title>
+</head>
+<body>
+    <div id="canvases"></div>
+    <button onclick="generateAllIcons()">Generate All Icons</button>
+    
+    <script>
+        // 브랜드 컬러
+        const colors = {
+            blue: '#3B82F6',
+            purple: '#8B5CF6',
+            white: '#ffffff',
+            gray: '#f8fafc'
+        };
+
+        // 아이콘 사이즈 정의
+        const iconSizes = [
+            { name: 'favicon-16x16', size: 16 },
+            { name: 'favicon-32x32', size: 32 },
+            { name: 'apple-touch-icon', size: 180 },
+            { name: 'android-chrome-192x192', size: 192 },
+            { name: 'android-chrome-512x512', size: 512 }
+        ];
+
+        function createGradient(ctx, size) {
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, colors.blue);
+            gradient.addColorStop(1, colors.purple);
+            return gradient;
+        }
+
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+
+            // 그라데이션 배경
+            ctx.fillStyle = createGradient(ctx, size);
+            const borderRadius = size * 0.2;
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, borderRadius);
+            ctx.fill();
+
+            // 아이콘 심볼 (두 개의 연결된 원 - 부모와 자녀)
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const mainRadius = size * 0.15;
+            const smallRadius = size * 0.1;
+            
+            ctx.fillStyle = colors.white;
+            
+            // 큰 원 (부모)
+            ctx.beginPath();
+            ctx.arc(centerX - size * 0.08, centerY - size * 0.05, mainRadius, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // 작은 원 (자녀)
+            ctx.beginPath();
+            ctx.arc(centerX + size * 0.08, centerY + size * 0.05, smallRadius, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // 연결선
+            ctx.strokeStyle = colors.white;
+            ctx.lineWidth = size * 0.02;
+            ctx.beginPath();
+            ctx.moveTo(centerX - size * 0.03, centerY);
+            ctx.lineTo(centerX + size * 0.03, centerY);
+            ctx.stroke();
+
+            // 작은 사이즈에서는 심플하게
+            if (size <= 32) {
+                // 단순한 하트 모양으로 대체
+                ctx.fillStyle = colors.white;
+                ctx.font = `${size * 0.6}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('♥', centerX, centerY);
+            }
+        }
+
+        function generateIcon(name, size) {
+            const canvas = document.createElement('canvas');
+            drawIcon(canvas, size);
+            
+            // PNG로 다운로드
+            const link = document.createElement('a');
+            link.download = `${name}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+            
+            return canvas;
+        }
+
+        function generateAllIcons() {
+            const container = document.getElementById('canvases');
+            container.innerHTML = '';
+            
+            iconSizes.forEach(({name, size}) => {
+                const canvas = generateIcon(name, size);
+                canvas.style.margin = '10px';
+                canvas.style.border = '1px solid #ccc';
+                container.appendChild(canvas);
+                
+                const label = document.createElement('div');
+                label.textContent = `${name} (${size}x${size})`;
+                container.appendChild(label);
+            });
+        }
+
+        // OG 이미지 생성 함수
+        function generateOGImage() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1200;
+            canvas.height = 630;
+            
+            // 그라데이션 배경
+            ctx.fillStyle = createGradient(ctx, 1200);
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            // 제목
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 80px Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText("Who's your papa", 600, 250);
+            
+            // 부제목
+            ctx.font = '48px Arial, sans-serif';
+            ctx.fillText('AI 얼굴 분석 서비스', 600, 330);
+            
+            // 설명
+            ctx.font = '32px Arial, sans-serif';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fillText('부모-자녀 닮음을 AI로 정확하게 분석', 600, 420);
+            
+            // 아이콘들
+            const iconSize = 80;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            
+            // 여러 개 작은 아이콘들
+            for(let i = 0; i < 5; i++) {
+                const x = 200 + i * 200;
+                const y = 500;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 20, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.beginPath(); 
+                ctx.arc(x + 30, y, 15, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            // 다운로드
+            const link = document.createElement('a');
+            link.download = 'og-image.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+            
+            canvas.style.width = '600px';
+            canvas.style.border = '1px solid #ccc';
+            canvas.style.margin = '20px 0';
+            document.getElementById('canvases').appendChild(canvas);
+        }
+        
+        // SVG 생성 함수
+        function generateSafariSVG() {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <circle cx="35" cy="40" r="15" fill="#000"/>
+                <circle cx="65" cy="60" r="10" fill="#000"/>
+                <line x1="45" y1="50" x2="55" y2="50" stroke="#000" stroke-width="2"/>
+            </svg>`;
+            
+            const blob = new Blob([svg], { type: 'image/svg+xml' });
+            const link = document.createElement('a');
+            link.download = 'safari-pinned-tab.svg';
+            link.href = URL.createObjectURL(blob);
+            link.click();
+        }
+
+        // 자동 시작
+        setTimeout(() => {
+            generateAllIcons();
+            generateOGImage();
+            generateSafariSVG();
+        }, 1000);
+    </script>
+</body>
+</html>

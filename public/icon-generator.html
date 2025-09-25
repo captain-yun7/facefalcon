@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Generator - Who's your papa</title>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px;">
+    <h2>🎨 Who's your papa - Icon Generator</h2>
+    <p>Click the button to generate and download all required icons:</p>
+    
+    <button onclick="generateAllIcons()" style="padding: 10px 20px; background: linear-gradient(45deg, #3B82F6, #8B5CF6); color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">
+        Generate All Icons
+    </button>
+    
+    <div id="preview" style="margin-top: 20px;"></div>
+    
+    <script>
+        const colors = {
+            blue: '#3B82F6',
+            purple: '#8B5CF6',
+            white: '#ffffff'
+        };
+
+        function createGradient(ctx, size) {
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, colors.blue);
+            gradient.addColorStop(1, colors.purple);
+            return gradient;
+        }
+
+        function drawIcon(size) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+
+            // 그라데이션 배경
+            ctx.fillStyle = createGradient(ctx, size);
+            const radius = size * 0.2;
+            
+            // 라운드 사각형
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, radius);
+            ctx.fill();
+
+            const centerX = size / 2;
+            const centerY = size / 2;
+            
+            ctx.fillStyle = colors.white;
+            
+            if (size <= 32) {
+                // 작은 아이콘: 하트만
+                ctx.font = `${size * 0.6}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('♥', centerX, centerY);
+            } else {
+                // 큰 아이콘: 부모-자녀 + 하트
+                const bigRadius = size * 0.1;
+                const smallRadius = size * 0.07;
+                
+                // 큰 원 (부모)
+                ctx.beginPath();
+                ctx.arc(centerX - size * 0.1, centerY - size * 0.05, bigRadius, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // 작은 원 (자녀)  
+                ctx.beginPath();
+                ctx.arc(centerX + size * 0.1, centerY + size * 0.05, smallRadius, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // 하트
+                ctx.font = `${size * 0.12}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('♥', centerX, centerY + size * 0.02);
+            }
+
+            return canvas;
+        }
+
+        function generateOGImage() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1200;
+            canvas.height = 630;
+            
+            // 그라데이션 배경
+            ctx.fillStyle = createGradient(ctx, 1200);
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            // 제목
+            ctx.fillStyle = colors.white;
+            ctx.font = 'bold 72px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText("Who's your papa", 600, 220);
+            
+            // 부제목
+            ctx.font = '44px Arial';
+            ctx.fillText('AI 얼굴 분석 서비스', 600, 290);
+            
+            // 설명
+            ctx.font = '28px Arial';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fillText('부모-자녀 닮음을 AI로 정확하게 분석', 600, 360);
+            
+            // 장식 아이콘들
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            for(let i = 0; i < 6; i++) {
+                const x = 200 + i * 160;
+                const y = 480;
+                
+                ctx.beginPath();
+                ctx.arc(x - 12, y, 10, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(x + 12, y, 7, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            // 하단 텍스트
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.font = '20px Arial';
+            ctx.fillText('친자 확인 • 가족 닮음 • 연예인 닮은꼴', 600, 550);
+            
+            return canvas;
+        }
+
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function downloadJPEG(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+
+        function generateAllIcons() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '<h3>Generated Icons:</h3>';
+            
+            const sizes = [
+                { name: 'favicon-16x16', size: 16 },
+                { name: 'favicon-32x32', size: 32 },
+                { name: 'apple-touch-icon', size: 180 },
+                { name: 'android-chrome-192x192', size: 192 },
+                { name: 'android-chrome-512x512', size: 512 }
+            ];
+
+            // 아이콘들 생성
+            sizes.forEach(({name, size}) => {
+                const canvas = drawIcon(size);
+                downloadCanvas(canvas, `${name}.png`);
+                
+                // 미리보기 추가
+                const div = document.createElement('div');
+                div.style.display = 'inline-block';
+                div.style.margin = '10px';
+                div.style.textAlign = 'center';
+                
+                const previewCanvas = drawIcon(64); // 미리보기용 64px
+                previewCanvas.style.border = '1px solid #ddd';
+                previewCanvas.style.borderRadius = '8px';
+                
+                const label = document.createElement('div');
+                label.textContent = `${name} (${size}px)`;
+                label.style.fontSize = '12px';
+                label.style.marginTop = '5px';
+                
+                div.appendChild(previewCanvas);
+                div.appendChild(label);
+                preview.appendChild(div);
+            });
+
+            // OG 이미지 생성
+            setTimeout(() => {
+                const ogCanvas = generateOGImage();
+                downloadJPEG(ogCanvas, 'og-image.jpg');
+                
+                // OG 이미지 미리보기
+                const div = document.createElement('div');
+                div.style.margin = '20px 0';
+                div.innerHTML = '<h4>OG Image (1200x630):</h4>';
+                
+                const previewOG = document.createElement('canvas');
+                const ctx = previewOG.getContext('2d');
+                previewOG.width = 400;
+                previewOG.height = 210;
+                ctx.drawImage(ogCanvas, 0, 0, 400, 210);
+                previewOG.style.border = '1px solid #ddd';
+                previewOG.style.borderRadius = '8px';
+                
+                div.appendChild(previewOG);
+                preview.appendChild(div);
+                
+                alert('✅ All icons generated successfully!\\n\\nFiles downloaded:\\n- favicon-16x16.png\\n- favicon-32x32.png\\n- apple-touch-icon.png\\n- android-chrome-192x192.png\\n- android-chrome-512x512.png\\n- og-image.jpg');
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
