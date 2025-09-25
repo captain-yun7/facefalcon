@@ -1,30 +1,22 @@
 import type { Metadata } from "next";
-import { Montserrat, Roboto, Playfair_Display, Fredoka } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+// Pretendard Variable 폰트 (로컬 파일)
+const pretendard = localFont({
+  src: "../../public/fonts/PretendardVariable.woff2",
+  display: "swap",
+  weight: "45 920",
+  variable: "--font-pretendard",
 });
 
-const roboto = Roboto({
-  variable: "--font-roboto",
+// Inter 폰트 (폴백용)
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700", "900"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["700", "800", "900"],
-});
-
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
-  subsets: ["latin"],
-  weight: ["400"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -39,8 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body
-        className={`${montserrat.variable} ${roboto.variable} ${playfair.variable} ${fredoka.variable} antialiased`}
+      <body 
+        className={`${pretendard.variable} ${inter.variable} font-sans antialiased`}
       >
         <GoogleAnalytics />
         {children}
