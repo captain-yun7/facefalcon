@@ -6,6 +6,7 @@ import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
 import SimilarityGauge from '@/components/SimilarityGauge';
 import AnalyzingAdScreen from '@/components/AnalyzingAdScreen';
+import AnalysisResultDisplay from '@/components/AnalysisResultDisplay';
 import Footer from '@/components/Footer';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
@@ -661,141 +662,21 @@ export default function AnalyzePage() {
                 </div>
               )}
 
-              {/* Family Results Section - Ultra Modern Design */}
-              {familyResult && familyMessage && (
-                <div className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/20 to-purple-50/30 backdrop-blur-xl rounded-[2rem] border border-white/40 shadow-2xl shadow-blue-500/10 hover:shadow-3xl hover:shadow-blue-500/20 transition-shadow duration-500 mb-12 animate-fade-in">
-                  {/* 글래스모피즘 오버레이 */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-transparent"></div>
-                  
-                  {/* 데코레이티브 요소들 */}
-                  <div className="absolute top-8 right-8 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl opacity-60"></div>
-                  <div className="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-2xl opacity-40"></div>
-                  {/* Clean Modern Header */}
-                  <div className="relative z-20 text-center p-8 border-b border-white/20 backdrop-blur-sm">
-                    <div className="mb-6">
-                      <span className="px-6 py-3 bg-gradient-to-r from-blue-500/15 to-purple-500/15 text-blue-700 text-sm font-semibold rounded-full border border-blue-200/40 backdrop-blur-sm inline-block">
-                        AI 분석 완료
-                      </span>
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 mb-4 leading-tight">
-                      {selectedOption?.title || t('analysisSelector.parentChild.title')}
-                    </h2>
-                    <div className="flex items-center justify-center space-x-2 text-gray-600">
-                      <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <span className="font-medium">Whos your papa AI {locale === 'en' ? 'Analysis Result' : '분석 결과'}</span>
-                    </div>
-                  </div>
-                  
-                  {/* Ultra Modern Photo Grid */}
-                  <div className="relative z-20 p-6 md:p-10">
-                    <div className="flex items-center justify-center gap-8 md:gap-12 mb-6">
-                      {/* 부모 사진 - 모던 디자인 */}
-                      <div className="group text-center">
-                        <div className="mb-6">
-                          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-full border border-blue-200/30 backdrop-blur-sm">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span className="text-sm font-semibold text-blue-700">{t('pages.analyze.parent')}</span>
-                          </div>
-                        </div>
-                        <div className="relative">
-                          <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-3xl blur-xl transform group-hover:scale-110 transition-transform duration-500"></div>
-                          <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-3xl border border-white/40 overflow-hidden shadow-2xl shadow-blue-500/20 group-hover:shadow-3xl group-hover:shadow-blue-500/30 transition-all duration-500 backdrop-blur-sm bg-white/10">
-                            <Image
-                              src={parentImage?.preview || ''}
-                              alt={t('pages.analyze.parent')}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-700"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* 연결 요소 - 하트 */}
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="text-4xl">
-                          ❤️
-                        </div>
-                      </div>
-                      
-                      {/* 자녀 사진 - 모던 디자인 */}
-                      <div className="group text-center">
-                        <div className="mb-6">
-                          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-purple-600/10 rounded-full border border-purple-200/30 backdrop-blur-sm">
-                            <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                            <span className="text-sm font-semibold text-purple-700">{t('pages.analyze.child')}</span>
-                          </div>
-                        </div>
-                        <div className="relative">
-                          <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-3xl blur-xl transform group-hover:scale-110 transition-transform duration-500"></div>
-                          <div className="relative w-48 h-48 md:w-60 md:h-60 rounded-3xl border border-white/40 overflow-hidden shadow-2xl shadow-purple-500/20 group-hover:shadow-3xl group-hover:shadow-purple-500/30 transition-all duration-500 backdrop-blur-sm bg-white/10">
-                            <Image
-                              src={childImage?.preview || ''}
-                              alt={t('pages.analyze.child')}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-700"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Ultra Modern Similarity Result */}
-                    <div className="relative bg-gradient-to-br from-white/80 to-blue-50/50 rounded-2xl p-6 mb-4 border border-white/60 shadow-xl shadow-blue-500/10 backdrop-blur-sm">
-                      <SimilarityGauge 
-                        percentage={familyMessage.displayPercent} 
-                        isAnimating={true}
-                      />
-                    </div>
-                  </div>
-                  
-                  {/* Modern Actions Bar */}
-                  <div className="relative z-20 p-4 bg-gradient-to-r from-white/90 via-blue-50/50 to-purple-50/40 backdrop-blur-sm rounded-b-[2rem]">
-                    <div className="flex items-center justify-center gap-4">
-                      {/* 다시 분석 버튼 */}
-                      <button
-                        onClick={handleReset}
-                        className="group relative px-6 py-4 bg-gradient-to-r from-slate-500 to-slate-600 text-white font-semibold rounded-2xl shadow-lg shadow-slate-500/20 hover:shadow-xl hover:shadow-slate-500/30 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-600 to-slate-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <svg className="relative z-10 w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        <span className="relative z-10 text-sm">{t('pages.analyze.tryAgainButton')}</span>
-                        <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                      </button>
-
-                      {/* 다운로드 버튼 */}
-                      <button
-                        onClick={handleDownloadResult}
-                        className="group relative px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <svg className="relative z-10 w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <span className="relative z-10 text-sm">{t('pages.analyze.downloadImage')}</span>
-                        <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                      </button>
-
-                      {/* 공유 버튼 */}
-                      <button
-                        onClick={handleShareResult}
-                        className="group relative px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-2xl shadow-lg shadow-purple-500/20 hover:shadow-xl hover:shadow-purple-500/30 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <svg className="relative z-10 w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                        </svg>
-                        <span className="relative z-10 text-sm">{t('pages.analyze.shareResult')}</span>
-                        <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              {/* Family Results Section - Using Common Component */}
+              {familyResult && familyMessage && parentImage && childImage && (
+                <AnalysisResultDisplay
+                  parentImage={parentImage}
+                  childImage={childImage}
+                  familyResult={familyResult}
+                  displayPercent={familyMessage.displayPercent}
+                  locale={locale}
+                  displayMode="web"
+                  showActions={true}
+                  onDownload={handleDownloadResult}
+                  onShare={handleShareResult}
+                  onReset={handleReset}
+                  className="mb-12"
+                />
               )}
             </>
           )}
