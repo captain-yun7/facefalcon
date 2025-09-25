@@ -3,6 +3,7 @@
  * InsightFace 기반 Python 서버와의 통신을 담당
  */
 
+import getConfig from 'next/config';
 import { FaceComparisonResult, FaceDetails, ApiResponse } from '@/lib/types';
 import { 
   normalizePythonFaceComparison, 
@@ -112,8 +113,28 @@ class PythonApiClient {
   private timeout: number;
 
   constructor() {
-    this.baseUrl = process.env.PYTHON_API_URL || 'http://localhost:8000';
-    this.timeout = parseInt(process.env.PYTHON_API_TIMEOUT || '30000', 10);
+    // Next.js config에서 환경변수 가져오기
+    const { serverRuntimeConfig } = getConfig() || {};
+    
+    // 다양한 소스에서 환경변수 읽기 시도
+    this.baseUrl = serverRuntimeConfig?.PYTHON_API_URL || 
+                   process.env.PYTHON_API_URL || 
+                   'http://localhost:8000';
+    
+    this.timeout = parseInt(
+      serverRuntimeConfig?.PYTHON_API_TIMEOUT || 
+      process.env.PYTHON_API_TIMEOUT || 
+      '30000', 
+      10
+    );
+    
+    console.log('🔧 Python API Configuration:', {
+      url: this.baseUrl,
+      timeout: this.timeout,
+      source: serverRuntimeConfig?.PYTHON_API_URL ? 'serverRuntimeConfig' : 
+              process.env.PYTHON_API_URL ? 'process.env' : 
+              'default'
+    });
   }
 
   private async makeRequest<T>(
