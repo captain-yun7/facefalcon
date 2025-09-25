@@ -1,5 +1,5 @@
 {
-  "appName": "Who's your papa",
+  "appName": "Who's your papa AI",
   "navigation": {
     "home": "Home",
     "analyze": "Analyze",
@@ -95,7 +95,7 @@
   },
   "footer": {
     "madeWith": "Made with",
-    "copyright": "© 2024 Who's your papa. All rights reserved."
+    "copyright": "© 2024 Who's your papa AI. All rights reserved."
   },
   "pages": {
     "about": {
@@ -226,7 +226,7 @@
   },
   "guide": {
     "title": "User Guide",
-    "subtitle": "Learn how to effectively use the Who's Your Papa? service and get tips for accurate analysis results.",
+    "subtitle": "Learn how to effectively use the Who's Your Papa AI service and get tips for accurate analysis results.",
     "quickStart": {
       "title": "Quick Start Guide",
       "step1Title": "Step 1: Prepare Photos",
@@ -376,7 +376,7 @@
   },
   "footer": {
     "siteInfo": {
-      "title": "Who's Your Papa?",
+      "title": "Who's Your Papa AI",
       "description": "A family resemblance analysis service using AI technology. We accurately analyze the similarity between parents and children.",
       "security": "SSL Secure Connection"
     },
@@ -395,7 +395,7 @@
       "privacy": "Privacy Policy",
       "terms": "Terms of Service"
     },
-    "copyright": "© {{year}} Who's Your Papa?. All rights reserved.",
+    "copyright": "© {{year}} Who's Your Papa AI. All rights reserved.",
     "disclaimer": "This service provides reference analysis results using AI technology.",
     "legalNotice": "This website complies with the Personal Information Protection Act and the Act on Promotion of Information and Communications Network Utilization and Information Protection. Uploaded images are immediately deleted after analysis and are not stored separately. If you encounter any problems while using the service, please contact",
     "madeWith": "Made with"
@@ -403,7 +403,7 @@
   "home": {
     "hero": {
       "title": "Main Service",
-      "subtitle": "Who does our child look more like?",
+      "subtitle": "Are they really our mom and dad?",
       "description": "Upload photos of parent and child to accurately analyze their similarity",
       "badge": "High-precision analysis engine based on InsightFace"
     },

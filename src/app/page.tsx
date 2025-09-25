@@ -170,8 +170,17 @@ export default function Home() {
               {t('home.hero.title')}
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-900 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-black mb-6 text-gray-900 leading-tight relative inline-block pb-4">
             {t('home.hero.subtitle')}
+            <svg className="absolute bottom-0 left-0 w-full h-2" viewBox="0 0 400 8" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="wavy-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#3B82F6" />
+                  <stop offset="100%" stopColor="#8B5CF6" />
+                </linearGradient>
+              </defs>
+              <path d="M0,4 Q50,1 100,4 T200,4 Q250,1 300,4 T400,4" stroke="url(#wavy-gradient)" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+            </svg>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             {t('home.hero.description')}

@@ -18,7 +18,7 @@ export default function ServicePage() {
         <div className="max-w-6xl mx-auto">
           {/* 헤더 섹션 */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
               {t('pages.service.title')}
               <span className="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent block mt-2">
                 {t('pages.service.titleGradient')}

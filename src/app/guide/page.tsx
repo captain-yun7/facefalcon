@@ -17,7 +17,7 @@ export default function GuidePage() {
         <div className="max-w-4xl mx-auto">
           {/* 헤더 섹션 */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-6">
               {t('guide.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">

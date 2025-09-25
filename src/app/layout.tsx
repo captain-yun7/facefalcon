@@ -20,7 +20,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Who's your papa - AI 얼굴 분석 서비스",
+  title: "Who's your papa AI - AI 얼굴 분석 서비스",
   description: "AI로 가족 얼굴 유사도를 분석하는 재미있는 서비스",
 };
 
