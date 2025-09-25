@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com'),
   alternates: {
     canonical: "/",
     languages: {
@@ -105,7 +105,7 @@ export default function RootLayout({
                 "@type": "WebApplication",
                 "name": "Who's your papa AI",
                 "description": "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스",
-                "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa.com',
+                "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com',
                 "applicationCategory": "UtilitiesApplication",
                 "operatingSystem": "Web Browser",
                 "offers": {
@@ -117,7 +117,7 @@ export default function RootLayout({
                 "provider": {
                   "@type": "Organization",
                   "name": "Who's your papa AI",
-                  "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa.com',
+                  "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com',
                   "logo": "/logo.png",
                   "sameAs": [
                     "https://www.facebook.com/whosyourpapaai",
@@ -150,7 +150,7 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 "name": "Who's your papa AI",
-                "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa.com',
+                "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com',
                 "logo": "/logo.png",
                 "description": "AI 기술을 활용한 얼굴 분석 및 가족 닮음 분석 서비스 제공 기업",
                 "contactPoint": {
