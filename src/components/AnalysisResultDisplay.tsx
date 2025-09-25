@@ -21,6 +21,7 @@ interface AnalysisResultDisplayProps {
 export default function AnalysisResultDisplay({
   parentImage,
   childImage,
+  familyResult,
   displayPercent,
   locale = 'ko',
   displayMode = 'web',
@@ -35,21 +36,15 @@ export default function AnalysisResultDisplay({
 
   // 레이아웃 클래스 결정
   const photoGridLayoutClass = isWebMode 
-    ? "flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8 mb-6"
-    : "flex items-center justify-center gap-8 md:gap-12 mb-6";
+    ? "grid md:grid-cols-2 gap-6 md:gap-8 mb-6"
+    : "grid grid-cols-2 gap-8 mb-6";
 
-  // 이미지 크기 클래스 결정  
-  const imageContainerClass = isWebMode
-    ? "relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-3xl border border-white/40 overflow-hidden shadow-2xl shadow-blue-500/20 group-hover:shadow-3xl group-hover:shadow-blue-500/30 transition-all duration-500 backdrop-blur-sm bg-white/10"
-    : "relative w-48 h-48 md:w-60 md:h-60 rounded-3xl border border-white/40 overflow-hidden shadow-2xl shadow-blue-500/20 group-hover:shadow-3xl group-hover:shadow-blue-500/30 transition-all duration-500 backdrop-blur-sm bg-white/10";
+  // 이미지 크기 클래스 결정 - 업로드 때와 동일한 크기로 설정 
+  const imageContainerClass = "relative aspect-square w-full rounded-xl border border-gray-200 overflow-hidden shadow-lg";
 
   // 라벨 패딩 클래스
-  const labelPadding = isWebMode ? "px-3 py-2" : "px-4 py-2";
-  const labelMargin = isWebMode ? "mb-4" : "mb-6";
-
-  // 하트 크기 클래스
-  const heartSizeClass = isWebMode ? "text-3xl sm:text-4xl" : "text-4xl";
-  const heartContainerClass = isWebMode ? "px-2" : "px-6";
+  const labelPadding = "px-3 py-2";
+  const labelMargin = "mb-4";
 
   return (
     <div className={`relative overflow-hidden bg-gradient-to-br from-white via-blue-50/20 to-purple-50/30 backdrop-blur-xl rounded-[2rem] border border-white/40 shadow-2xl shadow-blue-500/10 hover:shadow-3xl hover:shadow-blue-500/20 transition-shadow duration-500 animate-fade-in ${className}`}>
@@ -70,65 +65,61 @@ export default function AnalysisResultDisplay({
         <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 mb-4 leading-tight">
           {isEnglish ? 'Paternity Analysis' : '친자 확인 분석'}
         </h2>
-        <div className="flex items-center justify-center space-x-2 text-gray-600">
-          <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-          </svg>
-          <span className="font-medium">Who&apos;s your papa AI {isEnglish ? 'Analysis Result' : '분석 결과'}</span>
+        <div className="space-y-2">
+          <div className="flex items-center justify-center space-x-2 text-gray-600">
+            <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span className="font-medium">Who&apos;s your papa AI {isEnglish ? 'Analysis Result' : '분석 결과'}</span>
+          </div>
+          {familyResult && familyResult.confidence && (
+            <div className="text-sm text-gray-500">
+              {isEnglish ? 'Confidence' : '신뢰도'}: {(familyResult.confidence * 100).toFixed(1)}%
+            </div>
+          )}
         </div>
       </div>
       
       {/* Ultra Modern Photo Grid */}
       <div className={`relative z-20 ${isWebMode ? 'p-4 md:p-10' : 'p-6 md:p-10'}`}>
         <div className={photoGridLayoutClass}>
-          {/* 부모 사진 - 모던 디자인 */}
-          <div className="group text-center">
-            <div className={labelMargin}>
-              <div className={`${isWebMode ? 'hidden sm:inline-flex' : 'inline-flex'} items-center space-x-2 ${labelPadding} bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-full border border-blue-200/30 backdrop-blur-sm`}>
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                <span className="text-sm font-semibold text-blue-700">{isEnglish ? 'Parent' : '부모'}</span>
+          {/* 부모 사진 */}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <span className="text-blue-600 font-semibold text-sm">1</span>
               </div>
+              <h3 className="text-lg font-medium text-gray-900">
+                {isEnglish ? 'Parent Photo' : '부모 사진'}
+              </h3>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-3xl blur-xl transform group-hover:scale-110 transition-transform duration-500"></div>
-              <div className={imageContainerClass}>
-                <Image
-                  src={parentImage.preview}
-                  alt={isEnglish ? 'Parent' : '부모'}
-                  fill
-                  className="object-contain group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
-              </div>
+            <div className={imageContainerClass}>
+              <Image
+                src={parentImage.preview}
+                alt={isEnglish ? 'Parent' : '부모'}
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
-          
-          {/* 연결 요소 - 하트 */}
-          <div className={`flex flex-col items-center justify-center ${heartContainerClass}`}>
-            <div className={heartSizeClass}>
-              ❤️
-            </div>
-          </div>
-          
-          {/* 자녀 사진 - 모던 디자인 */}
-          <div className="group text-center">
-            <div className={labelMargin}>
-              <div className={`${isWebMode ? 'hidden sm:inline-flex' : 'inline-flex'} items-center space-x-2 ${labelPadding} bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-200/30 backdrop-blur-sm`}>
-                <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                <span className="text-sm font-semibold text-purple-700">{isEnglish ? 'Child' : '자녀'}</span>
+
+          {/* 자녀 사진 */}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <span className="text-blue-600 font-semibold text-sm">2</span>
               </div>
+              <h3 className="text-lg font-medium text-gray-900">
+                {isEnglish ? 'Child Photo' : '자녀 사진'}
+              </h3>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-3xl blur-xl transform group-hover:scale-110 transition-transform duration-500"></div>
-              <div className={imageContainerClass.replace('shadow-blue-500/20', 'shadow-purple-500/20').replace('group-hover:shadow-blue-500/30', 'group-hover:shadow-purple-500/30')}>
-                <Image
-                  src={childImage.preview}
-                  alt={isEnglish ? 'Child' : '자녀'}
-                  fill
-                  className="object-contain group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
-              </div>
+            <div className={imageContainerClass}>
+              <Image
+                src={childImage.preview}
+                alt={isEnglish ? 'Child' : '자녀'}
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
