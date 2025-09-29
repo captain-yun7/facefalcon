@@ -33,19 +33,19 @@ aws configure
 # Default output format: json
 
 # 3. S3 버킷 생성 (서울 리전 - 한국 사용자에게 최적)
-aws s3 mb s3://whos-your-papa-images --region ap-northeast-2
+aws s3 mb s3://facefalcon-images --region ap-northeast-2
 
 # 4. 버킷 CORS 설정 (웹 애플리케이션 접근 허용)
-aws s3api put-bucket-cors --bucket whos-your-papa-images --cors-configuration file://cors-config.json
+aws s3api put-bucket-cors --bucket facefalcon-images --cors-configuration file://cors-config.json
 
 # 5. 퍼블릭 액세스 차단 해제 (임시 이미지 접근용)
-aws s3api put-public-access-block --bucket whos-your-papa-images --public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
+aws s3api put-public-access-block --bucket facefalcon-images --public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
 
 # 6. 버킷 정책 설정 (읽기 전용 퍼블릭 액세스)
-aws s3api put-bucket-policy --bucket whos-your-papa-images --policy file://bucket-policy.json
+aws s3api put-bucket-policy --bucket facefalcon-images --policy file://bucket-policy.json
 
 # 7. 생명주기 규칙 설정 (24시간 후 자동 삭제)
-aws s3api put-bucket-lifecycle-configuration --bucket whos-your-papa-images --lifecycle-configuration file://lifecycle-config.json
+aws s3api put-bucket-lifecycle-configuration --bucket facefalcon-images --lifecycle-configuration file://lifecycle-config.json
 ```
 
 ## 필요한 설정 파일들
@@ -74,7 +74,7 @@ aws s3api put-bucket-lifecycle-configuration --bucket whos-your-papa-images --li
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::whos-your-papa-images/*"
+            "Resource": "arn:aws:s3:::facefalcon-images/*"
         }
     ]
 }
@@ -113,7 +113,7 @@ aws s3api put-bucket-lifecycle-configuration --bucket whos-your-papa-images --li
                 "s3:PutObject",
                 "s3:DeleteObject"
             ],
-            "Resource": "arn:aws:s3:::whos-your-papa-images/*"
+            "Resource": "arn:aws:s3:::facefalcon-images/*"
         },
         {
             "Effect": "Allow",
@@ -131,16 +131,16 @@ aws s3api put-bucket-lifecycle-configuration --bucket whos-your-papa-images --li
 
 ```bash
 # 1. IAM 정책 생성
-aws iam create-policy --policy-name WhosYourPapaPolicy --policy-document file://iam-policy.json
+aws iam create-policy --policy-name FaceFalconPolicy --policy-document file://iam-policy.json
 
 # 2. IAM 사용자 생성
-aws iam create-user --user-name whos-your-papa-user
+aws iam create-user --user-name facefalcon-user
 
 # 3. 정책을 사용자에게 연결
-aws iam attach-user-policy --user-name whos-your-papa-user --policy-arn arn:aws:iam::YOUR_ACCOUNT_ID:policy/WhosYourPapaPolicy
+aws iam attach-user-policy --user-name facefalcon-user --policy-arn arn:aws:iam::YOUR_ACCOUNT_ID:policy/FaceFalconPolicy
 
 # 4. 액세스 키 생성
-aws iam create-access-key --user-name whos-your-papa-user
+aws iam create-access-key --user-name facefalcon-user
 ```
 
 ## 버킷 확인 및 테스트
@@ -150,17 +150,17 @@ aws iam create-access-key --user-name whos-your-papa-user
 aws s3 ls
 
 # 버킷 상세 정보 확인
-aws s3api head-bucket --bucket whos-your-papa-images
+aws s3api head-bucket --bucket facefalcon-images
 
 # 테스트 파일 업로드
 echo "test" > test.txt
-aws s3 cp test.txt s3://whos-your-papa-images/test.txt
+aws s3 cp test.txt s3://facefalcon-images/test.txt
 
 # 업로드된 파일 확인
-aws s3 ls s3://whos-your-papa-images/
+aws s3 ls s3://facefalcon-images/
 
 # 테스트 파일 삭제
-aws s3 rm s3://whos-your-papa-images/test.txt
+aws s3 rm s3://facefalcon-images/test.txt
 rm test.txt
 ```
 
@@ -172,13 +172,13 @@ rm test.txt
 aws sts get-caller-identity
 
 # 버킷 권한 확인
-aws s3api get-bucket-policy --bucket whos-your-papa-images
+aws s3api get-bucket-policy --bucket facefalcon-images
 ```
 
 ### 2. 지역(Region) 오류
 ```bash
 # 버킷 지역 확인
-aws s3api get-bucket-location --bucket whos-your-papa-images
+aws s3api get-bucket-location --bucket facefalcon-images
 
 # 환경변수에서 AWS_REGION 확인
 echo $AWS_REGION
@@ -187,10 +187,10 @@ echo $AWS_REGION
 ### 3. 버킷 삭제 (필요시)
 ```bash
 # 버킷 내 모든 객체 삭제
-aws s3 rm s3://whos-your-papa-images --recursive
+aws s3 rm s3://facefalcon-images --recursive
 
 # 버킷 삭제
-aws s3 rb s3://whos-your-papa-images
+aws s3 rb s3://facefalcon-images
 ```
 
 ## 빠른 설정 스크립트
@@ -201,7 +201,7 @@ aws s3 rb s3://whos-your-papa-images
 #!/bin/bash
 
 # setup-aws.sh
-BUCKET_NAME="whos-your-papa-images"
+BUCKET_NAME="facefalcon-images"
 REGION="ap-northeast-2"  # 서울 리전
 
 echo "Creating S3 bucket: $BUCKET_NAME"

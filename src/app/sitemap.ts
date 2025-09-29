@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'
   
   // 정적 페이지들
   const staticPages = [

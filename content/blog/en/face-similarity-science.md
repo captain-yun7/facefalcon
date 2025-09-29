@@ -6,7 +6,7 @@ category: "Science"
 date: "2025-09-23"
 readTime: "5 min"
 slug: "face-similarity-science"
-author: "Who's Your Papa Team"
+author: "FaceFalcon Team"
 ---
 
 # Scientific Principles of Facial Similarity Measurement
@@ -32,7 +32,7 @@ AI identifies important parts of the detected face:
 
 ## What is InsightFace Technology?
 
-**InsightFace**, used by Who's Your Papa?, is one of the most accurate face recognition AIs available today.
+**InsightFace**, used by FaceFalcon, is one of the most accurate face recognition AIs available today.
 
 ### What Makes InsightFace Special
 1. **68 key points** analysis (eyebrows, eyes, nose, mouth, jawline)

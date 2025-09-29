@@ -21,20 +21,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Who's your papa - AI 얼굴 분석 서비스",
-    template: "%s | Who's your papa AI"
+    default: "FaceFalcon - AI 얼굴 분석 | 가족 닮음 분석 서비스",
+    template: "%s | FaceFalcon"
   },
-  description: "AI로 부모-자녀 얼굴 유사도를 정확 분석하는 무료 서비스. 친자 확인부터 연예인 닮은꼴까지!",
-  keywords: ["AI 얼굴 분석", "가족 닮음 분석", "친자 확인", "부모 자녀 닮음", "얼굴 유사도", "연예인 닮은꼴", "Who's your papa", "얼굴 비교", "가족 유사도 측정", "AI face analysis"],
-  authors: [{ name: "Who's your papa AI Team" }],
-  creator: "Who's your papa AI",
-  publisher: "Who's your papa AI",
+  description: "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스. 친자 확인, 가족 닮음 분석, 연예인 닮은꼴 찾기까지 한 번에! 재미있는 AI 얼굴 분석을 지금 체험해보세요.",
+  keywords: ["AI 얼굴 분석", "가족 닮음 분석", "친자 확인", "부모 자녀 닮음", "얼굴 유사도", "연예인 닮은꼴", "FaceFalcon", "얼굴 비교", "가족 유사도 측정", "AI face analysis"],
+  authors: [{ name: "FaceFalcon Team" }],
+  creator: "FaceFalcon",
+  publisher: "FaceFalcon",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'),
   alternates: {
     canonical: "/",
     languages: {
@@ -46,24 +46,24 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     url: '/',
-    title: "Who's your papa - AI 얼굴 분석 서비스",
-    description: "AI로 부모-자녀 얼굴 유사도를 정확 분석하는 무료 서비스. 친자 확인부터 연예인 닮은꼴까지!",
-    siteName: "Who's your papa AI",
+    title: "FaceFalcon - AI 얼굴 분석 서비스",
+    description: "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스. 친자 확인부터 연예인 닮은꼴까지!",
+    siteName: "FaceFalcon",
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Who\'s your papa AI - AI 얼굴 분석 서비스',
+        alt: 'FaceFalcon - AI 얼굴 분석 서비스',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Who's your papa - AI 얼굴 분석 서비스",
-    description: "AI로 부모-자녀 얼굴 유사도를 정확 분석하는 무료 서비스. 친자 확인부터 연예인 닮은꼴까지!",
+    title: "FaceFalcon - AI 얼굴 분석 서비스",
+    description: "AI로 가족 얼굴 유사도를 분석하는 재미있는 서비스",
     images: ['/og-image.jpg'],
-    creator: '@whosyourpapaai',
+    creator: '@facefalcon',
   },
   robots: {
     index: true,
@@ -130,9 +130,9 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
-                "name": "Who's your papa AI",
-                "description": "AI로 부모-자녀 얼굴 유사도를 정확 분석하는 무료 서비스. 친자 확인부터 연예인 닮은꼴까지!",
-                "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com',
+                "name": "FaceFalcon",
+                "description": "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스",
+                "url": process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com',
                 "applicationCategory": "UtilitiesApplication",
                 "operatingSystem": "Web Browser",
                 "offers": {
@@ -143,13 +143,13 @@ export default function RootLayout({
                 },
                 "provider": {
                   "@type": "Organization",
-                  "name": "Who's your papa AI",
-                  "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com',
+                  "name": "FaceFalcon",
+                  "url": process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com',
                   "logo": "/logo.png",
                   "sameAs": [
-                    "https://www.facebook.com/whosyourpapaai",
-                    "https://www.instagram.com/whosyourpapaai",
-                    "https://twitter.com/whosyourpapaai"
+                    "https://www.facebook.com/facefalcon",
+                    "https://www.instagram.com/facefalcon",
+                    "https://twitter.com/facefalcon"
                   ]
                 },
                 "keywords": "AI 얼굴 분석, 가족 닮음 분석, 친자 확인, 얼굴 유사도, 연예인 닮은꼴",
@@ -176,8 +176,8 @@ export default function RootLayout({
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                "name": "Who's your papa AI",
-                "url": process.env.NEXT_PUBLIC_APP_URL || 'https://whos-your-papa-ai.com',
+                "name": "FaceFalcon",
+                "url": process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com',
                 "logo": "/logo.png",
                 "description": "AI 기술을 활용한 얼굴 분석 및 가족 닮음 분석 서비스 제공 기업",
                 "contactPoint": {
@@ -187,9 +187,9 @@ export default function RootLayout({
                   "availableLanguage": ["Korean", "English"]
                 },
                 "sameAs": [
-                  "https://www.facebook.com/whosyourpapaai",
-                  "https://www.instagram.com/whosyourpapaai",
-                  "https://twitter.com/whosyourpapaai"
+                  "https://www.facebook.com/facefalcon",
+                  "https://www.instagram.com/facefalcon",
+                  "https://twitter.com/facefalcon"
                 ]
               },
               {
@@ -198,7 +198,7 @@ export default function RootLayout({
                 "mainEntity": [
                   {
                     "@type": "Question",
-                    "name": "Who's your papa AI는 어떻게 작동하나요?",
+                    "name": "FaceFalcon은 어떻게 작동하나요?",
                     "acceptedAnswer": {
                       "@type": "Answer",
                       "text": "AI 기술을 사용하여 업로드된 사진에서 얼굴을 인식하고, 두 얼굴 간의 유사도를 분석하여 퍼센트로 결과를 제공합니다. 모든 분석은 실시간으로 처리됩니다."
@@ -217,7 +217,7 @@ export default function RootLayout({
                     "name": "이용료가 있나요?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "Who's your papa AI는 완전 무료 서비스입니다. 회원가입 없이도 모든 기능을 자유롭게 이용할 수 있습니다."
+                      "text": "FaceFalcon은 완전 무료 서비스입니다. 회원가입 없이도 모든 기능을 자유롭게 이용할 수 있습니다."
                     }
                   }
                 ]

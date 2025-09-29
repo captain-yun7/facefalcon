@@ -6,7 +6,7 @@ category: "사용 팁"
 date: "2025-09-23"
 readTime: "4분"
 slug: "photo-guide"
-author: "Who's Your Papa Team"
+author: "FaceFalcon Team"
 ---
 
 # 완벽한 얼굴 사진 촬영 가이드

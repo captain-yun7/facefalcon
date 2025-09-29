@@ -3,8 +3,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: '이용약관 | Who\'s Your Papa?',
-  description: 'Who\'s Your Papa? 서비스 이용에 관한 약관과 조건을 안내합니다.',
+  title: '이용약관 | FaceFalcon',
+  description: 'FaceFalcon 서비스 이용에 관한 약관과 조건을 안내합니다.',
 };
 
 export default function TermsOfService() {
@@ -19,7 +19,7 @@ export default function TermsOfService() {
               이용약관
             </h1>
             <p className="text-gray-600">
-              Who's Your Papa? 서비스 이용에 관한 약관과 조건
+              FaceFalcon 서비스 이용에 관한 약관과 조건
             </p>
             <div className="mt-2 text-sm text-gray-500">
               최종 업데이트: {new Date().toLocaleDateString('ko-KR')}
@@ -31,7 +31,7 @@ export default function TermsOfService() {
               
               <h2 className="text-xl font-bold text-gray-900 mb-4">제1조 (목적)</h2>
               <p className="text-gray-700 mb-6">
-                본 약관은 Who's Your Papa?(이하 "회사")가 제공하는 AI 얼굴 유사도 분석 서비스(이하 "서비스")의 
+                본 약관은 FaceFalcon(이하 "회사")가 제공하는 AI 얼굴 유사도 분석 서비스(이하 "서비스")의 
                 이용조건 및 절차, 회사와 이용자 간의 권리, 의무, 책임사항 및 기타 필요한 사항을 규정함을 목적으로 합니다.
               </p>
 

@@ -1,5 +1,5 @@
 {
-  "appName": "Who's your papa AI",
+  "appName": "FaceFalcon",
   "navigation": {
     "home": "Home",
     "analyze": "Analyze",
@@ -91,11 +91,11 @@
   "share": {
     "clipboardCopied": "Share text has been copied to clipboard!\\nPlease paste it in messenger or SNS.",
     "shareNotSupported": "Direct sharing is not supported in this browser.\\nPlease use the \"Download Image\" button.",
-    "resultText": "Our child similarity analysis result: {{percent}}% similar! 😊\\nAnalyze at whos-your-papa.com"
+    "resultText": "Our child similarity analysis result: {{percent}}% similar! 😊\\nAnalyze at facefalcon.com"
   },
   "footer": {
     "madeWith": "Made with",
-    "copyright": "© 2024 Who's your papa AI. All rights reserved."
+    "copyright": "© 2024 FaceFalcon. All rights reserved."
   },
   "pages": {
     "about": {
@@ -226,7 +226,7 @@
   },
   "guide": {
     "title": "User Guide",
-    "subtitle": "Learn how to effectively use the Who's Your Papa AI service and get tips for accurate analysis results.",
+    "subtitle": "Learn how to effectively use the FaceFalcon service and get tips for accurate analysis results.",
     "quickStart": {
       "title": "Quick Start Guide",
       "step1Title": "Step 1: Prepare Photos",
@@ -376,7 +376,7 @@
   },
   "footer": {
     "siteInfo": {
-      "title": "Who's Your Papa AI",
+      "title": "FaceFalcon",
       "description": "A family resemblance analysis service using AI technology. We accurately analyze the similarity between parents and children.",
       "security": "SSL Secure Connection"
     },
@@ -395,7 +395,7 @@
       "privacy": "Privacy Policy",
       "terms": "Terms of Service"
     },
-    "copyright": "© {{year}} Who's Your Papa AI. All rights reserved.",
+    "copyright": "© {{year}} FaceFalcon. All rights reserved.",
     "disclaimer": "This service provides reference analysis results using AI technology.",
     "legalNotice": "This website complies with the Personal Information Protection Act and the Act on Promotion of Information and Communications Network Utilization and Information Protection. Uploaded images are immediately deleted after analysis and are not stored separately. If you encounter any problems while using the service, please contact",
     "madeWith": "Made with"

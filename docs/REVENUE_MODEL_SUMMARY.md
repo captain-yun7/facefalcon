@@ -1,4 +1,4 @@
-# 💰 Who's Your Papa - 수익화 방안 요약
+# 💰 FaceFalcon - 수익화 방안 요약
 
 ## 🔍 수익 모델 검토 결과
 

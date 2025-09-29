@@ -25,7 +25,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <span className="font-fredoka text-2xl font-bold bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent">
-              Who&apos;s your papa AI
+              FaceFalcon
             </span>
           </Link>
 

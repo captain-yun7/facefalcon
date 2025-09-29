@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
  
 // Route segment config
 export const runtime = 'edge'
-export const alt = "Who's your papa AI - AI 얼굴 분석 서비스"
+export const alt = "FaceFalcon - AI 얼굴 분석 서비스"
 export const size = {
   width: 1200,
   height: 630,
@@ -36,7 +36,7 @@ export default async function Image() {
             textShadow: '0 4px 8px rgba(0,0,0,0.3)',
           }}
         >
-          Who's your papa AI
+          FaceFalcon
         </div>
         
         {/* 서브 헤드라인 */}
@@ -92,7 +92,7 @@ export default async function Image() {
             textAlign: 'center',
           }}
         >
-          무료 AI 얼굴 유사도 분석 • whos-your-papa.com
+          무료 AI 얼굴 유사도 분석 • facefalcon.com
         </div>
         
         {/* 장식적 요소들 */}

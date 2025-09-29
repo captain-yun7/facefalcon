@@ -22,8 +22,8 @@ const client = new RekognitionClient({
 async function testCompareFaces() {
   try {
     // Load test images - try different combinations
-    const image1Path = path.join(__dirname, 'whos-your-papa-images', '2802e06e-cb4a-47e7-bc9b-db6a5cb42ec8.jpg'); // 김주애
-    const image2Path = path.join(__dirname, 'whos-your-papa-images', '000000022195.jpg'); // 김정은
+    const image1Path = path.join(__dirname, 'facefalcon-images', '2802e06e-cb4a-47e7-bc9b-db6a5cb42ec8.jpg'); // 김주애
+    const image2Path = path.join(__dirname, 'facefalcon-images', '000000022195.jpg'); // 김정은
     
     console.log('\nLoading images...');
     console.log('Image 1:', image1Path);
