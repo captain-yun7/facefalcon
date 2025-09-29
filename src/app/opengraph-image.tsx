@@ -1,7 +1,8 @@
 import { ImageResponse } from 'next/og'
  
 // Route segment config
-export const runtime = 'edge'
+// Turbopack과 호환성 문제로 nodejs runtime 사용
+export const runtime = 'nodejs'
 export const alt = "FaceFalcon - AI 얼굴 분석 서비스"
 export const size = {
   width: 1200,
