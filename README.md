@@ -1,4 +1,4 @@
-# 👨‍👩‍👧‍👦 Who's Your Papa?
+# 👨‍👩‍👧‍👦 FaceFalcon
 
 AWS Rekognition을 활용한 AI 얼굴 유사도 분석 웹 서비스입니다. 부모와 아이의 얼굴 유사도를 측정하고, 재미있는 가족 게임을 즐길 수 있습니다.
 
@@ -31,8 +31,8 @@ AWS Rekognition을 활용한 AI 얼굴 유사도 분석 웹 서비스입니다. 
 ### 1. 저장소 클론
 
 ```bash
-git clone https://github.com/yourusername/whos-your-papa.git
-cd whos-your-papa
+git clone https://github.com/yourusername/facefalcon.git
+cd facefalcon
 ```
 
 ### 2. 의존성 설치
@@ -50,7 +50,7 @@ npm install
 AWS_ACCESS_KEY_ID=your_access_key_here
 AWS_SECRET_ACCESS_KEY=your_secret_key_here
 AWS_REGION=ap-northeast-2
-AWS_S3_BUCKET=whos-your-papa-images
+AWS_S3_BUCKET=facefalcon-images
 
 # Next.js Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -77,7 +77,7 @@ npm run dev
 ## 📁 프로젝트 구조
 
 ```
-whos-your-papa/
+facefalcon/
 ├── src/
 │   ├── app/                    # Next.js App Router
 │   │   ├── api/               # API 엔드포인트
@@ -196,7 +196,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 문의
 
-- **GitHub Issues**: [Issues 페이지](https://github.com/yourusername/whos-your-papa/issues)
+- **GitHub Issues**: [Issues 페이지](https://github.com/yourusername/facefalcon/issues)
 - **Email**: your.email@example.com
 
 ## 🙏 감사의 말

@@ -102,8 +102,8 @@ export function downloadImage(dataUrl: string, filename?: string, locale?: 'ko' 
   const timestamp = now.toISOString().slice(0, 19).replace(/[-:]/g, '').replace('T', '_');
   
   const defaultFilename = locale === 'en' 
-    ? `WhosYourPapaAI_Analysis_${timestamp}.png`
-    : `우리엄마아빠맞나요_AI분석결과_${timestamp}.png`;
+    ? `FaceFalcon_Analysis_${timestamp}.png`
+    : `FaceFalcon_AI분석결과_${timestamp}.png`;
   
   console.log('💾 downloadImage - filename will be:', filename || defaultFilename);
   
@@ -129,8 +129,8 @@ export async function shareResultImage(dataUrl: string, similarity: number, loca
       ? `${similarity}% similar! AI analysis result 😊`
       : `${similarity}% 닮았네요! AI가 분석한 결과에요 😊`;
     const shareText = isEnglish
-      ? `${similarity}% similar! Try analysis at whos-your-papa.com 😊`
-      : `${similarity}% 닮았네요! whos-your-papa.com에서 분석해보세요 😊`;
+      ? `${similarity}% similar! Try analysis at facefalcon.com 😊`
+      : `${similarity}% 닮았네요! facefalcon.com에서 분석해보세요 😊`;
 
     // Web Share API 지원 확인 및 파일 공유 가능 여부 확인
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {

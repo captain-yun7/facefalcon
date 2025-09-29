@@ -15,8 +15,8 @@ const client = new RekognitionClient({
 
 async function testEnhancedComparison() {
   try {
-    const image1Path = './whos-your-papa-images/000000022195.jpg';
-    const image2Path = './whos-your-papa-images/2802e06e-cb4a-47e7-bc9b-db6a5cb42ec8.jpg';
+    const image1Path = './facefalcon-images/000000022195.jpg';
+    const image2Path = './facefalcon-images/2802e06e-cb4a-47e7-bc9b-db6a5cb42ec8.jpg';
     
     const sourceImage = fs.readFileSync(image1Path);
     const targetImage = fs.readFileSync(image2Path);

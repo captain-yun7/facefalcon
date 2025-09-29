@@ -6,7 +6,7 @@ category: "유전학 지식"
 date: "2025-09-23"
 readTime: "6분"
 slug: "family-genetics"
-author: "Who's Your Papa Team"
+author: "FaceFalcon Team"
 ---
 
 # 가족 닮음의 유전학적 비밀

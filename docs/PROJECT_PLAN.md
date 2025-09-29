@@ -1,4 +1,4 @@
-# 👨‍👩‍👧‍👦 Who's Your Papa - 프로젝트 구현 계획
+# 👨‍👩‍👧‍👦 FaceFalcon - 프로젝트 구현 계획
 
 ## 📌 프로젝트 개요
 AWS Rekognition을 활용한 가족 얼굴 유사도 분석 웹 서비스

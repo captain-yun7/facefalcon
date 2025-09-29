@@ -6,7 +6,7 @@ category: "Genetics"
 date: "2025-09-23"
 readTime: "6 min"
 slug: "family-genetics"
-author: "Who's Your Papa Team"
+author: "FaceFalcon Team"
 ---
 
 # Genetic Secrets of Family Resemblance

@@ -6,7 +6,7 @@ category: "과학 원리"
 date: "2025-09-23"
 readTime: "5분"
 slug: "face-similarity-science"
-author: "Who's Your Papa Team"
+author: "FaceFalcon Team"
 ---
 
 # 얼굴 유사도 측정의 과학적 원리
@@ -32,7 +32,7 @@ AI가 두 사람의 얼굴을 비교할 때 어떤 기술을 사용하는지, �
 
 ## InsightFace 기술이란?
 
-Who's Your Papa?에서 사용하는 **InsightFace**는 현재 가장 정확한 얼굴 인식 AI 중 하나입니다.
+FaceFalcon에서 사용하는 **InsightFace**는 현재 가장 정확한 얼굴 인식 AI 중 하나입니다.
 
 ### InsightFace의 특별함
 1. **68개 핵심 포인트** 분석 (눈썹, 눈, 코, 입, 턱선)

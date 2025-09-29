@@ -6,7 +6,7 @@ category: "Tips"
 date: "2025-09-23"
 readTime: "4 min"
 slug: "photo-guide"
-author: "Who's Your Papa Team"
+author: "FaceFalcon Team"
 ---
 
 # Perfect Portrait Photography Guide

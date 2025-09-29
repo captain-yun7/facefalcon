@@ -3,8 +3,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: '개인정보처리방침 | Who\'s Your Papa?',
-  description: 'Who\'s Your Papa? 서비스의 개인정보 수집 및 처리에 관한 방침을 안내합니다.',
+  title: '개인정보처리방침 | FaceFalcon',
+  description: 'FaceFalcon 서비스의 개인정보 수집 및 처리에 관한 방침을 안내합니다.',
 };
 
 export default function PrivacyPolicy() {
@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
               개인정보처리방침
             </h1>
             <p className="text-gray-600">
-              Who's Your Papa? 서비스의 개인정보 수집 및 처리 방침
+              FaceFalcon 서비스의 개인정보 수집 및 처리 방침
             </p>
             <div className="mt-2 text-sm text-gray-500">
               최종 업데이트: {new Date().toLocaleDateString('ko-KR')}
@@ -31,7 +31,7 @@ export default function PrivacyPolicy() {
               
               <h2 className="text-xl font-bold text-gray-900 mb-4">1. 개인정보의 수집 및 이용 목적</h2>
               <p className="text-gray-700 mb-6">
-                Who's Your Papa? 서비스(이하 "본 서비스")는 다음의 목적을 위하여 개인정보를 수집 및 이용합니다:
+                FaceFalcon 서비스(이하 "본 서비스")는 다음의 목적을 위하여 개인정보를 수집 및 이용합니다:
               </p>
               <ul className="list-disc ml-6 mb-6 text-gray-700">
                 <li>얼굴 유사도 분석 서비스 제공</li>
