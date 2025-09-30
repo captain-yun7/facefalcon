@@ -17,23 +17,23 @@
     "subtitle": "Please select your preferred analysis type",
     "placeholder": "Select analysis type",
     "parentChild": {
-      "title": "Paternity Analysis",
+      "title": "AI Face Analysis : Paternity Test",
       "description": "Compare parent and child photos to analyze similarity"
     },
     "whoMostSimilar": {
-      "title": "Find Parent",
+      "title": "AI Face Analysis : Find Parent",
       "description": "Compare a child with multiple candidates to find the most similar person"
     },
     "ageEstimation": {
-      "title": "Age Estimation",
+      "title": "AI Face Analysis : Age Estimation",
       "description": "AI predicts age from photos"
     },
     "genderEstimation": {
-      "title": "Style Analysis",
+      "title": "AI Face Analysis : Style Analysis",
       "description": "Analyze style by gender features"
     },
     "celebrity": {
-      "title": "Celebrity Look-alike",
+      "title": "AI Face Analysis : Celebrity Match",
       "description": "Coming soon",
       "status": "Coming Soon"
     }
