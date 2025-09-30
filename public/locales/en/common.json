@@ -24,6 +24,14 @@
       "title": "Find Parent",
       "description": "Compare a child with multiple candidates to find the most similar person"
     },
+    "ageEstimation": {
+      "title": "Age Estimation",
+      "description": "AI predicts age from photos"
+    },
+    "genderEstimation": {
+      "title": "Style Analysis",
+      "description": "Analyze style by gender features"
+    },
     "celebrity": {
       "title": "Celebrity Look-alike",
       "description": "Coming soon",

@@ -24,6 +24,14 @@
       "title": "부모 찾기",
       "description": "아이와 여러 후보자를 비교해서 가장 닮은 사람을 찾습니다"
     },
+    "ageEstimation": {
+      "title": "나이 맞히기",
+      "description": "AI가 사진으로 나이를 예측합니다"
+    },
+    "genderEstimation": {
+      "title": "에겐남/테토남 측정",
+      "description": "성별 특징으로 스타일을 분석합니다"
+    },
     "celebrity": {
       "title": "연예인 닮은꼴",
       "description": "곧 출시될 예정입니다",

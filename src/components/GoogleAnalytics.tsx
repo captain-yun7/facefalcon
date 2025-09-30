@@ -48,7 +48,7 @@ export const analytics = {
   },
 
   // Analysis tracking
-  trackAnalysisStart: (analysisType: 'parent-child' | 'who-most-similar') => {
+  trackAnalysisStart: (analysisType: 'parent-child' | 'who-most-similar' | 'age-estimation' | 'gender-estimation') => {
     analytics.trackEvent({
       event_name: 'analysis_start',
       analysis_type: analysisType
@@ -56,7 +56,7 @@ export const analytics = {
   },
 
   trackAnalysisComplete: (
-    analysisType: 'parent-child' | 'who-most-similar',
+    analysisType: 'parent-child' | 'who-most-similar' | 'age-estimation' | 'gender-estimation',
     similarityScore?: number,
     confidenceScore?: number,
     processingTime?: number
@@ -71,7 +71,7 @@ export const analytics = {
   },
 
   trackAnalysisError: (
-    analysisType: 'parent-child' | 'who-most-similar',
+    analysisType: 'parent-child' | 'who-most-similar' | 'age-estimation' | 'gender-estimation',
     errorType: string,
     errorMessage: string
   ) => {
@@ -96,7 +96,7 @@ export const analytics = {
   },
 
   trackImageUpload: (
-    imageType: 'parent' | 'child' | 'candidate',
+    imageType: 'parent' | 'child' | 'candidate' | 'age' | 'gender',
     fileSize?: number,
     fileType?: string
   ) => {

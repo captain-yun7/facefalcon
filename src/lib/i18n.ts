@@ -27,6 +27,14 @@ export interface Translations {
       title: string;
       description: string;
     };
+    ageEstimation: {
+      title: string;
+      description: string;
+    };
+    genderEstimation: {
+      title: string;
+      description: string;
+    };
     celebrity: {
       title: string;
       description: string;
@@ -175,8 +183,13 @@ export function useTranslations() {
         'analysisSelector.parentChild.description': '부모와 자녀 사진을 비교해서 닮은 정도를 분석합니다',
         'analysisSelector.whoMostSimilar.title': '부모 찾기',
         'analysisSelector.whoMostSimilar.description': '아이와 여러 후보자를 비교해서 가장 닮은 사람을 찾습니다',
+        'analysisSelector.ageEstimation.title': '나이 맞히기',
+        'analysisSelector.ageEstimation.description': 'AI가 사진으로 나이를 예측합니다',
+        'analysisSelector.genderEstimation.title': '에겐남/테토남 측정',
+        'analysisSelector.genderEstimation.description': '성별 특징으로 스타일을 분석합니다',
         'analysisSelector.celebrity.title': '연예인 닮은꼴',
         'analysisSelector.celebrity.description': '곧 출시될 예정입니다',
+        'analysisSelector.celebrity.status': '공개 예정',
         'parentChildAnalysis.analyzeButton': '닮은 정도 분석 시작',
         'whoMostSimilarAnalysis.analyzeButton': '부모 찾기 시작!'
       };
@@ -196,8 +209,13 @@ export function useTranslations() {
         'analysisSelector.parentChild.description': 'Compare parent and child photos to analyze similarity',
         'analysisSelector.whoMostSimilar.title': 'Find Parent',
         'analysisSelector.whoMostSimilar.description': 'Compare a child with multiple candidates to find the most similar person',
+        'analysisSelector.ageEstimation.title': 'Age Estimation',
+        'analysisSelector.ageEstimation.description': 'AI predicts age from photos',
+        'analysisSelector.genderEstimation.title': 'Style Analysis',
+        'analysisSelector.genderEstimation.description': 'Analyze style by gender features',
         'analysisSelector.celebrity.title': 'Celebrity Look-alike',
         'analysisSelector.celebrity.description': 'Coming soon',
+        'analysisSelector.celebrity.status': 'Coming soon',
         'parentChildAnalysis.analyzeButton': 'Start Similarity Analysis',
         'whoMostSimilarAnalysis.analyzeButton': 'Start Finding Parent!'
       };
