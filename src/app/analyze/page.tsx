@@ -454,6 +454,10 @@ export default function AnalyzePage() {
     setPendingAnalysisResult(null);
     setPendingAnalysisError(null);
 
+    // 광고 화면 즉시 표시
+    setShowAdScreen(true);
+
+    // API 호출을 병렬로 진행
     try {
       console.log('📡 API call started');
       const response = await fetch('/api/family-similarity', {
@@ -475,7 +479,7 @@ export default function AnalyzePage() {
       }
 
       setPendingAnalysisResult(data.data);
-      console.log('✨ Analysis complete, showing ad screen');
+      console.log('✨ Analysis complete');
       
       // Track successful analysis
       const processingTime = Date.now() - startTime;
@@ -493,9 +497,6 @@ export default function AnalyzePage() {
       const errorMessage = err instanceof Error ? err.message : t('errors.analysisFailure');
       analytics.trackAnalysisError('parent-child', 'api_error', errorMessage);
     }
-
-    // 광고 화면 표시
-    setShowAdScreen(true);
   };
 
   const handleAdComplete = () => {
@@ -899,6 +900,10 @@ export default function AnalyzePage() {
     setPendingAnalysisResult(null);
     setPendingAnalysisError(null);
 
+    // 광고 화면 즉시 표시
+    setShowAdScreen(true);
+
+    // API 호출을 병렬로 진행
     try {
       const targetImages = candidateImages.map(img => img.base64!);
       console.log('📤 API request prepared - candidate images count:', targetImages.length);
@@ -1024,9 +1029,6 @@ export default function AnalyzePage() {
       const errorMessage = err instanceof Error ? err.message : t('errors.analysisFailure');
       analytics.trackAnalysisError('who-most-similar', 'api_error', errorMessage);
     }
-
-    // 광고 화면 표시
-    setShowAdScreen(true);
   };
 
   const handleComparisonAdComplete = () => {
@@ -1069,6 +1071,10 @@ export default function AnalyzePage() {
     setPendingAnalysisResult(null);
     setPendingAnalysisError(null);
 
+    // 광고 화면 즉시 표시
+    setShowAdScreen(true);
+
+    // API 호출을 병렬로 진행
     try {
       console.log('📡 API call started');
       const response = await fetch('/api/age-estimation', {
@@ -1107,9 +1113,6 @@ export default function AnalyzePage() {
       const errorMessage = err instanceof Error ? err.message : t('errors.analysisFailure');
       analytics.trackAnalysisError('age-estimation', 'api_error', errorMessage);
     }
-
-    // 광고 화면 표시
-    setShowAdScreen(true);
   };
 
   const handleGenderAnalyze = async () => {
@@ -1126,6 +1129,10 @@ export default function AnalyzePage() {
     setPendingAnalysisResult(null);
     setPendingAnalysisError(null);
 
+    // 광고 화면 즉시 표시
+    setShowAdScreen(true);
+
+    // API 호출을 병렬로 진행
     try {
       console.log('📡 API call started');
       const response = await fetch('/api/gender-estimation', {
@@ -1146,7 +1153,7 @@ export default function AnalyzePage() {
       }
 
       setPendingAnalysisResult(data.data);
-      console.log('✨ Analysis complete, showing ad screen');
+      console.log('✨ Analysis complete');
       
       console.log(data.data)
       // Track successful analysis
@@ -1165,9 +1172,6 @@ export default function AnalyzePage() {
       const errorMessage = err instanceof Error ? err.message : t('errors.analysisFailure');
       analytics.trackAnalysisError('gender-estimation', 'api_error', errorMessage);
     }
-
-    // 광고 화면 표시
-    setShowAdScreen(true);
   };
 
   const handleAgeAdComplete = () => {
