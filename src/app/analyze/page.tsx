@@ -1360,11 +1360,84 @@ export default function AnalyzePage() {
             
             {/* Custom Dropdown */}
             <div ref={dropdownRef} className="relative max-w-2xl mx-auto">
+              {/* Red Pointing Hand - only show when nothing is selected */}
+              {!selectedAnalysis && (
+                <div 
+                  className="absolute -left-20 top-1/2 -translate-y-1/2 z-10 pointer-events-none hidden lg:block animate-bounce"
+                >
+                  <svg
+                    width="60"
+                    height="60"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-red-500"
+                  >
+                    <path
+                      d="M6.9 17.5C6.9 19.38 8.42 20.9 10.3 20.9H16.5C18.38 20.9 19.9 19.38 19.9 17.5V11.9C19.9 11.28 19.38 10.76 18.76 10.76C18.14 10.76 17.62 11.28 17.62 11.9V8.24C17.62 7.62 17.1 7.1 16.48 7.1C15.86 7.1 15.34 7.62 15.34 8.24V7.1C15.34 6.48 14.82 5.96 14.2 5.96C13.58 5.96 13.06 6.48 13.06 7.1V3.1C13.06 2.48 12.54 1.96 11.92 1.96C11.3 1.96 10.78 2.48 10.78 3.1V12.5L8.5 10.22C7.78 9.5 6.62 9.5 5.9 10.22C5.18 10.94 5.18 12.1 5.9 12.82L6.9 13.82V17.5Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              )}
+
+              {/* Mobile Red Pointer - show above dropdown on mobile */}
+              {!selectedAnalysis && (
+                <div 
+                  className="absolute left-1/2 -top-14 -translate-x-1/2 z-10 pointer-events-none lg:hidden animate-bounce"
+                >
+                  <div className="flex flex-col items-center">
+                    <span className="text-red-500 font-bold text-sm mb-1">여기!</span>
+                    <svg
+                      width="30"
+                      height="30"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="text-red-500"
+                    >
+                      <path
+                        d="M12 2L12 20M12 20L5 13M12 20L19 13"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              )}
+
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full p-4 border-2 border-gray-300 rounded-xl text-left bg-white hover:border-blue-400 focus:border-blue-500 focus:outline-none transition-colors"
+                className={`
+                  relative w-full p-4 rounded-xl text-left bg-white
+                  transition-all duration-300 transform
+                  ${!selectedAnalysis ? 
+                    'animate-pulse shadow-xl' : 
+                    'border-2 border-gray-300 hover:border-blue-400 focus:border-blue-500'
+                  }
+                  hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-blue-100
+                  group
+                `}
+                style={{
+                  ...((!selectedAnalysis) ? {
+                    border: '2px solid transparent',
+                    backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #3b82f6 100%)',
+                    backgroundOrigin: 'border-box',
+                    backgroundClip: 'padding-box, border-box',
+                    boxShadow: '0 0 30px rgba(147, 51, 234, 0.4), 0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                  } : {})
+                }}
               >
-                <div className="flex items-center justify-between">
+                {/* Gradient overlay for hover effect */}
+                <div className={`
+                  absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                  bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50
+                  ${!selectedAnalysis ? 'animate-pulse' : ''}
+                `} style={{ zIndex: -1 }} />
+                
+                <div className="flex items-center justify-between relative">
                   {selectedOption ? (
                     <div className="flex items-center space-x-3">
                       <div className={`
@@ -1383,10 +1456,21 @@ export default function AnalyzePage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="text-gray-500 font-medium">{t('analysisSelector.placeholder')}</div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-gray-500 font-medium">{t('analysisSelector.placeholder')}</span>
+                      {!selectedAnalysis && (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-blue-500 to-purple-500 text-white animate-pulse">
+                          선택하세요!
+                        </span>
+                      )}
+                    </div>
                   )}
                   <svg 
-                    className={`w-5 h-5 text-gray-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                    className={`
+                      w-5 h-5 transition-transform
+                      ${isDropdownOpen ? 'rotate-180' : ''}
+                      ${!selectedAnalysis ? 'animate-bounce text-purple-500' : 'text-gray-400'}
+                    `} 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -1398,16 +1482,16 @@ export default function AnalyzePage() {
 
               {/* Dropdown Options */}
               {isDropdownOpen && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-50 max-h-80 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-gray-200 rounded-xl shadow-2xl z-50 max-h-80 overflow-y-auto animate-fade-in-up">
                   {analysisOptions.map((option, index) => (
                     <button
                       key={index}
                       onClick={() => !option.disabled && handleAnalysisChange(option.value)}
                       disabled={option.disabled}
                       className={`
-                        w-full p-4 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0
-                        ${option.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-                        ${selectedAnalysis === option.value ? 'bg-blue-50' : ''}
+                        w-full p-4 text-left transition-all duration-200 border-b border-gray-100 last:border-b-0
+                        ${option.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:scale-[1.02] hover:shadow-md'}
+                        ${selectedAnalysis === option.value ? 'bg-gradient-to-r from-blue-50 to-purple-50' : ''}
                       `}
                     >
                       <div className="flex items-center space-x-3">

@@ -21,6 +21,147 @@
   animation: fadeInUp 0.3s ease-out;
 }
 
+/* Dropdown Animations */
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0),
+                0 0 20px rgba(59, 130, 246, 0.5),
+                0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px rgba(147, 51, 234, 0.1),
+                0 0 35px rgba(147, 51, 234, 0.6),
+                0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+  }
+}
+
+@-webkit-keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0),
+                0 0 20px rgba(59, 130, 246, 0.5),
+                0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    -webkit-transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px rgba(147, 51, 234, 0.1),
+                0 0 35px rgba(147, 51, 234, 0.6),
+                0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    -webkit-transform: scale(1.02);
+  }
+}
+
+@keyframes bounce-arrow {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg);
+  }
+  25% { 
+    transform: translateY(2px) rotate(0deg);
+  }
+  75% { 
+    transform: translateY(-2px) rotate(0deg);
+  }
+}
+
+@-webkit-keyframes bounce-arrow {
+  0%, 100% { 
+    -webkit-transform: translateY(0) rotate(0deg);
+  }
+  25% { 
+    -webkit-transform: translateY(2px) rotate(0deg);
+  }
+  75% { 
+    -webkit-transform: translateY(-2px) rotate(0deg);
+  }
+}
+
+/* Red pointer animation */
+@keyframes pointing-hand {
+  0%, 100% {
+    transform: translateX(0) translateY(0) rotate(-15deg);
+  }
+  25% {
+    transform: translateX(10px) translateY(5px) rotate(-15deg);
+  }
+  50% {
+    transform: translateX(5px) translateY(-5px) rotate(-20deg);
+  }
+  75% {
+    transform: translateX(15px) translateY(0) rotate(-10deg);
+  }
+}
+
+@-webkit-keyframes pointing-hand {
+  0%, 100% {
+    -webkit-transform: translateX(0) translateY(0) rotate(-15deg);
+  }
+  25% {
+    -webkit-transform: translateX(10px) translateY(5px) rotate(-15deg);
+  }
+  50% {
+    -webkit-transform: translateX(5px) translateY(-5px) rotate(-20deg);
+  }
+  75% {
+    -webkit-transform: translateX(15px) translateY(0) rotate(-10deg);
+  }
+}
+
+@keyframes fade-in-out {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Dropdown specific styles */
+.dropdown-gradient-border {
+  position: relative;
+  background: white;
+  border: 2px solid transparent !important;
+  background-image: linear-gradient(white, white), 
+                    linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #3b82f6 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 100% 100%, 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+  -webkit-animation: gradient-shift 3s ease infinite;
+}
+
+.dropdown-pulse {
+  animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+  -webkit-animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+.dropdown-arrow-bounce {
+  animation: bounce-arrow 2s ease-in-out infinite !important;
+  -webkit-animation: bounce-arrow 2s ease-in-out infinite !important;
+}
+
+/* Ensure animations work on mobile */
+@supports (animation: pulse-glow 1s) {
+  .dropdown-pulse {
+    will-change: transform, box-shadow;
+  }
+  .dropdown-arrow-bounce {
+    will-change: transform;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
