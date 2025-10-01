@@ -59,7 +59,7 @@ export default function Navbar() {
                     key={item.href}
                     href={item.href}
                     className={`
-                      font-montserrat flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
+                      font-montserrat flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative
                       ${isActive 
                         ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/25" 
                         : "text-blue-700 hover:bg-blue-50 hover:text-blue-800"
@@ -67,6 +67,16 @@ export default function Navbar() {
                     `}
                   >
                     {item.label}
+                    {item.href === "/analyze" && (
+                      <span 
+                        className="inline-block px-2 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse"
+                        style={{
+                          transform: 'rotate(-5deg)',
+                        }}
+                      >
+                        Click
+                      </span>
+                    )}
                   </Link>
                 );
               })}
@@ -74,34 +84,60 @@ export default function Navbar() {
             <LanguageSwitcher />
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {/* Mobile Buttons */}
+          <div className="md:hidden flex items-center gap-2">
+            {/* Mobile Analyze Quick Link */}
+            <Link
+              href="/analyze"
+              className={`
+                flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium transition-all
+                ${pathname === '/analyze' 
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg' 
+                  : 'bg-white border-2 border-blue-500 text-blue-600 hover:bg-blue-50'
+                }
+              `}
             >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              {t("navigation.analyze")}
+              <span 
+                className="inline-block px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse"
+                style={{
+                  transform: 'rotate(-5deg)',
+                  fontSize: '10px'
+                }}
+              >
+                Click
+              </span>
+            </Link>
+            
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -116,7 +152,7 @@ export default function Navbar() {
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`
-                      font-montserrat flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 w-full
+                      font-montserrat flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 w-full relative
                       ${isActive 
                         ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg" 
                         : "text-blue-700 hover:bg-blue-50 hover:text-blue-800"
@@ -124,6 +160,16 @@ export default function Navbar() {
                     `}
                   >
                     {item.label}
+                    {item.href === "/analyze" && (
+                      <span 
+                        className="inline-block px-2 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse"
+                        style={{
+                          transform: 'rotate(-5deg)',
+                        }}
+                      >
+                        Click
+                      </span>
+                    )}
                   </Link>
                 );
               })}
