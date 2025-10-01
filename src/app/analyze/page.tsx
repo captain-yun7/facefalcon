@@ -490,13 +490,6 @@ export default function AnalyzePage() {
       setPendingAnalysisResult(data.data);
       console.log('✨ Analysis complete, data:', data.data);
       
-      // 광고 화면이 이미 끝났으면 바로 결과 설정
-      if (!showAdScreen) {
-        setFamilyResult(data.data);
-        setIsAnalyzing(false);
-        console.log('✅ Setting familyResult immediately (ad already finished)');
-      }
-      
       // Track successful analysis
       const processingTime = Date.now() - startTime;
       analytics.trackAnalysisComplete(
@@ -1029,14 +1022,6 @@ export default function AnalyzePage() {
         console.log('✅ Valid match results confirmed:', matches.map((m: any) => ({ index: m.imageIndex, similarity: m.similarity })));
         setPendingAnalysisResult(matches);
         
-        // 광고 화면이 이미 끝났으면 바로 결과 설정
-        if (!showAdScreen) {
-          setComparisonResults(matches);
-          setShowComparisonResults(true);
-          setIsAnalyzing(false);
-          console.log('✅ Setting comparison results immediately (ad already finished)');
-        }
-        
         // Track successful analysis
         const processingTime = Date.now() - startTime;
         const bestMatch = matches[0];
@@ -1123,13 +1108,6 @@ export default function AnalyzePage() {
       setPendingAnalysisResult(data.data);
       console.log('✨ Analysis complete');
       
-      // 광고 화면이 이미 끝났으면 바로 결과 설정
-      if (!showAdScreen) {
-        setAgeResult(data.data);
-        setIsAnalyzing(false);
-        console.log('✅ Setting age result immediately (ad already finished)');
-      }
-      
       // Track successful analysis
       const processingTime = Date.now() - startTime;
       analytics.trackAnalysisComplete(
@@ -1187,13 +1165,6 @@ export default function AnalyzePage() {
 
       setPendingAnalysisResult(data.data);
       console.log('✨ Analysis complete');
-      
-      // 광고 화면이 이미 끝났으면 바로 결과 설정
-      if (!showAdScreen) {
-        setGenderResult(data.data);
-        setIsAnalyzing(false);
-        console.log('✅ Setting gender result immediately (ad already finished)');
-      }
       
       console.log(data.data)
       // Track successful analysis
