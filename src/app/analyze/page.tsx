@@ -11,6 +11,7 @@ import Toast from '@/components/Toast';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
 import AnalysisResultWrapper from '@/components/analysis/AnalysisResultWrapper';
 import AnalysisResultActions from '@/components/analysis/AnalysisResultActions';
+import PrivacyDisclaimer from '@/components/analysis/PrivacyDisclaimer';
 import ParentChildResult from '@/components/analysis/results/ParentChildResult';
 import FindParentsResult from '@/components/analysis/results/FindParentsResult';
 import AgeEstimationResult from '@/components/analysis/results/AgeEstimationResult';
@@ -1516,6 +1517,7 @@ export default function AnalyzePage() {
 
               {/* Family Results Section - Using Modular Components */}
               {familyResult && familyMessage && parentImage && childImage && (
+                <>
                 <AnalysisResultWrapper
                   type="parent-child"
                   title="AI 얼굴 분석 : 닮은꼴 테스트 결과"
@@ -1545,6 +1547,8 @@ export default function AnalyzePage() {
                     }}
                   />
                 </AnalysisResultWrapper>
+                <PrivacyDisclaimer />
+                </>
               )}
             </>
           )}
@@ -1656,6 +1660,7 @@ export default function AnalyzePage() {
 
               {/* Comparison Results Section - Using Modular Components */}
               {showComparisonResults && targetChildImage && (
+                <>
                 <AnalysisResultWrapper
                   type="find-parents"
                   title="AI 얼굴 분석 : 부모 찾기 결과"
@@ -1682,6 +1687,8 @@ export default function AnalyzePage() {
                     }}
                   />
                 </AnalysisResultWrapper>
+                <PrivacyDisclaimer />
+                </>
               )}
             </>
           )}
@@ -1750,6 +1757,7 @@ export default function AnalyzePage() {
 
               {/* Age Results - Using Modular Components */}
               {ageResult && ageImage && (
+                <>
                 <AnalysisResultWrapper
                   type="age"
                   title="AI 얼굴 분석 : 나이 맞히기 결과"
@@ -1776,6 +1784,8 @@ export default function AnalyzePage() {
                     }}
                   />
                 </AnalysisResultWrapper>
+                <PrivacyDisclaimer />
+                </>
               )}
             </>
           )}
@@ -1888,6 +1898,7 @@ export default function AnalyzePage() {
                   : "에겐녀/테토녀 AI 분석 결과";
                 
                 return (
+                  <>
                   <AnalysisResultWrapper
                     type="gender"
                     title={title}
@@ -1915,6 +1926,8 @@ export default function AnalyzePage() {
                       }}
                     />
                   </AnalysisResultWrapper>
+                  <PrivacyDisclaimer />
+                  </>
                 );
               })()}
             </>
