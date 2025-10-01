@@ -21,11 +21,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "FaceFalcon - AI 얼굴 분석 | 가족 닮음 분석 서비스",
+    default: "FaceFalcon - AI 얼굴 분석 | 닮은꼴 테스트, 나이 맞히기, 에겐/테토 분석",
     template: "%s | FaceFalcon"
   },
-  description: "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스. 친자 확인, 가족 닮음 분석, 연예인 닮은꼴 찾기까지 한 번에! 재미있는 AI 얼굴 분석을 지금 체험해보세요.",
-  keywords: ["AI 얼굴 분석", "가족 닮음 분석", "친자 확인", "부모 자녀 닮음", "얼굴 유사도", "연예인 닮은꼴", "FaceFalcon", "얼굴 비교", "가족 유사도 측정", "AI face analysis"],
+  description: "AI 기술로 얼굴 닮은꼴 테스트, 나이 맞히기, 에겐남/테토남, 에겐녀/테토녀 분석을 제공하는 무료 온라인 서비스. 재미있는 AI 얼굴 분석을 지금 체험해보세요!",
+  keywords: ["AI 얼굴 분석", "얼굴 닮은꼴 테스트", "나이 맞히기", "에겐남 테토남", "에겐녀 테토녀", "얼굴 유사도", "FaceFalcon", "얼굴 비교", "AI face analysis", "age prediction", "soft guy tough guy"],
   authors: [{ name: "FaceFalcon Team" }],
   creator: "FaceFalcon",
   publisher: "FaceFalcon",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     url: '/',
     title: "FaceFalcon - AI 얼굴 분석 서비스",
-    description: "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스. 친자 확인부터 연예인 닮은꼴까지!",
+    description: "AI 기술로 얼굴 닮은꼴 테스트, 나이 맞히기, 에겐/테토 스타일 분석을 제공하는 재미있는 무료 온라인 서비스!",
     siteName: "FaceFalcon",
     images: [
       {
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "FaceFalcon - AI 얼굴 분석 서비스",
-    description: "AI로 가족 얼굴 유사도를 분석하는 재미있는 서비스",
+    description: "AI로 얼굴 닮은꼴, 나이, 스타일을 분석하는 재미있는 서비스",
     images: ['/og-image.jpg'],
     creator: '@facefalcon',
   },
@@ -131,7 +131,7 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
                 "name": "FaceFalcon",
-                "description": "AI 기술로 부모와 자녀의 얼굴 유사도를 정확히 분석하는 무료 온라인 서비스",
+                "description": "AI 기술로 얼굴 닮은꼴 테스트, 나이 맞히기, 에겐/테토 분석 등 다양한 얼굴 분석을 제공하는 무료 온라인 서비스",
                 "url": process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com',
                 "applicationCategory": "UtilitiesApplication",
                 "operatingSystem": "Web Browser",
@@ -152,12 +152,12 @@ export default function RootLayout({
                     "https://twitter.com/facefalcon"
                   ]
                 },
-                "keywords": "AI 얼굴 분석, 가족 닮음 분석, 친자 확인, 얼굴 유사도, 연예인 닮은꼴",
+                "keywords": "AI 얼굴 분석, 얼굴 닮은꼴 테스트, 나이 맞히기, 에겐남 테토남, 에겐녀 테토녀, 얼굴 유사도",
                 "featureList": [
-                  "AI 기반 얼굴 유사도 분석",
-                  "부모-자녀 닮음 분석",
-                  "가족 구성원간 유사도 비교",
-                  "연예인 닮은꼴 찾기",
+                  "AI 기반 얼굴 닮은꼴 테스트",
+                  "정확한 나이 예측 기능",
+                  "에겐남/테토남 스타일 분석",
+                  "에겐녀/테토녀 스타일 분석",
                   "실시간 분석 결과 제공"
                 ],
                 "screenshot": "/og-image.jpg",
@@ -179,7 +179,7 @@ export default function RootLayout({
                 "name": "FaceFalcon",
                 "url": process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com',
                 "logo": "/logo.png",
-                "description": "AI 기술을 활용한 얼굴 분석 및 가족 닮음 분석 서비스 제공 기업",
+                "description": "AI 기술을 활용한 얼굴 닮은꼴, 나이 맞히기, 스타일 분석 서비스 제공 기업",
                 "contactPoint": {
                   "@type": "ContactPoint",
                   "contactType": "고객 지원",
@@ -201,7 +201,7 @@ export default function RootLayout({
                     "name": "FaceFalcon은 어떻게 작동하나요?",
                     "acceptedAnswer": {
                       "@type": "Answer",
-                      "text": "AI 기술을 사용하여 업로드된 사진에서 얼굴을 인식하고, 두 얼굴 간의 유사도를 분석하여 퍼센트로 결과를 제공합니다. 모든 분석은 실시간으로 처리됩니다."
+                      "text": "AI 기술을 사용하여 업로드된 사진에서 얼굴을 인식하고, 닮은꼴 분석, 나이 예측, 에겐/테토 스타일 분석 등 다양한 결과를 제공합니다. 모든 분석은 실시간으로 처리됩니다."
                     }
                   },
                   {

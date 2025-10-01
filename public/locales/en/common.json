@@ -29,8 +29,8 @@
       "description": "AI predicts age from photos"
     },
     "genderEstimation": {
-      "title": "AI Face Analysis : Style Analysis",
-      "description": "Analyze style by gender features"
+      "title": "AI Face Analysis : Soft/Tough Style",
+      "description": "Analyze your style as Soft Guy/Girl or Tough Guy/Girl"
     },
     "celebrity": {
       "title": "AI Face Analysis : Celebrity Match",
@@ -152,7 +152,7 @@
     "service": {
       "title": "Facial Similarity Analysis with",
       "titleGradient": "AI Technology",
-      "subtitle": "An innovative service that accurately analyzes facial similarity between two people through the latest facial recognition AI technology and provides objective numerical results.",
+      "subtitle": "Experience various fun face analyses including similarity tests, age prediction, and Soft/Tough style analysis with cutting-edge AI technology.",
       "aiTechnology": {
         "title": "AI Facial Recognition Technology",
         "description": "Utilizing InsightFace's latest Buffalo model to precisely extract and analyze key facial features.",
@@ -164,7 +164,7 @@
       },
       "similarityCalculation": {
         "title": "Accurate Similarity Calculation",
-        "description": "Numerically calculates similarity between two faces by comparing extracted facial embedding vectors.",
+        "description": "Analyze faces from multiple perspectives including similarity, age, and style characteristics.",
         "features": [
           "Accurate similarity measurement based on vector distance",
           "Correction algorithm considering age differences",
@@ -385,13 +385,15 @@
   "footer": {
     "siteInfo": {
       "title": "FaceFalcon",
-      "description": "A family resemblance analysis service using AI technology. We accurately analyze the similarity between parents and children.",
+      "description": "AI-powered face analysis service offering similarity tests, age prediction, and Soft/Tough style analysis for fun and insightful results.",
       "security": "SSL Secure Connection"
     },
     "services": {
       "title": "Services",
-      "familyAnalysis": "Family Resemblance Analysis",
-      "multipleComparison": "Multiple Person Comparison"
+      "familyAnalysis": "Face Similarity Test",
+      "multipleComparison": "Find Most Similar",
+      "ageAnalysis": "Age Prediction",
+      "genderAnalysis": "Soft/Tough Style Analysis"
     },
     "support": {
       "title": "Customer Support",
@@ -411,8 +413,8 @@
   "home": {
     "hero": {
       "title": "Main Service",
-      "subtitle": "Are they really our mom and dad?",
-      "description": "Upload photos of parent and child to accurately analyze their similarity",
+      "subtitle": "How similar are two people?",
+      "description": "Upload photos to accurately analyze facial similarity with AI technology",
       "badge": "High-precision analysis engine based on InsightFace"
     },
     "upload": {
@@ -444,7 +446,7 @@
       },
       "multipleMode": {
         "title": "Various Analysis Modes",
-        "description": "Supports from parent-child similarity analysis to finding the most similar person among multiple candidates"
+        "description": "Supports similarity tests, age prediction, and Soft/Tough style analysis for various fun insights"
       },
       "privacy": {
         "title": "Privacy Protection",
