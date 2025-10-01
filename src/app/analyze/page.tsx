@@ -326,6 +326,22 @@ export default function AnalyzePage() {
     }
   };
 
+  // URL 타입 매핑 (공통으로 사용)
+  const typeMap: Record<AnalysisType, string> = {
+    'parent-child': 'parent-child',
+    'who-most-similar': 'find-parents',
+    'age-estimation': 'age',
+    'gender-estimation': 'gender',
+    '': ''
+  };
+
+  // 분석 타입에 맞는 URL 생성 함수
+  const getAnalysisUrl = (analysisType: AnalysisType) => {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const typeParam = typeMap[analysisType];
+    return typeParam ? `${baseUrl}?type=${typeParam}` : baseUrl;
+  };
+
   // URL 쿼리 파라미터 처리
   useEffect(() => {
     const typeParam = searchParams.get('type');
@@ -348,14 +364,6 @@ export default function AnalyzePage() {
     }
     
     // URL 업데이트
-    const typeMap: Record<AnalysisType, string> = {
-      'parent-child': 'parent-child',
-      'who-most-similar': 'find-parents',
-      'age-estimation': 'age',
-      'gender-estimation': 'gender',
-      '': ''
-    };
-    
     if (value && typeMap[value]) {
       router.push(`/analyze?type=${typeMap[value]}`, { scroll: false });
     }
@@ -1527,9 +1535,9 @@ export default function AnalyzePage() {
                     onDownload={handleDownloadResult}
                     onShare={handleShareResult}
                     onCopyLink={async () => {
-                      const currentUrl = window.location.href;
+                      const analysisUrl = getAnalysisUrl('parent-child');
                       try {
-                        await navigator.clipboard.writeText(currentUrl);
+                        await navigator.clipboard.writeText(analysisUrl);
                         setToast({ message: '링크가 복사되었습니다!', type: 'success' });
                       } catch (err) {
                         setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
@@ -1664,9 +1672,9 @@ export default function AnalyzePage() {
                     onDownload={handleDownloadResult}
                     onShare={handleShareResult}
                     onCopyLink={async () => {
-                      const currentUrl = window.location.href;
+                      const analysisUrl = getAnalysisUrl('who-most-similar');
                       try {
-                        await navigator.clipboard.writeText(currentUrl);
+                        await navigator.clipboard.writeText(analysisUrl);
                         setToast({ message: '링크가 복사되었습니다!', type: 'success' });
                       } catch (err) {
                         setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
@@ -1758,9 +1766,9 @@ export default function AnalyzePage() {
                     onDownload={handleDownloadResult}
                     onShare={handleShareResult}
                     onCopyLink={async () => {
-                      const currentUrl = window.location.href;
+                      const analysisUrl = getAnalysisUrl('age-estimation');
                       try {
-                        await navigator.clipboard.writeText(currentUrl);
+                        await navigator.clipboard.writeText(analysisUrl);
                         setToast({ message: '링크가 복사되었습니다!', type: 'success' });
                       } catch (err) {
                         setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
@@ -1897,9 +1905,9 @@ export default function AnalyzePage() {
                       onDownload={handleDownloadResult}
                       onShare={handleShareResult}
                       onCopyLink={async () => {
-                        const currentUrl = window.location.href;
+                        const analysisUrl = getAnalysisUrl('gender-estimation');
                         try {
-                          await navigator.clipboard.writeText(currentUrl);
+                          await navigator.clipboard.writeText(analysisUrl);
                           setToast({ message: '링크가 복사되었습니다!', type: 'success' });
                         } catch (err) {
                           setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
