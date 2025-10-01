@@ -16,7 +16,7 @@ import FindParentsResult from '@/components/analysis/results/FindParentsResult';
 import AgeEstimationResult from '@/components/analysis/results/AgeEstimationResult';
 import GenderStyleResult from '@/components/analysis/results/GenderStyleResult';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
-import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
+import { getFamilySimilarityMessage, convertAiScoreToUserPercent } from '@/lib/utils/family-messages';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
 import { analytics } from '@/components/GoogleAnalytics';
 import { useTranslations } from '@/lib/simple-i18n';
@@ -384,75 +384,297 @@ export default function AnalyzePage() {
   };
 
   const handleDownloadResult = async () => {
-    if (!familyResult || !parentImage || !childImage || !familyMessage) {
-      return;
-    }
-
-    console.log('🎨 Download function - current locale:', locale);
-    console.log('🎨 useTranslations hook - locale:', locale);
-    
+    // For all analysis types, use the same screenshot method
     try {
-      const resultData: ResultImageData = {
-        parentImageUrl: parentImage.preview,
-        childImageUrl: childImage.preview,
-        similarity: familyResult.similarity,
-        confidence: familyResult.confidence * 100,
-        displayPercent: familyMessage.displayPercent,
-        locale
-      };
-
-      console.log('🎨 ResultImageData:', resultData);
-      console.log('🎨 About to call generateResultImage with locale:', resultData.locale);
-      const imageDataUrl = await generateResultImage(resultData);
-      console.log('🎨 About to call downloadImage with locale:', locale);
-      downloadImage(imageDataUrl, undefined, locale);
+      const resultElement = document.querySelector('.analysis-result-wrapper') as HTMLElement;
       
-      // Track result download
-      analytics.trackResultShare('download', 'parent-child');
+      if (resultElement) {
+        // Dynamic import of html-to-image
+        const { toPng } = await import('html-to-image');
+        
+        // 각 분석 타입에 따라 이미지 가져오기
+        let currentImages: UploadedImage[] = [];
+        if (selectedAnalysis === 'parent-child' && parentImage && childImage) {
+          currentImages = [parentImage, childImage];
+        } else if (selectedAnalysis === 'age-estimation' && ageImage) {
+          currentImages = [ageImage];
+        } else if (selectedAnalysis === 'gender-estimation' && genderImage) {
+          currentImages = [genderImage];
+        } else if (selectedAnalysis === 'who-most-similar' && targetChildImage) {
+          currentImages = [targetChildImage, ...candidateImages];
+        }
+        
+        // 실제 DOM의 이미지 src를 data URL로 변경 (blob URL 문제 해결)
+        const images = resultElement.querySelectorAll('img');
+        const originalSrcs = new Map<HTMLImageElement, string>();
+        
+        // 각 이미지의 원본 src 저장하고 data URL로 교체
+        for (const img of Array.from(images)) {
+          if (img.src && img.src.startsWith('blob:')) {
+            originalSrcs.set(img, img.src); // 원본 저장
+            
+            // blob URL과 매칭되는 이미지 찾기
+            const matchingImage = currentImages.find(image => image.preview === img.src);
+            if (matchingImage && matchingImage.base64) {
+              const base64 = matchingImage.base64;
+              // data URL로 변환
+              if (base64.startsWith('data:')) {
+                img.src = base64;
+              } else {
+                img.src = `data:${matchingImage.file.type};base64,${base64}`;
+              }
+            }
+          }
+        }
+        
+        // 버튼 영역 숨기기
+        const buttonContainer = resultElement.querySelector('[class*="flex"][class*="justify-center"][class*="gap-3"]') as HTMLElement;
+        const originalButtonDisplay = buttonContainer?.style.display;
+        if (buttonContainer) {
+          buttonContainer.style.display = 'none';
+        }
+        
+        // FaceFalcon AI 워터마크 추가
+        const watermark = document.createElement('div');
+        watermark.className = 'text-center mt-8 pb-4';
+        watermark.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #6B7280; font-size: 14px; white-space: nowrap;">
+            <svg style="width: 24px; height: 24px; fill: #3B82F6; flex-shrink: 0;" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <span style="font-weight: 600; white-space: nowrap;">FaceFalcon AI</span>
+            <span>•</span>
+            <span style="white-space: nowrap;">AI Face Analysis</span>
+          </div>
+        `;
+        resultElement.appendChild(watermark);
+        
+        // 잠시 대기 (이미지 src 변경이 반영되도록)
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // 현재 스타일 가져오기 (레이아웃 보존을 위해)
+        const computedStyle = window.getComputedStyle(resultElement);
+        const wrapperInner = resultElement.querySelector('.rounded-xl.p-6') as HTMLElement;
+        
+        // html-to-image로 스크린샷 (스타일 보존 옵션 추가)
+        const dataUrl = await toPng(resultElement, {
+          quality: 0.95,
+          backgroundColor: '#ffffff',
+          pixelRatio: 2,
+          cacheBust: true, // 리소스 재로딩으로 스타일 정확도 향상
+          skipFonts: false, // 폰트 포함 보장
+          style: {
+            // 원본 스타일 유지
+            textAlign: computedStyle.textAlign || 'center',
+            padding: computedStyle.padding,
+            margin: '0',
+            display: 'block',
+            width: resultElement.offsetWidth + 'px',
+            // 텍스트 렌더링 개선
+            lineHeight: computedStyle.lineHeight,
+            letterSpacing: computedStyle.letterSpacing,
+            fontWeight: computedStyle.fontWeight,
+            fontSize: computedStyle.fontSize
+          },
+          // 폰트 포함 및 텍스트 레이아웃 보존
+          includeQueryParams: true,
+          fontEmbedCSS: `
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+            * { 
+              font-family: 'Inter', 'Noto Sans KR', system-ui, -apple-system, sans-serif !important; 
+              -webkit-font-smoothing: antialiased !important;
+              -moz-osx-font-smoothing: grayscale !important;
+              text-rendering: optimizeLegibility !important;
+            }
+            .text-center { text-align: center !important; }
+            .mx-auto { margin-left: auto !important; margin-right: auto !important; }
+            div, p, span, h1, h2, h3, h4, h5, h6 {
+              word-wrap: break-word !important;
+              word-break: keep-all !important;
+              line-break: auto !important;
+            }
+            .whitespace-nowrap { white-space: nowrap !important; }
+          `
+        });
+        
+        // 원본 src로 복구 (선택사항, UI 깨짐 방지)
+        originalSrcs.forEach((originalSrc, img) => {
+          img.src = originalSrc;
+        });
+        
+        // 버튼 영역 복구
+        if (buttonContainer) {
+          buttonContainer.style.display = originalButtonDisplay || '';
+        }
+        
+        // 워터마크 제거
+        if (watermark.parentNode) {
+          watermark.parentNode.removeChild(watermark);
+        }
+        
+        // 다운로드
+        const link = document.createElement('a');
+        link.download = `facefalcon-${selectedAnalysis}-result-${Date.now()}.png`;
+        link.href = dataUrl;
+        link.click();
+        
+        analytics.trackResultShare('download', selectedAnalysis);
+        setToast({ message: '이미지가 다운로드되었습니다!', type: 'success' });
+      } else {
+        setToast({ message: '결과를 찾을 수 없습니다.', type: 'error' });
+      }
     } catch (error) {
-      console.error('Image generation failed:', error);
-      setToast({ message: t('errors.imageGenerationFailed'), type: 'error' });
+      console.error('Screenshot failed:', error);
+      setToast({ message: '이미지 생성에 실패했습니다.', type: 'error' });
     }
   };
 
   const handleShareResult = async () => {
-    if (!familyResult || !parentImage || !childImage || !familyMessage) {
-      return;
-    }
-
-    console.log('📤 Share function - current locale:', locale);
-
+    // For all analysis types, try to share with image if possible
+    const currentUrl = window.location.href;
+    
     try {
-      const resultData: ResultImageData = {
-        parentImageUrl: parentImage.preview,
-        childImageUrl: childImage.preview,
-        similarity: familyResult.similarity,
-        confidence: familyResult.confidence * 100,
-        displayPercent: familyMessage.displayPercent,
-        locale
-      };
-
-      console.log('📤 ResultImageData locale:', resultData.locale);
-      const imageDataUrl = await generateResultImage(resultData);
-      const shared = await shareResultImage(imageDataUrl, familyMessage.displayPercent, locale);
+      // First try to generate an image to share
+      const resultElement = document.querySelector('.analysis-result-wrapper') as HTMLElement;
+      let imageBlob = null;
       
-      if (!shared) {
-        // Web Share API 미지원 시 폴백: 클립보드에 텍스트 복사
-        const shareText = t('share.resultText', { percent: familyMessage.displayPercent });
-        const copied = await copyToClipboard(shareText, locale);
-        
-        if (copied) {
-          setToast({ message: t('share.clipboardCopied'), type: 'success' });
-          analytics.trackResultShare('clipboard', 'parent-child');
-        } else {
-          setToast({ message: t('share.shareNotSupported'), type: 'error' });
+      if (resultElement) {
+        try {
+          // Dynamic import of html-to-image
+          const { toPng } = await import('html-to-image');
+          
+          // 각 분석 타입에 따라 이미지 가져오기
+          let currentImages: UploadedImage[] = [];
+          if (selectedAnalysis === 'parent-child' && parentImage && childImage) {
+            currentImages = [parentImage, childImage];
+          } else if (selectedAnalysis === 'age-estimation' && ageImage) {
+            currentImages = [ageImage];
+          } else if (selectedAnalysis === 'gender-estimation' && genderImage) {
+            currentImages = [genderImage];
+          } else if (selectedAnalysis === 'who-most-similar' && targetChildImage) {
+            currentImages = [targetChildImage, ...candidateImages];
+          }
+            
+            // 실제 DOM의 이미지 src를 data URL로 변경
+            const images = resultElement.querySelectorAll('img');
+            const originalSrcs = new Map<HTMLImageElement, string>();
+            
+            for (const img of Array.from(images)) {
+              if (img.src && img.src.startsWith('blob:')) {
+                originalSrcs.set(img, img.src);
+                
+                const matchingImage = currentImages.find(image => image.preview === img.src);
+                if (matchingImage && matchingImage.base64) {
+                  const base64 = matchingImage.base64;
+                  if (base64.startsWith('data:')) {
+                    img.src = base64;
+                  } else {
+                    img.src = `data:${matchingImage.file.type};base64,${base64}`;
+                  }
+                }
+              }
+            }
+            
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            // 현재 스타일 가져오기
+            const computedStyle = window.getComputedStyle(resultElement);
+            
+            const dataUrl = await toPng(resultElement, {
+              quality: 0.95,
+              backgroundColor: '#ffffff',
+              pixelRatio: 2,
+              cacheBust: true,
+              skipFonts: false,
+              style: {
+                textAlign: computedStyle.textAlign || 'center',
+                padding: computedStyle.padding,
+                margin: '0',
+                display: 'block',
+                width: resultElement.offsetWidth + 'px',
+                lineHeight: computedStyle.lineHeight,
+                letterSpacing: computedStyle.letterSpacing,
+                fontWeight: computedStyle.fontWeight,
+                fontSize: computedStyle.fontSize
+              },
+              fontEmbedCSS: `
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+                * { 
+                  font-family: 'Inter', 'Noto Sans KR', system-ui, -apple-system, sans-serif !important;
+                  -webkit-font-smoothing: antialiased !important;
+                  -moz-osx-font-smoothing: grayscale !important;
+                  text-rendering: optimizeLegibility !important;
+                }
+                .text-center { text-align: center !important; }
+                .mx-auto { margin-left: auto !important; margin-right: auto !important; }
+                div, p, span, h1, h2, h3, h4, h5, h6 {
+                  word-wrap: break-word !important;
+                  word-break: keep-all !important;
+                  line-break: auto !important;
+                }
+                .whitespace-nowrap { white-space: nowrap !important; }
+              `
+            });
+            
+            // 원본 src로 복구
+            originalSrcs.forEach((originalSrc, img) => {
+              img.src = originalSrc;
+            });
+            
+            // Convert data URL to blob
+            const response = await fetch(dataUrl);
+            imageBlob = await response.blob();
+        } catch (imgError) {
+          console.log('Image generation for share failed:', imgError);
         }
-      } else {
-        analytics.trackResultShare('web_share', 'parent-child');
       }
-    } catch (error) {
-      console.error('Share failed:', error);
-      setToast({ message: t('errors.shareFailed'), type: 'error' });
+      
+      // Determine share text based on analysis type
+      let shareText = 'AI 얼굴 분석 결과를 확인해보세요!';
+      if (selectedAnalysis === 'parent-child') {
+        shareText = '부모와 자녀 닮음 분석 결과를 확인해보세요!';
+      } else if (selectedAnalysis === 'age-estimation') {
+        shareText = '나이 맞히기 AI 분석 결과를 확인해보세요!';
+      } else if (selectedAnalysis === 'gender-estimation') {
+        shareText = '에겐남/테토남 측정 결과를 확인해보세요!';
+      } else if (selectedAnalysis === 'who-most-similar') {
+        shareText = '부모 찾기 AI 분석 결과를 확인해보세요!';
+      }
+      
+      if (navigator.share) {
+        const shareData: any = {
+          title: 'FaceFalcon AI 분석',
+          text: shareText,
+          url: currentUrl
+        };
+        
+        // Add image if available and supported
+        if (imageBlob && navigator.canShare && navigator.canShare({ files: [new File([imageBlob], 'result.png', { type: 'image/png' })] })) {
+          shareData.files = [new File([imageBlob], `facefalcon-${selectedAnalysis}-result.png`, { type: 'image/png' })];
+        }
+        
+        await navigator.share(shareData);
+        analytics.trackResultShare('web_share', selectedAnalysis);
+      } else {
+        // Fallback to clipboard copy
+        await navigator.clipboard.writeText(currentUrl);
+        setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+        analytics.trackResultShare('clipboard', selectedAnalysis);
+      }
+    } catch (error: any) {
+      if (error?.name !== 'AbortError') {
+        console.log('공유 실패:', error);
+        // Fallback to clipboard copy
+        try {
+          await navigator.clipboard.writeText(currentUrl);
+          setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+          analytics.trackResultShare('clipboard', selectedAnalysis);
+        } catch (clipError) {
+          setToast({ message: '공유에 실패했습니다.', type: 'error' });
+        }
+      }
     }
   };
 
@@ -613,9 +835,20 @@ export default function AnalyzePage() {
     if (pendingAnalysisError) {
       setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : t('errors.analysisFailure'));
     } else if (pendingAnalysisResult) {
-      setComparisonResults(pendingAnalysisResult);
+      // Apply similarity correction to results
+      const correctedResults = pendingAnalysisResult.map((result: SimilarityResult) => {
+        // Convert raw AI score (0-1) to user-friendly percentage
+        const rawSimilarity = result.similarity / 100; // Convert from percentage to 0-1 range
+        const correctedSimilarity = convertAiScoreToUserPercent(rawSimilarity);
+        return {
+          ...result,
+          similarity: correctedSimilarity // Now in user-friendly percentage
+        };
+      });
+      
+      setComparisonResults(correctedResults);
       setShowComparisonResults(true);
-      console.log('🎯 Results display completed');
+      console.log('🎯 Results display completed with corrected similarities');
     }
     
     console.log('🏁 Comparison analysis completed');
@@ -1223,8 +1456,8 @@ export default function AnalyzePage() {
                   />
                   <AnalysisResultActions
                     onReset={handleReset}
-                    showDownload={false}
-                    showShare={false}
+                    onDownload={handleDownloadResult}
+                    onShare={handleShareResult}
                     onCopyLink={async () => {
                       const currentUrl = window.location.href;
                       try {
@@ -1317,8 +1550,8 @@ export default function AnalyzePage() {
                   />
                   <AnalysisResultActions
                     onReset={handleReset}
-                    showDownload={false}
-                    showShare={false}
+                    onDownload={handleDownloadResult}
+                    onShare={handleShareResult}
                     onCopyLink={async () => {
                       const currentUrl = window.location.href;
                       try {
@@ -1432,8 +1665,8 @@ export default function AnalyzePage() {
                     />
                     <AnalysisResultActions
                       onReset={handleReset}
-                      showDownload={false}
-                      showShare={false}
+                      onDownload={handleDownloadResult}
+                      onShare={handleShareResult}
                       onCopyLink={async () => {
                         const currentUrl = window.location.href;
                         try {

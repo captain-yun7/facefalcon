@@ -22,11 +22,11 @@ export default function FindParentsResult({
       {/* 최고 매치 표시 */}
       {bestMatch && (
         <div className="mb-8">
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-800 rounded-full mb-4">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-800 rounded-full mb-4 whitespace-nowrap">
+            <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="font-medium">가장 닮은 사람 발견!</span>
+            <span className="font-medium whitespace-nowrap">가장 닮은 사람 발견!</span>
           </div>
 
           <div className="flex items-center justify-center gap-6">
@@ -40,7 +40,7 @@ export default function FindParentsResult({
                   className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
                 />
               </div>
-              <span className="text-sm text-gray-600 font-medium">아이</span>
+              <span className="text-sm text-gray-600 font-medium whitespace-nowrap">아이</span>
             </div>
 
             {/* 하트 아이콘 */}
@@ -64,7 +64,7 @@ export default function FindParentsResult({
                   1
                 </div>
               </div>
-              <span className="text-sm text-gray-600 font-medium">최고 일치</span>
+              <span className="text-sm text-gray-600 font-medium whitespace-nowrap">최고 일치</span>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function FindParentsResult({
 
       {/* 전체 순위 리스트 */}
       <div className="mt-8">
-        <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
+        <h3 className="text-xl font-bold text-gray-900 mb-4 text-center whitespace-nowrap">
           전체 순위
         </h3>
         
@@ -110,15 +110,10 @@ export default function FindParentsResult({
 
                 {/* 후보 정보 */}
                 <div className="flex-grow">
-                  <div className="font-medium text-gray-900">
+                  <div className="font-medium text-gray-900 whitespace-nowrap">
                     후보 {result.imageIndex + 1}
-                    {isWinner && (
-                      <span className="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                        👑 승자
-                      </span>
-                    )}
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-600 whitespace-nowrap">
                     유사도: {result.similarity?.toFixed(1)}%
                   </div>
                 </div>
@@ -142,7 +137,7 @@ export default function FindParentsResult({
 
       {/* 분석 요약 */}
       <div className="mt-8 p-4 bg-blue-50 rounded-xl max-w-md mx-auto text-center">
-        <p className="text-gray-700">
+        <p className="text-gray-700 whitespace-nowrap">
           총 <span className="font-bold">{candidateImages.length}명</span> 중에서{' '}
           <span className="font-bold text-blue-600">
             후보 {bestMatch ? bestMatch.imageIndex + 1 : '-'}번

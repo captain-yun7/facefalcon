@@ -438,7 +438,7 @@ const uniqueCharacterMessages: Record<number, FamilyMessage[]> = {
  * @param aiScore 0.0-1.0 사이의 AI 유사도 점수
  * @returns 사용자에게 표시할 퍼센트 (1-99)
  */
-function convertAiScoreToUserPercent(aiScore: number): number {
+export function convertAiScoreToUserPercent(aiScore: number): number {
   console.log(aiScore)
   // AI 점수 범위별로 사용자 친화적 퍼센트로 매핑 (대폭 부스트된 버전)
   if (aiScore >= 0.5) {
@@ -466,7 +466,7 @@ function convertAiScoreToUserPercent(aiScore: number): number {
  * @param childAge 자녀 나이
  * @returns 보정된 유사도 점수
  */
-function applyDetailedAgeBoost(rawScore: number, parentAge?: number, childAge?: number): number {
+export function applyDetailedAgeBoost(rawScore: number, parentAge?: number, childAge?: number): number {
 
   console.log(`유사도 : ${rawScore}, 부모 나이: ${parentAge}, 아이 나이: ${childAge}`)
 

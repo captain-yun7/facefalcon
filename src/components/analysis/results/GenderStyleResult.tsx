@@ -68,10 +68,12 @@ export default function GenderStyleResult({
             }}
           />
           <div 
-            className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full px-3 py-1 text-sm font-bold shadow-md border-2 border-gray-300"
+            className="absolute top-1/2 bg-white rounded-full px-3 py-1 text-sm font-bold shadow-md border-2 border-gray-300 whitespace-nowrap flex items-center justify-center"
             style={{
               left: `${Math.max(5, Math.min(95, (adjustedScore / 5) * 100))}%`,
-              transform: 'translateX(-50%) translateY(-50%)'
+              transform: 'translateX(-50%) translateY(-50%)',
+              whiteSpace: 'nowrap',
+              minWidth: 'fit-content'
             }}
           >
             {adjustedScore < 2.5 ? '에겐남' : '테토남'}

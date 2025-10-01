@@ -37,7 +37,7 @@ export default function AnalysisResultWrapper({
   };
 
   return (
-    <div className={`bg-white rounded-xl border shadow-sm p-6 md:p-8 mb-8 ${className}`}>
+    <div className={`analysis-result-wrapper bg-white rounded-xl border shadow-sm p-6 md:p-8 mb-8 ${className}`}>
       <div className="text-center">
         {/* 제목 섹션 */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
