@@ -384,7 +384,8 @@ export default function AnalyzePage() {
           <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5C14.8 4.1 13.6 3 12 3C10.4 3 9.2 4.1 9 5.5L3 7V9L9 7.5V10.5C9 12.4 9.6 14.1 10.6 15.4L9 16V18H11V16.5C11.3 16.8 11.6 17 12 17C12.4 17 12.7 16.8 13 16.5V18H15V16L13.4 15.4C14.4 14.1 15 12.4 15 10.5V7.5L21 9Z"/>
         </svg>
       ),
-      color: 'orange'
+      color: 'orange',
+      isPopular: true
     },
     {
       value: 'age-estimation' as AnalysisType,
@@ -1506,7 +1507,19 @@ export default function AnalyzePage() {
                           {option.icon}
                         </div>
                         <div className="flex-1">
-                          <div className="font-semibold text-gray-900 mb-1">{option.title}</div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-semibold text-gray-900">{option.title}</span>
+                            {option.isPopular && (
+                              <span 
+                                className="inline-block px-2 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse"
+                                style={{
+                                  transform: 'rotate(-5deg)',
+                                }}
+                              >
+                                Popular
+                              </span>
+                            )}
+                          </div>
                           <div className="text-sm text-gray-600">{option.description}</div>
                         </div>
                         {option.disabled && (

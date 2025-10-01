@@ -180,6 +180,62 @@ export default function Home() {
           </p>
         </div>
 
+        {/* Service Showcase Section - 힙한 디자인 */}
+        <div className="max-w-6xl mx-auto mt-20 mb-16 px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+              실제 분석 결과를 확인해보세요
+            </h2>
+            <p className="text-lg text-gray-600">
+              AI가 분석한 실제 사용 예시
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Age Estimation Sample */}
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-orange-50 p-1 hover:scale-[1.02] transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-400/20 to-orange-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative bg-white rounded-xl overflow-hidden">
+                <div className="aspect-[3/4] relative bg-gray-50">
+                  <Image
+                    src="/images/estimate-age-sample.png"
+                    alt="AI 나이 분석 예시"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute bottom-4 left-4 right-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-white font-bold text-lg drop-shadow-lg">나이 맞히기</p>
+                    <p className="text-white/90 text-sm drop-shadow-lg">정확한 AI 나이 예측</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Gender Style Sample */}
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 p-1 hover:scale-[1.02] transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative bg-white rounded-xl overflow-hidden">
+                <div className="aspect-[3/4] relative bg-gray-50">
+                  <Image
+                    src="/images/estimate-gender-sample.png"
+                    alt="AI 에겐/테토 분석 예시"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute bottom-4 left-4 right-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-white font-bold text-lg drop-shadow-lg">에겐/테토 분석</p>
+                    <p className="text-white/90 text-sm drop-shadow-lg">당신의 스타일을 AI가 분석</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Service Features Cards */}
         <div className="max-w-4xl mx-auto mt-12 grid md:grid-cols-3 gap-6 px-8">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow">
