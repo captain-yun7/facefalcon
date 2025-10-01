@@ -661,6 +661,7 @@ export default function AnalyzePage() {
   const handleShareResult = async () => {
     // For all analysis types, try to share with image if possible
     const currentUrl = window.location.href;
+    console.log('🔄 Starting share process...');
     
     try {
       // First try to generate an image to share
@@ -668,6 +669,29 @@ export default function AnalyzePage() {
       let imageBlob = null;
       
       if (resultElement) {
+        console.log('📸 Found result element, generating image...');
+        
+        // 버튼 임시 숨기기
+        const buttonsContainer = resultElement.querySelector('.flex.flex-wrap.justify-center.gap-2') as HTMLElement;
+        if (buttonsContainer) {
+          buttonsContainer.style.display = 'none';
+        }
+        
+        // 워터마크 추가
+        const watermark = document.createElement('div');
+        watermark.className = 'share-watermark text-center mt-8 pb-4';
+        watermark.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; color: #6B7280; font-size: 14px; white-space: nowrap;">
+            <svg style="width: 24px; height: 24px; fill: #3B82F6; flex-shrink: 0;" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <span style="font-weight: 600; white-space: nowrap;">FaceFalcon AI</span>
+            <span>•</span>
+            <span style="white-space: nowrap;">AI Face Analysis</span>
+          </div>
+        `;
+        resultElement.appendChild(watermark);
+        
         try {
           // Dynamic import of html-to-image
           const { toPng } = await import('html-to-image');
@@ -751,12 +775,43 @@ export default function AnalyzePage() {
               img.src = originalSrc;
             });
             
-            // Convert data URL to blob
-            const response = await fetch(dataUrl);
-            imageBlob = await response.blob();
+            // Convert data URL to blob without using fetch (to avoid CSP issues)
+            const base64Data = dataUrl.split(',')[1];
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            imageBlob = new Blob([byteArray], { type: 'image/png' });
+            console.log('✅ Image generated successfully, size:', imageBlob.size);
+            
+            // 워터마크 제거
+            const addedWatermark = resultElement.querySelector('.share-watermark');
+            if (addedWatermark) {
+              addedWatermark.remove();
+            }
+            
+            // 버튼 다시 표시
+            if (buttonsContainer) {
+              buttonsContainer.style.display = '';
+            }
         } catch (imgError) {
-          console.log('Image generation for share failed:', imgError);
+          console.error('❌ Image generation for share failed:', imgError);
+          
+          // 에러 발생 시에도 원상복구
+          const addedWatermark = resultElement.querySelector('.share-watermark');
+          if (addedWatermark) {
+            addedWatermark.remove();
+          }
+          if (buttonsContainer) {
+            buttonsContainer.style.display = '';
+          }
+          
+          setToast({ message: '이미지 생성 중 오류가 발생했습니다.', type: 'error' });
         }
+      } else {
+        console.warn('⚠️ Result element not found');
       }
       
       // Determine share text based on analysis type
@@ -772,6 +827,7 @@ export default function AnalyzePage() {
       }
       
       if (navigator.share) {
+        console.log('📱 Web Share API is available');
         const shareData: any = {
           title: 'FaceFalcon AI 분석',
           text: shareText,
@@ -779,12 +835,29 @@ export default function AnalyzePage() {
         };
         
         // Add image if available and supported
-        if (imageBlob && navigator.canShare && navigator.canShare({ files: [new File([imageBlob], 'result.png', { type: 'image/png' })] })) {
-          shareData.files = [new File([imageBlob], `facefalcon-${selectedAnalysis}-result.png`, { type: 'image/png' })];
+        if (imageBlob) {
+          console.log('🖼️ Image blob available, checking file share support...');
+          const testFile = new File([imageBlob], 'result.png', { type: 'image/png' });
+          
+          if (navigator.canShare && navigator.canShare({ files: [testFile] })) {
+            console.log('✅ File sharing is supported, adding image to share');
+            shareData.files = [new File([imageBlob], `facefalcon-${selectedAnalysis}-result.png`, { type: 'image/png' })];
+            setToast({ message: '이미지와 함께 공유 준비 중...', type: 'info' });
+          } else {
+            console.log('⚠️ File sharing not supported, sharing URL only');
+            setToast({ message: '이 브라우저는 이미지 공유를 지원하지 않습니다. URL만 공유됩니다.', type: 'info' });
+          }
+        } else {
+          console.log('⚠️ No image blob available, sharing URL only');
         }
         
+        console.log('📤 Sharing with data:', shareData);
         await navigator.share(shareData);
         analytics.trackResultShare('web_share', selectedAnalysis);
+        
+        if (shareData.files) {
+          setToast({ message: '이미지와 함께 공유되었습니다!', type: 'success' });
+        }
       } else {
         // Fallback to clipboard copy
         await navigator.clipboard.writeText(currentUrl);
@@ -1439,9 +1512,9 @@ export default function AnalyzePage() {
                   <ParentChildResult
                     parentImage={parentImage}
                     childImage={childImage}
-                    similarity={familyResult.similarity}
+                    similarity={familyMessage.displayPercent}
                     confidence={familyResult.confidence}
-                    displayPercent={familyMessage.displayPercent}
+                    displayPercent={familyMessage.displayPercent.toString()}
                     message={familyMessage.message}
                     locale={locale}
                   />
