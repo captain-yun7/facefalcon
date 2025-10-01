@@ -1,5 +1,5 @@
 /**
- * 가족 유사도 1 단위 세밀한 엔터테이닝 메시지
+ * 유사도 1 단위 세밀한 엔터테이닝 메시지
  * InsightFace 특성 고려 (80+ 동일인, 60+ 높은 유사도)
  */
 
@@ -9,14 +9,14 @@ interface FamilyMessage {
   emoji: string;
 }
 
-// 80-100: 동일인 가능성 (가족 분석 부적절)
+// 80-100: 동일인 가능성 (닮음 분석 부적절)
 const identicalPersonMessages: Record<number, FamilyMessage[]> = {
   100: [
     { title: "완전 동일인!", message: "같은 분이시네요! 다른 사진을 사용해주세요 🔍", emoji: "🔍" },
     { title: "복사+붙여넣기!", message: "이건 진짜 같은 분의 다른 사진이죠? 😅", emoji: "📋" }
   ],
   99: [
-    { title: "거의 동일인", message: "거의 확실히 같은 분이시네요! 가족 비교가 아닌 것 같아요", emoji: "🎯" },
+    { title: "거의 동일인", message: "거의 확실히 같은 분이시네요!", emoji: "🎯" },
     { title: "완전 판박이", message: "이 정도면 쌍둥이도 아니고 본인이시죠? 🤔", emoji: "👥" }
   ],
   98: [
@@ -24,7 +24,7 @@ const identicalPersonMessages: Record<number, FamilyMessage[]> = {
     { title: "거의 확실", message: "거의 같은 분이시네요! 😮", emoji: "😮" }
   ],
   97: [
-    { title: "같은 사람 같음", message: "이 정도면 본인 사진 맞죠? 가족 비교엔 부적절해요", emoji: "🤷" },
+    { title: "같은 사람 같음", message: "이 정도면 본인 사진 맞죠?", emoji: "🤷" },
     { title: "동일인 가능성", message: "같은 분일 가능성이 높아요", emoji: "🎯" }
   ],
   96: [
@@ -36,7 +36,7 @@ const identicalPersonMessages: Record<number, FamilyMessage[]> = {
     { title: "본인 의심", message: "동일인 수준입니다! 😊", emoji: "😊" }
   ],
   94: [
-    { title: "매우 유사", message: "거의 같은 분으로 보이네요. 가족 비교가 아닌 것 같아요", emoji: "🔄" },
+    { title: "매우 유사", message: "거의 같은 분으로 보이네요.", emoji: "🔄" },
     { title: "동일인 추정", message: "이 정도 유사도면 본인이실 확률 높아요", emoji: "📊" }
   ],
   93: [
@@ -52,7 +52,7 @@ const identicalPersonMessages: Record<number, FamilyMessage[]> = {
     { title: "동일인 확률", message: "이 정도면 본인 사진이 맞을 거예요", emoji: "✨" }
   ],
   90: [
-    { title: "완전 동일인", message: "완전 같은 분이시네요! 가족 비교엔 부적절해요", emoji: "🚫" },
+    { title: "완전 동일인", message: "완전 같은 분이시네요! 닮음 비교엔 부적절해요", emoji: "🚫" },
     { title: "본인 확실", message: "동일인 수준입니다. 다른 사진을 써보세요", emoji: "📷" }
   ],
   89: [
@@ -72,7 +72,7 @@ const identicalPersonMessages: Record<number, FamilyMessage[]> = {
     { title: "동일인 추정", message: "이 정도면 본인 사진이 맞을 거예요 😊", emoji: "😊" }
   ],
   85: [
-    { title: "동일인 확실", message: "완전 같은 분이시네요! 가족 비교가 아닌 것 같아요", emoji: "👤" },
+    { title: "동일인 확실", message: "완전 같은 분이시네요! 닮음 비교가 아닌 것 같아요", emoji: "👤" },
     { title: "본인 확률", message: "동일인 수준입니다 🎯", emoji: "🎯" }
   ],
   84: [
@@ -97,35 +97,35 @@ const identicalPersonMessages: Record<number, FamilyMessage[]> = {
   ]
 };
 
-// 60-79: 극강의 닮음 (최고 가족 유사도)
+// 60-79: 극강의 닮음 (최고 닮음 유사도)
 const extremeSimilarityMessages: Record<number, FamilyMessage[]> = {
   79: [
     { title: "완벽한 닮음!", message: "대박! 완전 똑같이 생기셨네요! 🖨️", emoji: "🖨️" },
     { title: "판박이 인증!", message: "이 정도면 누가 봐도 가족이에요! 🧬", emoji: "🧬" }
   ],
   78: [
-    { title: "완벽한 가족!", message: "대박! 아빠/엄마 어린시절 모습 그대로네요! 😲", emoji: "😲" },
+    { title: "완벽한 닮았어요!", message: "대박! 상대방 어린시절 모습 그대로네요! 😲", emoji: "😲" },
     { title: "붕어빵 인증!", message: "누가 봐도 가족이라는 게 다 드러나요! 👨‍👦", emoji: "👨‍👦" }
   ],
   77: [
     { title: "유전자 파워!", message: "완전 복사+붙여넣기! 🖨️", emoji: "🖨️" },
-    { title: "가족 확인!", message: "이건 진짜 부모 자식 맞네요! 🧬", emoji: "🧬" }
+    { title: "닮음 확인!", message: "이건 진짜 두 사람 맞네요! 🧬", emoji: "🧬" }
   ],
   76: [
-    { title: "가족 확실!", message: "완전 판박이! 가족 맞네요", emoji: "✅" },
+    { title: "닮음 확실!", message: "완전 판박이! 닮음 확인", emoji: "✅" },
     { title: "완벽한 닮음!", message: "이 정도면 쌍둥이급 유사도! 😱", emoji: "😱" }
   ],
   75: [
     { title: "DNA 인증!", message: "붕어빵! 누가 봐도 가족이에요 👪", emoji: "👪" },
-    { title: "판박이 수준!", message: "아빠/엄마 어린시절과 똑같아요!", emoji: "📸" }
+    { title: "판박이 수준!", message: "상대방 어린시절과 똑같아요!", emoji: "📸" }
   ],
   74: [
     { title: "유전자 파워!", message: "완전 복사본! 신기해요 🤯", emoji: "🤯" },
-    { title: "친자 확인!", message: "이건 확실한 부모 자식이네요!", emoji: "🎯" }
+    { title: "친자 확인!", message: "이건 확실한 두 사람이네요!", emoji: "🎯" }
   ],
   73: [
     { title: "DNA 확인!", message: "유전의 힘! 대단해요 💪", emoji: "💪" },
-    { title: "완벽한 닮음!", message: "누가 봐도 아빠/엄마 자식! 👨‍👧", emoji: "👨‍👧" }
+    { title: "완벽한 닮음!", message: "누가 봐도 상대방 자식! 👨‍👧", emoji: "👨‍👧" }
   ],
   72: [
     { title: "붕어빵 인증!", message: "이 정도면 복제인간? 😂", emoji: "😂" },
@@ -136,8 +136,8 @@ const extremeSimilarityMessages: Record<number, FamilyMessage[]> = {
     { title: "DNA 파워!", message: "유전자의 힘이 대단하네요!", emoji: "💫" }
   ],
   70: [
-    { title: "확실한 가족!", message: "누가 봐도 부모 자식! 👨‍👩‍👧", emoji: "👨‍👩‍👧" },
-    { title: "유전 확인!", message: "이건 확실한 혈육이네요! 🩸", emoji: "🩸" }
+    { title: "확실한 닮았어요!", message: "누가 봐도 두 사람! 👨‍👩‍👧", emoji: "👨‍👩‍👧" },
+    { title: "유전 확인!", message: "이건 확실한 닮음이네요! 🩸", emoji: "🩸" }
   ],
   69: [
     { title: "DNA 인증!", message: "유전자 검사보다 확실해요! 🧬", emoji: "🧬" },
@@ -148,7 +148,7 @@ const extremeSimilarityMessages: Record<number, FamilyMessage[]> = {
     { title: "유전 파워!", message: "DNA의 힘을 보여주네요!", emoji: "⚡" }
   ],
   67: [
-    { title: "확실한 가족!", message: "누가 봐도 혈육! 👪", emoji: "👪" },
+    { title: "확실한 닮았어요!", message: "누가 봐도 닮았어요! 👪", emoji: "👪" },
     { title: "판박이 인증!", message: "이건 진짜 닮았어요! 😍", emoji: "😍" }
   ],
   66: [
@@ -156,27 +156,27 @@ const extremeSimilarityMessages: Record<number, FamilyMessage[]> = {
     { title: "완벽한 닮음!", message: "이 정도면 복사본이에요!", emoji: "📋" }
   ],
   65: [
-    { title: "친자 완료!", message: "확실한 부모 자식! ✅", emoji: "✅" },
+    { title: "친자 완료!", message: "확실한 두 사람! ✅", emoji: "✅" },
     { title: "유전 확인!", message: "DNA 검사 필요 없어요! 🎯", emoji: "🎯" }
   ],
   64: [
-    { title: "붕어빵 인증!", message: "누가 봐도 가족! 👨‍👦", emoji: "👨‍👦" },
+    { title: "붕어빵 인증!", message: "누가 봐도 닮았어요! 👨‍👦", emoji: "👨‍👦" },
     { title: "DNA 파워!", message: "유전자가 이렇게 강력하다니! 💪", emoji: "💪" }
   ],
   63: [
     { title: "확실한 닮음!", message: "완전 판박이네요! 😲", emoji: "😲" },
-    { title: "친자 확인!", message: "이건 확실한 혈육이에요!", emoji: "🩸" }
+    { title: "친자 확인!", message: "이건 확실한 닮음이에요!", emoji: "🩸" }
   ],
   62: [
     { title: "DNA 인증!", message: "유전의 힘! 대단해요 ⚡", emoji: "⚡" },
-    { title: "완벽한 가족!", message: "누가 봐도 부모 자식! 👨‍👧", emoji: "👨‍👧" }
+    { title: "완벽한 닮았어요!", message: "누가 봐도 두 사람! 👨‍👧", emoji: "👨‍👧" }
   ],
   61: [
-    { title: "유전 확인!", message: "확실한 가족! 신기해요 ✨", emoji: "✨" },
+    { title: "유전 확인!", message: "확실한 닮았어요! 신기해요 ✨", emoji: "✨" },
     { title: "친자 완료!", message: "이 정도면 DNA 검사 안 해도! 🧬", emoji: "🧬" }
   ],
   60: [
-    { title: "확실한 닮음!", message: "아빠/엄마 맞습니다! 유전자 검사 필요 없어요! 🧬", emoji: "🧬" },
+    { title: "확실한 닮음!", message: "상대방 맞습니다! 유전자 검사 필요 없어요! 🧬", emoji: "🧬" },
     { title: "DNA 파워!", message: "이 정도면 확실한 가족이에요! 👪", emoji: "👪" }
   ]
 };
@@ -184,148 +184,148 @@ const extremeSimilarityMessages: Record<number, FamilyMessage[]> = {
 // 40-59: 확실한 가족
 const definiteFamilyMessages: Record<number, FamilyMessage[]> = {
   59: [
-    { title: "확실한 가족!", message: "의심할 여지 없는 가족! 특히 웃을 때 똑같아요 😄", emoji: "😄" },
-    { title: "가족 인증!", message: "누가 봐도 부모 자식 맞네요! 👨‍👦", emoji: "👨‍👦" }
+    { title: "확실한 닮았어요!", message: "의심할 여지 없는 닮았어요! 특히 웃을 때 똑같아요 😄", emoji: "😄" },
+    { title: "닮음 인증!", message: "누가 봐도 두 사람 맞네요! 👨‍👦", emoji: "👨‍👦" }
   ],
   58: [
-    { title: "닮은 가족!", message: "확실한 혈육! 표정이 똑같아요 😊", emoji: "😊" },
-    { title: "유전 확인!", message: "이 정도면 분명한 가족이에요! 👪", emoji: "👪" }
+    { title: "닮은 닮았어요!", message: "확실한 닮음! 표정이 똑같아요 😊", emoji: "😊" },
+    { title: "유전 확인!", message: "이 정도면 분명한 닮음이에요! 👪", emoji: "👪" }
   ],
   57: [
-    { title: "가족 맞네요!", message: "아빠/엄마 인증! 보는 각도에 따라 쏙 빼닮았어요", emoji: "📐" },
-    { title: "확실한 닮음!", message: "분명히 가족! 신기해요 ✨", emoji: "✨" }
+    { title: "닮음 확인!", message: "상대방 인증! 보는 각도에 따라 쏙 빼닮았어요", emoji: "📐" },
+    { title: "확실한 닮음!", message: "분명히 닮았어요! 신기해요 ✨", emoji: "✨" }
   ],
   56: [
-    { title: "가족 확인!", message: "누가 봐도 혈육! 🩸", emoji: "🩸" },
-    { title: "닮은 정도!", message: "확실한 가족 관계네요! 😍", emoji: "😍" }
+    { title: "닮음 확인!", message: "누가 봐도 닮았어요! 🩸", emoji: "🩸" },
+    { title: "닮은 정도!", message: "확실한 닮음 관계네요! 😍", emoji: "😍" }
   ],
   55: [
-    { title: "분명한 가족!", message: "유전자 파워! 확실히 닮았어요 💪", emoji: "💪" },
-    { title: "가족 인증!", message: "이 정도면 분명한 가족! 👨‍👧", emoji: "👨‍👧" }
+    { title: "분명한 닮음!", message: "유전자 파워! 확실히 닮았어요 💪", emoji: "💪" },
+    { title: "닮음 인증!", message: "이 정도면 분명한 닮음! 👨‍👧", emoji: "👨‍👧" }
   ],
   54: [
-    { title: "확실한 닮음!", message: "가족 맞네요! 특히 미소가 똑같아요 😊", emoji: "😊" },
-    { title: "유전 확인!", message: "분명히 부모 자식이에요! 🎯", emoji: "🎯" }
+    { title: "확실한 닮음!", message: "닮음 확인! 특히 미소가 똑같아요 😊", emoji: "😊" },
+    { title: "유전 확인!", message: "분명히 두 사람이에요! 🎯", emoji: "🎯" }
   ],
   53: [
-    { title: "가족 확실!", message: "누가 봐도 가족! 신기해요 🤩", emoji: "🤩" },
-    { title: "닮은 정도!", message: "확실한 혈육 관계네요! 👪", emoji: "👪" }
+    { title: "닮음 확실!", message: "누가 봐도 닮았어요! 신기해요 🤩", emoji: "🤩" },
+    { title: "닮은 정도!", message: "확실한 닮음 관계네요! 👪", emoji: "👪" }
   ],
   52: [
-    { title: "분명한 가족!", message: "아빠/엄마 자식 맞어요! 확실해요 ✅", emoji: "✅" },
-    { title: "가족 인증!", message: "이 정도면 확실한 가족! 😄", emoji: "😄" }
+    { title: "분명한 닮음!", message: "상대방 자식 맞어요! 확실해요 ✅", emoji: "✅" },
+    { title: "닮음 인증!", message: "이 정도면 확실한 닮았어요! 😄", emoji: "😄" }
   ],
   51: [
-    { title: "확실한 닮음!", message: "분명히 가족! 표정이 비슷해요 😊", emoji: "😊" },
-    { title: "유전 확인!", message: "누가 봐도 부모 자식! 👨‍👦", emoji: "👨‍👦" }
+    { title: "확실한 닮음!", message: "분명히 닮았어요! 표정이 비슷해요 😊", emoji: "😊" },
+    { title: "유전 확인!", message: "누가 봐도 두 사람! 👨‍👦", emoji: "👨‍👦" }
   ],
   50: [
-    { title: "가족 맞네요!", message: "확실한 가족! 웃는 모습이 똑같아요 😄", emoji: "😄" },
-    { title: "닮은 정도!", message: "분명한 혈육 관계! 신기해요 ✨", emoji: "✨" }
+    { title: "닮음 확인!", message: "확실한 닮았어요! 웃는 모습이 똑같아요 😄", emoji: "😄" },
+    { title: "닮은 정도!", message: "분명한 닮음 관계! 신기해요 ✨", emoji: "✨" }
   ],
   49: [
-    { title: "분명한 가족!", message: "누가 봐도 가족! 🤗", emoji: "🤗" },
-    { title: "가족 확인!", message: "확실한 부모 자식이에요! 👨‍👧", emoji: "👨‍👧" }
+    { title: "분명한 닮음!", message: "누가 봐도 닮았어요! 🤗", emoji: "🤗" },
+    { title: "닮음 확인!", message: "확실한 두 사람이에요! 👨‍👧", emoji: "👨‍👧" }
   ],
   48: [
-    { title: "확실한 닮음!", message: "가족 맞네요! 특히 눈웃음이 비슷해요 😊", emoji: "😊" },
-    { title: "유전 인증!", message: "분명히 가족! 대단해요 💪", emoji: "💪" }
+    { title: "확실한 닮음!", message: "닮음 확인! 특히 눈웃음이 비슷해요 😊", emoji: "😊" },
+    { title: "유전 인증!", message: "분명히 닮았어요! 대단해요 💪", emoji: "💪" }
   ],
   47: [
-    { title: "가족 확실!", message: "누가 봐도 혈육! 신기하네요 🤩", emoji: "🤩" },
-    { title: "닮은 가족!", message: "확실한 가족 관계예요! 👪", emoji: "👪" }
+    { title: "닮음 확실!", message: "누가 봐도 닮았어요! 신기하네요 🤩", emoji: "🤩" },
+    { title: "닮은 닮았어요!", message: "확실한 닮음 관계예요! 👪", emoji: "👪" }
   ],
   46: [
-    { title: "분명한 가족!", message: "아빠/엄마 자식 맞어요! ✅", emoji: "✅" },
-    { title: "가족 인증!", message: "이 정도면 확실한 가족! 😄", emoji: "😄" }
+    { title: "분명한 닮음!", message: "상대방 자식 맞어요! ✅", emoji: "✅" },
+    { title: "닮음 인증!", message: "이 정도면 확실한 닮았어요! 😄", emoji: "😄" }
   ],
   45: [
-    { title: "확실한 닮음!", message: "가족 맞네요! 분위기가 비슷해요 😊", emoji: "😊" },
-    { title: "유전 확인!", message: "분명히 부모 자식! 👨‍👦", emoji: "👨‍👦" }
+    { title: "확실한 닮음!", message: "닮음 확인! 분위기가 비슷해요 😊", emoji: "😊" },
+    { title: "유전 확인!", message: "분명히 두 사람! 👨‍👦", emoji: "👨‍👦" }
   ],
   44: [
-    { title: "가족 맞어요!", message: "누가 봐도 가족! 🤗", emoji: "🤗" },
-    { title: "닮은 정도!", message: "확실한 혈육 관계네요! ✨", emoji: "✨" }
+    { title: "닮음 맞어요!", message: "누가 봐도 닮았어요! 🤗", emoji: "🤗" },
+    { title: "닮은 정도!", message: "확실한 닮음 관계네요! ✨", emoji: "✨" }
   ],
   43: [
-    { title: "분명한 가족!", message: "확실한 가족! 표정이 닮았어요 😊", emoji: "😊" },
-    { title: "가족 확인!", message: "이건 분명한 부모 자식! 👨‍👧", emoji: "👨‍👧" }
+    { title: "분명한 닮음!", message: "확실한 닮았어요! 표정이 닮았어요 😊", emoji: "😊" },
+    { title: "닮음 확인!", message: "이건 분명한 두 사람! 👨‍👧", emoji: "👨‍👧" }
   ],
   42: [
-    { title: "확실한 닮음!", message: "가족 맞네요! 신기해요 🤩", emoji: "🤩" },
-    { title: "유전 인증!", message: "분명히 가족! 대단하네요 💪", emoji: "💪" }
+    { title: "확실한 닮음!", message: "닮음 확인! 신기해요 🤩", emoji: "🤩" },
+    { title: "유전 인증!", message: "분명히 닮았어요! 대단하네요 💪", emoji: "💪" }
   ],
   41: [
-    { title: "가족 확실!", message: "누가 봐도 혈육! 👪", emoji: "👪" },
-    { title: "닮은 가족!", message: "확실한 가족 관계예요! ✅", emoji: "✅" }
+    { title: "닮음 확실!", message: "누가 봐도 닮았어요! 👪", emoji: "👪" },
+    { title: "닮은 닮았어요!", message: "확실한 닮음 관계예요! ✅", emoji: "✅" }
   ],
   40: [
-    { title: "분명한 가족!", message: "가족 맞네요! 특히 미소가 닮았어요 😊", emoji: "😊" },
-    { title: "가족 인증!", message: "이 정도면 확실한 가족이에요! 👨‍👦", emoji: "👨‍👦" }
+    { title: "분명한 닮음!", message: "닮음 확인! 특히 미소가 닮았어요 😊", emoji: "😊" },
+    { title: "닮음 인증!", message: "이 정도면 확실한 가족이에요! 👨‍👦", emoji: "👨‍👦" }
   ]
 };
 
 // 25-39: 은근한 닮음
 const subtleSimilarityMessages: Record<number, FamilyMessage[]> = {
   39: [
-    { title: "은근 닮았어요!", message: "분명 가족! 표정이나 분위기가 닮았어요 🤗", emoji: "🤗" },
-    { title: "가족 느낌!", message: "은근히 닮은 구석이 있네요! 😊", emoji: "😊" }
+    { title: "은근 닮았어요!", message: "분명 닮았어요! 표정이나 분위기가 닮았어요 🤗", emoji: "🤗" },
+    { title: "닮음 느낌!", message: "은근히 닮은 구석이 있네요! 😊", emoji: "😊" }
   ],
   38: [
     { title: "닮은 구석!", message: "자세히 보면 닮았어요! 👀", emoji: "👀" },
-    { title: "가족 티!", message: "은근 가족 티 나는데요? 🤔", emoji: "🤔" }
+    { title: "닮음 티!", message: "은근 닮음 티 나는데요? 🤔", emoji: "🤔" }
   ],
   37: [
     { title: "은근한 닮음!", message: "분위기가 비슷해요! 신기하네요 ✨", emoji: "✨" },
     { title: "숨은 닮음!", message: "자세히 보면 닮은 구석이! 🔍", emoji: "🔍" }
   ],
   36: [
-    { title: "가족 느낌!", message: "은근 가족 같아요! 😊", emoji: "😊" },
+    { title: "닮음 느낌!", message: "은근 닮음 같아요! 😊", emoji: "😊" },
     { title: "닮은 부분!", message: "어딘가 닮은 구석이 있네요! 👀", emoji: "👀" }
   ],
   35: [
     { title: "은근히 닮음!", message: "표정이나 분위기가 닮았어요! 🤗", emoji: "🤗" },
-    { title: "숨은 유사!", message: "자세히 보면 가족 같아요! ✨", emoji: "✨" }
+    { title: "숨은 유사!", message: "자세히 보면 닮음 같아요! ✨", emoji: "✨" }
   ],
   34: [
     { title: "닮은 구석!", message: "은근 닮은 부분이 있어요! 😊", emoji: "😊" },
-    { title: "가족 티!", message: "어딘가 가족 느낌이 나네요! 🤔", emoji: "🤔" }
+    { title: "닮음 티!", message: "어딘가 닮음 느낌이 나네요! 🤔", emoji: "🤔" }
   ],
   33: [
     { title: "은근한 유사!", message: "분위기가 비슷해요! 👀", emoji: "👀" },
     { title: "숨은 닮음!", message: "자세히 보면 닮았네요! 🔍", emoji: "🔍" }
   ],
   32: [
-    { title: "가족 느낌!", message: "은근 가족 같은 느낌! 😊", emoji: "😊" },
+    { title: "닮음 느낌!", message: "은근 닮음 같은 느낌! 😊", emoji: "😊" },
     { title: "닮은 부분!", message: "어딘가 닮은 구석이! ✨", emoji: "✨" }
   ],
   31: [
     { title: "은근히 닮음!", message: "표정이나 분위기가! 🤗", emoji: "🤗" },
-    { title: "숨은 유사!", message: "자세히 보면 가족 티 나요! 👀", emoji: "👀" }
+    { title: "숨은 유사!", message: "자세히 보면 닮음 티 나요! 👀", emoji: "👀" }
   ],
   30: [
-    { title: "닮은 구석!", message: "자세히 보면 아빠/엄마 닮은 구석이 있어요! 🔍", emoji: "🔍" },
-    { title: "가족 느낌!", message: "은근 가족 같은 분위기! 😊", emoji: "😊" }
+    { title: "닮은 구석!", message: "자세히 보면 상대방 닮은 구석이 있어요! 🔍", emoji: "🔍" },
+    { title: "닮음 느낌!", message: "은근 닮음 같은 분위기! 😊", emoji: "😊" }
   ],
   29: [
     { title: "은근한 닮음!", message: "분위기나 표정이 비슷해요! ✨", emoji: "✨" },
     { title: "숨은 유사!", message: "어딘가 닮은 부분이 있네요! 👀", emoji: "👀" }
   ],
   28: [
-    { title: "가족 티!", message: "은근 가족 같아요! 🤔", emoji: "🤔" },
+    { title: "닮음 티!", message: "은근 닮음 같아요! 🤔", emoji: "🤔" },
     { title: "닮은 부분!", message: "자세히 보면 닮은 구석이! 😊", emoji: "😊" }
   ],
   27: [
     { title: "은근히 닮음!", message: "분위기가 비슷한 느낌! 🤗", emoji: "🤗" },
-    { title: "숨은 닮음!", message: "어딘가 가족 티 나는데요? ✨", emoji: "✨" }
+    { title: "숨은 닮음!", message: "어딘가 닮음 티 나는데요? ✨", emoji: "✨" }
   ],
   26: [
     { title: "닮은 구석!", message: "은근 닮은 부분이! 👀", emoji: "👀" },
-    { title: "가족 느낌!", message: "자세히 보면 가족 같아요! 🔍", emoji: "🔍" }
+    { title: "닮음 느낌!", message: "자세히 보면 닮음 같아요! 🔍", emoji: "🔍" }
   ],
   25: [
     { title: "은근한 유사!", message: "표정이나 분위기가 닮았어요! 😊", emoji: "😊" },
-    { title: "숨은 닮음!", message: "어딘가 가족 느낌이 나네요! ✨", emoji: "✨" }
+    { title: "숨은 닮음!", message: "어딘가 닮음 느낌이 나네요! ✨", emoji: "✨" }
   ]
 };
 
@@ -341,7 +341,7 @@ const uniqueCharacterMessages: Record<number, FamilyMessage[]> = {
   ],
   22: [
     { title: "개성 만점!", message: "각자의 특별한 매력! ⭐", emoji: "⭐" },
-    { title: "독특함!", message: "외모는 달라도 마음은 가족! ❤️", emoji: "❤️" }
+    { title: "독특함!", message: "외모는 달라도 마음은 닮았어요! ❤️", emoji: "❤️" }
   ],
   21: [
     { title: "각자 매력!", message: "개성 넘치는 외모! 😊", emoji: "😊" },
@@ -381,7 +381,7 @@ const uniqueCharacterMessages: Record<number, FamilyMessage[]> = {
   ],
   12: [
     { title: "개성 만점!", message: "각자의 특별한 아름다움! ⭐", emoji: "⭐" },
-    { title: "특별함!", message: "외모는 달라도 가족 사랑은 진짜! ❤️", emoji: "❤️" }
+    { title: "특별함!", message: "외모는 달라도 닮음 사랑은 진짜! ❤️", emoji: "❤️" }
   ],
   11: [
     { title: "독특한 매력!", message: "개성 넘치는 매력! 😄", emoji: "😄" },
@@ -421,7 +421,7 @@ const uniqueCharacterMessages: Record<number, FamilyMessage[]> = {
   ],
   2: [
     { title: "독특한 개성!", message: "각자 완전 다른 매력! ⭐", emoji: "⭐" },
-    { title: "특별함!", message: "외모는 달라도 가족 사랑! ❤️", emoji: "❤️" }
+    { title: "특별함!", message: "외모는 달라도 닮음 사랑! ❤️", emoji: "❤️" }
   ],
   1: [
     { title: "완전 개성!", message: "각자 유니크한 매력! 😄", emoji: "😄" },
@@ -445,10 +445,10 @@ export function convertAiScoreToUserPercent(aiScore: number): number {
     // 95-99% 범위로 매핑 (매우 높은 유사도)
     return Math.round(95 + (aiScore - 0.5) * 8);
   } else if (aiScore >= 0.35) {
-    // 85-94% 범위로 매핑 (높은 가족 유사도)
+    // 85-94% 범위로 매핑 (높은 닮음 유사도)
     return Math.round(85 + (aiScore - 0.35) * 60);
   } else if (aiScore >= 0.2) {
-    // 65-84% 범위로 매핑 (보통 가족 유사도) - 대폭 부스트!
+    // 65-84% 범위로 매핑 (보통 닮음 유사도) - 대폭 부스트!
     return Math.round(65 + (aiScore - 0.2) * 126.7);
   } else if (aiScore >= 0.1) {
     // 40-64% 범위로 매핑 (낮은 유사도)
@@ -536,25 +536,25 @@ export function getFamilySimilarityMessage(
     if (!messagePool) {
       messagePool = [
         { title: "동일인일 수도!", message: "이 정도면 같은 분의 다른 사진인가요? 🤔", emoji: "🤔" },
-        { title: "본인 의심!", message: "가족 비교를 위해 다른 분의 사진을 올려주세요", emoji: "📸" }
+        { title: "본인 의심!", message: "닮음 비교를 위해 다른 분의 사진을 올려주세요", emoji: "📸" }
       ];
     }
   } else if (displayPercent >= 60) {
-    // 60-84%: 높은 가족 유사도
+    // 60-84%: 높은 닮음 유사도
     const key = Math.min(84, Math.max(60, displayPercent));
     messagePool = extremeSimilarityMessages[key] || extremeSimilarityMessages[79] || extremeSimilarityMessages[70];
     if (!messagePool) {
       messagePool = [
-        { title: "확실한 가족!", message: "아빠/엄마 맞습니다! 강한 가족 유사성이에요! 🧬", emoji: "🧬" }
+        { title: "확실한 닮았어요!", message: "상대방 맞습니다! 강한 닮음 유사성이에요! 🧬", emoji: "🧬" }
       ];
     }
   } else if (displayPercent >= 30) {
-    // 30-59%: 보통 가족 유사도  
+    // 30-59%: 보통 닮음 유사도  
     const key = Math.min(59, Math.max(30, displayPercent));
     messagePool = definiteFamilyMessages[key] || definiteFamilyMessages[50] || definiteFamilyMessages[40];
     if (!messagePool) {
       messagePool = [
-        { title: "꽤 닮았어요!", message: "가족 맞네요! 특히 미소가 닮았어요 😊", emoji: "😊" }
+        { title: "꽤 닮았어요!", message: "닮음 확인! 특히 미소가 닮았어요 😊", emoji: "😊" }
       ];
     }
   } else if (displayPercent >= 10) {

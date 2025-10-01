@@ -367,6 +367,28 @@ export default function AnalyzePage() {
 
   const analysisOptions = [
     {
+      value: 'gender-estimation' as AnalysisType,
+      title: t('analysisSelector.genderEstimation.title'),
+      description: t('analysisSelector.genderEstimation.description'),
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5C14.8 4.1 13.6 3 12 3C10.4 3 9.2 4.1 9 5.5L3 7V9L9 7.5V10.5C9 12.4 9.6 14.1 10.6 15.4L9 16V18H11V16.5C11.3 16.8 11.6 17 12 17C12.4 17 12.7 16.8 13 16.5V18H15V16L13.4 15.4C14.4 14.1 15 12.4 15 10.5V7.5L21 9Z"/>
+        </svg>
+      ),
+      color: 'orange'
+    },
+    {
+      value: 'age-estimation' as AnalysisType,
+      title: t('analysisSelector.ageEstimation.title'),
+      description: t('analysisSelector.ageEstimation.description'),
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+        </svg>
+      ),
+      color: 'purple'
+    },
+    {
       value: 'parent-child' as AnalysisType,
       title: t('analysisSelector.parentChild.title'),
       description: t('analysisSelector.parentChild.description'),
@@ -387,28 +409,6 @@ export default function AnalyzePage() {
         </svg>
       ),
       color: 'green'
-    },
-    {
-      value: 'age-estimation' as AnalysisType,
-      title: t('analysisSelector.ageEstimation.title'),
-      description: t('analysisSelector.ageEstimation.description'),
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
-        </svg>
-      ),
-      color: 'purple'
-    },
-    {
-      value: 'gender-estimation' as AnalysisType,
-      title: t('analysisSelector.genderEstimation.title'),
-      description: t('analysisSelector.genderEstimation.description'),
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5C14.8 4.1 13.6 3 12 3C10.4 3 9.2 4.1 9 5.5L3 7V9L9 7.5V10.5C9 12.4 9.6 14.1 10.6 15.4L9 16V18H11V16.5C11.3 16.8 11.6 17 12 17C12.4 17 12.7 16.8 13 16.5V18H15V16L13.4 15.4C14.4 14.1 15 12.4 15 10.5V7.5L21 9Z"/>
-        </svg>
-      ),
-      color: 'orange'
     },
     {
       value: '' as AnalysisType,
@@ -1225,8 +1225,8 @@ export default function AnalyzePage() {
                     : selectedAnalysis === 'gender-estimation'
                     ? '에겐/테토 분석 해보세요!'
                     : selectedAnalysis === 'who-most-similar'
-                    ? '부모 찾기 AI 분석!'
-                    : '부모와 자녀 닮음 분석!';
+                    ? '가장 닮은 사람 찾기 AI 분석!'
+                    : '얼굴 닮은꼴 테스트!';
                   
                   if (navigator.share) {
                     navigator.share({
@@ -1433,8 +1433,8 @@ export default function AnalyzePage() {
               {familyResult && familyMessage && parentImage && childImage && (
                 <AnalysisResultWrapper
                   type="parent-child"
-                  title="AI 얼굴 분석 : 친자 확인 결과"
-                  subtitle="부모와 자녀의 닮음 정도를 분석했습니다"
+                  title="AI 얼굴 분석 : 닮은꼴 테스트 결과"
+                  subtitle="두 사람의 닮음 정도를 분석했습니다"
                 >
                   <ParentChildResult
                     parentImage={parentImage}

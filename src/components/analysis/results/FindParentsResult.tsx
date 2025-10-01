@@ -30,17 +30,17 @@ export default function FindParentsResult({
           </div>
 
           <div className="flex items-center justify-center gap-6">
-            {/* 아이 사진 */}
+            {/* 기준 사진 */}
             <div className="text-center">
               <div className="relative w-28 h-28 md:w-32 md:h-32 mx-auto mb-2">
                 <Image
                   src={childImage.preview}
-                  alt="아이"
+                  alt="기준 사람"
                   fill
                   className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
                 />
               </div>
-              <span className="text-sm text-gray-600 font-medium whitespace-nowrap">아이</span>
+              <span className="text-sm text-gray-600 font-medium whitespace-nowrap">기준 사람</span>
             </div>
 
             {/* 하트 아이콘 */}

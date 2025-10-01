@@ -179,19 +179,19 @@ export function useTranslations() {
         'analysisSelector.title': '어떤 분석을 원하시나요?',
         'analysisSelector.subtitle': '원하는 분석 유형을 선택해주세요',
         'analysisSelector.placeholder': '분석 유형을 선택하세요',
-        'analysisSelector.parentChild.title': 'AI 얼굴 분석 : 친자 확인',
-        'analysisSelector.parentChild.description': '부모와 자녀 사진을 비교해서 닮은 정도를 분석합니다',
-        'analysisSelector.whoMostSimilar.title': 'AI 얼굴 분석 : 부모 찾기',
-        'analysisSelector.whoMostSimilar.description': '아이와 여러 후보자를 비교해서 가장 닮은 사람을 찾습니다',
-        'analysisSelector.ageEstimation.title': 'AI 얼굴 분석 : 나이 맞히기',
-        'analysisSelector.ageEstimation.description': 'AI가 사진으로 나이를 예측합니다',
         'analysisSelector.genderEstimation.title': 'AI 얼굴 분석 : 에겐/테토 분석',
         'analysisSelector.genderEstimation.description': '성별 특징으로 스타일을 분석합니다',
+        'analysisSelector.ageEstimation.title': 'AI 얼굴 분석 : 나이 맞히기',
+        'analysisSelector.ageEstimation.description': 'AI가 사진으로 나이를 예측합니다',
+        'analysisSelector.parentChild.title': 'AI 얼굴 분석 : 얼굴 닮은꼴 테스트',
+        'analysisSelector.parentChild.description': '두 사람의 사진을 비교해서 닮은 정도를 분석합니다',
+        'analysisSelector.whoMostSimilar.title': 'AI 얼굴 분석 : 가장 닮은 사람 찾기',
+        'analysisSelector.whoMostSimilar.description': '한 사람과 여러 사람을 비교해서 가장 닮은 사람을 찾습니다',
         'analysisSelector.celebrity.title': 'AI 얼굴 분석 : 연예인 닮은꼴',
         'analysisSelector.celebrity.description': '곧 출시될 예정입니다',
         'analysisSelector.celebrity.status': '공개 예정',
-        'parentChildAnalysis.analyzeButton': '닮은 정도 분석 시작',
-        'whoMostSimilarAnalysis.analyzeButton': '부모 찾기 시작!'
+        'parentChildAnalysis.analyzeButton': '분석 시작',
+        'whoMostSimilarAnalysis.analyzeButton': '가장 닮은 사람 찾기!'
       };
       
       const enDefaults: Record<string, string> = {
@@ -205,10 +205,10 @@ export function useTranslations() {
         'analysisSelector.title': 'What kind of analysis do you want?',
         'analysisSelector.subtitle': 'Please select your preferred analysis type',
         'analysisSelector.placeholder': 'Select analysis type',
-        'analysisSelector.parentChild.title': 'AI Face Analysis : Paternity Test',
-        'analysisSelector.parentChild.description': 'Compare parent and child photos to analyze similarity',
-        'analysisSelector.whoMostSimilar.title': 'AI Face Analysis : Find Parent',
-        'analysisSelector.whoMostSimilar.description': 'Compare a child with multiple candidates to find the most similar person',
+        'analysisSelector.parentChild.title': 'AI Face Analysis : Face Similarity Test',
+        'analysisSelector.parentChild.description': 'Compare two people\'s photos to analyze similarity',
+        'analysisSelector.whoMostSimilar.title': 'AI Face Analysis : Find Best Match',
+        'analysisSelector.whoMostSimilar.description': 'Compare one person with multiple candidates to find the most similar person',
         'analysisSelector.ageEstimation.title': 'AI Face Analysis : Age Estimation',
         'analysisSelector.ageEstimation.description': 'AI predicts age from photos',
         'analysisSelector.genderEstimation.title': 'AI Face Analysis : Style Analysis',
@@ -216,8 +216,8 @@ export function useTranslations() {
         'analysisSelector.celebrity.title': 'AI Face Analysis : Celebrity Match',
         'analysisSelector.celebrity.description': 'Coming soon',
         'analysisSelector.celebrity.status': 'Coming soon',
-        'parentChildAnalysis.analyzeButton': 'Start Similarity Analysis',
-        'whoMostSimilarAnalysis.analyzeButton': 'Start Finding Parent!'
+        'parentChildAnalysis.analyzeButton': 'Start Analysis',
+        'whoMostSimilarAnalysis.analyzeButton': 'Find Best Match!'
       };
       
       const defaults = locale === 'en' ? enDefaults : koDefaults;

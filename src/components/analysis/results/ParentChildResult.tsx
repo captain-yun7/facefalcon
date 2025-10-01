@@ -28,17 +28,17 @@ export default function ParentChildResult({
     <>
       {/* 이미지 비교 섹션 */}
       <div className="flex justify-center items-center gap-6 mb-8">
-        {/* 부모 이미지 */}
+        {/* 첫 번째 이미지 */}
         <div className="text-center">
           <div className="relative w-32 h-32 md:w-40 md:h-40 mb-2">
             <Image
               src={parentImage.preview}
-              alt="부모"
+              alt="첫 번째 사람"
               fill
               className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
             />
           </div>
-          <span className="text-sm text-gray-600 font-medium">부모</span>
+          <span className="text-sm text-gray-600 font-medium">첫 번째 사람</span>
         </div>
 
         {/* 하트 아이콘 */}
@@ -46,17 +46,17 @@ export default function ParentChildResult({
           ❤️
         </div>
 
-        {/* 자녀 이미지 */}
+        {/* 두 번째 이미지 */}
         <div className="text-center">
           <div className="relative w-32 h-32 md:w-40 md:h-40 mb-2">
             <Image
               src={childImage.preview}
-              alt="자녀"
+              alt="두 번째 사람"
               fill
               className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
             />
           </div>
-          <span className="text-sm text-gray-600 font-medium">자녀</span>
+          <span className="text-sm text-gray-600 font-medium">두 번째 사람</span>
         </div>
       </div>
 

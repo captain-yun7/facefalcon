@@ -30,13 +30,23 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">{t('footer.services.title')}</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-sm hover:text-white transition-colors">
+                <Link href="/analyze?type=parent-child" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.familyAnalysis')}
                 </Link>
               </li>
               <li>
-                <Link href="/" className="text-sm hover:text-white transition-colors">
+                <Link href="/analyze?type=who-most-similar" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.multipleComparison')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/analyze?type=age-estimation" className="text-sm hover:text-white transition-colors">
+                  {t('footer.services.ageAnalysis')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/analyze?type=gender-estimation" className="text-sm hover:text-white transition-colors">
+                  {t('footer.services.genderAnalysis')}
                 </Link>
               </li>
             </ul>

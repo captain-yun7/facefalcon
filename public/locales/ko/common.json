@@ -16,21 +16,21 @@
     "title": "어떤 분석을 원하시나요?",
     "subtitle": "원하는 분석 유형을 선택해주세요",
     "placeholder": "분석 유형을 선택하세요",
-    "parentChild": {
-      "title": "AI 얼굴 분석 : 친자 확인",
-      "description": "부모와 자녀 사진을 비교해서 닮은 정도를 분석합니다"
-    },
-    "whoMostSimilar": {
-      "title": "AI 얼굴 분석 : 부모 찾기",
-      "description": "아이와 여러 후보자를 비교해서 가장 닮은 사람을 찾습니다"
+    "genderEstimation": {
+      "title": "AI 얼굴 분석 : 에겐/테토 분석",
+      "description": "성별 특징으로 스타일을 분석합니다"
     },
     "ageEstimation": {
       "title": "AI 얼굴 분석 : 나이 맞히기",
       "description": "AI가 사진으로 나이를 예측합니다"
     },
-    "genderEstimation": {
-      "title": "AI 얼굴 분석 : 에겐/테토 분석",
-      "description": "성별 특징으로 스타일을 분석합니다"
+    "parentChild": {
+      "title": "AI 얼굴 분석 : 얼굴 닮은꼴 테스트",
+      "description": "두 사람의 사진을 비교해서 닮은 정도를 분석합니다"
+    },
+    "whoMostSimilar": {
+      "title": "AI 얼굴 분석 : 가장 닮은 사람 찾기",
+      "description": "한 사람과 여러 사람을 비교해서 가장 닮은 사람을 찾습니다"
     },
     "celebrity": {
       "title": "AI 얼굴 분석 : 연예인 닮은꼴",
@@ -39,32 +39,32 @@
     }
   },
   "parentChildAnalysis": {
-    "title": "부모-자녀 닮음 분석",
-    "parentPhoto": "부모 사진",
-    "childPhoto": "자녀 사진",
-    "uploadParent": "부모 사진 업로드",
-    "uploadChild": "자녀 사진 업로드",
+    "title": "얼굴 닮은꼴 테스트",
+    "parentPhoto": "첫 번째 사진",
+    "childPhoto": "두 번째 사진",
+    "uploadParent": "첫 번째 사진 업로드",
+    "uploadChild": "두 번째 사진 업로드",
     "analyzeButton": "분석 시작",
     "analyzing": "AI 분석 중..."
   },
   "whoMostSimilarAnalysis": {
-    "title": "부모 찾기",
-    "uploadChild": "아이 사진을 업로드하세요",
-    "uploadChildLabel": "아이 사진 업로드",
-    "uploadCandidates": "후보자들의 사진을 업로드하세요 (2-6명)",
-    "candidateCount": "현재 {{count}}명의 후보자가 등록되었습니다.",
+    "title": "가장 닮은 사람 찾기",
+    "uploadChild": "비교할 기준 사진을 업로드하세요",
+    "uploadChildLabel": "기준 사진 업로드",
+    "uploadCandidates": "비교할 사람들의 사진을 업로드하세요 (2-6명)",
+    "candidateCount": "현재 {{count}}명이 등록되었습니다.",
     "candidateMinRequired": " (최소 2명 필요)",
-    "candidate": "후보자 {{number}}",
-    "analyzeButton": "부모 찾기 시작!",
-    "analyzing": "AI가 부모를 찾는 중..."
+    "candidate": "비교 대상 {{number}}",
+    "analyzeButton": "가장 닮은 사람 찾기!",
+    "analyzing": "AI가 가장 닮은 사람을 찾는 중..."
   },
   "results": {
     "analysisComplete": "분석 완료",
     "similarityResult": "닮음 정도 결과",
-    "parentFindingResult": "부모 찾기 분석 결과",
+    "parentFindingResult": "가장 닮은 사람 찾기 결과",
     "confidence": "분석 신뢰도: {{confidence}}%",
-    "parent": "부모",
-    "child": "자녀",
+    "parent": "첫 번째 사람",
+    "child": "두 번째 사람",
     "similarity": "닮음",
     "mostSimilar": "가장 닮은 사람",
     "ranking": "전체 순위",
@@ -98,7 +98,7 @@
   "share": {
     "clipboardCopied": "공유 텍스트가 클립보드에 복사되었습니다!\\n메신저나 SNS에 붙여넣기 해주세요.",
     "shareNotSupported": "이 브라우저에서는 직접 공유가 지원되지 않습니다.\\n\"이미지 다운로드\" 버튼을 사용해주세요.",
-    "resultText": "우리 아이 닮음 분석 결과: {{percent}}% 닮았네요! 😊\\nfacefalcon.com에서 분석해보세요"
+    "resultText": "닮음 분석 결과: {{percent}}% 닮았네요! 😊\\nfacefalcon.com에서 분석해보세요"
   },
   "guide": {
     "title": "이용 가이드",
@@ -201,7 +201,7 @@
       },
       "q5": {
         "question": "Q. 어떤 관계의 사람들을 비교할 수 있나요?",
-        "answer": "가족(부모-자녀, 형제자매), 친구, 연인, 연예인 닮은꼴 등 모든 관계의 사람들을 비교할 수 있습니다. 두 사람의 얼굴 유사도를 객관적으로 분석합니다."
+        "answer": "가족, 형제자매, 친구, 연인, 연예인 닮은꼴 등 모든 관계의 사람들을 비교할 수 있습니다. 두 사람의 얼굴 유사도를 객관적으로 분석합니다."
       },
       "q6": {
         "question": "Q. 분석에 실패했어요. 어떻게 해야 하나요?",
@@ -253,13 +253,15 @@
   "footer": {
     "siteInfo": {
       "title": "FaceFalcon",
-      "description": "AI 기술을 활용한 가족 닮음 분석 서비스입니다. 부모와 자녀의 유사도를 정확하게 분석해드립니다.",
+      "description": "AI 얼굴 분석 서비스입니다. 닮은꼴 테스트부터 나이 맞히기, 에겐/테토 분석까지 다양한 재미있는 분석을 제공합니다.",
       "security": "SSL 보안 연결"
     },
     "services": {
       "title": "서비스",
-      "familyAnalysis": "가족 닮음 분석",
-      "multipleComparison": "여러 사람 비교"
+      "familyAnalysis": "얼굴 닮은꼴 테스트",
+      "multipleComparison": "가장 닮은 사람 찾기",
+      "ageAnalysis": "나이 맞히기",
+      "genderAnalysis": "에겐/테토 분석"
     },
     "support": {
       "title": "고객 지원",
@@ -282,7 +284,7 @@
       "subtitle": "AI와 웹 기술을 활용한 재미있는 서비스를 만드는 개발자입니다",
       "projectStory": {
         "title": "이 프로젝트는 어떻게 시작되었나요?",
-        "content1": "\"우리 아이가 누굴 더 닮았을까?\" - 모든 부모들이 한 번쯤 궁금해하는 질문에서 시작되었습니다. 단순한 호기심을 AI 기술로 해결해보고 싶었고, 가족들이 재미있게 사용할 수 있는 웹 서비스를 만들어보았습니다.",
+        "content1": "\"우리가 얼마나 닮았을까?\" - 누구나 한 번쯤 궁금해하는 질문에서 시작되었습니다. 단순한 호기심을 AI 기술로 해결해보고 싶었고, 모두가 재미있게 사용할 수 있는 웹 서비스를 만들어보았습니다.",
         "content2": "개발 과정에서 다양한 얼굴 인식 API를 테스트하고, 사용자 경험을 고민하며 현재의 서비스가 완성되었습니다. 매일 많은 가족들이 사용해주시는 것을 보며 기술이 일상에 재미를 더할 수 있다는 것을 느끼고 있습니다."
       },
       "techStack": {
@@ -322,8 +324,8 @@
     },
     "service": {
       "title": "AI 기술로 분석하는",
-      "titleGradient": "얼굴 유사도 분석 서비스",
-      "subtitle": "최신 얼굴 인식 AI 기술을 통해 두 사람의 얼굴 유사도를 정확하게 분석하고 객관적인 수치로 제공하는 혁신적인 서비스입니다.",
+      "titleGradient": "다양한 얼굴 분석 서비스",
+      "subtitle": "최신 AI 기술로 얼굴 닮은꼴 테스트, 나이 맞히기, 에겐/테토 분석 등 다양한 재미있는 분석을 제공합니다.",
       "aiTechnology": {
         "title": "AI 얼굴 인식 기술",
         "description": "InsightFace의 최신 Buffalo 모델을 활용하여 얼굴의 주요 특징점을 정밀하게 추출하고 분석합니다.",
@@ -334,8 +336,8 @@
         ]
       },
       "similarityCalculation": {
-        "title": "정확한 유사도 계산",
-        "description": "추출된 얼굴 임베딩 벡터를 비교하여 두 얼굴 간의 유사도를 수치적으로 계산합니다.",
+        "title": "다양한 분석 기능",
+        "description": "얼굴 닮은꼴부터 나이, 스타일까지 다양한 관점으로 분석합니다.",
         "features": [
           "벡터 거리 기반 정확한 유사도 측정",
           "연령 차이를 고려한 보정 알고리즘",
@@ -346,7 +348,7 @@
         "title": "서비스 작동 원리",
         "step1": {
           "title": "이미지 업로드",
-          "description": "부모와 자녀의 정면 사진을 각각 업로드합니다."
+          "description": "두 사람의 정면 사진을 각각 업로드합니다."
         },
         "step2": {
           "title": "AI 분석",
@@ -377,19 +379,19 @@
       }
     },
     "analyze": {
-      "parentPhoto": "부모 사진",
-      "childPhoto": "자녀 사진",
-      "uploadChild": "아이 사진을 업로드하세요",
+      "parentPhoto": "첫 번째 사진",
+      "childPhoto": "두 번째 사진",
+      "uploadChild": "두 번째 사진을 업로드하세요",
       "uploadCandidates": "후보자들의 사진을 업로드하세요 (2-6명)",
       "candidateCount": "현재 {{count}}명의 후보자가 등록되었습니다.",
       "candidate": "후보자 {{number}}",
       "analysisCompleted": "분석 완료",
       "similarityResult": "닮음 정도 결과",
-      "parentFindingResult": "부모 찾기 분석 결과",
+      "parentFindingResult": "가장 닮은 사람 찾기 결과",
       "confidence": "분석 신뢰도: {{confidence}}%",
-      "parent": "부모",
-      "child": "자녀",
-      "childLabel": "아이",
+      "parent": "첫 번째 사람",
+      "child": "두 번째 사람",
+      "childLabel": "비교 대상",
       "similarity": "닮음",
       "mostSimilarPerson": "가장 닮은 사람",
       "overallRanking": "전체 순위",
@@ -398,21 +400,21 @@
       "downloadImage": "이미지 다운로드",
       "shareResult": "결과 공유하기",
       "analyzing": "AI 분석 중...",
-      "findingParent": "AI가 부모를 찾는 중...",
+      "findingParent": "AI가 가장 닮은 사람을 찾는 중...",
       "startAnalysis": "분석 시작",
-      "startFindingParent": "부모 찾기 시작!"
+      "startFindingParent": "가장 닮은 사람 찾기!"
     }
   },
   "home": {
     "hero": {
       "title": "대표 서비스",
-      "subtitle": "우리 엄마 아빠 맞나요?",
-      "description": "부모님과 자녀의 사진을 업로드하여 닮은 정도를 정확하게 분석해드립니다",
+      "subtitle": "두 사람이 얼마나 닮았는지 AI 분석",
+      "description": "두 사람의 사진을 업로드하여 닮은 정도를 정확하게 분석해드립니다",
       "badge": "InsightFace 기반 고정밀 분석 엔진"
     },
     "upload": {
-      "parentPhoto": "부모 사진",
-      "childPhoto": "자녀 사진",
+      "parentPhoto": "첫 번째 사진",
+      "childPhoto": "두 번째 사진",
       "analyzing": "AI 분석 중...",
       "startAnalysis": "분석 시작"
     },
@@ -421,8 +423,8 @@
       "analysisResult": "분석 결과",
       "resultTitle": "닮음 정도 결과",
       "confidence": "분석 신뢰도: {{confidence}}%",
-      "parentLabel": "부모",
-      "childLabel": "자녀",
+      "parentLabel": "첫 번째 사람",
+      "childLabel": "두 번째 사람",
       "similarity": "닮음",
       "tryAgain": "다시 분석하기",
       "downloadImage": "이미지 다운로드",
@@ -440,7 +442,7 @@
       },
       "multipleMode": {
         "title": "다양한 분석 모드",
-        "description": "부모-자녀 닮음 분석부터 여러 후보자 중 가장 닮은 사람 찾기까지 지원합니다"
+        "description": "얼굴 닮음 분석부터 여러 사람 중 가장 닮은 사람 찾기까지 지원합니다"
       },
       "privacy": {
         "title": "개인정보 보호",
