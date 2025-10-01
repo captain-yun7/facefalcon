@@ -5,12 +5,16 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
-import SimilarityGauge from '@/components/SimilarityGauge';
 import AnalyzingAdScreen from '@/components/AnalyzingAdScreen';
-import AnalysisResultDisplay from '@/components/AnalysisResultDisplay';
 import Footer from '@/components/Footer';
 import Toast from '@/components/Toast';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
+import AnalysisResultWrapper from '@/components/analysis/AnalysisResultWrapper';
+import AnalysisResultActions from '@/components/analysis/AnalysisResultActions';
+import ParentChildResult from '@/components/analysis/results/ParentChildResult';
+import FindParentsResult from '@/components/analysis/results/FindParentsResult';
+import AgeEstimationResult from '@/components/analysis/results/AgeEstimationResult';
+import GenderStyleResult from '@/components/analysis/results/GenderStyleResult';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
@@ -1064,21 +1068,37 @@ export default function AnalyzePage() {
                 </div>
               )}
 
-              {/* Family Results Section - Using Common Component */}
+              {/* Family Results Section - Using Modular Components */}
               {familyResult && familyMessage && parentImage && childImage && (
-                <AnalysisResultDisplay
-                  parentImage={parentImage}
-                  childImage={childImage}
-                  familyResult={familyResult}
-                  displayPercent={familyMessage.displayPercent}
-                  locale={locale}
-                  displayMode="web"
-                  showActions={true}
-                  onDownload={handleDownloadResult}
-                  onShare={handleShareResult}
-                  onReset={handleReset}
-                  className="mb-12"
-                />
+                <AnalysisResultWrapper
+                  type="parent-child"
+                  title="AI 얼굴 분석 : 친자 확인 결과"
+                  subtitle="부모와 자녀의 닮음 정도를 분석했습니다"
+                >
+                  <ParentChildResult
+                    parentImage={parentImage}
+                    childImage={childImage}
+                    similarity={familyResult.similarity}
+                    confidence={familyResult.confidence}
+                    displayPercent={familyMessage.displayPercent}
+                    message={familyMessage.message}
+                    locale={locale}
+                  />
+                  <AnalysisResultActions
+                    onReset={handleReset}
+                    onDownload={handleDownloadResult}
+                    onShare={handleShareResult}
+                    onCopyLink={async () => {
+                      const currentUrl = window.location.href;
+                      try {
+                        await navigator.clipboard.writeText(currentUrl);
+                        setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                      } catch (err) {
+                        setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                      }
+                    }}
+                  />
+                </AnalysisResultWrapper>
               )}
             </>
           )}
@@ -1188,113 +1208,34 @@ export default function AnalyzePage() {
                 </div>
               )}
 
-              {/* Comparison Results Section */}
-              {showComparisonResults && (
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-                  <div className="text-center mb-8">
-                    <div className="inline-flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-800 rounded-full mb-4">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      <span className="font-medium">{t('pages.analyze.analysisCompleted')}</span>
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                      {t('pages.analyze.parentFindingResult')}
-                    </h2>                    
-                  </div>
-
-                  {/* 분석 대상 사진들 */}
-                  <div className="mb-8">
-                    <div className="flex items-center justify-center gap-6 mb-6">
-                      {/* 아이 사진 */}
-                      <div className="text-center">
-                        <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
-                          <Image
-                            src={targetChildImage?.preview || ''}
-                            alt={t('pages.analyze.childLabel')}
-                            fill
-                            className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
-                          />
-                        </div>
-                        <span className="text-sm text-gray-600 font-medium">{t('pages.analyze.childLabel')}</span>
-                      </div>
-
-                      {/* 하트 아이콘 */}
-                      <div className="flex flex-col items-center">
-                        <div className="text-2xl mb-1">
-                          ❤️
-                        </div>
-                        <span className="text-xs text-gray-500">{t('pages.analyze.similarity')}</span>
-                      </div>
-
-                      {/* 가장 닮은 사람 사진 */}
-                      {bestMatch && (
-                        <div className="text-center">
-                          <div className="relative w-24 h-24 md:w-28 md:h-28 mx-auto mb-2">
-                            <Image
-                              src={candidateImages[bestMatch.imageIndex]?.preview || ''}
-                              alt={t('pages.analyze.mostSimilarPerson')}
-                              fill
-                              className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
-                            />
-                          </div>
-                          <span className="text-sm text-gray-600 font-medium">{t('pages.analyze.mostSimilarPerson')}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-
-                  {/* All Results Ranking */}
-                  <div className="mb-8">
-                    <h4 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-                      {t('pages.analyze.overallRanking')}
-                    </h4>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {comparisonResults.map((result, index) => {
-                        const candidateImage = candidateImages[result.imageIndex];
-                        if (!candidateImage) return null;
-                        
-                        return (
-                          <div
-                            key={result.imageIndex}
-                            className={`
-                              p-4 rounded-lg border-2 transition-all
-                              ${index === 0 
-                                ? 'border-blue-500 bg-blue-50' 
-                                : 'border-blue-200 bg-blue-50'
-                              }
-                            `}
-                          >
-                            <div className="text-center">
-                              <div className="text-2xl mb-2 font-bold text-blue-700">
-                                {t('pages.analyze.rank', { rank: index + 1 })}
-                              </div>
-                              <div className="relative aspect-square w-32 mx-auto mb-3">
-                                <Image
-                                  src={candidateImage.preview}
-                                  alt={`Candidate ${result.imageIndex + 1}`}
-                                  fill
-                                  className="object-cover rounded-lg"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
-                    <button
-                      onClick={handleReset}
-                      className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
-                    >
-                      {t('pages.analyze.tryAgainButton')}
-                    </button>
-                  </div>
-                </div>
+              {/* Comparison Results Section - Using Modular Components */}
+              {showComparisonResults && targetChildImage && (
+                <AnalysisResultWrapper
+                  type="find-parents"
+                  title="AI 얼굴 분석 : 부모 찾기 결과"
+                  subtitle="가장 닮은 사람을 찾았습니다"
+                >
+                  <FindParentsResult
+                    childImage={targetChildImage}
+                    candidateImages={candidateImages}
+                    results={comparisonResults}
+                    bestMatch={bestMatch}
+                  />
+                  <AnalysisResultActions
+                    onReset={handleReset}
+                    showDownload={false}
+                    showShare={false}
+                    onCopyLink={async () => {
+                      const currentUrl = window.location.href;
+                      try {
+                        await navigator.clipboard.writeText(currentUrl);
+                        setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                      } catch (err) {
+                        setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                      }
+                    }}
+                  />
+                </AnalysisResultWrapper>
               )}
             </>
           )}
@@ -1361,53 +1302,34 @@ export default function AnalyzePage() {
                 </div>
               )}
 
-              {/* Age Results */}
-              {ageResult && (
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-                  <div className="text-center">
-                    <div className="inline-flex items-center space-x-2 px-4 py-2 bg-purple-100 text-purple-800 rounded-full mb-4">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      <span className="font-medium">분석 완료</span>
-                    </div>
-                    
-                    <div className="mb-6">
-                      {ageImage && (
-                        <div className="relative w-48 h-48 mx-auto mb-6">
-                          <Image
-                            src={ageImage.preview}
-                            alt="분석된 사진"
-                            fill
-                            className="object-cover rounded-xl border-2 border-gray-200"
-                          />
-                        </div>
-                      )}
-                    </div>
-
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                      예측 나이: <span className="text-purple-600">{ageResult.age}세</span>
-                    </h2>
-                    
-                    <p className="text-xl text-gray-700 mb-4">
-                      연령대: <span className="font-semibold">{ageResult.age_range}</span>
-                    </p>
-                    
-                    <div className="bg-purple-50 rounded-lg p-4 mb-6">
-                      <p className="text-sm text-purple-700">
-                        신뢰도: <span className="font-semibold">{(ageResult.confidence * 100).toFixed(1)}%</span>
-                      </p>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <button
-                      onClick={handleReset}
-                      className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
-                    >
-                      다시 시도하기
-                    </button>
-                  </div>
-                </div>
+              {/* Age Results - Using Modular Components */}
+              {ageResult && ageImage && (
+                <AnalysisResultWrapper
+                  type="age"
+                  title="AI 얼굴 분석 : 나이 맞히기 결과"
+                  subtitle="AI가 예측한 나이입니다"
+                >
+                  <AgeEstimationResult
+                    image={ageImage}
+                    age={ageResult.age}
+                    ageRange={ageResult.age_range}
+                    confidence={ageResult.confidence}
+                  />
+                  <AnalysisResultActions
+                    onReset={handleReset}
+                    showDownload={false}
+                    showShare={false}
+                    onCopyLink={async () => {
+                      const currentUrl = window.location.href;
+                      try {
+                        await navigator.clipboard.writeText(currentUrl);
+                        setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                      } catch (err) {
+                        setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                      }
+                    }}
+                  />
+                </AnalysisResultWrapper>
               )}
             </>
           )}
@@ -1497,94 +1419,32 @@ export default function AnalyzePage() {
                 console.log('Classification:', classification);
                 
                 return (
-                  <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-                    <div className="text-center">
-                      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                        에겐남/테토남 AI 분석 결과
-                      </h2>
-                      
-                      <div className="mb-6">
-                        {genderImage && (
-                          <div className="relative w-48 h-48 mx-auto mb-6">
-                            <Image
-                              src={genderImage.preview}
-                              alt="분석된 사진"
-                              fill
-                              className="object-cover rounded-xl border-2 border-gray-200"
-                            />
-                          </div>
-                        )}
-                      </div>
-                      
-                      {/* 메인 결과 카드 */}
-                      <div className={`max-w-md mx-auto mb-6 p-6 rounded-xl border-3 ${classification.borderColor} ${
-                        classification.type === 'teto' ? 'bg-gradient-to-br from-purple-50 to-purple-100' :
-                        classification.type === 'egen' ? 'bg-gradient-to-br from-blue-50 to-blue-100' :
-                        'bg-gradient-to-br from-pink-50 to-pink-100'
-                      }`}>
-                        <div className="text-6xl mb-3">{classification.emoji}</div>
-                        <h3 className={`text-2xl font-bold mb-2 ${
-                          classification.type === 'teto' ? 'text-purple-900' :
-                          classification.type === 'egen' ? 'text-blue-900' :
-                          'text-pink-900'
-                        }`}>
-                          {classification.level}
-                        </h3>
-                        <p className="text-lg text-gray-700">{classification.description}</p>
-                      </div>
-                      
-                      {/* 점수 바 시각화 */}
-                      <div className="max-w-2xl mx-auto mb-6">
-                        <div className="relative h-12 bg-gradient-to-r from-blue-400 via-blue-200 to-purple-600 rounded-full overflow-hidden">
-                          {/* 중앙선 - 2.5점이 정확히 중앙 */}
-                          <div className="absolute top-0 h-full w-0.5 bg-gray-400 left-1/2 transform -translate-x-1/2" />
-                          
-                          {/* 현재 위치 표시 
-                              0 -> 0%, 2.5 -> 50%, 5 -> 100%
-                              formula: (adjustedScore / 5) * 100
-                          */}
-                          <div 
-                            className="absolute top-0 h-full w-2 bg-white shadow-lg"
-                            style={{
-                              left: `${Math.max(5, Math.min(95, (adjustedScore / 5) * 100))}%`,
-                              transform: 'translateX(-50%)'
-                            }}
-                          />
-                          <div 
-                            className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full px-3 py-1 text-sm font-bold shadow-md border-2 border-gray-300"
-                            style={{
-                              left: `${Math.max(5, Math.min(95, (adjustedScore / 5) * 100))}%`,
-                              transform: 'translateX(-50%) translateY(-50%)'
-                            }}
-                          >
-                            {adjustedScore < 2.5 ? '에겐남' : '테토남'}
-                          </div>
-                        </div>
-                        <div className="flex justify-between mt-2 text-xs text-gray-600">
-                          <span className="text-blue-600 font-semibold">← 강한 에겐남</span>
-                          <span className="text-gray-500">|</span>
-                          <span className="text-purple-600 font-semibold">강한 테토남 →</span>
-                        </div>
-                      </div>
-                      
-                      {/* 추가 정보 */}
-                      {age < 20 && (
-                        <div className="bg-orange-50 rounded-lg p-3 mb-6">
-                          <p className="text-xs text-orange-600">
-                            ⚠️ 아직 성장기이므로 추후 변화 가능성이 높습니다
-                          </p>
-                        </div>
-                      )}
-
-                      {/* Action Buttons */}
-                      <button
-                        onClick={handleReset}
-                        className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
-                      >
-                        다시 시도하기
-                      </button>
-                    </div>
-                  </div>
+                  <AnalysisResultWrapper
+                    type="gender"
+                    title="에겐남/테토남 AI 분석 결과"
+                    subtitle="AI가 분석한 당신의 스타일입니다"
+                  >
+                    <GenderStyleResult
+                      image={genderImage}
+                      classification={classification}
+                      adjustedScore={adjustedScore}
+                      age={age}
+                    />
+                    <AnalysisResultActions
+                      onReset={handleReset}
+                      showDownload={false}
+                      showShare={false}
+                      onCopyLink={async () => {
+                        const currentUrl = window.location.href;
+                        try {
+                          await navigator.clipboard.writeText(currentUrl);
+                          setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                        } catch (err) {
+                          setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                        }
+                      }}
+                    />
+                  </AnalysisResultWrapper>
                 );
               })()}
             </>
