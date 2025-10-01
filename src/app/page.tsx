@@ -168,14 +168,14 @@ export default function Home() {
       {/* Service Introduction */}
       <div className="container mx-auto px-4 pt-16 pb-24">
         <div className="relative py-16 px-8 text-center">
-          <h1 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-8 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-8 leading-tight break-keep">
             AI 얼굴 분석 서비스
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8 rounded-full"></div>
-          <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium mb-4">
+          <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium mb-4 break-keep">
             얼굴 닮은꼴 테스트부터 나이 맞히기, 에겐/테토 분석까지
           </p>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto break-keep">
             사진만 올리면 AI가 분석해드립니다
           </p>
         </div>
@@ -188,8 +188,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">100% 무료 서비스</h3>
-            <p className="text-sm text-gray-600">유료 결제 없음, 과금 유도 없음<br/>모든 기능을 완전 무료로 이용하세요</p>
+            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">100% 무료 서비스</h3>
+            <p className="text-sm text-gray-600 break-keep">유료 결제 없음, 과금 유도 없음<br/>모든 기능을 완전 무료로 이용하세요</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow">
@@ -198,8 +198,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">개인정보 보호</h3>
-            <p className="text-sm text-gray-600">개인정보 저장 안함<br/>회원가입 없이 바로 이용 가능</p>
+            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">개인정보 보호</h3>
+            <p className="text-sm text-gray-600 break-keep">개인정보 저장 안함<br/>회원가입 없이 바로 이용 가능</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow">
@@ -208,8 +208,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">사진 즉시 삭제</h3>
-            <p className="text-sm text-gray-600">분석 후 사진 자동 삭제<br/>어떤 이미지도 저장하지 않습니다</p>
+            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">사진 즉시 삭제</h3>
+            <p className="text-sm text-gray-600 break-keep">분석 후 사진 자동 삭제<br/>어떤 이미지도 저장하지 않습니다</p>
           </div>
         </div>
       </div>
@@ -379,8 +379,8 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3 text-gray-900">{t('home.features.aiAnalysis.title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900 break-keep">{t('home.features.aiAnalysis.title')}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed break-keep">
                     {t('home.features.aiAnalysis.description')}
                   </p>
                 </div>
@@ -391,8 +391,8 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3 text-gray-900">{t('home.features.multipleMode.title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900 break-keep">{t('home.features.multipleMode.title')}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed break-keep">
                     {t('home.features.multipleMode.description')}
                   </p>
                 </div>
@@ -403,8 +403,8 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3 text-gray-900">{t('home.features.privacy.title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900 break-keep">{t('home.features.privacy.title')}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed break-keep">
                     {t('home.features.privacy.description')}
                   </p>
                 </div>
