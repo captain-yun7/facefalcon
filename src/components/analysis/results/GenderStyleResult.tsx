@@ -14,13 +14,15 @@ interface GenderStyleResultProps {
   };
   adjustedScore: number;
   age?: number;
+  gender?: 'male' | 'female';
 }
 
 export default function GenderStyleResult({
   image,
   classification,
   adjustedScore,
-  age
+  age,
+  gender = 'male'
 }: GenderStyleResultProps) {
   return (
     <>
@@ -54,35 +56,56 @@ export default function GenderStyleResult({
       </div>
 
       {/* 점수 바 시각화 */}
-      <div className="max-w-2xl mx-auto mb-6">
-        <div className="relative h-12 bg-gradient-to-r from-blue-400 via-blue-200 to-purple-600 rounded-full overflow-hidden">
-          {/* 중앙선 - 2.5점이 정확히 중앙 */}
+      <div className="max-w-2xl mx-auto mb-6 px-12">
+        <div className={`relative h-12 rounded-full overflow-visible ${
+          gender === 'female' 
+            ? 'bg-gradient-to-r from-pink-400 via-pink-200 to-purple-600'
+            : 'bg-gradient-to-r from-blue-400 via-blue-200 to-purple-600'
+        }`}>
+          {/* 중앙선 - 남성은 3.0, 여성은 3.5 기준 */}
           <div className="absolute top-0 h-full w-0.5 bg-gray-400 left-1/2 transform -translate-x-1/2" />
           
           {/* 현재 위치 표시 */}
           <div 
             className="absolute top-0 h-full w-2 bg-white shadow-lg"
             style={{
-              left: `${Math.max(5, Math.min(95, (adjustedScore / 5) * 100))}%`,
+              left: gender === 'female'
+                ? `${Math.max(0, Math.min(100, 100 - ((adjustedScore / 7) * 100)))}%`  // 여성: 반전 (높을수록 왼쪽)
+                : `${Math.max(0, Math.min(100, (adjustedScore / 6) * 100))}%`,  // 남성: 0-6 범위, 3.0이 중앙(50%)
               transform: 'translateX(-50%)'
             }}
           />
           <div 
-            className="absolute top-1/2 bg-white rounded-full px-3 py-1 text-sm font-bold shadow-md border-2 border-gray-300 whitespace-nowrap flex items-center justify-center"
+            className="absolute top-1/2 bg-white rounded-full px-3 py-1 text-sm font-bold shadow-md border-2 border-gray-300 whitespace-nowrap flex items-center justify-center z-10"
             style={{
-              left: `${Math.max(5, Math.min(95, (adjustedScore / 5) * 100))}%`,
+              left: gender === 'female'
+                ? `${Math.max(0, Math.min(100, 100 - ((adjustedScore / 7) * 100)))}%`  // 여성: 반전 (높을수록 왼쪽)
+                : `${Math.max(0, Math.min(100, (adjustedScore / 6) * 100))}%`,  // 남성: 0-6 범위, 3.0이 중앙(50%)
               transform: 'translateX(-50%) translateY(-50%)',
               whiteSpace: 'nowrap',
               minWidth: 'fit-content'
             }}
           >
-            {adjustedScore < 2.5 ? '에겐남' : '테토남'}
+            {gender === 'female'
+              ? (adjustedScore >= 3.5 ? '에겐녀' : '테토녀')
+              : (adjustedScore < 3.0 ? '에겐남' : '테토남')
+            }
           </div>
         </div>
         <div className="flex justify-between mt-2 text-xs text-gray-600">
-          <span className="text-blue-600 font-semibold">← 강한 에겐남</span>
-          <span className="text-gray-500">|</span>
-          <span className="text-purple-600 font-semibold">강한 테토남 →</span>
+          {gender === 'female' ? (
+            <>
+              <span className="text-pink-600 font-semibold">← 강한 에겐녀</span>
+              <span className="text-gray-500">|</span>
+              <span className="text-purple-600 font-semibold">강한 테토녀 →</span>
+            </>
+          ) : (
+            <>
+              <span className="text-blue-600 font-semibold">← 강한 에겐남</span>
+              <span className="text-gray-500">|</span>
+              <span className="text-purple-600 font-semibold">강한 테토남 →</span>
+            </>
+          )}
         </div>
       </div>
 

@@ -185,7 +185,7 @@ export function useTranslations() {
         'analysisSelector.whoMostSimilar.description': '아이와 여러 후보자를 비교해서 가장 닮은 사람을 찾습니다',
         'analysisSelector.ageEstimation.title': 'AI 얼굴 분석 : 나이 맞히기',
         'analysisSelector.ageEstimation.description': 'AI가 사진으로 나이를 예측합니다',
-        'analysisSelector.genderEstimation.title': 'AI 얼굴 분석 : 에겐남/테토남',
+        'analysisSelector.genderEstimation.title': 'AI 얼굴 분석 : 에겐/테토 분석',
         'analysisSelector.genderEstimation.description': '성별 특징으로 스타일을 분석합니다',
         'analysisSelector.celebrity.title': 'AI 얼굴 분석 : 연예인 닮은꼴',
         'analysisSelector.celebrity.description': '곧 출시될 예정입니다',

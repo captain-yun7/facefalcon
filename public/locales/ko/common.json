@@ -29,7 +29,7 @@
       "description": "AI가 사진으로 나이를 예측합니다"
     },
     "genderEstimation": {
-      "title": "AI 얼굴 분석 : 에겐남/테토남",
+      "title": "AI 얼굴 분석 : 에겐/테토 분석",
       "description": "성별 특징으로 스타일을 분석합니다"
     },
     "celebrity": {

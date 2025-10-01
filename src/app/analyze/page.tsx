@@ -72,12 +72,12 @@ export default function AnalyzePage() {
     return rawScore + getAgeAdjustment(age);
   };
 
-  const getGenderStyleClassification = (maleScore: number, age: number) => {
+  const getGenderStyleClassificationMale = (maleScore: number, age: number) => {
     const adjustedScore = getAdjustedMaleScore(maleScore, age);
     
     if (adjustedScore >= 5.0) {
       return {
-        type: 'teto',
+        type: 'teto' as const,
         level: '터미네이터급 테토남',
         emoji: '💥',
         description: '테스토스테론이 폭발하는 수준!',
@@ -87,7 +87,7 @@ export default function AnalyzePage() {
       };
     } else if (adjustedScore >= 4.5) {
       return {
-        type: 'teto',
+        type: 'teto' as const,
         level: '헐크급 테토남',
         emoji: '🦾',
         description: '강철같은 남성미의 소유자',
@@ -97,7 +97,7 @@ export default function AnalyzePage() {
       };
     } else if (adjustedScore >= 4.0) {
       return {
-        type: 'teto',
+        type: 'teto' as const,
         level: '토르급 테토남',
         emoji: '⚡',
         description: '신화 속 전사의 기운',
@@ -107,7 +107,7 @@ export default function AnalyzePage() {
       };
     } else if (adjustedScore >= 3.5) {
       return {
-        type: 'teto',
+        type: 'teto' as const,
         level: '캡틴급 테토남',
         emoji: '🛡️',
         description: '듬직한 리더의 카리스마',
@@ -117,7 +117,7 @@ export default function AnalyzePage() {
       };
     } else if (adjustedScore >= 3.0) {
       return {
-        type: 'teto',
+        type: 'teto' as const,
         level: '프로 테토남',
         emoji: '💯',
         description: '확실한 남성적 매력',
@@ -125,9 +125,9 @@ export default function AnalyzePage() {
         bgColor: 'bg-purple-500',
         borderColor: 'border-purple-500'
       };
-    } else if (adjustedScore >= 2.5) {
+    } else if (adjustedScore >= 3.0) {
       return {
-        type: 'teto',
+        type: 'teto' as const,
         level: '일반 테토남',
         emoji: '✨',
         description: '건강한 남성미',
@@ -135,9 +135,9 @@ export default function AnalyzePage() {
         bgColor: 'bg-purple-400',
         borderColor: 'border-purple-400'
       };
-    } else if (adjustedScore >= 2.0) {
+    } else if (adjustedScore >= 2.5) {
       return {
-        type: 'egen',
+        type: 'egen' as const,
         level: '라이트 에겐남',
         emoji: '😊',
         description: '터프하면서도 부드러운 매력',
@@ -145,9 +145,9 @@ export default function AnalyzePage() {
         bgColor: 'bg-blue-600',
         borderColor: 'border-blue-600'
       };
-    } else if (adjustedScore >= 1.5) {
+    } else if (adjustedScore >= 2.0) {
       return {
-        type: 'egen',
+        type: 'egen' as const,
         level: '클래식 에겐남',
         emoji: '🌟',
         description: '부드러운 카리스마의 정석',
@@ -155,9 +155,9 @@ export default function AnalyzePage() {
         bgColor: 'bg-blue-500',
         borderColor: 'border-blue-500'
       };
-    } else if (adjustedScore >= 1.0) {
+    } else if (adjustedScore >= 1.5) {
       return {
-        type: 'egen',
+        type: 'egen' as const,
         level: '소프트 에겐남',
         emoji: '🤗',
         description: '따뜻하고 친근한 매력',
@@ -167,7 +167,7 @@ export default function AnalyzePage() {
       };
     } else if (adjustedScore >= 0.5) {
       return {
-        type: 'egen',
+        type: 'egen' as const,
         level: '퓨어 에겐남',
         emoji: '☁️',
         description: '순수하고 맑은 느낌',
@@ -177,7 +177,7 @@ export default function AnalyzePage() {
       };
     } else if (adjustedScore >= 0.0) {
       return {
-        type: 'egen',
+        type: 'egen' as const,
         level: '울트라 에겐남',
         emoji: '🌺',
         description: '극강의 부드러움',
@@ -187,13 +187,141 @@ export default function AnalyzePage() {
       };
     } else {
       return {
-        type: 'feminine',
+        type: 'feminine' as const,
         level: '여성적 매력',
         emoji: '🦋',
         description: '부드럽고 우아한 느낌',
         color: 'pink-400',
         bgColor: 'bg-pink-400',
         borderColor: 'border-pink-400'
+      };
+    }
+  };
+
+  // 여성용 분류 함수 (3.5 기준, 높을수록 에겐녀, 낮을수록 테토녀)
+  const getGenderStyleClassificationFemale = (femaleScore: number, age: number) => {
+    // 여성은 나이 보정 없이 원본 점수 사용
+    // female_score는 높을수록 여성적 (에겐녀), 낮을수록 남성적 (테토녀)
+    
+    if (femaleScore >= 5.0) {
+      return {
+        type: 'egen' as const,
+        level: '극강 에겐녀',
+        emoji: '🌸',
+        description: '극도로 부드럽고 여성스러운 매력',
+        color: 'pink-200',
+        bgColor: 'bg-pink-200',
+        borderColor: 'border-pink-200'
+      };
+    } else if (femaleScore >= 4.5) {
+      return {
+        type: 'egen' as const,
+        level: '울트라 에겐녀',
+        emoji: '🌺',
+        description: '매우 부드러운 여성미',
+        color: 'pink-300',
+        bgColor: 'bg-pink-300',
+        borderColor: 'border-pink-300'
+      };
+    } else if (femaleScore >= 4.0) {
+      return {
+        type: 'egen' as const,
+        level: '퓨어 에겐녀',
+        emoji: '☁️',
+        description: '순수하고 맑은 매력',
+        color: 'pink-400',
+        bgColor: 'bg-pink-400',
+        borderColor: 'border-pink-400'
+      };
+    } else if (femaleScore >= 3.5) {
+      return {
+        type: 'egen' as const,
+        level: '소프트 에겐녀',
+        emoji: '🤗',
+        description: '따뜻하고 친근한 매력',
+        color: 'pink-500',
+        bgColor: 'bg-pink-500',
+        borderColor: 'border-pink-500'
+      };
+    } else if (femaleScore >= 3.0) {
+      return {
+        type: 'egen' as const,
+        level: '클래식 에겐녀',
+        emoji: '🌟',
+        description: '여성스러운 카리스마',
+        color: 'pink-600',
+        bgColor: 'bg-pink-600',
+        borderColor: 'border-pink-600'
+      };
+    } else if (femaleScore >= 3.5) {
+      return {
+        type: 'egen' as const,
+        level: '일반 에겐녀',
+        emoji: '✨',
+        description: '균형잡힌 여성미',
+        color: 'rose-400',
+        bgColor: 'bg-rose-400',
+        borderColor: 'border-rose-400'
+      };
+    } else if (femaleScore >= 3.0) {
+      return {
+        type: 'teto' as const,
+        level: '라이트 테토녀',
+        emoji: '💪',
+        description: '부드러우면서도 강인한 매력',
+        color: 'purple-400',
+        bgColor: 'bg-purple-400',
+        borderColor: 'border-purple-400'
+      };
+    } else if (femaleScore >= 1.5) {
+      return {
+        type: 'teto' as const,
+        level: '프로 테토녀',
+        emoji: '💯',
+        description: '확실한 강인한 매력',
+        color: 'purple-500',
+        bgColor: 'bg-purple-500',
+        borderColor: 'border-purple-500'
+      };
+    } else if (femaleScore >= 1.0) {
+      return {
+        type: 'teto' as const,
+        level: '워리어급 테토녀',
+        emoji: '🛡️',
+        description: '전사 같은 카리스마',
+        color: 'purple-600',
+        bgColor: 'bg-purple-600',
+        borderColor: 'border-purple-600'
+      };
+    } else if (femaleScore >= 0.5) {
+      return {
+        type: 'teto' as const,
+        level: '아마존급 테토녀',
+        emoji: '⚡',
+        description: '신화 속 여전사의 기운',
+        color: 'purple-700',
+        bgColor: 'bg-purple-700',
+        borderColor: 'border-purple-700'
+      };
+    } else if (femaleScore >= 0.0) {
+      return {
+        type: 'teto' as const,
+        level: '원더우먼급 테토녀',
+        emoji: '🦾',
+        description: '강철같은 여성 파워',
+        color: 'purple-800',
+        bgColor: 'bg-purple-800',
+        borderColor: 'border-purple-800'
+      };
+    } else {
+      return {
+        type: 'teto' as const,
+        level: '극강 테토녀',
+        emoji: '💥',
+        description: '압도적인 강인함!',
+        color: 'purple-900',
+        bgColor: 'bg-purple-900',
+        borderColor: 'border-purple-900'
       };
     }
   };
@@ -638,7 +766,7 @@ export default function AnalyzePage() {
       } else if (selectedAnalysis === 'age-estimation') {
         shareText = '나이 맞히기 AI 분석 결과를 확인해보세요!';
       } else if (selectedAnalysis === 'gender-estimation') {
-        shareText = '에겐남/테토남 측정 결과를 확인해보세요!';
+        shareText = '에겐/테토 분석 결과를 확인해보세요!';
       } else if (selectedAnalysis === 'who-most-similar') {
         shareText = '부모 찾기 AI 분석 결과를 확인해보세요!';
       }
@@ -1095,7 +1223,7 @@ export default function AnalyzePage() {
                   const text = selectedAnalysis === 'age-estimation' 
                     ? '나이 맞히기 AI 분석 해보세요!' 
                     : selectedAnalysis === 'gender-estimation'
-                    ? '에겐남/테토남 측정 해보세요!'
+                    ? '에겐/테토 분석 해보세요!'
                     : selectedAnalysis === 'who-most-similar'
                     ? '부모 찾기 AI 분석!'
                     : '부모와 자녀 닮음 분석!';
@@ -1574,7 +1702,7 @@ export default function AnalyzePage() {
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
                   <div className="text-center mb-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      에겐남/테토남 측정
+                      에겐/테토 분석
                     </h3>
                     <p className="text-gray-600">
                       AI가 얼굴 특징으로 스타일을 분석합니다
@@ -1630,31 +1758,54 @@ export default function AnalyzePage() {
               )}
 
               {/* Gender Results */}
-              {genderResult && (() => {
+              {genderResult && genderImage && (() => {
                 // Debug logging
                 console.log('Full Gender Result:', genderResult);
                 
-                // Try multiple paths to find male_score
+                // Try multiple paths to find scores and gender
                 const maleScore = genderResult.raw_model_output?.male_score || 
                                   genderResult.male_score || 
                                   genderResult.raw_scores?.male_score || 
                                   0;
+                // 여성의 경우 male score를 반전 (음수가 여성적이므로)
+                const femaleScore = genderResult.raw_model_output?.female_score || 
+                                    genderResult.female_score || 
+                                    genderResult.raw_scores?.female_score ||
+                                    maleScore; // 여성은 male score를 그대로 사용 (음수가 여성적)
+                
+                const detectedGender = genderResult.gender || 
+                                      genderResult.predicted_gender ||
+                                      (maleScore > 0 ? 'male' : 'female');
+                
                 const age = genderResult.estimated_age || 25;
                 
-                console.log('Male Score extracted:', maleScore);
+                console.log('Male Score:', maleScore, 'Female Score:', femaleScore);
+                console.log('Detected Gender:', detectedGender);
                 console.log('Age:', age);
                 
-                const classification = getGenderStyleClassification(maleScore, age);
-                const ageAdjustment = getAgeAdjustment(age);
-                const adjustedScore = getAdjustedMaleScore(maleScore, age);
+                // 성별에 따라 다른 분류 함수 사용
+                const isMale = detectedGender === 'male' || detectedGender === 'Male';
+                const classification = isMale 
+                  ? getGenderStyleClassificationMale(maleScore, age)
+                  : getGenderStyleClassificationFemale(femaleScore, age);
+                
+                // 성별에 따라 다른 조정 점수 계산
+                const adjustedScore = isMale 
+                  ? getAdjustedMaleScore(maleScore, age)
+                  : femaleScore; // 여성은 조정 없이 원본 점수 사용
                 
                 console.log('Adjusted Score:', adjustedScore);
                 console.log('Classification:', classification);
                 
+                // 성별에 따른 제목
+                const title = isMale 
+                  ? "에겐남/테토남 AI 분석 결과"
+                  : "에겐녀/테토녀 AI 분석 결과";
+                
                 return (
                   <AnalysisResultWrapper
                     type="gender"
-                    title="에겐남/테토남 AI 분석 결과"
+                    title={title}
                     subtitle="AI가 분석한 당신의 스타일입니다"
                   >
                     <GenderStyleResult
@@ -1662,6 +1813,7 @@ export default function AnalyzePage() {
                       classification={classification}
                       adjustedScore={adjustedScore}
                       age={age}
+                      gender={isMale ? 'male' : 'female'}
                     />
                     <AnalysisResultActions
                       onReset={handleReset}
