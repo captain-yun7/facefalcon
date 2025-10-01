@@ -488,7 +488,14 @@ export default function AnalyzePage() {
       }
 
       setPendingAnalysisResult(data.data);
-      console.log('✨ Analysis complete');
+      console.log('✨ Analysis complete, data:', data.data);
+      
+      // 광고 화면이 이미 끝났으면 바로 결과 설정
+      if (!showAdScreen) {
+        setFamilyResult(data.data);
+        setIsAnalyzing(false);
+        console.log('✅ Setting familyResult immediately (ad already finished)');
+      }
       
       // Track successful analysis
       const processingTime = Date.now() - startTime;
@@ -509,6 +516,7 @@ export default function AnalyzePage() {
   };
 
   const handleAdComplete = () => {
+    console.log('🏁 handleAdComplete called, pendingAnalysisResult:', pendingAnalysisResult);
     setShowAdScreen(false);
     setIsAnalyzing(false);
     
@@ -516,6 +524,7 @@ export default function AnalyzePage() {
       setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : t('errors.analysisFailure'));
     } else if (pendingAnalysisResult) {
       setFamilyResult(pendingAnalysisResult);
+      console.log('✅ familyResult set to:', pendingAnalysisResult);
     }
     
     console.log('🏁 Family analysis completed');
@@ -1020,6 +1029,14 @@ export default function AnalyzePage() {
         console.log('✅ Valid match results confirmed:', matches.map((m: any) => ({ index: m.imageIndex, similarity: m.similarity })));
         setPendingAnalysisResult(matches);
         
+        // 광고 화면이 이미 끝났으면 바로 결과 설정
+        if (!showAdScreen) {
+          setComparisonResults(matches);
+          setShowComparisonResults(true);
+          setIsAnalyzing(false);
+          console.log('✅ Setting comparison results immediately (ad already finished)');
+        }
+        
         // Track successful analysis
         const processingTime = Date.now() - startTime;
         const bestMatch = matches[0];
@@ -1104,7 +1121,14 @@ export default function AnalyzePage() {
       }
 
       setPendingAnalysisResult(data.data);
-      console.log('✨ Analysis complete, showing ad screen');
+      console.log('✨ Analysis complete');
+      
+      // 광고 화면이 이미 끝났으면 바로 결과 설정
+      if (!showAdScreen) {
+        setAgeResult(data.data);
+        setIsAnalyzing(false);
+        console.log('✅ Setting age result immediately (ad already finished)');
+      }
       
       // Track successful analysis
       const processingTime = Date.now() - startTime;
@@ -1163,6 +1187,13 @@ export default function AnalyzePage() {
 
       setPendingAnalysisResult(data.data);
       console.log('✨ Analysis complete');
+      
+      // 광고 화면이 이미 끝났으면 바로 결과 설정
+      if (!showAdScreen) {
+        setGenderResult(data.data);
+        setIsAnalyzing(false);
+        console.log('✅ Setting gender result immediately (ad already finished)');
+      }
       
       console.log(data.data)
       // Track successful analysis
@@ -1255,6 +1286,17 @@ export default function AnalyzePage() {
   // 스마트 점수 보정 시스템 적용 (연령 정보 포함)
   const familyMessage = familyResult ? getFamilySimilarityMessage(familyResult.similarity, parentAge, childAge) : null;
   const displayConfidence = familyResult ? (familyResult.confidence * 100).toFixed(1) : "0";
+  
+  // 디버깅 로그
+  console.log('Family Analysis Debug:', {
+    familyResult: familyResult,
+    familyMessage: familyMessage,
+    parentImage: !!parentImage,
+    childImage: !!childImage,
+    similarity: familyResult?.similarity,
+    parentAge,
+    childAge
+  });
   
   // Comparison mode data
   const bestMatch = comparisonResults.length > 0 ? comparisonResults[0] : null;
