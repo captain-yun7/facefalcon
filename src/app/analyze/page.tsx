@@ -358,6 +358,49 @@ export default function AnalyzePage() {
     }
   }, [searchParams]);
 
+  // 5초 후 API 응답 처리를 위한 useEffect
+  useEffect(() => {
+    // 광고 화면이 종료되고 분석이 완료된 후 결과가 도착한 경우
+    if (pendingAnalysisResult && !showAdScreen && !isAnalyzing) {
+      console.log('🔄 Processing delayed API response for:', selectedAnalysis);
+      console.log('📊 Pending result data:', pendingAnalysisResult);
+      
+      if (selectedAnalysis === 'parent-child') {
+        // 가족 유사도 분석 결과 처리
+        setFamilyResult(pendingAnalysisResult);
+        console.log('✅ Family result set from delayed response');
+      } else if (selectedAnalysis === 'who-most-similar') {
+        // 부모 찾기 분석 결과 처리
+        // Apply similarity correction to results
+        const correctedResults = pendingAnalysisResult.map((result: SimilarityResult) => {
+          // Convert raw AI score (0-1) to user-friendly percentage
+          const rawSimilarity = result.similarity / 100; // Convert from percentage to 0-1 range
+          const correctedSimilarity = convertAiScoreToUserPercent(rawSimilarity);
+          return {
+            ...result,
+            similarity: correctedSimilarity // Now in user-friendly percentage
+          };
+        });
+        
+        setComparisonResults(correctedResults);
+        setShowComparisonResults(true);
+        console.log('✅ Comparison results set from delayed response');
+      } else if (selectedAnalysis === 'age-estimation') {
+        // 나이 추정 결과 처리
+        setAgeResult(pendingAnalysisResult);
+        console.log('✅ Age result set from delayed response');
+      } else if (selectedAnalysis === 'gender-estimation') {
+        // 성별 추정 결과 처리
+        setGenderResult(pendingAnalysisResult);
+        console.log('✅ Gender result set from delayed response');
+      }
+      
+      // 처리 완료 후 pending 결과 초기화
+      setPendingAnalysisResult(null);
+      setPendingAnalysisError(null);
+    }
+  }, [pendingAnalysisResult, showAdScreen, isAnalyzing, selectedAnalysis]);
+
   const handleAnalysisChange = (value: AnalysisType) => {
     // Track analysis type change
     if (selectedAnalysis !== value && selectedAnalysis !== '' && value !== '') {
@@ -470,6 +513,13 @@ export default function AnalyzePage() {
     // API 호출을 병렬로 진행
     try {
       console.log('📡 API call started');
+      console.log('📸 Image data:', {
+        parentImageLength: parentImage.base64.length,
+        childImageLength: childImage.base64.length,
+        parentImagePrefix: parentImage.base64.substring(0, 50),
+        childImagePrefix: childImage.base64.substring(0, 50)
+      });
+
       const response = await fetch('/api/family-similarity', {
         method: 'POST',
         headers: {
@@ -481,15 +531,40 @@ export default function AnalyzePage() {
         }),
       });
 
-      console.log('✅ API response received');
+      console.log('✅ API response received:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+        console.error('❌ API returned error:', errorData);
+        throw new Error(errorData.error || `API Error: ${response.status} ${response.statusText}`);
+      }
+
       const data = await response.json();
+      console.log('📦 Response data:', {
+        success: data.success,
+        hasData: !!data.data,
+        dataKeys: data.data ? Object.keys(data.data) : [],
+        similarity: data.data?.similarity,
+        confidence: data.data?.confidence,
+        fullData: data
+      });
 
       if (!data.success) {
+        console.error('❌ Analysis failed:', data.error);
         throw new Error(data.error || 'Family analysis failed');
       }
 
+      if (!data.data) {
+        console.error('❌ No data in response');
+        throw new Error('Analysis returned no data');
+      }
+
       setPendingAnalysisResult(data.data);
-      console.log('✨ Analysis complete, data:', data.data);
+      console.log('✨ Analysis complete, data set to state:', data.data);
       
       // Track successful analysis
       const processingTime = Date.now() - startTime;
@@ -500,7 +575,13 @@ export default function AnalyzePage() {
         processingTime
       );
     } catch (err) {
-      console.error('❌ Error occurred:', err);
+      console.error('💥 Error occurred:', err);
+      console.error('Error details:', {
+        name: err instanceof Error ? err.name : 'Unknown',
+        message: err instanceof Error ? err.message : String(err),
+        stack: err instanceof Error ? err.stack : 'No stack trace'
+      });
+      
       setPendingAnalysisError(err);
       
       // Track analysis error
@@ -510,18 +591,57 @@ export default function AnalyzePage() {
   };
 
   const handleAdComplete = () => {
-    console.log('🏁 handleAdComplete called, pendingAnalysisResult:', pendingAnalysisResult);
+    console.log('🏁 handleAdComplete called');
+    console.log('📊 Current state:', {
+      hasPendingResult: !!pendingAnalysisResult,
+      hasPendingError: !!pendingAnalysisError,
+      pendingResultKeys: pendingAnalysisResult ? Object.keys(pendingAnalysisResult) : [],
+      selectedAnalysis
+    });
+    
     setShowAdScreen(false);
     setIsAnalyzing(false);
     
+    // 에러가 있으면 즉시 표시
     if (pendingAnalysisError) {
-      setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : t('errors.analysisFailure'));
-    } else if (pendingAnalysisResult) {
-      setFamilyResult(pendingAnalysisResult);
-      console.log('✅ familyResult set to:', pendingAnalysisResult);
+      const errorMsg = pendingAnalysisError instanceof Error ? pendingAnalysisError.message : t('errors.analysisFailure');
+      console.error('❌ Setting error:', errorMsg);
+      setError(errorMsg);
+      setPendingAnalysisError(null);
+      return;
     }
     
-    console.log('🏁 Family analysis completed');
+    // 결과가 있으면 즉시 처리
+    if (pendingAnalysisResult) {
+      console.log('✅ Processing result immediately for:', selectedAnalysis);
+      
+      if (selectedAnalysis === 'parent-child') {
+        setFamilyResult(pendingAnalysisResult);
+      } else if (selectedAnalysis === 'who-most-similar') {
+        // Apply similarity correction to results
+        const correctedResults = pendingAnalysisResult.map((result: SimilarityResult) => {
+          const rawSimilarity = result.similarity / 100;
+          const correctedSimilarity = convertAiScoreToUserPercent(rawSimilarity);
+          return {
+            ...result,
+            similarity: correctedSimilarity
+          };
+        });
+        setComparisonResults(correctedResults);
+        setShowComparisonResults(true);
+      } else if (selectedAnalysis === 'age-estimation') {
+        setAgeResult(pendingAnalysisResult);
+      } else if (selectedAnalysis === 'gender-estimation') {
+        setGenderResult(pendingAnalysisResult);
+      }
+      
+      setPendingAnalysisResult(null);
+    } else {
+      console.log('⚠️ No result yet, waiting for API response...');
+      // API 응답이 아직 없으면 useEffect가 처리하도록 대기
+    }
+    
+    console.log('🏁 Ad complete handler finished');
   };
 
   const handleDownloadResult = async () => {
@@ -1043,31 +1163,6 @@ export default function AnalyzePage() {
     }
   };
 
-  const handleComparisonAdComplete = () => {
-    setShowAdScreen(false);
-    setIsAnalyzing(false);
-    
-    if (pendingAnalysisError) {
-      setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : t('errors.analysisFailure'));
-    } else if (pendingAnalysisResult) {
-      // Apply similarity correction to results
-      const correctedResults = pendingAnalysisResult.map((result: SimilarityResult) => {
-        // Convert raw AI score (0-1) to user-friendly percentage
-        const rawSimilarity = result.similarity / 100; // Convert from percentage to 0-1 range
-        const correctedSimilarity = convertAiScoreToUserPercent(rawSimilarity);
-        return {
-          ...result,
-          similarity: correctedSimilarity // Now in user-friendly percentage
-        };
-      });
-      
-      setComparisonResults(correctedResults);
-      setShowComparisonResults(true);
-      console.log('🎯 Results display completed with corrected similarities');
-    }
-    
-    console.log('🏁 Comparison analysis completed');
-  };
 
   const handleAgeAnalyze = async () => {
     if (!ageImage?.base64) return;
@@ -1186,31 +1281,6 @@ export default function AnalyzePage() {
     }
   };
 
-  const handleAgeAdComplete = () => {
-    setShowAdScreen(false);
-    setIsAnalyzing(false);
-    
-    if (pendingAnalysisError) {
-      setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : t('errors.analysisFailure'));
-    } else if (pendingAnalysisResult) {
-      setAgeResult(pendingAnalysisResult);
-    }
-    
-    console.log('🏁 Age estimation completed');
-  };
-
-  const handleGenderAdComplete = () => {
-    setShowAdScreen(false);
-    setIsAnalyzing(false);
-    
-    if (pendingAnalysisError) {
-      setError(pendingAnalysisError instanceof Error ? pendingAnalysisError.message : t('errors.analysisFailure'));
-    } else if (pendingAnalysisResult) {
-      setGenderResult(pendingAnalysisResult);
-    }
-    
-    console.log('🏁 Gender estimation completed');
-  };
 
   const handleAddCandidate = (image: UploadedImage) => {
     console.log('👥 Adding candidate:', {
@@ -1558,6 +1628,14 @@ export default function AnalyzePage() {
                       </div>
                       <ImageUploader
                         onImageUpload={(image) => {
+                          console.log('👤 Parent image uploaded:', {
+                            fileName: image.file.name,
+                            fileSize: image.file.size,
+                            fileType: image.file.type,
+                            base64Length: image.base64.length,
+                            base64Prefix: image.base64.substring(0, 100),
+                            hasDataUri: image.base64.startsWith('data:')
+                          });
                           setParentImage(image);
                           analytics.trackImageUpload('parent', image.file.size, image.file.type);
                         }}
@@ -1579,6 +1657,14 @@ export default function AnalyzePage() {
                       </div>
                       <ImageUploader
                         onImageUpload={(image) => {
+                          console.log('👶 Child image uploaded:', {
+                            fileName: image.file.name,
+                            fileSize: image.file.size,
+                            fileType: image.file.type,
+                            base64Length: image.base64.length,
+                            base64Prefix: image.base64.substring(0, 100),
+                            hasDataUri: image.base64.startsWith('data:')
+                          });
                           setChildImage(image);
                           analytics.trackImageUpload('child', image.file.size, image.file.type);
                         }}
@@ -1764,7 +1850,7 @@ export default function AnalyzePage() {
               {/* 광고 화면 */}
               {!showComparisonResults && showAdScreen && (
                 <div className="mb-8">
-                  <AnalyzingAdScreen onComplete={handleComparisonAdComplete} />
+                  <AnalyzingAdScreen onComplete={handleAdComplete} />
                 </div>
               )}
 
@@ -1861,7 +1947,7 @@ export default function AnalyzePage() {
               {/* 광고 화면 */}
               {!ageResult && showAdScreen && (
                 <div className="mb-8">
-                  <AnalyzingAdScreen onComplete={handleAgeAdComplete} />
+                  <AnalyzingAdScreen onComplete={handleAdComplete} />
                 </div>
               )}
 
@@ -1958,7 +2044,7 @@ export default function AnalyzePage() {
               {/* 광고 화면 */}
               {!genderResult && showAdScreen && (
                 <div className="mb-8">
-                  <AnalyzingAdScreen onComplete={handleGenderAdComplete} />
+                  <AnalyzingAdScreen onComplete={handleAdComplete} />
                 </div>
               )}
 

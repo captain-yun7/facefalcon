@@ -312,32 +312,27 @@ class HybridFaceAnalysisClient {
     childAge?: number
   ): Promise<ApiResponse<PythonFamilySimilarityData>> {
     try {
-      const provider = await this.selectProvider('compareFamilyFaces');
+      // Family analysis는 반드시 Python API를 사용해야 함
+      // Health check 없이 바로 Python API 호출
+      console.log('🔗 Family analysis - using Python API directly without health check');
       
-      if (provider === 'python') {
-        const result = await pythonApiClient.compareFamilyFaces(
-          parentImageBase64,
-          childImageBase64,
-          parentAge,
-          childAge
-        );
+      const result = await pythonApiClient.compareFamilyFaces(
+        parentImageBase64,
+        childImageBase64,
+        parentAge,
+        childAge
+      );
 
-        // Python 성공시 응답 반환
-        if (result.success) {
-          return result;
-        }
-
-        // Python 실패시 AWS로 fallback할 수 없음 (AWS는 가족 특화 분석 지원 안함)
-        // 따라서 Python 실패시 오류 반환
+      // Python 성공시 응답 반환
+      if (result.success) {
         return result;
-        
-      } else {
-        // AWS는 가족 특화 분석을 지원하지 않음
-        return {
-          success: false,
-          error: 'AWS does not support family-specific analysis. Please use the family analysis page with Python API.',
-        };
       }
+
+      // Python 실패시 에러 반환 (AWS fallback 불가)
+      return {
+        success: false,
+        error: result.error || 'Family analysis failed. Python API is required for this feature.',
+      };
 
     } catch (error) {
       console.error('Hybrid compareFamilyFaces error:', error);

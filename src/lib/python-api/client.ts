@@ -485,7 +485,7 @@ class PythonApiClient {
     try {
       const response = await fetch(`${this.baseUrl}/health`, {
         method: 'GET',
-        signal: AbortSignal.timeout(5000), // 5초 타임아웃
+        signal: AbortSignal.timeout(2000), // 2초 타임아웃으로 단축
       });
 
       if (!response.ok) return false;
