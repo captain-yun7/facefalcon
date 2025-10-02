@@ -11,29 +11,29 @@ export async function generateMetadata(
   const type = searchParams?.type as string;
   
   let title = "AI 얼굴 분석하기 - 다양한 얼굴 분석 도구";
-  let description = "AI로 얼굴 닮은꼴, 나이, 스타일을 분석하세요. 닮은꼴 테스트, 나이 맞히기, 에겐/테토 분석까지 모든 기능을 한 곳에서!";
-  let ogTitle = "AI 얼굴 분석하기 - 재미있는 얼굴 분석 서비스";
+  let description = "🤖 AI가 당신의 얼굴을 분석해드려요! 닮은꼴 찾기, 나이 맞히기, 스타일 분석까지 무료로 체험해보세요 ✨";
+  let ogTitle = "🔥 AI 얼굴 분석 - 나는 누구와 닮았을까? | FaceFalcon";
   
   switch(type) {
     case 'parent-child':
       title = "얼굴 닮은꼴 테스트 - AI 유사도 분석";
-      description = "부모와 자녀, 연인, 친구 등 두 사람의 얼굴 닮은 정도를 AI가 정밀하게 분석합니다!";
-      ogTitle = "얼굴 닮은꼴 테스트 - FaceFalcon";
+      description = "👨‍👩‍👧‍👦 우리는 얼마나 닮았을까? AI가 두 사람의 얼굴 유사도를 정확하게 분석해드려요! 커플, 가족, 친구와 함께 해보세요 💕";
+      ogTitle = "💯 얼굴 닮은꼴 테스트 - 우리 닮았나? | FaceFalcon";
       break;
     case 'age':
       title = "AI 나이 맞히기 - 정확한 연령 예측";
-      description = "AI가 사진으로 나이를 정확하게 예측합니다. 업로드한 사진으로 바로 확인해보세요!";
-      ogTitle = "AI 나이 맞히기 - FaceFalcon";
+      description = "🎂 AI가 당신의 나이를 맞춰보겠습니다! 과연 몇 살로 보일까요? 친구들과 함께 재미있는 나이 맞히기 게임을 해보세요! 📸";
+      ogTitle = "🎯 AI 나이 맞히기 - 나는 몇 살로 보일까? | FaceFalcon";
       break;
     case 'gender':
       title = "에겐남/테토남 측정 - AI 성별 스타일 분석";
-      description = "AI가 성별 특징으로 에겐남/테토남 스타일을 분석합니다. 재미있는 결과를 확인해보세요!";
-      ogTitle = "에겐남/테토남 측정 - FaceFalcon";
+      description = "🧔 당신은 에겐남? 테토남? AI가 얼굴로 당신의 스타일을 분석해드려요! 친구들과 비교해보며 재미있게 즐겨보세요 😎";
+      ogTitle = "🔥 에겐남 vs 테토남 테스트 - 나는 어떤 타입? | FaceFalcon";
       break;
     case 'find-parents':
       title = "부모 찾기 - 가장 닮은 사람 찾기";
-      description = "여러 사람 중 누가 가장 닮았는지 AI가 찾아드립니다. 정확한 유사도 비교 분석!";
-      ogTitle = "부모 찾기 AI 분석 - FaceFalcon";
+      description = "👨‍👩‍👧‍👦 여러 사람 중 누구와 가장 닮았을까요? AI가 가족 중 가장 닮은 사람을 찾아드려요! 재미있는 가족 유사도 테스트 🎯";
+      ogTitle = "🏆 AI 부모 찾기 - 누구와 가장 닮았을까? | FaceFalcon";
       break;
     default:
       // default case uses the general title/description above
