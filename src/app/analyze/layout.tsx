@@ -1,81 +1,31 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export async function generateMetadata(
-  { searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const type = searchParams?.type as string;
-
-  let title = "AI 얼굴 분석하기 - 다양한 얼굴 분석 도구";
-  let description = "🤖 AI가 당신의 얼굴을 분석해드려요! 닮은꼴 찾기, 나이 맞히기, 스타일 분석까지 무료로 체험해보세요 ✨";
-  let ogTitle = "🔥 AI 얼굴 분석 - 나는 누구와 닮았을까? | FaceFalcon";
-  let ogImage = '/og/og-similarity.png';
-  let ogDescription = "🤖 AI가 당신의 얼굴을 분석해드려요! 닮은꼴 찾기, 나이 맞히기, 스타일 분석까지 무료로 체험해보세요 ✨";
-
-  switch(type) {
-    case 'parent-child':
-      title = "얼굴 닮은꼴 테스트 - AI 유사도 분석";
-      description = "👨‍👩‍👧‍👦 우리는 얼마나 닮았을까? AI가 두 사람의 얼굴 유사도를 정확하게 분석해드려요! 커플, 가족, 친구와 함께 해보세요 💕";
-      ogTitle = "💯 얼굴 닮은꼴 테스트 - 우리 닮았나? | FaceFalcon";
-      ogImage = '/og/og-similarity.png';
-      ogDescription = "👨‍👩‍👧‍👦 우리는 얼마나 닮았을까? AI가 두 사람의 얼굴 유사도를 정확하게 분석해드려요! 커플, 가족, 친구와 함께 해보세요 💕";
-      break;
-    case 'age':
-      title = "AI 나이 맞히기 - 정확한 연령 예측";
-      description = "🎂 AI가 당신의 나이를 맞춰보겠습니다! 과연 몇 살로 보일까요? 친구들과 함께 재미있는 나이 맞히기 게임을 해보세요! 📸";
-      ogTitle = "🎯 AI 나이 맞히기 - 나는 몇 살로 보일까? | FaceFalcon";
-      ogImage = '/og/og-age.png';
-      ogDescription = "🎂 AI가 당신의 나이를 맞춰보겠습니다! 과연 몇 살로 보일까요? 친구들과 함께 재미있는 나이 맞히기 게임을 해보세요! 📸";
-      break;
-    case 'gender':
-      title = "에겐남/테토남 측정 - AI 성별 스타일 분석";
-      description = "🧔 당신은 에겐남? 테토남? AI가 얼굴로 당신의 스타일을 분석해드려요! 친구들과 비교해보며 재미있게 즐겨보세요 😎";
-      ogTitle = "🔥 에겐남 vs 테토남 테스트 - 나는 어떤 타입? | FaceFalcon";
-      ogImage = '/og/og-gender.png';
-      ogDescription = "🧔 당신은 에겐남? 테토남? AI가 얼굴로 당신의 스타일을 분석해드려요! 친구들과 비교해보며 재미있게 즐겨보세요 😎";
-      break;
-    case 'find-parents':
-      title = "부모 찾기 - 가장 닮은 사람 찾기";
-      description = "👨‍👩‍👧‍👦 여러 사람 중 누구와 가장 닮았을까요? AI가 가족 중 가장 닮은 사람을 찾아드려요! 재미있는 가족 유사도 테스트 🎯";
-      ogTitle = "🏆 AI 부모 찾기 - 누구와 가장 닮았을까? | FaceFalcon";
-      ogImage = '/og/og-similarity.png';
-      ogDescription = "👨‍👩‍👧‍👦 여러 사람 중 누구와 가장 닮았을까요? AI가 가족 중 가장 닮은 사람을 찾아드려요! 재미있는 가족 유사도 테스트 🎯";
-      break;
-    default:
-      // default case uses the general title/description above
-      break;
-  }
-
-  return {
-    title,
-    description,
-    keywords: ["AI 얼굴 분석", "얼굴 닮은꼴", "닮은꼴 테스트", "나이 맞히기", "에겐남", "테토남", "에겐녀", "테토녀", "얼굴 유사도", "부모 찾기"],
-    openGraph: {
-      title: ogTitle,
-      description: ogDescription,
-      url: `/analyze${type ? `?type=${type}` : ''}`,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: ogTitle,
-        },
-      ],
-      type: 'website',
-      siteName: 'FaceFalcon',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: ogTitle,
-      description: ogDescription,
-      images: [ogImage],
-    },
-  }
+// layout.tsx에서는 searchParams를 받을 수 없으므로 기본 메타데이터만 설정
+export const metadata: Metadata = {
+  title: "AI 얼굴 분석하기 - 다양한 얼굴 분석 도구",
+  description: "🤖 AI가 당신의 얼굴을 분석해드려요! 닮은꼴 찾기, 나이 맞히기, 스타일 분석까지 무료로 체험해보세요 ✨",
+  keywords: ["AI 얼굴 분석", "얼굴 닮은꼴", "닮은꼴 테스트", "나이 맞히기", "에겐남", "테토남", "에겐녀", "테토녀", "얼굴 유사도", "부모 찾기"],
+  openGraph: {
+    title: "🔥 AI 얼굴 분석 - 나는 누구와 닮았을까? | FaceFalcon",
+    description: "🤖 AI가 당신의 얼굴을 분석해드려요! 닮은꼴 찾기, 나이 맞히기, 스타일 분석까지 무료로 체험해보세요 ✨",
+    url: '/analyze',
+    images: [
+      {
+        url: '/og/og-similarity.png',
+        width: 1200,
+        height: 630,
+        alt: 'FaceFalcon AI 얼굴 분석',
+      },
+    ],
+    type: 'website',
+    siteName: 'FaceFalcon',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "🔥 AI 얼굴 분석 - 나는 누구와 닮았을까? | FaceFalcon",
+    description: "🤖 AI가 당신의 얼굴을 분석해드려요! 닮은꼴 찾기, 나이 맞히기, 스타일 분석까지 무료로 체험해보세요 ✨",
+    images: ['/og/og-similarity.png'],
+  },
 }
 
 export default function AnalyzeLayout({
