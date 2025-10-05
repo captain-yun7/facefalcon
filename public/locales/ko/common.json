@@ -93,12 +93,42 @@
     "noFacesDetected": "분석할 수 있는 얼굴을 찾지 못했습니다. 얼굴이 선명하게 보이는 정면 사진을 사용해주세요.",
     "analysisFailure": "분석 중 오류가 발생했습니다.",
     "imageGenerationFailed": "이미지 생성에 실패했습니다. 다시 시도해주세요.",
-    "shareFailed": "공유에 실패했습니다. 다시 시도해주세요."
+    "shareFailed": "공유에 실패했습니다. 다시 시도해주세요.",
+    "noResultsFound": "결과를 찾을 수 없습니다."
   },
   "share": {
     "clipboardCopied": "공유 텍스트가 클립보드에 복사되었습니다!\\n메신저나 SNS에 붙여넣기 해주세요.",
     "shareNotSupported": "이 브라우저에서는 직접 공유가 지원되지 않습니다.\\n\"이미지 다운로드\" 버튼을 사용해주세요.",
-    "resultText": "닮음 분석 결과: {{percent}}% 닮았네요! 😊\\nfacefalcon.com에서 분석해보세요"
+    "resultText": "닮음 분석 결과: {{percent}}% 닮았네요! 😊\\nfacefalcon.com에서 분석해보세요",
+    "shareTexts": {
+      "ageEstimation": "나이 맞히기 AI 분석 해보세요!",
+      "genderEstimation": "에겐/테토 분석 해보세요!",
+      "whoMostSimilar": "가장 닮은 사람 찾기 AI 분석!",
+      "parentChild": "얼굴 닮은꼴 테스트!",
+      "shareResultAge": "나이 맞히기 AI 분석 결과를 확인해보세요!",
+      "shareResultGender": "에겐/테토 분석 결과를 확인해보세요!",
+      "shareResultSimilar": "부모 찾기 AI 분석 결과를 확인해보세요!",
+      "shareResultParent": "부모와 자녀 닮음 분석 결과를 확인해보세요!"
+    },
+    "defaultText": "AI 얼굴 분석 결과를 확인해보세요!"
+  },
+  "age": {
+    "unit": "세",
+    "categories": {
+      "infant": "영아 (0-2세)",
+      "toddler": "유아 (3-5세)",
+      "child": "어린이 (6-12세)",
+      "teenager": "청소년 (13-19세)",
+      "youngAdult": "청년 (20-29세)",
+      "adult": "성인 (30-39세)",
+      "middleAged": "중년 (40-49세)",
+      "mature": "장년 (50-59세)",
+      "senior": "노년 (60-69세)",
+      "elderly": "고령 (70세 이상)"
+    }
+  },
+  "results": {
+    "imageDownloaded": "이미지가 다운로드되었습니다!"
   },
   "guide": {
     "title": "이용 가이드",
@@ -495,24 +525,90 @@
       "candidate": "후보 {{number}}",
       "similarity": "유사도",
       "analyzedPhoto": "분석된 사진",
-      "growthPeriodWarning": "아직 성장기이므로 추후 변화 가능성이 높습니다"
+      "growthPeriodWarning": "아직 성장기이므로 추후 변화 가능성이 높습니다",
+      "ageAnalysisTitle": "AI 얼굴 분석 : 나이 맞히기 결과",
+      "ageAnalysisSubtitle": "AI가 예측한 나이입니다",
+      "findParentsTitle": "AI 얼굴 분석 : 부모 찾기 결과",
+      "findParentsSubtitle": "가장 닮은 사람을 찾았습니다"
+    },
+    "upload": {
+      "agePhotoLabel": "나이 예측을 위한 사진 업로드",
+      "stylePhotoLabel": "스타일 분석을 위한 사진 업로드"
+    },
+    "genderEstimation": {
+      "title": "에겐/테토 분석",
+      "description": "AI가 얼굴 특징으로 스타일을 분석합니다",
+      "analyzing": "스타일 분석 중...",
+      "startButton": "스타일 측정 시작!"
     },
     "genderLevels": {
       "male": {
+        "terminator": "터미네이터급 테토남",
+        "hulk": "헐크급 테토남",
+        "thor": "토르급 테토남",
+        "captain": "캡틴급 테토남",
+        "soft": "소프트한 남성",
         "egen": "에겐남",
         "teto": "테토남",
         "strongEgen": "강한 에겐남",
         "strongTeto": "강한 테토남"
       },
       "female": {
+        "tough": "테토녀",
+        "soft": "에겐녀",
         "egen": "에겐녀",
         "teto": "테토녀",
         "strongEgen": "강한 에겐녀",
-        "strongTeto": "강한 테토녀"
+        "strongTeto": "강한 테토녀",
+        "extremeEgen": "극강 에겐녀",
+        "ultraEgen": "울트라 에겐녀",
+        "pureEgen": "퓨어 에겐녀",
+        "softEgen": "소프트 에겐녀",
+        "classicEgen": "클래식 에겐녀",
+        "generalEgen": "일반 에겐녀",
+        "lightTeto": "라이트 테토녀",
+        "proTeto": "프로 테토녀",
+        "warrior": "워리어급 테토녀",
+        "amazon": "아마존급 테토녀",
+        "wonderwoman": "원더우먼급 테토녀",
+        "extreme": "극강 테토녀"
+      },
+      "descriptions": {
+        "male": {
+          "proTeto": "확실한 남성적 매력",
+          "generalTeto": "건강한 남성미",
+          "lightEgen": "터프하면서도 부드러운 매력",
+          "classicEgen": "부드러운 카리스마의 정석",
+          "softEgen": "따뜻하고 친근한 매력",
+          "pureEgen": "순수하고 맑은 느낌",
+          "ultraEgen": "극강의 부드러움",
+          "feminine": "부드럽고 우아한 느낌"
+        },
+        "female": {
+          "extremeEgen": "극도로 부드럽고 여성스러운 매력",
+          "ultraEgen": "매우 부드러운 여성미",
+          "pureEgen": "순수하고 맑은 매력",
+          "softEgen": "따뜻하고 친근한 매력",
+          "classicEgen": "여성스러운 카리스마",
+          "generalEgen": "균형잡힌 여성미",
+          "lightTeto": "부드러우면서도 강인한 매력",
+          "proTeto": "확실한 강인한 매력",
+          "warrior": "전사 같은 카리스마",
+          "amazon": "신화 속 여전사의 기운",
+          "wonderwoman": "강철같은 여성 파워",
+          "extreme": "압도적인 강인함!"
+        }
       }
     }
   },
   "similarity": {
+    "interpretation": {
+      "almostIdentical": "거의 동일인 수준",
+      "definiteFamily": "확실한 가족",
+      "quiteSimilar": "꽤 닮았음",
+      "someResemblance": "은근 닮은 구석",
+      "uniqueCharm": "각자의 매력"
+    },
     "messages": {
       "identical": {
         "title": "완전 동일인!",
@@ -554,6 +650,53 @@
         "title": "개성 폭발!",
         "message": "완전 다른 스타일! 멋져요 😊"
       }
+    },
+    "ageEstimation": {
+      "title": "나이를 맞춰보세요!",
+      "description": "AI가 사진 속 얼굴의 나이를 예측합니다",
+      "analyzing": "나이 예측 중...",
+      "startButton": "나이 맞히기 시작!"
+    }
+  },
+  "actions": {
+    "copyLink": "링크 복사",
+    "linkCopied": "링크가 복사되었습니다!",
+    "linkCopyFailed": "링크 복사에 실패했습니다."
+  },
+  "metadata": {
+    "analyze": {
+      "gender": {
+        "title": "에겐남/테토남 AI 분석 결과",
+        "description": "AI가 분석한 당신의 에겐/테토 스타일을 확인해보세요"
+      },
+      "age": {
+        "title": "AI 나이 분석 결과",
+        "description": "AI가 예측한 당신의 나이를 확인해보세요"
+      },
+      "parentChild": {
+        "title": "AI 얼굴 닮은꼴 테스트 결과",
+        "description": "AI가 분석한 두 사람의 닮음 정도를 확인해보세요"
+      },
+      "findParents": {
+        "title": "AI 얼굴 분석: 가장 닮은 사람 찾기",
+        "description": "당신과 가장 닮은 사람을 찾아보세요"
+      },
+      "whoMostSimilar": {
+        "title": "AI 얼굴 분석: 닮은꼴 테스트 결과",
+        "description": "닮은 사람들을 찾았습니다"
+      },
+      "common": {
+        "description": "AI로 닮은꼴 찾기, 나이 맞히기, 에겐/테토 분석까지 무료로 체험해보세요"
+      },
+      "keywords": "AI 얼굴 분석,얼굴 닮은꼴,닮은꼴 테스트,나이 맞히기,에겐남,테토남,에겐녀,테토녀,얼굴 유사도,부모 찾기"
+    }
+  },
+  "privacyDisclaimer": {
+    "title": "안내사항",
+    "items": {
+      "imageStorage": "업로드된 사진은 서버에 저장되지 않으며, 분석 직후 즉시 삭제됩니다",
+      "noPersonalInfo": "개인정보는 일체 수집하지 않습니다",
+      "forEntertainment": "본 서비스는 재미와 흥미를 위한 것으로, 결과는 참고용으로만 활용해 주세요"
     }
   }
 }

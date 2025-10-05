@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import SimilarityGauge from './SimilarityGauge';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
+import { useTranslations } from '@/lib/simple-i18n';
 
 interface AnalysisResultDisplayProps {
   parentImage: { preview: string };
@@ -31,7 +32,7 @@ export default function AnalysisResultDisplay({
   onReset,
   className = ''
 }: AnalysisResultDisplayProps) {
-  const isEnglish = locale === 'en';
+  const { t } = useTranslations();
   const isWebMode = displayMode === 'web';
 
   // 레이아웃 클래스 결정
@@ -59,22 +60,22 @@ export default function AnalysisResultDisplay({
       <div className="relative z-20 text-center p-8 border-b border-white/20 backdrop-blur-sm">
         <div className="mb-6">
           <span className="px-6 py-3 bg-gradient-to-r from-blue-500/15 to-purple-500/15 text-blue-700 text-sm font-semibold rounded-full border border-blue-200/40 backdrop-blur-sm inline-block">
-            {isEnglish ? 'AI Analysis Complete' : 'AI 분석 완료'}
+            {t('results.analysisComplete')}
           </span>
         </div>
         <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 mb-4 leading-tight">
-          {isEnglish ? 'Paternity Analysis' : '친자 확인 분석'}
+          {t('results.similarityResult')}
         </h2>
         <div className="space-y-2">
           <div className="flex items-center justify-center space-x-2 text-gray-600">
             <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            <span className="font-medium">FaceFalcon {isEnglish ? 'Analysis Result' : '분석 결과'}</span>
+            <span className="font-medium">FaceFalcon {t('results.analysisResult')}</span>
           </div>
           {familyResult && familyResult.confidence && (
             <div className="text-sm text-gray-500">
-              {isEnglish ? 'Confidence' : '신뢰도'}: {(familyResult.confidence * 100).toFixed(1)}%
+              {t('results.confidence', { confidence: (familyResult.confidence * 100).toFixed(1) })}
             </div>
           )}
         </div>
@@ -90,13 +91,13 @@ export default function AnalysisResultDisplay({
                 <span className="text-blue-600 font-semibold text-sm">1</span>
               </div>
               <h3 className="text-lg font-medium text-gray-900">
-                {isEnglish ? 'Parent Photo' : '부모 사진'}
+                {t('parentChildAnalysis.parentPhoto')}
               </h3>
             </div>
             <div className={imageContainerClass}>
               <Image
                 src={parentImage.preview}
-                alt={isEnglish ? 'Parent' : '부모'}
+                alt={t('results.parent')}
                 fill
                 className="object-contain bg-gray-50"
               />
@@ -110,13 +111,13 @@ export default function AnalysisResultDisplay({
                 <span className="text-blue-600 font-semibold text-sm">2</span>
               </div>
               <h3 className="text-lg font-medium text-gray-900">
-                {isEnglish ? 'Child Photo' : '자녀 사진'}
+                {t('parentChildAnalysis.childPhoto')}
               </h3>
             </div>
             <div className={imageContainerClass}>
               <Image
                 src={childImage.preview}
-                alt={isEnglish ? 'Child' : '자녀'}
+                alt={t('results.child')}
                 fill
                 className="object-contain bg-gray-50"
               />
@@ -150,13 +151,13 @@ export default function AnalysisResultDisplay({
               <button
                 onClick={onReset}
                 className="group relative px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-slate-500 to-slate-600 text-white font-semibold rounded-2xl shadow-lg shadow-slate-500/20 hover:shadow-xl hover:shadow-slate-500/30 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden"
-                title={isEnglish ? 'Try Again' : '다시 분석하기'}
+                title={t('results.tryAgain')}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-slate-600 to-slate-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <svg className="relative z-10 w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                <span className="relative z-10 text-sm hidden sm:inline">{isEnglish ? 'Try Again' : '다시 분석하기'}</span>
+                <span className="relative z-10 text-sm hidden sm:inline">{t('results.tryAgain')}</span>
                 <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </button>
             )}
@@ -166,13 +167,13 @@ export default function AnalysisResultDisplay({
               <button
                 onClick={onDownload}
                 className="group relative px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden"
-                title={isEnglish ? 'Download Image' : '이미지 다운로드'}
+                title={t('results.downloadImage')}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <svg className="relative z-10 w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <span className="relative z-10 text-sm hidden sm:inline">{isEnglish ? 'Download Image' : '이미지 다운로드'}</span>
+                <span className="relative z-10 text-sm hidden sm:inline">{t('results.downloadImage')}</span>
                 <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </button>
             )}
@@ -182,13 +183,13 @@ export default function AnalysisResultDisplay({
               <button
                 onClick={onShare}
                 className="group relative px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-2xl shadow-lg shadow-purple-500/20 hover:shadow-xl hover:shadow-purple-500/30 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 overflow-hidden"
-                title={isEnglish ? 'Share Result' : '결과 공유하기'}
+                title={t('results.shareResult')}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <svg className="relative z-10 w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                 </svg>
-                <span className="relative z-10 text-sm hidden sm:inline">{isEnglish ? 'Share Result' : '결과 공유하기'}</span>
+                <span className="relative z-10 text-sm hidden sm:inline">{t('results.shareResult')}</span>
                 <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </button>
             )}

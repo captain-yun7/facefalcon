@@ -72,7 +72,35 @@
     "rank": "{{rank}}th",
     "tryAgain": "Analyze Again",
     "downloadImage": "Download Image",
-    "shareResult": "Share Result"
+    "shareResult": "Share Result",
+    "imageDownloaded": "Image downloaded successfully!",
+    "resultTitle": "Similarity Result",
+    "parentLabel": "Parent",
+    "childLabel": "Child",
+    "similarityTestTitle": "AI Face Analysis: Similarity Test Result",
+    "similarityTestSubtitle": "We've analyzed the similarity between two people",
+    "findParentsTitle": "AI Face Analysis: Find Parent Result", 
+    "findParentsSubtitle": "Found the most similar person",
+    "ageAnalysisTitle": "AI Face Analysis: Age Prediction Result",
+    "ageAnalysisSubtitle": "AI predicted age",
+    "genderMaleTitle": "AI Soft/Tough Guy Analysis Result",
+    "genderFemaleTitle": "AI Soft/Tough Girl Analysis Result", 
+    "genderAnalysisSubtitle": "AI analyzed your style",
+    "firstPerson": "First Person",
+    "secondPerson": "Second Person",
+    "aiConfidence": "AI Analysis Confidence",
+    "similarityInterpretation": "Similarity Interpretation",
+    "veryHighSimilarity": "70% and above: Very high similarity",
+    "highSimilarity": "50-70%: High similarity",
+    "mediumSimilarity": "30-50%: Medium similarity",
+    "lowSimilarity": "Below 30%: Low similarity",
+    "mostSimilarFound": "Most similar person found!",
+    "referencePerson": "Reference Person",
+    "bestMatch": "Best Match",
+    "overallRanking": "Overall Ranking",
+    "candidate": "Candidate {{number}}",
+    "analyzedPhoto": "Analyzed Photo",
+    "growthPeriodWarning": "Still in growth period, high possibility of change later"
   },
   "imageUpload": {
     "label": "Upload Image",
@@ -94,12 +122,39 @@
     "noFacesDetected": "No analyzable faces were found. Please use clear frontal photos with visible faces.",
     "analysisFailure": "An error occurred during analysis.",
     "imageGenerationFailed": "Image generation failed. Please try again.",
-    "shareFailed": "Sharing failed. Please try again."
+    "shareFailed": "Sharing failed. Please try again.",
+    "noResultsFound": "No results found."
   },
   "share": {
     "clipboardCopied": "Share text has been copied to clipboard!\\nPlease paste it in messenger or SNS.",
     "shareNotSupported": "Direct sharing is not supported in this browser.\\nPlease use the \"Download Image\" button.",
-    "resultText": "Our child similarity analysis result: {{percent}}% similar! 😊\\nAnalyze at facefalcon.com"
+    "resultText": "Our child similarity analysis result: {{percent}}% similar! 😊\\nAnalyze at facefalcon.com",
+    "shareTexts": {
+      "ageEstimation": "Try AI age prediction analysis!",
+      "genderEstimation": "Try Soft/Tough analysis!",
+      "whoMostSimilar": "Find the most similar person with AI analysis!",
+      "parentChild": "Try face similarity test!",
+      "shareResultAge": "Check out the age prediction AI analysis results!",
+      "shareResultGender": "Check out the Soft/Tough analysis results!",
+      "shareResultSimilar": "Check out the parent finding AI analysis results!",
+      "shareResultParent": "Check out the parent and child similarity analysis results!"
+    },
+    "defaultText": "Check out the AI face analysis results!"
+  },
+  "age": {
+    "unit": " years old",
+    "categories": {
+      "infant": "Infant (0-2)",
+      "toddler": "Toddler (3-5)",
+      "child": "Child (6-12)",
+      "teenager": "Teenager (13-19)",
+      "youngAdult": "Young Adult (20-29)",
+      "adult": "Adult (30-39)",
+      "middleAged": "Middle-aged (40-49)",
+      "mature": "Mature (50-59)",
+      "senior": "Senior (60-69)",
+      "elderly": "Elderly (70+)"
+    }
   },
   "footer": {
     "madeWith": "Made with",
@@ -440,31 +495,7 @@
       "autoDelete": {
         "title": "Instant Photo Deletion",
         "description": "Photos automatically deleted after analysis<br/>No images are stored"
-      }
-    },
-    "upload": {
-      "parentPhoto": "Parent Photo",
-      "childPhoto": "Child Photo",
-      "analyzing": "AI Analyzing...",
-      "startAnalysis": "Start Similarity Analysis"
-    },
-    "results": {
-      "analysisComplete": "Analysis Complete",
-      "resultTitle": "Similarity Result",
-      "confidence": "Analysis confidence: {{confidence}}%",
-      "parentLabel": "Parent",
-      "childLabel": "Child",
-      "similarity": "Similarity",
-      "tryAgain": "Analyze Again",
-      "downloadImage": "Download Image",
-      "shareResult": "Share Result"
-    },
-    "cta": {
-      "moreAnalysis": "Want more analysis features?",
-      "moreFeatures": "Find who you look most like, sibling analysis, etc.<br/>Try various analysis tools",
-      "viewMore": "View More Analysis →"
-    },
-    "features": {
+      },
       "aiAnalysis": {
         "title": "Accurate AI Analysis",
         "description": "Provides high-accuracy facial similarity analysis with the latest InsightFace technology"
@@ -478,6 +509,17 @@
         "description": "Uploaded images are immediately deleted after analysis to safely protect personal information"
       }
     },
+    "upload": {
+      "parentPhoto": "Parent Photo",
+      "childPhoto": "Child Photo",
+      "analyzing": "AI Analyzing...",
+      "startAnalysis": "Start Similarity Analysis"
+    },
+    "cta": {
+      "moreAnalysis": "Want more analysis features?",
+      "moreFeatures": "Find who you look most like, sibling analysis, etc.<br/>Try various analysis tools",
+      "viewMore": "View More Analysis →"
+    },
     "devCta": {
       "title": "Do you like this service?",
       "description": "A project created using AI image models and web technology",
@@ -486,23 +528,14 @@
   },
   "analysis": {
     "results": {
-      "similarityTestTitle": "AI Face Analysis: Similarity Test Result",
-      "similarityTestSubtitle": "We've analyzed the similarity between two people",
-      "findParentsTitle": "AI Face Analysis: Find Parent Result", 
-      "findParentsSubtitle": "Found the most similar person",
-      "ageAnalysisTitle": "AI Face Analysis: Age Prediction Result",
-      "ageAnalysisSubtitle": "AI predicted age",
-      "genderMaleTitle": "AI Soft/Tough Guy Analysis Result",
-      "genderFemaleTitle": "AI Soft/Tough Girl Analysis Result", 
-      "genderAnalysisSubtitle": "AI analyzed your style",
       "firstPerson": "First Person",
       "secondPerson": "Second Person",
       "aiConfidence": "AI Analysis Confidence",
       "similarityInterpretation": "Similarity Interpretation",
-      "veryHighSimilarity": "70% and above: Very high similarity",
-      "highSimilarity": "50-70%: High similarity",
-      "mediumSimilarity": "30-50%: Medium similarity",
-      "lowSimilarity": "Below 30%: Low similarity",
+      "veryHighSimilarity": "70%+ : Very High Similarity",
+      "highSimilarity": "50-70% : High Similarity",
+      "mediumSimilarity": "30-50% : Medium Similarity",
+      "lowSimilarity": "Under 30% : Low Similarity",
       "mostSimilarFound": "Most similar person found!",
       "referencePerson": "Reference Person",
       "bestMatch": "Best Match",
@@ -510,11 +543,21 @@
       "candidate": "Candidate {{number}}",
       "similarity": "Similarity",
       "analyzedPhoto": "Analyzed Photo",
-      "growthPeriodWarning": "Still in growth period, high possibility of change later"
+      "growthPeriodWarning": "Still in growth period, high possibility of change later",
+      "ageAnalysisTitle": "AI Face Analysis: Age Prediction Result",
+      "ageAnalysisSubtitle": "AI predicted age",
+      "findParentsTitle": "AI Face Analysis: Find Parent Result",
+      "findParentsSubtitle": "Found the most similar person"
     },
     "upload": {
       "agePhotoLabel": "Upload photo for age prediction",
       "stylePhotoLabel": "Upload photo for style analysis"
+    },
+    "genderEstimation": {
+      "title": "Soft/Tough Analysis",
+      "description": "AI analyzes your style based on facial features",
+      "analyzing": "Analyzing style...",
+      "startButton": "Start Style Analysis!"
     },
     "genderLevels": {
       "male": {
@@ -534,11 +577,62 @@
         "egen": "Soft Girl",
         "teto": "Tough Girl",
         "strongEgen": "Strong Soft Girl",
-        "strongTeto": "Strong Tough Girl"
+        "strongTeto": "Strong Tough Girl",
+        "extremeEgen": "Extremely Soft Girl",
+        "ultraEgen": "Ultra Soft Girl",
+        "pureEgen": "Pure Soft Girl",
+        "softEgen": "Soft Girl",
+        "classicEgen": "Classic Soft Girl",
+        "generalEgen": "General Soft Girl",
+        "lightTeto": "Light Tough Girl",
+        "proTeto": "Pro Tough Girl",
+        "warrior": "Warrior Tough Girl",
+        "amazon": "Amazon Tough Girl",
+        "wonderwoman": "Wonder Woman Tough Girl",
+        "extreme": "Extreme Tough Girl"
+      },
+      "descriptions": {
+        "male": {
+          "proTeto": "Definitive masculine charm",
+          "generalTeto": "Healthy masculinity",
+          "lightEgen": "Tough yet gentle charm",
+          "classicEgen": "Classic gentle charisma",
+          "softEgen": "Warm and friendly charm",
+          "pureEgen": "Pure and clear feel",
+          "ultraEgen": "Ultimate gentleness",
+          "feminine": "Soft and elegant feel"
+        },
+        "female": {
+          "extremeEgen": "Extremely soft and feminine charm",
+          "ultraEgen": "Very soft femininity",
+          "pureEgen": "Pure and clear charm",
+          "softEgen": "Warm and friendly charm",
+          "classicEgen": "Feminine charisma",
+          "generalEgen": "Balanced femininity",
+          "lightTeto": "Gentle yet strong charm",
+          "proTeto": "Definitive strong charm",
+          "warrior": "Warrior-like charisma",
+          "amazon": "Mythical warrior energy",
+          "wonderwoman": "Steel-like feminine power",
+          "extreme": "Overwhelming strength!"
+        }
       }
+    },
+    "ageEstimation": {
+      "title": "Guess the age!",
+      "description": "AI predicts the age of faces in photos",
+      "analyzing": "Predicting age...",
+      "startButton": "Start Age Prediction!"
     }
   },
   "similarity": {
+    "interpretation": {
+      "almostIdentical": "Almost identical",
+      "definiteFamily": "Definite family",
+      "quiteSimilar": "Quite similar",
+      "someResemblance": "Some resemblance",
+      "uniqueCharm": "Unique charm"
+    },
     "messages": {
       "identical": {
         "title": "Completely Identical!",
@@ -580,6 +674,47 @@
         "title": "Subtle Similarity",
         "message": "Look closely and you'll find some resemblance! 🔍"
       }
+    }
+  },
+  "actions": {
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied!",
+    "linkCopyFailed": "Failed to copy link."
+  },
+  "metadata": {
+    "analyze": {
+      "gender": {
+        "title": "AI Soft/Tough Style Analysis Result",
+        "description": "Check your AI-analyzed Soft/Tough style"
+      },
+      "age": {
+        "title": "AI Age Prediction Result",
+        "description": "Check your AI-predicted age"
+      },
+      "parentChild": {
+        "title": "AI Face Similarity Test Result",
+        "description": "Check the AI-analyzed similarity between two people"
+      },
+      "findParents": {
+        "title": "AI Face Analysis: Find Most Similar Person",
+        "description": "Find the person most similar to you"
+      },
+      "whoMostSimilar": {
+        "title": "AI Face Analysis: Similarity Test Result",
+        "description": "Found similar people"
+      },
+      "common": {
+        "description": "Try AI similarity tests, age prediction, and Soft/Tough analysis for free"
+      },
+      "keywords": "AI face analysis,face similarity,similarity test,age prediction,soft guy,tough guy,soft girl,tough girl,facial similarity,parent finding"
+    }
+  },
+  "privacyDisclaimer": {
+    "title": "Notice",
+    "items": {
+      "imageStorage": "Uploaded photos are not stored on the server and are immediately deleted after analysis",
+      "noPersonalInfo": "We do not collect any personal information",
+      "forEntertainment": "This service is for fun and entertainment purposes only. Please use the results for reference only"
     }
   }
 }

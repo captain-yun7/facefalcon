@@ -35,12 +35,12 @@ export default function ParentChildResult({
           <div className="relative w-32 h-32 md:w-40 md:h-40 mb-2">
             <Image
               src={parentImage.preview}
-              alt={t('analysis.results.firstPerson')}
+              alt={t('results.firstPerson')}
               fill
               className="object-contain rounded-lg border-2 border-gray-200 shadow-sm bg-gray-50"
             />
           </div>
-          <span className="text-sm text-gray-600 font-medium">{t('analysis.results.firstPerson')}</span>
+          <span className="text-sm text-gray-600 font-medium">{t('results.firstPerson')}</span>
         </div>
 
         {/* 하트 아이콘 */}
@@ -53,12 +53,12 @@ export default function ParentChildResult({
           <div className="relative w-32 h-32 md:w-40 md:h-40 mb-2">
             <Image
               src={childImage.preview}
-              alt={t('analysis.results.secondPerson')}
+              alt={t('results.secondPerson')}
               fill
               className="object-contain rounded-lg border-2 border-gray-200 shadow-sm bg-gray-50"
             />
           </div>
-          <span className="text-sm text-gray-600 font-medium">{t('analysis.results.secondPerson')}</span>
+          <span className="text-sm text-gray-600 font-medium">{t('results.secondPerson')}</span>
         </div>
       </div>
 
@@ -79,7 +79,7 @@ export default function ParentChildResult({
       {/* AI 신뢰도 */}
       <div className="bg-gray-50 rounded-lg p-4 max-w-md mx-auto">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600 whitespace-nowrap">{t('analysis.results.aiConfidence')}</span>
+          <span className="text-sm text-gray-600 whitespace-nowrap">{t('results.aiConfidence')}</span>
           <span className="text-sm font-bold text-gray-900 whitespace-nowrap">
             {(confidence * 100).toFixed(1)}%
           </span>
@@ -94,23 +94,23 @@ export default function ParentChildResult({
 
       {/* 유사도 해석 가이드 */}
       <div className="mt-6 p-4 bg-white rounded-lg border border-gray-200 max-w-md mx-auto">
-        <h4 className="font-semibold text-gray-900 mb-3 whitespace-nowrap">{t('analysis.results.similarityInterpretation')}</h4>
+        <h4 className="font-semibold text-gray-900 mb-3 whitespace-nowrap">{t('results.similarityInterpretation')}</h4>
         <div className="space-y-2 text-sm">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-green-500 flex-shrink-0"></div>
-            <span className="text-gray-600 whitespace-nowrap">{t('analysis.results.veryHighSimilarity')}</span>
+            <span className="text-gray-600 whitespace-nowrap">{t('results.veryHighSimilarity')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-blue-500 flex-shrink-0"></div>
-            <span className="text-gray-600 whitespace-nowrap">{t('analysis.results.highSimilarity')}</span>
+            <span className="text-gray-600 whitespace-nowrap">{t('results.highSimilarity')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-yellow-500 flex-shrink-0"></div>
-            <span className="text-gray-600 whitespace-nowrap">{t('analysis.results.mediumSimilarity')}</span>
+            <span className="text-gray-600 whitespace-nowrap">{t('results.mediumSimilarity')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500 flex-shrink-0"></div>
-            <span className="text-gray-600 whitespace-nowrap">{t('analysis.results.lowSimilarity')}</span>
+            <span className="text-gray-600 whitespace-nowrap">{t('results.lowSimilarity')}</span>
           </div>
         </div>
       </div>

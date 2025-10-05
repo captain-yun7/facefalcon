@@ -17,7 +17,7 @@ import FindParentsResult from '@/components/analysis/results/FindParentsResult';
 import AgeEstimationResult from '@/components/analysis/results/AgeEstimationResult';
 import GenderStyleResult from '@/components/analysis/results/GenderStyleResult';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
-import { getFamilySimilarityMessage, convertAiScoreToUserPercent } from '@/lib/utils/family-messages';
+import { getFamilySimilarityMessage, getFamilySimilarityMessageWithTranslation, convertAiScoreToUserPercent } from '@/lib/utils/family-messages';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
 import { analytics } from '@/components/GoogleAnalytics';
 import { useTranslations } from '@/lib/simple-i18n';
@@ -92,9 +92,9 @@ export default function AnalyzePage() {
     if (adjustedScore >= 5.0) {
       return {
         type: 'teto' as const,
-        level: '터미네이터급 테토남',
+        level: t('analysis.genderLevels.male.terminator'),
         emoji: '💥',
-        description: '테스토스테론이 폭발하는 수준!',
+        description: t('analysis.genderLevels.descriptions.male.proTeto'),
         color: 'purple-900',
         bgColor: 'bg-purple-900',
         borderColor: 'border-purple-900'
@@ -102,9 +102,9 @@ export default function AnalyzePage() {
     } else if (adjustedScore >= 4.5) {
       return {
         type: 'teto' as const,
-        level: '헐크급 테토남',
+        level: t('analysis.genderLevels.male.hulk'),
         emoji: '🦾',
-        description: '강철같은 남성미의 소유자',
+        description: t('analysis.genderLevels.descriptions.male.generalTeto'),
         color: 'purple-800',
         bgColor: 'bg-purple-800',
         borderColor: 'border-purple-800'
@@ -112,9 +112,9 @@ export default function AnalyzePage() {
     } else if (adjustedScore >= 4.0) {
       return {
         type: 'teto' as const,
-        level: '토르급 테토남',
+        level: t('analysis.genderLevels.male.thor'),
         emoji: '⚡',
-        description: '신화 속 전사의 기운',
+        description: t('analysis.genderLevels.descriptions.male.generalTeto'),
         color: 'purple-700',
         bgColor: 'bg-purple-700',
         borderColor: 'border-purple-700'
@@ -122,9 +122,9 @@ export default function AnalyzePage() {
     } else if (adjustedScore >= 3.5) {
       return {
         type: 'teto' as const,
-        level: '캡틴급 테토남',
+        level: t('analysis.genderLevels.male.captain'),
         emoji: '🛡️',
-        description: '듬직한 리더의 카리스마',
+        description: t('analysis.genderLevels.descriptions.male.generalTeto'),
         color: 'purple-600',
         bgColor: 'bg-purple-600',
         borderColor: 'border-purple-600'
@@ -132,49 +132,49 @@ export default function AnalyzePage() {
     } else if (adjustedScore >= 3.0) {
       return {
         type: 'teto' as const,
-        level: '프로 테토남',
+        level: t('analysis.genderLevels.male.strongTeto'),
         emoji: '💯',
-        description: '확실한 남성적 매력',
+        description: t('analysis.genderLevels.descriptions.male.proTeto'),
         color: 'purple-500',
         bgColor: 'bg-purple-500',
         borderColor: 'border-purple-500'
       };
-    } else if (adjustedScore >= 3.0) {
+    } else if (adjustedScore >= 2.5) {
       return {
         type: 'teto' as const,
-        level: '일반 테토남',
+        level: t('analysis.genderLevels.male.teto'),
         emoji: '✨',
-        description: '건강한 남성미',
+        description: t('analysis.genderLevels.descriptions.male.generalTeto'),
         color: 'purple-400',
         bgColor: 'bg-purple-400',
         borderColor: 'border-purple-400'
       };
-    } else if (adjustedScore >= 2.5) {
+    } else if (adjustedScore >= 2.0) {
       return {
         type: 'egen' as const,
-        level: '라이트 에겐남',
+        level: t('analysis.genderLevels.male.strongEgen'),
         emoji: '😊',
-        description: '터프하면서도 부드러운 매력',
+        description: t('analysis.genderLevels.descriptions.male.lightEgen'),
         color: 'blue-600',
         bgColor: 'bg-blue-600',
         borderColor: 'border-blue-600'
       };
-    } else if (adjustedScore >= 2.0) {
+    } else if (adjustedScore >= 1.5) {
       return {
         type: 'egen' as const,
-        level: '클래식 에겐남',
+        level: t('analysis.genderLevels.male.egen'),
         emoji: '🌟',
-        description: '부드러운 카리스마의 정석',
+        description: t('analysis.genderLevels.descriptions.male.classicEgen'),
         color: 'blue-500',
         bgColor: 'bg-blue-500',
         borderColor: 'border-blue-500'
       };
-    } else if (adjustedScore >= 1.5) {
+    } else if (adjustedScore >= 1.0) {
       return {
         type: 'egen' as const,
-        level: '소프트 에겐남',
+        level: t('analysis.genderLevels.male.soft'),
         emoji: '🤗',
-        description: '따뜻하고 친근한 매력',
+        description: t('analysis.genderLevels.descriptions.male.softEgen'),
         color: 'blue-400',
         bgColor: 'bg-blue-400',
         borderColor: 'border-blue-400'
@@ -182,9 +182,9 @@ export default function AnalyzePage() {
     } else if (adjustedScore >= 0.5) {
       return {
         type: 'egen' as const,
-        level: '퓨어 에겐남',
+        level: t('analysis.genderLevels.male.egen'),
         emoji: '☁️',
-        description: '순수하고 맑은 느낌',
+        description: t('analysis.genderLevels.descriptions.male.pureEgen'),
         color: 'blue-300',
         bgColor: 'bg-blue-300',
         borderColor: 'border-blue-300'
@@ -192,9 +192,9 @@ export default function AnalyzePage() {
     } else if (adjustedScore >= 0.0) {
       return {
         type: 'egen' as const,
-        level: '울트라 에겐남',
+        level: t('analysis.genderLevels.male.egen'),
         emoji: '🌺',
-        description: '극강의 부드러움',
+        description: t('analysis.genderLevels.descriptions.male.ultraEgen'),
         color: 'blue-200',
         bgColor: 'bg-blue-200',
         borderColor: 'border-blue-200'
@@ -202,9 +202,9 @@ export default function AnalyzePage() {
     } else {
       return {
         type: 'feminine' as const,
-        level: '여성적 매력',
+        level: t('analysis.genderLevels.male.soft'),
         emoji: '🦋',
-        description: '부드럽고 우아한 느낌',
+        description: t('analysis.genderLevels.descriptions.male.feminine'),
         color: 'pink-400',
         bgColor: 'bg-pink-400',
         borderColor: 'border-pink-400'
@@ -220,9 +220,9 @@ export default function AnalyzePage() {
     if (femaleScore >= 5.0) {
       return {
         type: 'egen' as const,
-        level: '극강 에겐녀',
+        level: t('analysis.genderLevels.female.extremeEgen', 'Extremely Soft Girl'),
         emoji: '🌸',
-        description: '극도로 부드럽고 여성스러운 매력',
+        description: t('analysis.genderLevels.descriptions.female.extremeEgen', 'Extremely soft and feminine charm'),
         color: 'pink-200',
         bgColor: 'bg-pink-200',
         borderColor: 'border-pink-200'
@@ -230,9 +230,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 4.5) {
       return {
         type: 'egen' as const,
-        level: '울트라 에겐녀',
+        level: t('analysis.genderLevels.female.ultraEgen', 'Ultra Soft Girl'),
         emoji: '🌺',
-        description: '매우 부드러운 여성미',
+        description: t('analysis.genderLevels.descriptions.female.ultraEgen', 'Very soft femininity'),
         color: 'pink-300',
         bgColor: 'bg-pink-300',
         borderColor: 'border-pink-300'
@@ -240,9 +240,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 4.0) {
       return {
         type: 'egen' as const,
-        level: '퓨어 에겐녀',
+        level: t('analysis.genderLevels.female.pureEgen', 'Pure Soft Girl'),
         emoji: '☁️',
-        description: '순수하고 맑은 매력',
+        description: t('analysis.genderLevels.descriptions.female.pureEgen', 'Pure and clear charm'),
         color: 'pink-400',
         bgColor: 'bg-pink-400',
         borderColor: 'border-pink-400'
@@ -250,9 +250,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 3.5) {
       return {
         type: 'egen' as const,
-        level: '소프트 에겐녀',
+        level: t('analysis.genderLevels.female.softEgen', 'Soft Girl'),
         emoji: '🤗',
-        description: '따뜻하고 친근한 매력',
+        description: t('analysis.genderLevels.descriptions.female.softEgen', 'Warm and friendly charm'),
         color: 'pink-500',
         bgColor: 'bg-pink-500',
         borderColor: 'border-pink-500'
@@ -260,9 +260,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 3.0) {
       return {
         type: 'egen' as const,
-        level: '클래식 에겐녀',
+        level: t('analysis.genderLevels.female.classicEgen', 'Classic Soft Girl'),
         emoji: '🌟',
-        description: '여성스러운 카리스마',
+        description: t('analysis.genderLevels.descriptions.female.classicEgen', 'Feminine charisma'),
         color: 'pink-600',
         bgColor: 'bg-pink-600',
         borderColor: 'border-pink-600'
@@ -270,9 +270,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 3.5) {
       return {
         type: 'egen' as const,
-        level: '일반 에겐녀',
+        level: t('analysis.genderLevels.female.generalEgen', 'General Soft Girl'),
         emoji: '✨',
-        description: '균형잡힌 여성미',
+        description: t('analysis.genderLevels.descriptions.female.generalEgen', 'Balanced femininity'),
         color: 'rose-400',
         bgColor: 'bg-rose-400',
         borderColor: 'border-rose-400'
@@ -280,9 +280,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 3.0) {
       return {
         type: 'teto' as const,
-        level: '라이트 테토녀',
+        level: t('analysis.genderLevels.female.lightTeto', 'Light Tough Girl'),
         emoji: '💪',
-        description: '부드러우면서도 강인한 매력',
+        description: t('analysis.genderLevels.descriptions.female.lightTeto', 'Gentle yet strong charm'),
         color: 'purple-400',
         bgColor: 'bg-purple-400',
         borderColor: 'border-purple-400'
@@ -290,9 +290,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 1.5) {
       return {
         type: 'teto' as const,
-        level: '프로 테토녀',
+        level: t('analysis.genderLevels.female.proTeto', 'Pro Tough Girl'),
         emoji: '💯',
-        description: '확실한 강인한 매력',
+        description: t('analysis.genderLevels.descriptions.female.proTeto', 'Definitive strong charm'),
         color: 'purple-500',
         bgColor: 'bg-purple-500',
         borderColor: 'border-purple-500'
@@ -300,9 +300,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 1.0) {
       return {
         type: 'teto' as const,
-        level: '워리어급 테토녀',
+        level: t('analysis.genderLevels.female.warrior', 'Warrior Tough Girl'),
         emoji: '🛡️',
-        description: '전사 같은 카리스마',
+        description: t('analysis.genderLevels.descriptions.female.warrior', 'Warrior-like charisma'),
         color: 'purple-600',
         bgColor: 'bg-purple-600',
         borderColor: 'border-purple-600'
@@ -310,9 +310,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 0.5) {
       return {
         type: 'teto' as const,
-        level: '아마존급 테토녀',
+        level: t('analysis.genderLevels.female.amazon', 'Amazon Tough Girl'),
         emoji: '⚡',
-        description: '신화 속 여전사의 기운',
+        description: t('analysis.genderLevels.descriptions.female.amazon', 'Mythical warrior energy'),
         color: 'purple-700',
         bgColor: 'bg-purple-700',
         borderColor: 'border-purple-700'
@@ -320,9 +320,9 @@ export default function AnalyzePage() {
     } else if (femaleScore >= 0.0) {
       return {
         type: 'teto' as const,
-        level: '원더우먼급 테토녀',
+        level: t('analysis.genderLevels.female.wonderwoman', 'Wonder Woman Tough Girl'),
         emoji: '🦾',
-        description: '강철같은 여성 파워',
+        description: t('analysis.genderLevels.descriptions.female.wonderwoman', 'Steel-like feminine power'),
         color: 'purple-800',
         bgColor: 'bg-purple-800',
         borderColor: 'border-purple-800'
@@ -330,9 +330,9 @@ export default function AnalyzePage() {
     } else {
       return {
         type: 'teto' as const,
-        level: '극강 테토녀',
+        level: t('analysis.genderLevels.female.extreme', 'Extreme Tough Girl'),
         emoji: '💥',
-        description: '압도적인 강인함!',
+        description: t('analysis.genderLevels.descriptions.female.extreme', 'Overwhelming strength!'),
         color: 'purple-900',
         bgColor: 'bg-purple-900',
         borderColor: 'border-purple-900'
@@ -794,13 +794,13 @@ export default function AnalyzePage() {
         link.click();
         
         analytics.trackResultShare('download', selectedAnalysis);
-        setToast({ message: '이미지가 다운로드되었습니다!', type: 'success' });
+        setToast({ message: t('results.imageDownloaded'), type: 'success' });
       } else {
-        setToast({ message: '결과를 찾을 수 없습니다.', type: 'error' });
+        setToast({ message: t('errors.noResultsFound'), type: 'error' });
       }
     } catch (error) {
       console.error('Screenshot failed:', error);
-      setToast({ message: '이미지 생성에 실패했습니다.', type: 'error' });
+      setToast({ message: t('errors.imageGenerationFailed'), type: 'error' });
     }
   };
 
@@ -961,15 +961,15 @@ export default function AnalyzePage() {
       }
       
       // Determine share text based on analysis type
-      let shareText = 'AI 얼굴 분석 결과를 확인해보세요!';
+      let shareText = t('share.defaultText');
       if (selectedAnalysis === 'parent-child') {
-        shareText = '부모와 자녀 닮음 분석 결과를 확인해보세요!';
+        shareText = t('share.shareTexts.shareResultParent');
       } else if (selectedAnalysis === 'age-estimation') {
-        shareText = '나이 맞히기 AI 분석 결과를 확인해보세요!';
+        shareText = t('share.shareTexts.shareResultAge');
       } else if (selectedAnalysis === 'gender-estimation') {
-        shareText = '에겐/테토 분석 결과를 확인해보세요!';
+        shareText = t('share.shareTexts.shareResultGender');
       } else if (selectedAnalysis === 'who-most-similar') {
-        shareText = '부모 찾기 AI 분석 결과를 확인해보세요!';
+        shareText = t('share.shareTexts.shareResultSimilar');
       }
       
       if (navigator.share) {
@@ -1007,7 +1007,7 @@ export default function AnalyzePage() {
       } else {
         // Fallback to clipboard copy
         await navigator.clipboard.writeText(currentUrl);
-        setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+        setToast({ message: t('actions.linkCopied'), type: 'success' });
         analytics.trackResultShare('clipboard', selectedAnalysis);
       }
     } catch (error: any) {
@@ -1016,7 +1016,7 @@ export default function AnalyzePage() {
         // Fallback to clipboard copy
         try {
           await navigator.clipboard.writeText(currentUrl);
-          setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+          setToast({ message: t('actions.linkCopied'), type: 'success' });
           analytics.trackResultShare('clipboard', selectedAnalysis);
         } catch (clipError) {
           setToast({ message: '공유에 실패했습니다.', type: 'error' });
@@ -1339,7 +1339,7 @@ export default function AnalyzePage() {
   const childAge = familyResult?.child_face?.age;
   
   // 스마트 점수 보정 시스템 적용 (연령 정보 포함)
-  const familyMessage = familyResult ? getFamilySimilarityMessage(familyResult.similarity, parentAge, childAge) : null;
+  const familyMessage = familyResult ? getFamilySimilarityMessageWithTranslation(familyResult.similarity, parentAge, childAge, t) : null;
   const displayConfidence = familyResult ? (familyResult.confidence * 100).toFixed(1) : "0";
   
   // 디버깅 로그
@@ -1387,9 +1387,9 @@ export default function AnalyzePage() {
                   const currentUrl = window.location.href;
                   try {
                     await navigator.clipboard.writeText(currentUrl);
-                    setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                    setToast({ message: t('actions.linkCopied'), type: 'success' });
                   } catch (err) {
-                    setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                    setToast({ message: t('actions.linkCopyFailed'), type: 'error' });
                   }
                 }}
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium flex items-center gap-2"
@@ -1397,19 +1397,19 @@ export default function AnalyzePage() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
-                링크 복사
+{t('actions.copyLink')}
               </button>
               
               <button
                 onClick={() => {
                   const currentUrl = window.location.href;
                   const text = selectedAnalysis === 'age-estimation' 
-                    ? '나이 맞히기 AI 분석 해보세요!' 
+                    ? t('share.shareTexts.ageEstimation')
                     : selectedAnalysis === 'gender-estimation'
-                    ? '에겐/테토 분석 해보세요!'
+                    ? t('share.shareTexts.genderEstimation')
                     : selectedAnalysis === 'who-most-similar'
-                    ? '가장 닮은 사람 찾기 AI 분석!'
-                    : '얼굴 닮은꼴 테스트!';
+                    ? t('share.shareTexts.whoMostSimilar')
+                    : t('share.shareTexts.parentChild');
                   
                   if (navigator.share) {
                     navigator.share({
@@ -1426,7 +1426,7 @@ export default function AnalyzePage() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m9.032 4.026a9.001 9.001 0 01-7.432 0m9.032-4.026A9.001 9.001 0 0112 3c-4.474 0-8.268 3.12-9.032 7.326m0 0A9.001 9.001 0 0012 21c4.474 0 8.268-3.12 9.032-7.326" />
                 </svg>
-                공유하기
+{t('results.shareResult')}
               </button>
             </div>
           </div>
@@ -1729,8 +1729,8 @@ export default function AnalyzePage() {
                 <>
                 <AnalysisResultWrapper
                   type="parent-child"
-                  title="AI 얼굴 분석 : 닮은꼴 테스트 결과"
-                  subtitle="두 사람의 닮음 정도를 분석했습니다"
+                  title={t('results.similarityTestTitle')}
+                  subtitle={t('results.similarityTestSubtitle')}
                 >
                   <ParentChildResult
                     parentImage={parentImage}
@@ -1749,9 +1749,9 @@ export default function AnalyzePage() {
                       const analysisUrl = getAnalysisUrl('parent-child');
                       try {
                         await navigator.clipboard.writeText(analysisUrl);
-                        setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                        setToast({ message: t('actions.linkCopied'), type: 'success' });
                       } catch (err) {
-                        setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                        setToast({ message: t('actions.linkCopyFailed'), type: 'error' });
                       }
                     }}
                   />
@@ -1872,8 +1872,8 @@ export default function AnalyzePage() {
                 <>
                 <AnalysisResultWrapper
                   type="find-parents"
-                  title="AI 얼굴 분석 : 부모 찾기 결과"
-                  subtitle="가장 닮은 사람을 찾았습니다"
+                  title={t('analysis.results.findParentsTitle')}
+                  subtitle={t('analysis.results.findParentsSubtitle')}
                 >
                   <FindParentsResult
                     childImage={targetChildImage}
@@ -1889,9 +1889,9 @@ export default function AnalyzePage() {
                       const analysisUrl = getAnalysisUrl('who-most-similar');
                       try {
                         await navigator.clipboard.writeText(analysisUrl);
-                        setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                        setToast({ message: t('actions.linkCopied'), type: 'success' });
                       } catch (err) {
-                        setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                        setToast({ message: t('actions.linkCopyFailed'), type: 'error' });
                       }
                     }}
                   />
@@ -1909,10 +1909,10 @@ export default function AnalyzePage() {
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
                   <div className="text-center mb-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      나이를 맞춰보세요!
+                      {t('analysis.ageEstimation.title')}
                     </h3>
                     <p className="text-gray-600">
-                      AI가 사진 속 얼굴의 나이를 예측합니다
+                      {t('analysis.ageEstimation.description')}
                     </p>
                   </div>
                   
@@ -1924,7 +1924,7 @@ export default function AnalyzePage() {
                       }}
                       onImageRemove={() => setAgeImage(null)}
                       uploadedImage={ageImage || undefined}
-                      label="나이를 맞출 사진 업로드"
+                      label={t('analysis.upload.agePhotoLabel')}
                     />
                   </div>
 
@@ -1947,10 +1947,10 @@ export default function AnalyzePage() {
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                           </svg>
-                          나이 예측 중...
+                          {t('analysis.ageEstimation.analyzing')}
                         </span>
                       ) : (
-                        '나이 맞히기 시작!'
+                        t('analysis.ageEstimation.startButton')
                       )}
                     </button>
                   </div>
@@ -1969,8 +1969,8 @@ export default function AnalyzePage() {
                 <>
                 <AnalysisResultWrapper
                   type="age"
-                  title="AI 얼굴 분석 : 나이 맞히기 결과"
-                  subtitle="AI가 예측한 나이입니다"
+                  title={t('results.ageAnalysisTitle')}
+                  subtitle={t('results.ageAnalysisSubtitle')}
                 >
                   <AgeEstimationResult
                     image={ageImage}
@@ -1986,9 +1986,9 @@ export default function AnalyzePage() {
                       const analysisUrl = getAnalysisUrl('age-estimation');
                       try {
                         await navigator.clipboard.writeText(analysisUrl);
-                        setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                        setToast({ message: t('actions.linkCopied'), type: 'success' });
                       } catch (err) {
-                        setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                        setToast({ message: t('actions.linkCopyFailed'), type: 'error' });
                       }
                     }}
                   />
@@ -2006,10 +2006,10 @@ export default function AnalyzePage() {
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
                   <div className="text-center mb-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      에겐/테토 분석
+                      {t('analysis.genderEstimation.title')}
                     </h3>
                     <p className="text-gray-600">
-                      AI가 얼굴 특징으로 스타일을 분석합니다
+                      {t('analysis.genderEstimation.description')}
                     </p>
                   </div>
                   
@@ -2021,7 +2021,7 @@ export default function AnalyzePage() {
                       }}
                       onImageRemove={() => setGenderImage(null)}
                       uploadedImage={genderImage || undefined}
-                      label="스타일을 측정할 사진 업로드"
+                      label={t('analysis.upload.stylePhotoLabel')}
                     />
                   </div>
 
@@ -2044,10 +2044,10 @@ export default function AnalyzePage() {
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                           </svg>
-                          스타일 분석 중...
+                          {t('analysis.genderEstimation.analyzing')}
                         </span>
                       ) : (
-                        '스타일 측정 시작!'
+                        t('analysis.genderEstimation.startButton')
                       )}
                     </button>
                   </div>
@@ -2103,15 +2103,15 @@ export default function AnalyzePage() {
                 
                 // 성별에 따른 제목
                 const title = isMale 
-                  ? "에겐남/테토남 AI 분석 결과"
-                  : "에겐녀/테토녀 AI 분석 결과";
+                  ? t('results.genderMaleTitle')
+                  : t('results.genderFemaleTitle');
                 
                 return (
                   <>
                   <AnalysisResultWrapper
                     type="gender"
                     title={title}
-                    subtitle="AI가 분석한 당신의 스타일입니다"
+                    subtitle={t('results.genderAnalysisSubtitle')}
                   >
                     <GenderStyleResult
                       image={genderImage}
@@ -2128,9 +2128,9 @@ export default function AnalyzePage() {
                         const analysisUrl = getAnalysisUrl('gender-estimation');
                         try {
                           await navigator.clipboard.writeText(analysisUrl);
-                          setToast({ message: '링크가 복사되었습니다!', type: 'success' });
+                          setToast({ message: t('actions.linkCopied'), type: 'success' });
                         } catch (err) {
-                          setToast({ message: '링크 복사에 실패했습니다.', type: 'error' });
+                          setToast({ message: t('actions.linkCopyFailed'), type: 'error' });
                         }
                       }}
                     />

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenGraph 메타 태그 테스트</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        h1 {
+            color: #1a202c;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .test-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .test-link:hover {
+            background: #2563eb;
+        }
+        .preview {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 6px;
+        }
+        .preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.success {
+            background: #10b981;
+            color: white;
+        }
+        .status.warning {
+            background: #f59e0b;
+            color: white;
+        }
+        .instructions {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #92400e;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .tool-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .tool-card h3 {
+            margin-top: 0;
+            color: #374151;
+        }
+        .tool-card a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        .tool-card a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 FaceFalcon OpenGraph 메타 태그 테스트</h1>
+    
+    <div class="instructions">
+        <h3>📝 테스트 방법</h3>
+        <ol>
+            <li><strong>ngrok 사용:</strong> <code>ngrok http 3000</code> 실행 후 생성된 URL 사용</li>
+            <li><strong>Vercel Preview:</strong> Git push 후 Vercel Preview URL 사용</li>
+            <li><strong>실제 배포:</strong> 프로덕션 배포 후 테스트</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>📱 카톡 공유 테스트 링크</h2>
+        <p>아래 링크들을 카톡으로 공유해서 메타 태그가 제대로 나오는지 확인하세요:</p>
+        
+        <div style="margin: 20px 0;">
+            <a href="/analyze" class="test-link">🤖 기본 분석 페이지</a>
+            <a href="/analyze?type=parent-child" class="test-link">💯 닮은꼴 테스트</a>
+            <a href="/analyze?type=age" class="test-link">🎂 나이 맞히기</a>
+            <a href="/analyze?type=gender" class="test-link">🧔 에겐/테토</a>
+            <a href="/analyze?type=find-parents" class="test-link">🏆 부모 찾기</a>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🖼️ OpenGraph 이미지 미리보기</h2>
+        <div class="tools-grid">
+            <div class="preview">
+                <h4>기본 분석</h4>
+                <img src="/og/analyze-default.svg" alt="기본 분석">
+                <p><span class="status success">SVG</span> /og/analyze-default.svg</p>
+            </div>
+            <div class="preview">
+                <h4>닮은꼴 테스트</h4>
+                <img src="/og/analyze-parent-child.svg" alt="닮은꼴 테스트">
+                <p><span class="status success">SVG</span> /og/analyze-parent-child.svg</p>
+            </div>
+            <div class="preview">
+                <h4>나이 맞히기</h4>
+                <img src="/og/analyze-age.svg" alt="나이 맞히기">
+                <p><span class="status success">SVG</span> /og/analyze-age.svg</p>
+            </div>
+            <div class="preview">
+                <h4>에겐/테토</h4>
+                <img src="/og/analyze-gender.svg" alt="에겐/테토">
+                <p><span class="status success">SVG</span> /og/analyze-gender.svg</p>
+            </div>
+            <div class="preview">
+                <h4>부모 찾기</h4>
+                <img src="/og/analyze-find-parents.svg" alt="부모 찾기">
+                <p><span class="status success">SVG</span> /og/analyze-find-parents.svg</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🛠️ 디버깅 도구</h2>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3>카카오 디버거</h3>
+                <p>카카오톡 공유 디버깅 전용 도구</p>
+                <a href="https://developers.kakao.com/tool/debugger/sharing" target="_blank">
+                    https://developers.kakao.com/tool/debugger/sharing
+                </a>
+                <p style="margin-top: 10px; font-size: 14px; color: #6b7280;">
+                    💡 캐시 초기화 기능 제공
+                </p>
+            </div>
+            <div class="tool-card">
+                <h3>Facebook 디버거</h3>
+                <p>OpenGraph 태그 검증 (카톡과 유사)</p>
+                <a href="https://developers.facebook.com/tools/debug/" target="_blank">
+                    https://developers.facebook.com/tools/debug/
+                </a>
+                <p style="margin-top: 10px; font-size: 14px; color: #6b7280;">
+                    💡 상세한 오류 메시지 제공
+                </p>
+            </div>
+            <div class="tool-card">
+                <h3>OpenGraph.xyz</h3>
+                <p>실시간 미리보기 제공</p>
+                <a href="https://www.opengraph.xyz/" target="_blank">
+                    https://www.opengraph.xyz/
+                </a>
+                <p style="margin-top: 10px; font-size: 14px; color: #6b7280;">
+                    💡 여러 플랫폼 미리보기
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 ngrok 사용법</h2>
+        <div class="code-block">
+# 1. ngrok 설치 (한 번만)
+npm install -g ngrok
+
+# 2. Next.js 개발 서버 실행
+npm run dev
+
+# 3. 새 터미널에서 ngrok 실행
+ngrok http 3000
+
+# 4. 생성된 https URL 복사 (예: https://abc123.ngrok.io)
+# 5. 카카오 디버거에 URL 입력하여 테스트
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>✅ 체크리스트</h2>
+        <ul>
+            <li>□ 이미지가 제대로 표시되는가?</li>
+            <li>□ 제목(title)이 올바르게 나오는가?</li>
+            <li>□ 설명(description)이 잘려서 나오지 않는가?</li>
+            <li>□ 이모지가 제대로 표시되는가?</li>
+            <li>□ 각 타입별로 다른 이미지와 문구가 나오는가?</li>
+            <li>□ URL이 올바르게 설정되었는가?</li>
+        </ul>
+    </div>
+
+    <script>
+        // 현재 메타 태그 확인
+        document.addEventListener('DOMContentLoaded', function() {
+            const metaTags = document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]');
+            if (metaTags.length > 0) {
+                console.log('OpenGraph 메타 태그 발견:');
+                metaTags.forEach(tag => {
+                    const property = tag.getAttribute('property') || tag.getAttribute('name');
+                    const content = tag.getAttribute('content');
+                    console.log(`${property}: ${content}`);
+                });
+            } else {
+                console.log('이 페이지에는 OpenGraph 메타 태그가 없습니다.');
+                console.log('실제 /analyze 페이지에서 테스트하세요.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -33,7 +33,7 @@ export default function GenderStyleResult({
         <div className="relative w-48 h-48 mx-auto">
           <Image
             src={image.preview}
-            alt={t('analysis.results.analyzedPhoto')}
+            alt={t('results.analyzedPhoto')}
             fill
             className="object-contain rounded-xl border-2 border-gray-200 bg-gray-50"
           />
@@ -115,7 +115,7 @@ export default function GenderStyleResult({
       {age && age < 20 && (
         <div className="bg-orange-50 rounded-lg p-3 mb-6">
           <p className="text-xs text-orange-600">
-            ⚠️ {t('analysis.results.growthPeriodWarning')}
+            ⚠️ {t('results.growthPeriodWarning')}
           </p>
         </div>
       )}

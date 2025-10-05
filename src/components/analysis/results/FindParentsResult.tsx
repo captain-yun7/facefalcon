@@ -104,7 +104,7 @@ export default function FindParentsResult({
                 <div className="relative w-16 h-16 flex-shrink-0">
                   <Image
                     src={candidateImages[result.imageIndex]?.preview || ''}
-                    alt={`후보 ${index + 1}`}
+                    alt={t('analysis.results.candidate', { number: result.imageIndex + 1 })}
                     fill
                     className="object-contain rounded-lg border-2 border-gray-200 bg-gray-50"
                   />
