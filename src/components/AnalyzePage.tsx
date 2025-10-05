@@ -1510,9 +1510,9 @@ export default function AnalyzePage() {
                 
                 <div className="flex items-center justify-between relative">
                   {selectedOption ? (
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2 md:space-x-3">
                       <div className={`
-                        w-10 h-10 rounded-lg flex items-center justify-center
+                        w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center flex-shrink-0
                         ${selectedOption.color === 'blue' ? 'bg-blue-500 text-white' : 
                           selectedOption.color === 'green' ? 'bg-green-500 text-white' : 
                           selectedOption.color === 'purple' ? 'bg-purple-500 text-white' :
@@ -1522,8 +1522,8 @@ export default function AnalyzePage() {
                         {selectedOption.icon}
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-900">{selectedOption.title}</div>
-                        <div className="text-sm text-gray-600">{selectedOption.description}</div>
+                        <div className="font-semibold text-gray-900 text-sm md:text-base leading-tight">{selectedOption.title}</div>
+                        <div className="text-xs md:text-sm text-gray-600 leading-normal break-words whitespace-normal max-w-full">{selectedOption.description}</div>
                       </div>
                     </div>
                   ) : (
@@ -1560,14 +1560,14 @@ export default function AnalyzePage() {
                       onClick={() => !option.disabled && handleAnalysisChange(option.value)}
                       disabled={option.disabled}
                       className={`
-                        w-full p-4 text-left transition-all duration-200 border-b border-gray-100 last:border-b-0
+                        w-full p-3 md:p-4 text-left transition-all duration-200 border-b border-gray-100 last:border-b-0
                         ${option.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:scale-[1.02] hover:shadow-md'}
                         ${selectedAnalysis === option.value ? 'bg-gradient-to-r from-blue-50 to-purple-50' : ''}
                       `}
                     >
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-2 md:space-x-3">
                         <div className={`
-                          w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0
+                          w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center flex-shrink-0
                           ${option.color === 'blue' ? 'bg-blue-500 text-white' : 
                             option.color === 'green' ? 'bg-green-500 text-white' : 
                             option.color === 'purple' ? 'bg-purple-500 text-white' :
@@ -1578,10 +1578,10 @@ export default function AnalyzePage() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-semibold text-gray-900">{option.title}</span>
+                            <span className="font-semibold text-gray-900 text-sm md:text-base leading-tight">{option.title}</span>
                             {option.isPopular && (
                               <span 
-                                className="inline-block px-2 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse"
+                                className="inline-block px-1.5 py-0.5 md:px-2 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse"
                                 style={{
                                   transform: 'rotate(-5deg)',
                                 }}
@@ -1590,7 +1590,7 @@ export default function AnalyzePage() {
                               </span>
                             )}
                           </div>
-                          <div className="text-sm text-gray-600">{option.description}</div>
+                          <div className="text-xs md:text-sm text-gray-600 leading-normal break-words whitespace-normal max-w-full">{option.description}</div>
                         </div>
                         {option.disabled && (
                           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-200 text-gray-600">
@@ -1773,14 +1773,14 @@ export default function AnalyzePage() {
 
                   {/* Candidate Images */}
                   <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-                    <h3 className="text-lg font-medium text-gray-900 mb-6 text-center">
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-6 text-center">
                       {t('whoMostSimilarAnalysis.uploadCandidates')}
                     </h3>
                     
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6">
                       {candidateImages.map((image, index) => (
                         <div key={index} className="relative">
-                          <div className="relative aspect-square w-full">
+                          <div className="relative h-48 sm:aspect-square w-full">
                             <Image
                               src={image.preview}
                               alt={`Candidate ${index + 1}`}
@@ -1797,12 +1797,12 @@ export default function AnalyzePage() {
                               </svg>
                             </button>
                           </div>
-                          <p className="text-sm text-gray-600 text-center mt-2">{t('whoMostSimilarAnalysis.candidate', { number: index + 1 })}</p>
+                          <p className="text-xs sm:text-sm text-gray-600 text-center mt-2">{t('whoMostSimilarAnalysis.candidate', { number: index + 1 })}</p>
                         </div>
                       ))}
                       
                       {candidateImages.length < 6 && (
-                        <div className="aspect-square">
+                        <div className="h-48 sm:aspect-square">
                           <ImageUploader
                             onImageUpload={handleAddCandidate}
                             label={t('whoMostSimilarAnalysis.candidate', { number: candidateImages.length + 1 })}
@@ -1812,7 +1812,7 @@ export default function AnalyzePage() {
                       )}
                     </div>
                     
-                    <p className="text-center text-sm text-gray-600">
+                    <p className="text-center text-xs sm:text-sm text-gray-600">
                       {t('whoMostSimilarAnalysis.candidateCount', { count: candidateImages.length })}
                       {candidateImages.length < 2 && t('whoMostSimilarAnalysis.candidateMinRequired')}
                     </p>

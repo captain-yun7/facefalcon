@@ -135,16 +135,6 @@ export default function FindParentsResult({
         </div>
       </div>
 
-      {/* 분석 요약 */}
-      <div className="mt-8 p-4 bg-blue-50 rounded-xl max-w-md mx-auto text-center">
-        <p className="text-gray-700 whitespace-nowrap">
-          총 <span className="font-bold">{candidateImages.length}명</span> 중에서{' '}
-          <span className="font-bold text-blue-600">
-            후보 {bestMatch ? bestMatch.imageIndex + 1 : '-'}번
-          </span>
-          이 가장 높은 유사도를 보였습니다!
-        </p>
-      </div>
     </>
   );
 }
