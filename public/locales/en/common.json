@@ -17,12 +17,12 @@
     "subtitle": "Please select your preferred analysis type",
     "placeholder": "Select analysis type",
     "parentChild": {
-      "title": "AI Face Analysis : Paternity Test",
-      "description": "Compare parent and child photos to analyze similarity"
+      "title": "AI Face Analysis : Similarity Test",
+      "description": "Compare two people's photos to analyze similarity"
     },
     "whoMostSimilar": {
-      "title": "AI Face Analysis : Find Parent",
-      "description": "Compare a child with multiple candidates to find the most similar person"
+      "title": "AI Face Analysis : Find Most Similar",
+      "description": "Compare one person with multiple candidates to find the most similar person"
     },
     "ageEstimation": {
       "title": "AI Face Analysis : Age Estimation",
@@ -39,33 +39,33 @@
     }
   },
   "parentChildAnalysis": {
-    "title": "Parent-Child Similarity Analysis",
-    "parentPhoto": "Parent Photo",
-    "childPhoto": "Child Photo",
-    "uploadParent": "Upload Parent Photo",
-    "uploadChild": "Upload Child Photo",
+    "title": "Face Similarity Analysis",
+    "parentPhoto": "First Photo",
+    "childPhoto": "Second Photo",
+    "uploadParent": "Upload First Photo",
+    "uploadChild": "Upload Second Photo",
     "analyzeButton": "Start Similarity Analysis",
     "analyzing": "AI Analyzing..."
   },
   "whoMostSimilarAnalysis": {
-    "title": "Find Parent",
-    "uploadChild": "Upload child's photo",
-    "uploadChildLabel": "Upload Child Photo",
+    "title": "Find Most Similar Person",
+    "uploadChild": "Upload reference photo",
+    "uploadChildLabel": "Upload Reference Photo",
     "uploadCandidates": "Upload candidate photos (2-6 people)",
     "candidateCount": "Currently {{count}} candidates registered.",
     "candidateMinRequired": " (minimum 2 required)",
     "candidate": "Candidate {{number}}",
-    "analyzeButton": "Start Finding Parent!",
-    "analyzing": "AI is finding the parent..."
+    "analyzeButton": "Find Most Similar Person!",
+    "analyzing": "AI is finding the most similar person..."
   },
   "results": {
     "analysisComplete": "Analysis Complete",
     "analysisResult": "Analysis Result",
     "similarityResult": "Similarity Analysis Result",
-    "parentFindingResult": "Parent Finding Analysis Result",
+    "parentFindingResult": "Similarity Analysis Result",
     "confidence": "Analysis confidence: {{confidence}}%",
-    "parent": "Parent",
-    "child": "Child",
+    "parent": "First Person",
+    "child": "Second Person",
     "similarity": "Similarity",
     "mostSimilar": "Most Similar Person",
     "ranking": "Overall Ranking",
@@ -75,11 +75,11 @@
     "shareResult": "Share Result",
     "imageDownloaded": "Image downloaded successfully!",
     "resultTitle": "Similarity Result",
-    "parentLabel": "Parent",
-    "childLabel": "Child",
+    "parentLabel": "First Person",
+    "childLabel": "Second Person",
     "similarityTestTitle": "AI Face Analysis: Similarity Test Result",
     "similarityTestSubtitle": "We've analyzed the similarity between two people",
-    "findParentsTitle": "AI Face Analysis: Find Parent Result", 
+    "findParentsTitle": "AI Face Analysis: Find Most Similar Result", 
     "findParentsSubtitle": "Found the most similar person",
     "ageAnalysisTitle": "AI Face Analysis: Age Prediction Result",
     "ageAnalysisSubtitle": "AI predicted age",
@@ -136,8 +136,8 @@
       "parentChild": "Try face similarity test!",
       "shareResultAge": "Check out the age prediction AI analysis results!",
       "shareResultGender": "Check out the Soft/Tough analysis results!",
-      "shareResultSimilar": "Check out the parent finding AI analysis results!",
-      "shareResultParent": "Check out the parent and child similarity analysis results!"
+      "shareResultSimilar": "Check out the similarity analysis results!",
+      "shareResultParent": "Check out the face similarity analysis results!"
     },
     "defaultText": "Check out the AI face analysis results!"
   },
@@ -166,8 +166,8 @@
       "subtitle": "A developer who creates fun services using AI and web technologies",
       "projectStory": {
         "title": "How did this project start?",
-        "content1": "\"Who does our child look more like?\" - It started with a question that all parents wonder about at some point. I wanted to solve simple curiosity with AI technology and create a web service that families could use for fun.",
-        "content2": "During the development process, I tested various face recognition APIs and considered user experience to complete the current service. Seeing many families use it every day, I feel that technology can add fun to everyday life."
+        "content1": "\"How similar do we look?\" - It started with a question that everyone wonders about at some point. I wanted to solve simple curiosity with AI technology and create a web service that people could use for fun.",
+        "content2": "During the development process, I tested various face recognition APIs and considered user experience to complete the current service. Seeing many people use it every day, I feel that technology can add fun to everyday life."
       },
       "techStack": {
         "title": "Tech Stack Used",
@@ -230,7 +230,7 @@
         "title": "How the Service Works",
         "step1": {
           "title": "Upload Images",
-          "description": "Upload front-facing photos of parent and child respectively."
+          "description": "Upload front-facing photos of two people you want to compare."
         },
         "step2": {
           "title": "AI Analysis",
@@ -261,19 +261,19 @@
       }
     },
     "analyze": {
-      "parentPhoto": "Parent Photo",
-      "childPhoto": "Child Photo",
-      "uploadChild": "Upload child's photo",
+      "parentPhoto": "First Photo",
+      "childPhoto": "Second Photo",
+      "uploadChild": "Upload reference photo",
       "uploadCandidates": "Upload candidate photos (2-6 people)",
       "candidateCount": "Currently {{count}} candidates registered.",
       "candidate": "Candidate {{number}}",
       "analysisCompleted": "Analysis Complete",
       "similarityResult": "Similarity Result",
-      "parentFindingResult": "Parent Finding Analysis Result",
+      "parentFindingResult": "Similarity Analysis Result",
       "confidence": "Analysis confidence: {{confidence}}%",
-      "parent": "Parent",
-      "child": "Child",
-      "childLabel": "Child",
+      "parent": "First Person",
+      "child": "Second Person",
+      "childLabel": "Second Person",
       "similarity": "Similarity",
       "mostSimilarPerson": "Most Similar Person",
       "overallRanking": "Overall Ranking",
@@ -282,9 +282,9 @@
       "downloadImage": "Download Image",
       "shareResult": "Share Result",
       "analyzing": "AI Analyzing...",
-      "findingParent": "AI is finding the parent...",
+      "findingParent": "AI is finding the most similar person...",
       "startAnalysis": "Start Similarity Analysis",
-      "startFindingParent": "Start Finding Parent!"
+      "startFindingParent": "Find Most Similar Person!"
     }
   },
   "guide": {
@@ -388,7 +388,7 @@
       },
       "q5": {
         "question": "Q. What relationships can be compared?",
-        "answer": "You can compare people of all relationships including family (parent-child, siblings), friends, couples, celebrity look-alikes, etc. It objectively analyzes facial similarity between two people."
+        "answer": "You can compare people of all relationships including family (siblings, relatives), friends, couples, celebrity look-alikes, etc. It objectively analyzes facial similarity between two people."
       },
       "q6": {
         "question": "Q. The analysis failed. What should I do?",
@@ -446,7 +446,7 @@
     "services": {
       "title": "Services",
       "familyAnalysis": "Face Similarity Test",
-      "multipleComparison": "Find Most Similar",
+      "multipleComparison": "Find Most Similar Person",
       "ageAnalysis": "Age Prediction",
       "genderAnalysis": "Soft/Tough Style Analysis"
     },
@@ -546,7 +546,7 @@
       "growthPeriodWarning": "Still in growth period, high possibility of change later",
       "ageAnalysisTitle": "AI Face Analysis: Age Prediction Result",
       "ageAnalysisSubtitle": "AI predicted age",
-      "findParentsTitle": "AI Face Analysis: Find Parent Result",
+      "findParentsTitle": "AI Face Analysis: Find Most Similar Result",
       "findParentsSubtitle": "Found the most similar person"
     },
     "upload": {
@@ -706,7 +706,7 @@
       "common": {
         "description": "Try AI similarity tests, age prediction, and Soft/Tough analysis for free"
       },
-      "keywords": "AI face analysis,face similarity,similarity test,age prediction,soft guy,tough guy,soft girl,tough girl,facial similarity,parent finding"
+      "keywords": "AI face analysis,face similarity,similarity test,age prediction,soft guy,tough guy,soft girl,tough girl,facial similarity,face matching"
     }
   },
   "privacyDisclaimer": {
