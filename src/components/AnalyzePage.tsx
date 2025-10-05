@@ -59,6 +59,19 @@ export default function AnalyzePage() {
   const [error, setError] = useState<string>("");
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
 
+  // Get analysis duration based on analysis type
+  const getAnalysisDuration = (analysisType: AnalysisType): number => {
+    switch (analysisType) {
+      case 'parent-child': // 얼굴 닮은꼴 테스트
+      case 'who-most-similar': // 가장 닮은 사람 찾기
+        return 10;
+      case 'age-estimation': // 나이 분석
+      case 'gender-estimation': // 성별 스타일 분석
+      default:
+        return 5;
+    }
+  };
+
   // Gender style classification functions
   const getAgeAdjustment = (age: number): number => {
     if (age < 10) return 2.0;
@@ -1707,7 +1720,7 @@ export default function AnalyzePage() {
               {/* 광고 화면 */}
               {!familyResult && showAdScreen && (
                 <div className="mb-8">
-                  <AnalyzingAdScreen onComplete={handleAdComplete} />
+                  <AnalyzingAdScreen onComplete={handleAdComplete} duration={getAnalysisDuration(selectedAnalysis)} />
                 </div>
               )}
 
@@ -1785,7 +1798,7 @@ export default function AnalyzePage() {
                               src={image.preview}
                               alt={`Candidate ${index + 1}`}
                               fill
-                              className="object-cover rounded-lg border-2 border-gray-200"
+                              className="object-contain rounded-lg border-2 border-gray-200 bg-gray-50"
                             />
                             <button
                               onClick={() => handleRemoveCandidate(index)}
@@ -1850,7 +1863,7 @@ export default function AnalyzePage() {
               {/* 광고 화면 */}
               {!showComparisonResults && showAdScreen && (
                 <div className="mb-8">
-                  <AnalyzingAdScreen onComplete={handleAdComplete} />
+                  <AnalyzingAdScreen onComplete={handleAdComplete} duration={getAnalysisDuration(selectedAnalysis)} />
                 </div>
               )}
 
@@ -1947,7 +1960,7 @@ export default function AnalyzePage() {
               {/* 광고 화면 */}
               {!ageResult && showAdScreen && (
                 <div className="mb-8">
-                  <AnalyzingAdScreen onComplete={handleAdComplete} />
+                  <AnalyzingAdScreen onComplete={handleAdComplete} duration={getAnalysisDuration(selectedAnalysis)} />
                 </div>
               )}
 
@@ -2044,7 +2057,7 @@ export default function AnalyzePage() {
               {/* 광고 화면 */}
               {!genderResult && showAdScreen && (
                 <div className="mb-8">
-                  <AnalyzingAdScreen onComplete={handleAdComplete} />
+                  <AnalyzingAdScreen onComplete={handleAdComplete} duration={getAnalysisDuration(selectedAnalysis)} />
                 </div>
               )}
 

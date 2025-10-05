@@ -37,7 +37,7 @@ export default function FindParentsResult({
                   src={childImage.preview}
                   alt="기준 사람"
                   fill
-                  className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+                  className="object-contain rounded-lg border-2 border-gray-200 shadow-sm bg-gray-50"
                 />
               </div>
               <span className="text-sm text-gray-600 font-medium whitespace-nowrap">기준 사람</span>
@@ -58,7 +58,7 @@ export default function FindParentsResult({
                   src={candidateImages[bestMatch.imageIndex]?.preview || ''}
                   alt="가장 닮은 사람"
                   fill
-                  className="object-cover rounded-lg border-3 border-green-500 shadow-lg"
+                  className="object-contain rounded-lg border-3 border-green-500 shadow-lg bg-gray-50"
                 />
                 <div className="absolute -top-2 -right-2 bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
                   1
@@ -104,7 +104,7 @@ export default function FindParentsResult({
                     src={candidateImages[result.imageIndex]?.preview || ''}
                     alt={`후보 ${index + 1}`}
                     fill
-                    className="object-cover rounded-lg border-2 border-gray-200"
+                    className="object-contain rounded-lg border-2 border-gray-200 bg-gray-50"
                   />
                 </div>
 

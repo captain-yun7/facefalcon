@@ -33,7 +33,7 @@ export default function GenderStyleResult({
             src={image.preview}
             alt="분석된 사진"
             fill
-            className="object-cover rounded-xl border-2 border-gray-200"
+            className="object-contain rounded-xl border-2 border-gray-200 bg-gray-50"
           />
         </div>
       </div>

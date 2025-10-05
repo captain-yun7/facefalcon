@@ -90,7 +90,7 @@ export default function ImageUploader({
             src={uploadedImage.preview}
             alt="Uploaded image"
             fill
-            className="object-cover rounded-lg border-2 border-gray-200"
+            className="object-contain rounded-lg border-2 border-gray-200 bg-gray-50"
           />
           <button
             onClick={handleRemove}

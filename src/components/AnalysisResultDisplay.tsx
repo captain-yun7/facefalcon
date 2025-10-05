@@ -98,7 +98,7 @@ export default function AnalysisResultDisplay({
                 src={parentImage.preview}
                 alt={isEnglish ? 'Parent' : '부모'}
                 fill
-                className="object-cover"
+                className="object-contain bg-gray-50"
               />
             </div>
           </div>
@@ -118,7 +118,7 @@ export default function AnalysisResultDisplay({
                 src={childImage.preview}
                 alt={isEnglish ? 'Child' : '자녀'}
                 fill
-                className="object-cover"
+                className="object-contain bg-gray-50"
               />
             </div>
           </div>

@@ -5,11 +5,12 @@ import { useTranslations } from '@/lib/simple-i18n';
 
 interface AnalyzingAdScreenProps {
   onComplete: () => void;
+  duration?: number; // seconds, defaults to 5
 }
 
-export default function AnalyzingAdScreen({ onComplete }: AnalyzingAdScreenProps) {
+export default function AnalyzingAdScreen({ onComplete, duration = 5 }: AnalyzingAdScreenProps) {
   const { t } = useTranslations();
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(duration);
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {

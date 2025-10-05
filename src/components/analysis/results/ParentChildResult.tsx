@@ -35,7 +35,7 @@ export default function ParentChildResult({
               src={parentImage.preview}
               alt="첫 번째 사람"
               fill
-              className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+              className="object-contain rounded-lg border-2 border-gray-200 shadow-sm bg-gray-50"
             />
           </div>
           <span className="text-sm text-gray-600 font-medium">첫 번째 사람</span>
@@ -53,7 +53,7 @@ export default function ParentChildResult({
               src={childImage.preview}
               alt="두 번째 사람"
               fill
-              className="object-cover rounded-lg border-2 border-gray-200 shadow-sm"
+              className="object-contain rounded-lg border-2 border-gray-200 shadow-sm bg-gray-50"
             />
           </div>
           <span className="text-sm text-gray-600 font-medium">두 번째 사람</span>

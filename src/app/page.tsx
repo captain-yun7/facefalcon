@@ -373,7 +373,7 @@ export default function Home() {
           {/* 광고 화면 - 기존 업로드 섹션 자리에 표시 */}
           {!familyResult && showAdScreen && (
             <div className="mb-8">
-              <AnalyzingAdScreen onComplete={handleAdComplete} />
+              <AnalyzingAdScreen onComplete={handleAdComplete} duration={10} />
             </div>
           )}
 
