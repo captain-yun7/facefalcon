@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { UploadedImage } from '@/lib/types';
+import { useTranslations } from '@/lib/simple-i18n';
 
 interface GenderStyleResultProps {
   image: UploadedImage;
@@ -24,6 +25,7 @@ export default function GenderStyleResult({
   age,
   gender = 'male'
 }: GenderStyleResultProps) {
+  const { t } = useTranslations();
   return (
     <>
       {/* 분석된 이미지 */}
@@ -31,7 +33,7 @@ export default function GenderStyleResult({
         <div className="relative w-48 h-48 mx-auto">
           <Image
             src={image.preview}
-            alt="분석된 사진"
+            alt={t('analysis.results.analyzedPhoto')}
             fill
             className="object-contain rounded-xl border-2 border-gray-200 bg-gray-50"
           />
@@ -87,23 +89,23 @@ export default function GenderStyleResult({
             }}
           >
             {gender === 'female'
-              ? (adjustedScore >= 3.5 ? '에겐녀' : '테토녀')
-              : (adjustedScore < 3.0 ? '에겐남' : '테토남')
+              ? (adjustedScore >= 3.5 ? t('analysis.genderLevels.female.egen') : t('analysis.genderLevels.female.teto'))
+              : (adjustedScore < 3.0 ? t('analysis.genderLevels.male.egen') : t('analysis.genderLevels.male.teto'))
             }
           </div>
         </div>
         <div className="flex justify-between mt-2 text-xs text-gray-600">
           {gender === 'female' ? (
             <>
-              <span className="text-pink-600 font-semibold">← 강한 에겐녀</span>
+              <span className="text-pink-600 font-semibold">← {t('analysis.genderLevels.female.strongEgen')}</span>
               <span className="text-gray-500">|</span>
-              <span className="text-purple-600 font-semibold">강한 테토녀 →</span>
+              <span className="text-purple-600 font-semibold">{t('analysis.genderLevels.female.strongTeto')} →</span>
             </>
           ) : (
             <>
-              <span className="text-blue-600 font-semibold">← 강한 에겐남</span>
+              <span className="text-blue-600 font-semibold">← {t('analysis.genderLevels.male.strongEgen')}</span>
               <span className="text-gray-500">|</span>
-              <span className="text-purple-600 font-semibold">강한 테토남 →</span>
+              <span className="text-purple-600 font-semibold">{t('analysis.genderLevels.male.strongTeto')} →</span>
             </>
           )}
         </div>
@@ -113,7 +115,7 @@ export default function GenderStyleResult({
       {age && age < 20 && (
         <div className="bg-orange-50 rounded-lg p-3 mb-6">
           <p className="text-xs text-orange-600">
-            ⚠️ 아직 성장기이므로 추후 변화 가능성이 높습니다
+            ⚠️ {t('analysis.results.growthPeriodWarning')}
           </p>
         </div>
       )}

@@ -12,7 +12,7 @@ import AnalysisResultDisplay from '@/components/AnalysisResultDisplay';
 import Footer from '@/components/Footer';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
-import { getFamilySimilarityMessage } from '@/lib/utils/family-messages';
+import { getFamilySimilarityMessage, getFamilySimilarityMessageWithTranslation } from '@/lib/utils/family-messages';
 import { getSimilarityLevel, formatPercentage } from '@/lib/utils/similarity-calculator';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
 import { useTranslations } from '@/lib/simple-i18n';
@@ -157,7 +157,7 @@ export default function Home() {
   const childAge = familyResult?.child_face?.age;
   
   // 스마트 점수 보정 시스템 적용 (연령 정보 포함)
-  const familyMessage = familyResult ? getFamilySimilarityMessage(familyResult.similarity, parentAge, childAge) : null;
+  const familyMessage = familyResult ? getFamilySimilarityMessageWithTranslation(familyResult.similarity, parentAge, childAge, t) : null;
   const displayConfidence = familyResult ? (familyResult.confidence * 100).toFixed(1) : "0";
   
 
@@ -169,14 +169,14 @@ export default function Home() {
       <div className="container mx-auto px-4 pt-16 pb-24">
         <div className="relative py-16 px-8 text-center">
           <h1 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-8 leading-tight break-keep">
-            AI 얼굴 분석 서비스
+            {t('home.hero.mainTitle')}
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8 rounded-full"></div>
           <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium mb-4 break-keep">
-            얼굴 닮은꼴 테스트부터 나이 맞히기, 에겐/테토 분석까지
+            {t('home.hero.mainSubtitle')}
           </p>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto break-keep">
-            사진만 올리면 AI가 분석해드립니다
+            {t('home.hero.mainDescription')}
           </p>
         </div>
 
@@ -184,10 +184,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto mt-20 mb-16 px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-              실제 분석 결과를 확인해보세요
+              {t('home.showcase.title')}
             </h2>
             <p className="text-lg text-gray-600">
-              AI가 분석한 실제 사용 예시
+              {t('home.showcase.subtitle')}
             </p>
           </div>
           
@@ -206,8 +206,8 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute bottom-4 left-4 right-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-white font-bold text-lg drop-shadow-lg">나이 맞히기</p>
-                    <p className="text-white/90 text-sm drop-shadow-lg">정확한 AI 나이 예측</p>
+                    <p className="text-white font-bold text-lg drop-shadow-lg">{t('home.showcase.ageAnalysis')}</p>
+                    <p className="text-white/90 text-sm drop-shadow-lg">{t('home.showcase.ageAnalysisDesc')}</p>
                   </div>
                 </div>
               </div>
@@ -227,8 +227,8 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute bottom-4 left-4 right-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-white font-bold text-lg drop-shadow-lg">에겐/테토 분석</p>
-                    <p className="text-white/90 text-sm drop-shadow-lg">당신의 스타일을 AI가 분석</p>
+                    <p className="text-white font-bold text-lg drop-shadow-lg">{t('home.showcase.genderAnalysis')}</p>
+                    <p className="text-white/90 text-sm drop-shadow-lg">{t('home.showcase.genderAnalysisDesc')}</p>
                   </div>
                 </div>
               </div>
@@ -244,8 +244,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">100% 무료 서비스</h3>
-            <p className="text-sm text-gray-600 break-keep">유료 결제 없음, 과금 유도 없음<br/>모든 기능을 완전 무료로 이용하세요</p>
+            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">{t('home.features.freeService.title')}</h3>
+            <p className="text-sm text-gray-600 break-keep">{t('home.features.freeService.description')}</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow">
@@ -254,8 +254,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">개인정보 보호</h3>
-            <p className="text-sm text-gray-600 break-keep">개인정보 저장 안함<br/>회원가입 없이 바로 이용 가능</p>
+            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">{t('home.features.privacyProtection.title')}</h3>
+            <p className="text-sm text-gray-600 break-keep">{t('home.features.privacyProtection.description')}</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow">
@@ -264,8 +264,8 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">사진 즉시 삭제</h3>
-            <p className="text-sm text-gray-600 break-keep">분석 후 사진 자동 삭제<br/>어떤 이미지도 저장하지 않습니다</p>
+            <h3 className="text-lg font-bold text-gray-900 mb-2 break-keep">{t('home.features.autoDelete.title')}</h3>
+            <p className="text-sm text-gray-600 break-keep">{t('home.features.autoDelete.description')}</p>
           </div>
         </div>
       </div>

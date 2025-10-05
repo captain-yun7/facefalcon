@@ -31,17 +31,26 @@ const notifyListeners = () => {
 // 번역 파일 로드
 const loadTranslations = async (locale: Locale) => {
   try {
+    console.log('🌍 Loading translations for locale:', locale);
     globalLoading = true;
     notifyListeners();
     
     const response = await fetch(`/locales/${locale}/common.json`);
+    console.log('🌍 Translation fetch response status:', response.status);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch translations: ${response.status}`);
+    }
+    
     const data = await response.json();
+    console.log('🌍 Translation data loaded:', Object.keys(data));
+    console.log('🌍 Sample data - home:', data.home);
     
     globalTranslations = data;
     globalLoading = false;
     notifyListeners();
   } catch (err) {
-    console.error('Translation loading failed:', err);
+    console.error('❌ Translation loading failed:', err);
     globalLoading = false;
     notifyListeners();
   }
@@ -82,6 +91,7 @@ export function useTranslations() {
 
   const t = (key: string, params?: Record<string, string | number>): string => {
     if (!globalTranslations) {
+      console.log('🔍 Translation not loaded yet:', key);
       return key; // 로딩 중이면 키 반환
     }
     
@@ -92,11 +102,13 @@ export function useTranslations() {
       if (value && typeof value === 'object') {
         value = value[k];
       } else {
+        console.log('🔍 Translation key not found:', key, 'at segment:', k);
         return key; // 키를 찾을 수 없으면 키 반환
       }
     }
     
     if (typeof value !== 'string') {
+      console.log('🔍 Translation value is not string:', key, 'value:', value);
       return key;
     }
     

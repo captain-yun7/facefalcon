@@ -410,7 +410,44 @@
       "title": "대표 서비스",
       "subtitle": "두 사람이 얼마나 닮았는지 AI 분석",
       "description": "두 사람의 사진을 업로드하여 닮은 정도를 정확하게 분석해드립니다",
-      "badge": "InsightFace 기반 고정밀 분석 엔진"
+      "badge": "InsightFace 기반 고정밀 분석 엔진",
+      "mainTitle": "AI 얼굴 분석 서비스",
+      "mainSubtitle": "얼굴 닮은꼴 테스트부터 나이 맞히기, 에겐/테토 분석까지",
+      "mainDescription": "사진만 올리면 AI가 분석해드립니다"
+    },
+    "showcase": {
+      "title": "실제 분석 결과를 확인해보세요",
+      "subtitle": "AI가 분석한 실제 사용 예시",
+      "ageAnalysis": "나이 맞히기",
+      "ageAnalysisDesc": "정확한 AI 나이 예측",
+      "genderAnalysis": "에겐/테토 분석",
+      "genderAnalysisDesc": "당신의 스타일을 AI가 분석"
+    },
+    "features": {
+      "freeService": {
+        "title": "100% 무료 서비스",
+        "description": "유료 결제 없음, 과금 유도 없음<br/>모든 기능을 완전 무료로 이용하세요"
+      },
+      "privacyProtection": {
+        "title": "개인정보 보호",
+        "description": "개인정보 저장 안함<br/>회원가입 없이 바로 이용 가능"
+      },
+      "autoDelete": {
+        "title": "사진 즉시 삭제",
+        "description": "분석 후 사진 자동 삭제<br/>어떤 이미지도 저장하지 않습니다"
+      },
+      "aiAnalysis": {
+        "title": "정확한 AI 분석",
+        "description": "최신 InsightFace 기술로 높은 정확도의 얼굴 유사도 분석을 제공합니다"
+      },
+      "multipleMode": {
+        "title": "다양한 분석 모드",
+        "description": "얼굴 닮음 분석부터 여러 사람 중 가장 닮은 사람 찾기까지 지원합니다"
+      },
+      "privacy": {
+        "title": "개인정보 보호",
+        "description": "업로드된 이미지는 분석 후 즉시 삭제되어 개인정보를 안전하게 보호합니다"
+      }
     },
     "upload": {
       "parentPhoto": "첫 번째 사진",
@@ -435,24 +472,88 @@
       "moreFeatures": "누굴 제일 닮았나 찾기, 형제자매 분석 등<br/>다양한 분석 도구를 사용해보세요",
       "viewMore": "더 많은 분석 보러가기 →"
     },
-    "features": {
-      "aiAnalysis": {
-        "title": "정확한 AI 분석",
-        "description": "최신 InsightFace 기술로 높은 정확도의 얼굴 유사도 분석을 제공합니다"
-      },
-      "multipleMode": {
-        "title": "다양한 분석 모드",
-        "description": "얼굴 닮음 분석부터 여러 사람 중 가장 닮은 사람 찾기까지 지원합니다"
-      },
-      "privacy": {
-        "title": "개인정보 보호",
-        "description": "업로드된 이미지는 분석 후 즉시 삭제되어 개인정보를 안전하게 보호합니다"
-      }
-    },
     "devCta": {
       "title": "이 서비스가 마음에 드시나요?",
       "description": "AI 이미지 모델과 웹 기술을 활용해 만든 프로젝트입니다",
       "link": "개발자 소개"
+    }
+  },
+  "analysis": {
+    "results": {
+      "firstPerson": "첫 번째 사람",
+      "secondPerson": "두 번째 사람",
+      "aiConfidence": "AI 분석 신뢰도",
+      "similarityInterpretation": "유사도 해석",
+      "veryHighSimilarity": "70% 이상 : 매우 높은 유사도",
+      "highSimilarity": "50-70% : 높은 유사도",
+      "mediumSimilarity": "30-50% : 보통 유사도",
+      "lowSimilarity": "30% 미만 : 낮은 유사도",
+      "mostSimilarFound": "가장 닮은 사람 발견!",
+      "referencePerson": "기준 사람",
+      "bestMatch": "최고 일치",
+      "overallRanking": "전체 순위",
+      "candidate": "후보 {{number}}",
+      "similarity": "유사도",
+      "analyzedPhoto": "분석된 사진",
+      "growthPeriodWarning": "아직 성장기이므로 추후 변화 가능성이 높습니다"
+    },
+    "genderLevels": {
+      "male": {
+        "egen": "에겐남",
+        "teto": "테토남",
+        "strongEgen": "강한 에겐남",
+        "strongTeto": "강한 테토남"
+      },
+      "female": {
+        "egen": "에겐녀",
+        "teto": "테토녀",
+        "strongEgen": "강한 에겐녀",
+        "strongTeto": "강한 테토녀"
+      }
+    }
+  },
+  "similarity": {
+    "messages": {
+      "identical": {
+        "title": "완전 동일인!",
+        "message": "같은 분이시네요! 다른 사진을 사용해주세요 🔍"
+      },
+      "copyPaste": {
+        "title": "복사+붙여넣기!",
+        "message": "이건 진짜 같은 분의 다른 사진이죠? 😅"
+      },
+      "almostIdentical": {
+        "title": "거의 동일인",
+        "message": "거의 확실히 같은 분이시네요!"
+      },
+      "perfectMatch": {
+        "title": "완전 판박이",
+        "message": "이 정도면 쌍둥이도 아니고 본인이시죠? 🤔"
+      },
+      "veryHighSimilarity": {
+        "title": "매우 높은 유사도",
+        "message": "이 정도면 같은 분으로 보입니다. 다른 분과 비교해주세요"
+      },
+      "extremelySimilar": {
+        "title": "극도로 닮음",
+        "message": "거의 같은 분이시네요! 😮"
+      },
+      "definiteFamily": {
+        "title": "확실한 가족!",
+        "message": "분명한 가족 닮음! 유사성이 보여요 😊"
+      },
+      "subtleSimilarity": {
+        "title": "은근한 닮음",
+        "message": "자세히 보면 닮은 구석이 있네요! 🔍"
+      },
+      "uniqueStyle": {
+        "title": "각자의 스타일!",
+        "message": "각자만의 매력이 있어요! ✨"
+      },
+      "personalityExplosion": {
+        "title": "개성 폭발!",
+        "message": "완전 다른 스타일! 멋져요 😊"
+      }
     }
   }
 }

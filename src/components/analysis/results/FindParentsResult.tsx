@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
+import { useTranslations } from '@/lib/simple-i18n';
 
 interface FindParentsResultProps {
   childImage: UploadedImage;
@@ -17,6 +18,7 @@ export default function FindParentsResult({
   results,
   bestMatch
 }: FindParentsResultProps) {
+  const { t } = useTranslations();
   return (
     <>
       {/* 최고 매치 표시 */}
@@ -26,7 +28,7 @@ export default function FindParentsResult({
             <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="font-medium whitespace-nowrap">가장 닮은 사람 발견!</span>
+            <span className="font-medium whitespace-nowrap">{t('analysis.results.mostSimilarFound')}</span>
           </div>
 
           <div className="flex items-center justify-center gap-6">
@@ -35,12 +37,12 @@ export default function FindParentsResult({
               <div className="relative w-28 h-28 md:w-32 md:h-32 mx-auto mb-2">
                 <Image
                   src={childImage.preview}
-                  alt="기준 사람"
+                  alt={t('analysis.results.referencePerson')}
                   fill
                   className="object-contain rounded-lg border-2 border-gray-200 shadow-sm bg-gray-50"
                 />
               </div>
-              <span className="text-sm text-gray-600 font-medium whitespace-nowrap">기준 사람</span>
+              <span className="text-sm text-gray-600 font-medium whitespace-nowrap">{t('analysis.results.referencePerson')}</span>
             </div>
 
             {/* 하트 아이콘 */}
@@ -56,7 +58,7 @@ export default function FindParentsResult({
               <div className="relative w-28 h-28 md:w-32 md:h-32 mx-auto mb-2">
                 <Image
                   src={candidateImages[bestMatch.imageIndex]?.preview || ''}
-                  alt="가장 닮은 사람"
+                  alt={t('analysis.results.bestMatch')}
                   fill
                   className="object-contain rounded-lg border-3 border-green-500 shadow-lg bg-gray-50"
                 />
@@ -64,7 +66,7 @@ export default function FindParentsResult({
                   1
                 </div>
               </div>
-              <span className="text-sm text-gray-600 font-medium whitespace-nowrap">최고 일치</span>
+              <span className="text-sm text-gray-600 font-medium whitespace-nowrap">{t('analysis.results.bestMatch')}</span>
             </div>
           </div>
         </div>
@@ -73,7 +75,7 @@ export default function FindParentsResult({
       {/* 전체 순위 리스트 */}
       <div className="mt-8">
         <h3 className="text-xl font-bold text-gray-900 mb-4 text-center whitespace-nowrap">
-          전체 순위
+          {t('analysis.results.overallRanking')}
         </h3>
         
         <div className="space-y-3 max-w-2xl mx-auto">
@@ -111,10 +113,10 @@ export default function FindParentsResult({
                 {/* 후보 정보 */}
                 <div className="flex-grow">
                   <div className="font-medium text-gray-900 whitespace-nowrap">
-                    후보 {result.imageIndex + 1}
+                    {t('analysis.results.candidate', { number: result.imageIndex + 1 })}
                   </div>
                   <div className="text-sm text-gray-600 whitespace-nowrap">
-                    유사도: {result.similarity?.toFixed(1)}%
+                    {t('analysis.results.similarity')}: {result.similarity?.toFixed(1)}%
                   </div>
                 </div>
 

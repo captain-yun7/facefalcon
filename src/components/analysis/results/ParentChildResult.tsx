@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { UploadedImage } from '@/lib/types';
 import SimilarityGauge from '@/components/SimilarityGauge';
+import { useTranslations } from '@/lib/simple-i18n';
 
 interface ParentChildResultProps {
   parentImage: UploadedImage;
@@ -24,6 +25,7 @@ export default function ParentChildResult({
   message,
   locale = 'ko'
 }: ParentChildResultProps) {
+  const { t } = useTranslations();
   return (
     <>
       {/* 이미지 비교 섹션 */}
@@ -33,12 +35,12 @@ export default function ParentChildResult({
           <div className="relative w-32 h-32 md:w-40 md:h-40 mb-2">
             <Image
               src={parentImage.preview}
-              alt="첫 번째 사람"
+              alt={t('analysis.results.firstPerson')}
               fill
               className="object-contain rounded-lg border-2 border-gray-200 shadow-sm bg-gray-50"
             />
           </div>
-          <span className="text-sm text-gray-600 font-medium">첫 번째 사람</span>
+          <span className="text-sm text-gray-600 font-medium">{t('analysis.results.firstPerson')}</span>
         </div>
 
         {/* 하트 아이콘 */}
@@ -51,12 +53,12 @@ export default function ParentChildResult({
           <div className="relative w-32 h-32 md:w-40 md:h-40 mb-2">
             <Image
               src={childImage.preview}
-              alt="두 번째 사람"
+              alt={t('analysis.results.secondPerson')}
               fill
               className="object-contain rounded-lg border-2 border-gray-200 shadow-sm bg-gray-50"
             />
           </div>
-          <span className="text-sm text-gray-600 font-medium">두 번째 사람</span>
+          <span className="text-sm text-gray-600 font-medium">{t('analysis.results.secondPerson')}</span>
         </div>
       </div>
 
@@ -77,7 +79,7 @@ export default function ParentChildResult({
       {/* AI 신뢰도 */}
       <div className="bg-gray-50 rounded-lg p-4 max-w-md mx-auto">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-600 whitespace-nowrap">AI 분석 신뢰도</span>
+          <span className="text-sm text-gray-600 whitespace-nowrap">{t('analysis.results.aiConfidence')}</span>
           <span className="text-sm font-bold text-gray-900 whitespace-nowrap">
             {(confidence * 100).toFixed(1)}%
           </span>
@@ -92,23 +94,23 @@ export default function ParentChildResult({
 
       {/* 유사도 해석 가이드 */}
       <div className="mt-6 p-4 bg-white rounded-lg border border-gray-200 max-w-md mx-auto">
-        <h4 className="font-semibold text-gray-900 mb-3 whitespace-nowrap">유사도 해석</h4>
+        <h4 className="font-semibold text-gray-900 mb-3 whitespace-nowrap">{t('analysis.results.similarityInterpretation')}</h4>
         <div className="space-y-2 text-sm">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-green-500 flex-shrink-0"></div>
-            <span className="text-gray-600 whitespace-nowrap">70% 이상 : 매우 높은 유사도</span>
+            <span className="text-gray-600 whitespace-nowrap">{t('analysis.results.veryHighSimilarity')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-blue-500 flex-shrink-0"></div>
-            <span className="text-gray-600 whitespace-nowrap">50-70% : 높은 유사도</span>
+            <span className="text-gray-600 whitespace-nowrap">{t('analysis.results.highSimilarity')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-yellow-500 flex-shrink-0"></div>
-            <span className="text-gray-600 whitespace-nowrap">30-50% : 보통 유사도</span>
+            <span className="text-gray-600 whitespace-nowrap">{t('analysis.results.mediumSimilarity')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500 flex-shrink-0"></div>
-            <span className="text-gray-600 whitespace-nowrap">30% 미만 : 낮은 유사도</span>
+            <span className="text-gray-600 whitespace-nowrap">{t('analysis.results.lowSimilarity')}</span>
           </div>
         </div>
       </div>

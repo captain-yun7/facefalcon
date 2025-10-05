@@ -412,10 +412,35 @@
   },
   "home": {
     "hero": {
-      "title": "Main Service",
+      "title": "Main Service", 
       "subtitle": "How similar are two people?",
       "description": "Upload photos to accurately analyze facial similarity with AI technology",
-      "badge": "High-precision analysis engine based on InsightFace"
+      "badge": "High-precision analysis engine based on InsightFace",
+      "mainTitle": "AI Face Analysis Service",
+      "mainSubtitle": "From facial similarity tests to age prediction and Soft/Tough analysis",
+      "mainDescription": "Simply upload photos and AI will analyze them for you"
+    },
+    "showcase": {
+      "title": "Check out real analysis results",
+      "subtitle": "Real use case examples analyzed by AI",
+      "ageAnalysis": "Age Prediction",
+      "ageAnalysisDesc": "Accurate AI age prediction",
+      "genderAnalysis": "Soft/Tough Analysis", 
+      "genderAnalysisDesc": "AI analyzes your style"
+    },
+    "features": {
+      "freeService": {
+        "title": "100% Free Service",
+        "description": "No paid subscriptions, no charge prompts<br/>Use all features completely free"
+      },
+      "privacyProtection": {
+        "title": "Privacy Protection", 
+        "description": "No personal information storage<br/>Available immediately without registration"
+      },
+      "autoDelete": {
+        "title": "Instant Photo Deletion",
+        "description": "Photos automatically deleted after analysis<br/>No images are stored"
+      }
     },
     "upload": {
       "parentPhoto": "Parent Photo",
@@ -457,6 +482,104 @@
       "title": "Do you like this service?",
       "description": "A project created using AI image models and web technology",
       "link": "About Developer"
+    }
+  },
+  "analysis": {
+    "results": {
+      "similarityTestTitle": "AI Face Analysis: Similarity Test Result",
+      "similarityTestSubtitle": "We've analyzed the similarity between two people",
+      "findParentsTitle": "AI Face Analysis: Find Parent Result", 
+      "findParentsSubtitle": "Found the most similar person",
+      "ageAnalysisTitle": "AI Face Analysis: Age Prediction Result",
+      "ageAnalysisSubtitle": "AI predicted age",
+      "genderMaleTitle": "AI Soft/Tough Guy Analysis Result",
+      "genderFemaleTitle": "AI Soft/Tough Girl Analysis Result", 
+      "genderAnalysisSubtitle": "AI analyzed your style",
+      "firstPerson": "First Person",
+      "secondPerson": "Second Person",
+      "aiConfidence": "AI Analysis Confidence",
+      "similarityInterpretation": "Similarity Interpretation",
+      "veryHighSimilarity": "70% and above: Very high similarity",
+      "highSimilarity": "50-70%: High similarity",
+      "mediumSimilarity": "30-50%: Medium similarity",
+      "lowSimilarity": "Below 30%: Low similarity",
+      "mostSimilarFound": "Most similar person found!",
+      "referencePerson": "Reference Person",
+      "bestMatch": "Best Match",
+      "overallRanking": "Overall Ranking",
+      "candidate": "Candidate {{number}}",
+      "similarity": "Similarity",
+      "analyzedPhoto": "Analyzed Photo",
+      "growthPeriodWarning": "Still in growth period, high possibility of change later"
+    },
+    "upload": {
+      "agePhotoLabel": "Upload photo for age prediction",
+      "stylePhotoLabel": "Upload photo for style analysis"
+    },
+    "genderLevels": {
+      "male": {
+        "terminator": "Terminator-level Tough Guy",
+        "hulk": "Hulk-level Tough Guy", 
+        "thor": "Thor-level Tough Guy",
+        "captain": "Captain-level Tough Guy",
+        "soft": "Soft Guy",
+        "egen": "Soft Guy",
+        "teto": "Tough Guy",
+        "strongEgen": "Strong Soft Guy",
+        "strongTeto": "Strong Tough Guy"
+      },
+      "female": {
+        "tough": "Tough Girl",
+        "soft": "Soft Girl",
+        "egen": "Soft Girl",
+        "teto": "Tough Girl",
+        "strongEgen": "Strong Soft Girl",
+        "strongTeto": "Strong Tough Girl"
+      }
+    }
+  },
+  "similarity": {
+    "messages": {
+      "identical": {
+        "title": "Completely Identical!",
+        "message": "These are the same person! Please use different photos 🔍"
+      },
+      "copyPaste": {
+        "title": "Copy+Paste!",
+        "message": "This is really another photo of the same person, right? 😅"
+      },
+      "almostIdentical": {
+        "title": "Almost Identical",
+        "message": "Almost certainly the same person!"
+      },
+      "perfectMatch": {
+        "title": "Perfect Match",
+        "message": "This similar, aren't they twins but the same person? 🤔"
+      },
+      "veryHighSimilarity": {
+        "title": "Very High Similarity",
+        "message": "This looks like the same person. Please compare with someone else"
+      },
+      "extremelySimilar": {
+        "title": "Extremely Similar",
+        "message": "Almost the same person! 😮"
+      },
+      "uniqueStyle": {
+        "title": "Unique Style!",
+        "message": "Each has their own charm! ✨"
+      },
+      "personalityExplosion": {
+        "title": "Personality Explosion!",
+        "message": "Completely different styles! Awesome 😊"
+      },
+      "definiteFamily": {
+        "title": "Definite Family!",
+        "message": "Clear family resemblance! You can see the similarity 😊"
+      },
+      "subtleSimilarity": {
+        "title": "Subtle Similarity",
+        "message": "Look closely and you'll find some resemblance! 🔍"
+      }
     }
   }
 }

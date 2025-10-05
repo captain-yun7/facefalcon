@@ -9,6 +9,9 @@ interface FamilyMessage {
   emoji: string;
 }
 
+// 번역 키를 반환하는 함수 타입
+type TranslationFunction = (key: string, params?: Record<string, string | number>) => string;
+
 // 80-100: 동일인 가능성 (닮음 분석 부적절)
 const identicalPersonMessages: Record<number, FamilyMessage[]> = {
   100: [
@@ -504,6 +507,79 @@ export function applyDetailedAgeBoost(rawScore: number, parentAge?: number, chil
   console.log(`보정 계수: ${boostFactor}, 원본: ${rawScore.toFixed(3)}, 보정 후: ${boostedScore.toFixed(3)}`);
   
   return boostedScore;
+}
+
+/**
+ * 번역 키를 사용하여 유사도 메시지를 반환하는 새로운 함수
+ * @param similarity 0-1 사이의 유사도 값
+ * @param parentAge 부모 나이 (선택)
+ * @param childAge 자녀 나이 (선택)
+ * @param t 번역 함수
+ * @returns 번역된 메시지 객체와 표시용 퍼센트
+ */
+export function getFamilySimilarityMessageWithTranslation(
+  similarity: number, 
+  parentAge?: number, 
+  childAge?: number,
+  t: TranslationFunction
+): FamilyMessage & { displayPercent: number; ageBoostApplied: boolean } {
+  // 연령 보정 적용
+  const originalSimilarity = similarity;
+  const boostedSimilarity = applyDetailedAgeBoost(similarity, parentAge, childAge);
+  const ageBoostApplied = boostedSimilarity > originalSimilarity;
+  
+  // AI 점수를 사용자 친화적 퍼센트로 변환
+  const displayPercent = convertAiScoreToUserPercent(boostedSimilarity);
+  
+  let messageKey: string;
+  let emoji: string;
+  
+  // 표시용 퍼센트에 따라 해당하는 메시지 키 선택
+  if (displayPercent >= 98) {
+    messageKey = 'similarity.messages.identical';
+    emoji = '🔍';
+  } else if (displayPercent >= 95) {
+    messageKey = 'similarity.messages.copyPaste';
+    emoji = '📋';
+  } else if (displayPercent >= 90) {
+    messageKey = 'similarity.messages.almostIdentical';
+    emoji = '🎯';
+  } else if (displayPercent >= 85) {
+    messageKey = 'similarity.messages.perfectMatch';
+    emoji = '🤔';
+  } else if (displayPercent >= 80) {
+    messageKey = 'similarity.messages.veryHighSimilarity';
+    emoji = '😮';
+  } else if (displayPercent >= 70) {
+    messageKey = 'similarity.messages.extremelySimilar';
+    emoji = '😮';
+  } else if (displayPercent >= 30) {
+    // 30-69%: 보통-높은 닮음
+    messageKey = 'similarity.messages.definiteFamily';
+    emoji = '😊';
+  } else if (displayPercent >= 10) {
+    // 10-29%: 은근한 닮음
+    messageKey = 'similarity.messages.subtleSimilarity';
+    emoji = '🔍';
+  } else if (displayPercent >= 5) {
+    messageKey = 'similarity.messages.uniqueStyle';
+    emoji = '✨';
+  } else {
+    // 0-4%: 매우 낮은 유사도
+    messageKey = 'similarity.messages.personalityExplosion';
+    emoji = '😊';
+  }
+  
+  const title = t(`${messageKey}.title`);
+  const message = t(`${messageKey}.message`);
+  
+  return {
+    title,
+    message,
+    emoji,
+    displayPercent,
+    ageBoostApplied
+  };
 }
 
 /**
