@@ -71,7 +71,24 @@
     "rank": "{{rank}}위",
     "tryAgain": "다시 분석하기",
     "downloadImage": "이미지 다운로드",
-    "shareResult": "결과 공유하기"
+    "shareResult": "결과 공유하기",
+    "imageDownloaded": "이미지가 다운로드되었습니다!",
+    "ageAnalysisTitle": "AI 얼굴 분석 : 나이 맞히기 결과",
+    "ageAnalysisSubtitle": "AI가 예측한 나이입니다",
+    "analyzedPhoto": "분석된 사진",
+    "aiConfidence": "AI 분석 신뢰도",
+    "similarityTestTitle": "AI 얼굴 분석 : 닮은꼴 테스트 결과",
+    "similarityTestSubtitle": "두 사람의 닮은 정도를 분석했습니다",
+    "firstPerson": "첫 번째 사람",
+    "secondPerson": "두 번째 사람",
+    "similarityInterpretation": "유사도 해석",
+    "veryHighSimilarity": "70% 이상 : 매우 높은 유사도",
+    "highSimilarity": "50-70% : 높은 유사도",
+    "mediumSimilarity": "30-50% : 보통 유사도",
+    "lowSimilarity": "30% 미만 : 낮은 유사도",
+    "genderFemaleTitle": "AI 에겐/테토녀 분석 결과",
+    "genderMaleTitle": "AI 에겐/테토남 분석 결과",
+    "genderAnalysisSubtitle": "AI가 분석한 당신의 스타일입니다"
   },
   "imageUpload": {
     "label": "이미지 업로드",
@@ -126,9 +143,6 @@
       "senior": "노년 (60-69세)",
       "elderly": "고령 (70세 이상)"
     }
-  },
-  "results": {
-    "imageDownloaded": "이미지가 다운로드되었습니다!"
   },
   "guide": {
     "title": "이용 가이드",
@@ -599,6 +613,12 @@
           "extreme": "압도적인 강인함!"
         }
       }
+    },
+    "ageEstimation": {
+      "title": "나이를 맞춰보세요!",
+      "description": "AI가 사진 속 얼굴의 나이를 예측합니다",
+      "analyzing": "나이 예측 중...",
+      "startButton": "나이 맞히기 시작!"
     }
   },
   "similarity": {
