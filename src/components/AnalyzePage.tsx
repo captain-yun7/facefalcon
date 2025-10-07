@@ -340,12 +340,12 @@ export default function AnalyzePage() {
     }
   };
 
-  // URL 타입 매핑 (공통으로 사용)
+  // URL 타입 매핑 (내부 타입 → URL 쿼리 파라미터)
   const typeMap: Record<AnalysisType, string> = {
-    'parent-child': 'parent-child',
-    'who-most-similar': 'find-parents',
-    'age-estimation': 'age',
-    'gender-estimation': 'gender',
+    'parent-child': 'similarity',            // 2명 얼굴 닮은꼴 비교
+    'who-most-similar': 'find-most-similar', // 여러명 중 가장 닮은 사람 찾기
+    'age-estimation': 'age',                 // 나이 분석
+    'gender-estimation': 'egen-teto',        // 성별 스타일 분석 (에겐/테토)
     '': ''
   };
 
@@ -356,16 +356,23 @@ export default function AnalyzePage() {
     return typeParam ? `${baseUrl}?type=${typeParam}` : baseUrl;
   };
 
-  // URL 쿼리 파라미터 처리
+  // URL 쿼리 파라미터 처리 (URL → 내부 타입)
   useEffect(() => {
     const typeParam = searchParams.get('type');
     const validTypes: Record<string, AnalysisType> = {
+      // 새로운 URL 형식
+      'similarity': 'parent-child',
+      'find-most-similar': 'who-most-similar',
+      'age': 'age-estimation',
+      'egen-teto': 'gender-estimation',
+      // 하위 호환성 유지 (기존 URL도 동작)
       'parent-child': 'parent-child',
       'find-parents': 'who-most-similar',
-      'age': 'age-estimation',
-      'gender': 'gender-estimation'
+      'find-similar': 'who-most-similar',
+      'gender': 'gender-estimation',
+      'style': 'gender-estimation'
     };
-    
+
     if (typeParam && validTypes[typeParam]) {
       setSelectedAnalysis(validTypes[typeParam]);
     }

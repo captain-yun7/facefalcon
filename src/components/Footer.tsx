@@ -30,22 +30,22 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">{t('footer.services.title')}</h4>
             <ul className="space-y-2">
               <li>
-                <LocalizedLink href="/analyze?type=parent-child" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/analyze?type=similarity" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.familyAnalysis')}
                 </LocalizedLink>
               </li>
               <li>
-                <LocalizedLink href="/analyze?type=who-most-similar" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/analyze?type=find-most-similar" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.multipleComparison')}
                 </LocalizedLink>
               </li>
               <li>
-                <LocalizedLink href="/analyze?type=age-estimation" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/analyze?type=age" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.ageAnalysis')}
                 </LocalizedLink>
               </li>
               <li>
-                <LocalizedLink href="/analyze?type=gender-estimation" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/analyze?type=egen-teto" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.genderAnalysis')}
                 </LocalizedLink>
               </li>

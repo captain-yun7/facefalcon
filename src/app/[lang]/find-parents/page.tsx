@@ -29,5 +29,5 @@ export const metadata: Metadata = {
 }
 
 export default function FindParentsPage() {
-  redirect('/analyze?type=find-parents')
+  redirect('/analyze?type=find-most-similar')
 }

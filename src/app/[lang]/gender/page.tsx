@@ -29,5 +29,5 @@ export const metadata: Metadata = {
 }
 
 export default function GenderPage() {
-  redirect('/analyze?type=gender')
+  redirect('/analyze?type=egen-teto')
 }
