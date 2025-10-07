@@ -9,9 +9,17 @@ function getLocale(request: NextRequest): string {
   const acceptLanguage = request.headers.get('accept-language');
 
   if (acceptLanguage) {
-    const browserLang = acceptLanguage.toLowerCase();
-    if (browserLang.includes('en')) return 'en';
-    if (browserLang.includes('ko')) return 'ko';
+    // Accept-Language 헤더를 파싱하여 첫 번째 언어 추출
+    // 예: "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7" -> "ko-KR"
+    const firstLang = acceptLanguage.split(',')[0].toLowerCase().trim();
+
+    // 언어 코드에서 첫 2글자 추출 (ko-KR -> ko, en-US -> en)
+    const langCode = firstLang.split('-')[0].split(';')[0];
+
+    // 지원하는 언어인지 확인
+    if (locales.includes(langCode)) {
+      return langCode;
+    }
   }
 
   return defaultLocale;
