@@ -259,26 +259,6 @@ export default function AnalyzePage() {
       };
     } else if (femaleScore >= 3.0) {
       return {
-        type: 'egen' as const,
-        level: t('analysis.genderLevels.female.classicEgen', 'Classic Soft Girl'),
-        emoji: '🌟',
-        description: t('analysis.genderLevels.descriptions.female.classicEgen', 'Feminine charisma'),
-        color: 'pink-600',
-        bgColor: 'bg-pink-600',
-        borderColor: 'border-pink-600'
-      };
-    } else if (femaleScore >= 3.5) {
-      return {
-        type: 'egen' as const,
-        level: t('analysis.genderLevels.female.generalEgen', 'General Soft Girl'),
-        emoji: '✨',
-        description: t('analysis.genderLevels.descriptions.female.generalEgen', 'Balanced femininity'),
-        color: 'rose-400',
-        bgColor: 'bg-rose-400',
-        borderColor: 'border-rose-400'
-      };
-    } else if (femaleScore >= 3.0) {
-      return {
         type: 'teto' as const,
         level: t('analysis.genderLevels.female.lightTeto', 'Light Tough Girl'),
         emoji: '💪',
