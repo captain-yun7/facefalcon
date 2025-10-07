@@ -1,10 +1,11 @@
 import 'server-only';
+import { cache } from 'react';
 
 export type Locale = 'ko' | 'en';
 
-// Dictionary type for type safety
+// Dictionary type for type safety (supports nested objects and arrays)
 export type Dictionary = {
-  [key: string]: string | Dictionary;
+  [key: string]: string | Dictionary | string[];
 };
 
 const dictionaries = {
@@ -12,9 +13,24 @@ const dictionaries = {
   en: () => import('../../public/locales/en/common.json').then((module) => module.default),
 };
 
-export async function getDictionary(locale: Locale): Promise<Dictionary> {
-  return dictionaries[locale]();
-}
+// Global in-memory cache for dictionaries (persists across requests)
+// This dramatically improves performance by loading translation files only once
+const dictionaryCache = new Map<Locale, Dictionary>();
+
+// Cache dictionary per request using React's cache function
+// This prevents loading the same translation file multiple times within a single request
+export const getDictionary = cache(async (locale: Locale): Promise<Dictionary> => {
+  // Check global cache first
+  if (dictionaryCache.has(locale)) {
+    return dictionaryCache.get(locale)!;
+  }
+
+  // Load and cache the dictionary
+  const dict = await dictionaries[locale]();
+  dictionaryCache.set(locale, dict);
+
+  return dict;
+});
 
 // Helper function to get nested translation value
 export function getTranslation(
