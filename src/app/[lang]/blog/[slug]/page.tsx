@@ -6,6 +6,9 @@ import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
 import { useTranslations } from '@/components/TranslationsProvider';
 import { useState, useEffect } from 'react';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import BlogPostingSchema from '@/components/seo/BlogPostingSchema';
+
 interface BlogPost {
   slug: string;
   title: string;
@@ -87,6 +90,25 @@ export default function BlogPostPage({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* SEO: Breadcrumb Schema */}
+      <BreadcrumbSchema
+        items={[
+          { name: t('navigation.home'), href: `/${locale}` },
+          { name: t('navigation.blog'), href: `/${locale}/blog` },
+          { name: post.title, href: `/${locale}/blog/${post.slug}` },
+        ]}
+      />
+
+      {/* SEO: BlogPosting Schema */}
+      <BlogPostingSchema
+        headline={post.title}
+        description={post.description}
+        author={post.author}
+        datePublished={post.date}
+        keywords={post.keywords}
+        articleSection={post.category}
+      />
+
       <Navbar />
       
       <div className="container mx-auto px-4 pt-16 pb-8">

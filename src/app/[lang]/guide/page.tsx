@@ -5,12 +5,64 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnalysisCTA from '@/components/AnalysisCTA';
 import { useTranslations } from '@/components/TranslationsProvider';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import HowToSchema from '@/components/seo/HowToSchema';
 
 export default function GuidePage() {
   const { t, locale } = useTranslations();
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* SEO: Breadcrumb Schema */}
+      <BreadcrumbSchema
+        items={[
+          { name: t('navigation.home'), href: `/${locale}` },
+          { name: t('navigation.guide'), href: `/${locale}/guide` },
+        ]}
+      />
+
+      {/* SEO: HowTo Schema */}
+      <HowToSchema
+        name={locale === 'ko' ? 'FaceFalcon 이용 가이드' : 'FaceFalcon Usage Guide'}
+        description={locale === 'ko'
+          ? 'AI 얼굴 분석 서비스를 효과적으로 사용하는 방법을 단계별로 안내합니다.'
+          : 'Step-by-step guide on how to effectively use the AI face analysis service.'
+        }
+        totalTime="PT5M"
+        steps={[
+          {
+            name: locale === 'ko' ? '사진 준비하기' : 'Prepare Photos',
+            text: locale === 'ko'
+              ? '정면을 바라보는 자연스러운 표정의 사진을 준비하세요. 머리카락이 얼굴을 가리지 않고, 밝은 조명에서 촬영된 사진이 좋습니다.'
+              : 'Prepare photos with natural expressions looking forward. Use photos where hair doesn\'t cover the face and taken in bright lighting.',
+          },
+          {
+            name: locale === 'ko' ? '분석 유형 선택' : 'Select Analysis Type',
+            text: locale === 'ko'
+              ? '얼굴 닮은꼴 테스트, 나이 맞히기, 에겐/테토 분석 등 원하는 분석 유형을 선택하세요.'
+              : 'Choose your desired analysis type: face similarity test, age prediction, or style analysis.',
+          },
+          {
+            name: locale === 'ko' ? '사진 업로드' : 'Upload Photos',
+            text: locale === 'ko'
+              ? '준비한 사진을 업로드하세요. 최대 10MB까지 지원하며, JPG, PNG 형식을 사용할 수 있습니다.'
+              : 'Upload your prepared photos. Supports up to 10MB in JPG or PNG format.',
+          },
+          {
+            name: locale === 'ko' ? 'AI 분석 시작' : 'Start AI Analysis',
+            text: locale === 'ko'
+              ? '분석 시작 버튼을 클릭하면 AI가 얼굴을 분석합니다. 약 10-15초가 소요됩니다.'
+              : 'Click the start button and AI will analyze the faces. Takes about 10-15 seconds.',
+          },
+          {
+            name: locale === 'ko' ? '결과 확인 및 공유' : 'View and Share Results',
+            text: locale === 'ko'
+              ? '분석 결과를 확인하고 이미지로 다운로드하거나 SNS에 공유할 수 있습니다.'
+              : 'View the analysis results, download as an image, or share on social media.',
+          },
+        ]}
+      />
+
       <Navbar />
       
       <div className="container mx-auto px-4 pt-16 pb-8">
