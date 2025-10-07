@@ -20,13 +20,24 @@ const dictionaryCache = new Map<Locale, Dictionary>();
 // Cache dictionary per request using React's cache function
 // This prevents loading the same translation file multiple times within a single request
 export const getDictionary = cache(async (locale: Locale): Promise<Dictionary> => {
+  // Validate locale
+  if (!isValidLocale(locale)) {
+    console.warn(`Invalid locale: ${locale}, falling back to 'ko'`);
+    locale = 'ko';
+  }
+
   // Check global cache first
   if (dictionaryCache.has(locale)) {
     return dictionaryCache.get(locale)!;
   }
 
   // Load and cache the dictionary
-  const dict = await dictionaries[locale]();
+  const loader = dictionaries[locale];
+  if (typeof loader !== 'function') {
+    throw new Error(`Dictionary loader for locale '${locale}' is not a function`);
+  }
+
+  const dict = await loader();
   dictionaryCache.set(locale, dict);
 
   return dict;

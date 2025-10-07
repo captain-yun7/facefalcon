@@ -34,11 +34,11 @@ export async function generateMetadata({
   params,
   searchParams
 }: {
-  params: { lang: Locale };
-  searchParams: { type?: string }
+  params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ type?: string }>;
 }): Promise<Metadata> {
-  const type = searchParams.type || 'parent-child';
-  const lang = params.lang;
+  const { lang } = await params;
+  const { type = 'parent-child' } = await searchParams;
 
   // 번역 데이터 로드
   const dict = await getDictionary(lang);
@@ -89,12 +89,16 @@ export async function generateMetadata({
   };
 }
 
-export default function Page({
+export default async function Page({
   params,
   searchParams
 }: {
-  params: { lang: Locale };
-  searchParams: { type?: string }
+  params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ type?: string }>;
 }) {
+  // Await params to comply with Next.js 15
+  await params;
+  await searchParams;
+
   return <AnalyzePage />;
 }

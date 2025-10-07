@@ -27,8 +27,8 @@ export async function generateStaticParams() {
 }
 
 // Generate dynamic metadata based on locale
-export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
-  const dict = await getDictionary(params.lang);
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
+  const { lang } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com';
 
   const metadataByLang = {
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     },
   };
 
-  const meta = metadataByLang[params.lang];
+  const meta = metadataByLang[lang];
 
   return {
     title: meta.title,
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     },
     metadataBase: new URL(baseUrl),
     alternates: {
-      canonical: `/${params.lang}`,
+      canonical: `/${lang}`,
       languages: {
         'ko': '/ko',
         'en': '/en',
@@ -83,7 +83,7 @@ export async function generateMetadata({ params }: { params: { lang: Locale } })
     openGraph: {
       type: 'website',
       locale: meta.locale,
-      url: `/${params.lang}`,
+      url: `/${lang}`,
       title: meta.ogTitle,
       description: meta.ogDescription,
       siteName: "FaceFalcon",
@@ -155,12 +155,13 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { lang: Locale };
+  params: Promise<{ lang: Locale }>;
 }>) {
-  const dict = await getDictionary(params.lang);
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
 
   // JSON-LD structured data
-  const structuredData = params.lang === 'ko' ? [
+  const structuredData = lang === 'ko' ? [
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -354,7 +355,7 @@ export default async function RootLayout({
   ];
 
   return (
-    <html lang={params.lang}>
+    <html lang={lang}>
       <head>
         {/* hreflang tags for SEO */}
         <link rel="alternate" hrefLang="ko" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/ko`} />
@@ -365,7 +366,7 @@ export default async function RootLayout({
         className={`${pretendard.variable} ${inter.variable} font-sans antialiased`}
       >
         <GoogleAnalytics />
-        <TranslationsProvider dict={dict} locale={params.lang}>
+        <TranslationsProvider dict={dict} locale={lang}>
           {children}
         </TranslationsProvider>
         <script
