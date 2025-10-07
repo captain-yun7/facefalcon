@@ -1,0 +1,720 @@
+{
+  "appName": "FaceFalcon",
+  "navigation": {
+    "home": "ホーム",
+    "analyze": "分析",
+    "service": "サービス案内",
+    "guide": "利用ガイド",
+    "blog": "ブログ",
+    "contact": "お問い合わせ"
+  },
+  "hero": {
+    "title": "AI顔分析",
+    "subtitle": "ご希望の分析タイプを選択してすぐに開始できます"
+  },
+  "analysisSelector": {
+    "title": "どの分析をご希望ですか？",
+    "subtitle": "分析タイプをお選びください",
+    "placeholder": "分析タイプを選択",
+    "parentChild": {
+      "title": "AI顔分析：類似度テスト",
+      "description": "2人の写真を比較して類似度を分析します"
+    },
+    "whoMostSimilar": {
+      "title": "AI顔分析：最も似ている人を探す",
+      "description": "1人と複数人を比較して最も似ている人を見つけます"
+    },
+    "ageEstimation": {
+      "title": "AI顔分析：年齢予測",
+      "description": "AIが写真から年齢を予測します"
+    },
+    "genderEstimation": {
+      "title": "AI顔分析：優男/男前分析",
+      "description": "優男か男前かスタイルを分析します"
+    },
+    "celebrity": {
+      "title": "AI顔分析：芸能人似顔マッチング",
+      "description": "近日公開",
+      "status": "準備中"
+    }
+  },
+  "parentChildAnalysis": {
+    "title": "顔類似度分析",
+    "parentPhoto": "1枚目の写真",
+    "childPhoto": "2枚目の写真",
+    "uploadParent": "1枚目の写真をアップロード",
+    "uploadChild": "2枚目の写真をアップロード",
+    "analyzeButton": "類似度分析を開始",
+    "analyzing": "AI分析中..."
+  },
+  "whoMostSimilarAnalysis": {
+    "title": "最も似ている人を探す",
+    "uploadChild": "基準写真をアップロード",
+    "uploadChildLabel": "基準写真をアップロード",
+    "uploadCandidates": "候補者写真をアップロード（2〜6人）",
+    "candidateCount": "現在{{count}}人の候補者が登録されています。",
+    "candidateMinRequired": "（最低2人必要）",
+    "candidate": "候補者{{number}}",
+    "analyzeButton": "最も似ている人を探す！",
+    "analyzing": "AIが最も似ている人を探しています..."
+  },
+  "results": {
+    "analysisComplete": "分析完了",
+    "analysisResult": "分析結果",
+    "similarityResult": "類似度分析結果",
+    "parentFindingResult": "類似度分析結果",
+    "confidence": "分析信頼度：{{confidence}}%",
+    "parent": "1人目",
+    "child": "2人目",
+    "similarity": "類似度",
+    "mostSimilar": "最も似ている人",
+    "ranking": "総合ランキング",
+    "rank": "{{rank}}位",
+    "tryAgain": "もう一度分析",
+    "downloadImage": "画像をダウンロード",
+    "shareResult": "結果を共有",
+    "imageDownloaded": "画像のダウンロードに成功しました！",
+    "resultTitle": "類似度結果",
+    "parentLabel": "1人目",
+    "childLabel": "2人目",
+    "similarityTestTitle": "AI顔分析：類似度テスト結果",
+    "similarityTestSubtitle": "2人の類似度を分析しました",
+    "findParentsTitle": "AI顔分析：最も似ている人の結果",
+    "findParentsSubtitle": "最も似ている人を見つけました",
+    "ageAnalysisTitle": "AI顔分析：年齢予測結果",
+    "ageAnalysisSubtitle": "AIが年齢を予測しました",
+    "genderMaleTitle": "AI優男/男前分析結果",
+    "genderFemaleTitle": "AI優女/気の強い女性分析結果",
+    "genderAnalysisSubtitle": "AIがあなたのスタイルを分析しました",
+    "firstPerson": "1人目",
+    "secondPerson": "2人目",
+    "aiConfidence": "AI分析信頼度",
+    "similarityInterpretation": "類似度の解釈",
+    "veryHighSimilarity": "70%以上：非常に高い類似度",
+    "highSimilarity": "50-70%：高い類似度",
+    "mediumSimilarity": "30-50%：中程度の類似度",
+    "lowSimilarity": "30%未満：低い類似度",
+    "mostSimilarFound": "最も似ている人を見つけました！",
+    "referencePerson": "基準人物",
+    "bestMatch": "ベストマッチ",
+    "overallRanking": "総合ランキング",
+    "candidate": "候補者{{number}}",
+    "analyzedPhoto": "分析した写真",
+    "growthPeriodWarning": "まだ成長期のため、後で変わる可能性が高いです"
+  },
+  "imageUpload": {
+    "label": "画像をアップロード",
+    "dragDrop": "画像をドラッグ&ドロップまたはクリックして選択",
+    "dragActive": "ここに画像をドロップ",
+    "processing": "画像を処理中...",
+    "formats": "JPEG、PNG、WebP（最大10MB）",
+    "remove": "画像を削除"
+  },
+  "analyzing": {
+    "title": "AIが一生懸命分析しています",
+    "subtitle": "正確な結果のため少々お待ちください",
+    "countdown": "{{seconds}}秒後に結果が表示されます..."
+  },
+  "errors": {
+    "analysisError": "分析エラー",
+    "tryRefresh": "問題が続く場合は、ページを更新するか画像を再アップロードしてください。",
+    "imageProcessingError": "画像処理中にエラーが発生しました。",
+    "noFacesDetected": "分析可能な顔が見つかりませんでした。正面を向いた顔がはっきり見える写真をご使用ください。",
+    "analysisFailure": "分析中にエラーが発生しました。",
+    "imageGenerationFailed": "画像生成に失敗しました。もう一度お試しください。",
+    "shareFailed": "共有に失敗しました。もう一度お試しください。",
+    "noResultsFound": "結果が見つかりませんでした。"
+  },
+  "share": {
+    "clipboardCopied": "共有テキストがクリップボードにコピーされました！\\nメッセンジャーやSNSに貼り付けてください。",
+    "shareNotSupported": "このブラウザでは直接共有がサポートされていません。\\n「画像をダウンロード」ボタンをご利用ください。",
+    "resultText": "私たちの子供の類似度分析結果：{{percent}}%似ています！😊\\nfacefalcon.comで分析",
+    "shareTexts": {
+      "ageEstimation": "AI年齢予測分析を試してみよう！",
+      "genderEstimation": "優男/男前分析を試してみよう！",
+      "whoMostSimilar": "AIで最も似ている人を探そう！",
+      "parentChild": "顔類似度テストを試してみよう！",
+      "shareResultAge": "年齢予測AI分析結果をチェック！",
+      "shareResultGender": "優男/男前分析結果をチェック！",
+      "shareResultSimilar": "類似度分析結果をチェック！",
+      "shareResultParent": "顔類似度分析結果をチェック！"
+    },
+    "defaultText": "AI顔分析結果をチェック！"
+  },
+  "age": {
+    "unit": "歳",
+    "categories": {
+      "infant": "乳児（0-2）",
+      "toddler": "幼児（3-5）",
+      "child": "子供（6-12）",
+      "teenager": "10代（13-19）",
+      "youngAdult": "若者（20-29）",
+      "adult": "大人（30-39）",
+      "middleAged": "中年（40-49）",
+      "mature": "熟年（50-59）",
+      "senior": "シニア（60-69）",
+      "elderly": "高齢（70+）"
+    }
+  },
+  "footer": {
+    "madeWith": "作成者",
+    "copyright": "© 2024 FaceFalcon. All rights reserved."
+  },
+  "pages": {
+    "about": {
+      "title": "開発者について",
+      "subtitle": "AIとWeb技術を使って楽しいサービスを作る開発者",
+      "projectStory": {
+        "title": "このプロジェクトはどのように始まったか？",
+        "content1": "「私たちはどれくらい似ているの？」 - 誰もが一度は疑問に思う質問から始まりました。AI技術で単純な好奇心を解決し、人々が楽しく使えるWebサービスを作りたかったのです。",
+        "content2": "開発過程でさまざまな顔認識APIをテストし、ユーザー体験を考慮して現在のサービスを完成させました。毎日多くの人が利用する姿を見て、技術が日常生活に楽しさを加えられることを実感しています。"
+      },
+      "techStack": {
+        "title": "使用した技術スタック",
+        "frontend": "フロントエンド",
+        "backendAI": "バックエンド＆AI"
+      },
+      "developerInfo": {
+        "title": "開発者情報",
+        "expertise": "専門分野",
+        "interests": "関心事",
+        "expertiseList": [
+          "フルスタックWeb開発",
+          "AI/MLサービス開発",
+          "AWSクラウドとインフラ構築",
+          "サービスアーキテクチャ設計"
+        ],
+        "interestsList": [
+          "AIモデル分析",
+          "AI/MLサービス開発",
+          "自動化"
+        ]
+      },
+      "contact": {
+        "title": "講演・フリーランスのお問い合わせ",
+        "services": "提供サービス",
+        "contact": "お問い合わせ",
+        "servicesList": [
+          "AIサービス開発",
+          "WebサイトおよびWeb/アプリ開発",
+          "クラウドインフラ構築・運用",
+          "AI開発・クラウド講演",
+          "技術メンタリング"
+        ]
+      },
+      "backToAnalyze": "← 分析に戻る"
+    },
+    "service": {
+      "title": "AI技術による顔類似度分析",
+      "titleGradient": "",
+      "subtitle": "最先端のAI技術で類似度テスト、年齢予測、優男/男前スタイル分析など、さまざまな楽しい顔分析を体験してください。",
+      "aiTechnology": {
+        "title": "AI顔認識技術",
+        "description": "InsightFaceの最新Buffaloモデルを活用して主要な顔の特徴を正確に抽出・分析します。",
+        "features": [
+          "68の主要顔ランドマークの検出",
+          "高次元顔埋め込みベクトルの生成",
+          "3D顔構造分析サポート"
+        ]
+      },
+      "similarityCalculation": {
+        "title": "正確な類似度計算",
+        "description": "類似度、年齢、スタイル特性など、多角的に顔を分析します。",
+        "features": [
+          "ベクトル距離に基づく正確な類似度測定",
+          "年齢差を考慮した補正アルゴリズム",
+          "信頼度スコアと共に結果を提供"
+        ]
+      },
+      "howItWorks": {
+        "title": "サービスの仕組み",
+        "step1": {
+          "title": "画像をアップロード",
+          "description": "比較したい2人の正面を向いた写真をアップロードします。"
+        },
+        "step2": {
+          "title": "AI分析",
+          "description": "InsightFace AIが顔を検出し、特徴を抽出します。"
+        },
+        "step3": {
+          "title": "類似度を計算",
+          "description": "顔埋め込みベクトルを比較して類似度を計算します。"
+        },
+        "step4": {
+          "title": "結果を提供",
+          "description": "全体的な類似度と信頼度スコアを一緒に提供します。"
+        }
+      },
+      "features": {
+        "privacy": {
+          "title": "プライバシー保護",
+          "description": "アップロードされた画像は分析完了直後に自動削除され、いかなる形でも保存されません。"
+        },
+        "speed": {
+          "title": "高速処理",
+          "description": "最適化されたInsightFaceモデルで分析結果を迅速に提供します。"
+        },
+        "accuracy": {
+          "title": "高精度",
+          "description": "大規模データで訓練されたInsightFaceモデルが高精度の分析結果を提供します。"
+        }
+      }
+    },
+    "analyze": {
+      "parentPhoto": "1枚目の写真",
+      "childPhoto": "2枚目の写真",
+      "uploadChild": "基準写真をアップロード",
+      "uploadCandidates": "候補者写真をアップロード（2〜6人）",
+      "candidateCount": "現在{{count}}人の候補者が登録されています。",
+      "candidate": "候補者{{number}}",
+      "analysisCompleted": "分析完了",
+      "similarityResult": "類似度結果",
+      "parentFindingResult": "類似度分析結果",
+      "confidence": "分析信頼度：{{confidence}}%",
+      "parent": "1人目",
+      "child": "2人目",
+      "childLabel": "2人目",
+      "similarity": "類似度",
+      "mostSimilarPerson": "最も似ている人",
+      "overallRanking": "総合ランキング",
+      "rank": "{{rank}}位",
+      "tryAgainButton": "もう一度分析",
+      "downloadImage": "画像をダウンロード",
+      "shareResult": "結果を共有",
+      "analyzing": "AI分析中...",
+      "findingParent": "AIが最も似ている人を探しています...",
+      "startAnalysis": "類似度分析を開始",
+      "startFindingParent": "最も似ている人を探す！"
+    }
+  },
+  "guide": {
+    "title": "利用ガイド",
+    "subtitle": "FaceFalconサービスを効果的に使用し、正確な分析結果を得るためのヒントを学びましょう。",
+    "quickStart": {
+      "title": "クイックスタートガイド",
+      "step1Title": "ステップ1：写真を準備",
+      "step1": {
+        "item1": "正面写真：顔が正面を向いている写真を準備",
+        "item2": "高品質：少なくとも200x200ピクセルの鮮明な写真",
+        "item3": "明るい照明：顔がはっきり見える明るい環境で撮影"
+      },
+      "step2Title": "ステップ2：分析を実行",
+      "step2": {
+        "item1": "比較したい写真を各アップロードエリアに追加",
+        "item2": "必要な分析モードを選択（個別比較、グループ分析など）",
+        "item3": "「分析開始」ボタンをクリックして結果を確認"
+      }
+    },
+    "photoTips": {
+      "title": "最適な写真撮影のヒント",
+      "goodPhoto": {
+        "title": "✅ 良い写真の条件",
+        "items": [
+          "正面を向いた自然な表情",
+          "髪の毛が顔を覆っていない",
+          "サングラスや帽子なしで撮影",
+          "自然光または明るい室内照明",
+          "単色背景（白、グレー推奨）"
+        ]
+      },
+      "badPhoto": {
+        "title": "❌ 避けるべき写真",
+        "items": [
+          "横顔や斜め角度",
+          "暗すぎるまたは逆光状態",
+          "顔が小さすぎるまたはぼやけている",
+          "複数人が写っている",
+          "過度なメイクやフィルター適用"
+        ]
+      }
+    },
+    "understandResults": {
+      "title": "分析結果の理解",
+      "similarityScore": {
+        "title": "類似度スコアの解釈",
+        "low": {
+          "range": "0-40%",
+          "label": "低い類似度",
+          "description": "異なる特徴"
+        },
+        "medium": {
+          "range": "41-70%",
+          "label": "中程度の類似度",
+          "description": "部分的に似ている"
+        },
+        "high": {
+          "range": "71-100%",
+          "label": "高い類似度",
+          "description": "非常に似ている"
+        }
+      },
+      "featureComparison": {
+        "title": "特徴別比較",
+        "eyes": {
+          "label": "目の形",
+          "details": "目尻、まぶた、目の大きさ"
+        },
+        "nose": {
+          "label": "鼻の形",
+          "details": "鼻筋、鼻孔、鼻先"
+        },
+        "mouth": {
+          "label": "口の形",
+          "details": "唇の厚さ、口の大きさ"
+        },
+        "faceShape": {
+          "label": "顔の形",
+          "details": "輪郭、顎のライン、額"
+        }
+      }
+    },
+    "faq": {
+      "title": "よくある質問（FAQ）",
+      "q1": {
+        "question": "Q. 分析結果は正確ですか？",
+        "answer": "AI分析は高い精度を示しますが、照明、角度、表情、メイクなどによって結果が異なる場合があります。楽しみと参考のためにご利用いただき、医療または法的証拠としては使用しないでください。"
+      },
+      "q2": {
+        "question": "Q. アップロードした写真は保存されますか？",
+        "answer": "いいえ。アップロードされた写真は分析後すぐに自動削除され、いかなる形でも保存されません。プライバシー保護が最優先です。"
+      },
+      "q3": {
+        "question": "Q. どのファイル形式がサポートされていますか？",
+        "answer": "JPG、PNG、JPEG形式がサポートされています。ファイルサイズは最大10MBで、最適な分析のために約1〜5MBの高品質画像を推奨します。"
+      },
+      "q4": {
+        "question": "Q. 複数人が写っている写真を使用できますか？",
+        "answer": "1枚の写真に1つの顔だけがある場合、最も正確な結果が得られます。複数人がいる場合、AIが主な顔を選択しますが、望ましくない結果が生じる可能性があります。"
+      },
+      "q5": {
+        "question": "Q. どのような関係を比較できますか？",
+        "answer": "家族（兄弟、親戚）、友人、カップル、芸能人似顔など、すべての関係の人を比較できます。2人の間の顔の類似度を客観的に分析します。"
+      },
+      "q6": {
+        "question": "Q. 分析に失敗しました。どうすればいいですか？",
+        "answer": "正面を向いた写真で顔がはっきり見えるか確認してください。それでもうまくいかない場合は、別の写真で再度試すか、お問い合わせください"
+      }
+    },
+    "troubleshooting": {
+      "title": "トラブルシューティングガイド",
+      "uploadIssues": {
+        "title": "アップロードの問題",
+        "items": [
+          "ファイルサイズが10MBを超えていないか確認",
+          "JPG、PNG、またはJPEG形式か確認",
+          "インターネット接続を確認",
+          "ブラウザを更新して再試行"
+        ]
+      },
+      "analysisErrors": {
+        "title": "分析エラー",
+        "items": [
+          "顔が正面を向いているか確認",
+          "画像が暗すぎないか確認",
+          "顔が十分に大きいか確認",
+          "別のブラウザを試す"
+        ]
+      }
+    }
+  },
+  "blog": {
+    "title": "AI技術情報",
+    "subtitle": "顔類似度分析の原理と家族の類似性科学、正確な分析のための実用的なヒントを提供します。",
+    "readMore": "続きを読む",
+    "category": "カテゴリー",
+    "readTime": "分読",
+    "backToList": "AI技術情報に戻る",
+    "tryAnalysis": "AI分析を試す",
+    "relatedPosts": "関連記事",
+    "cta": {
+      "title": "気になりますか？",
+      "description": "今すぐ2人の類似度を確認"
+    }
+  },
+  "cta": {
+    "title": "今すぐ始める",
+    "description": "AI技術で2人の類似度を確認",
+    "buttonText": "無料で分析",
+    "guideButton": "利用ガイド"
+  },
+  "footer": {
+    "siteInfo": {
+      "title": "FaceFalcon",
+      "description": "AIを活用した顔分析サービス。類似度テスト、年齢予測、優男/男前スタイル分析で楽しく洞察に満ちた結果を提供します。",
+      "security": "SSL安全な接続"
+    },
+    "services": {
+      "title": "サービス",
+      "familyAnalysis": "顔類似度テスト",
+      "multipleComparison": "最も似ている人を探す",
+      "ageAnalysis": "年齢予測",
+      "genderAnalysis": "優男/男前スタイル分析"
+    },
+    "support": {
+      "title": "カスタマーサポート",
+      "emailInquiry": "メールでのお問い合わせ",
+      "technicalSupport": "技術サポート"
+    },
+    "legal": {
+      "title": "法的情報",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約"
+    },
+    "copyright": "© {{year}} FaceFalcon. All rights reserved.",
+    "disclaimer": "このサービスはAI技術を使用した参考分析結果を提供します。",
+    "legalNotice": "このウェブサイトは個人情報保護法および情報通信網利用促進および情報保護等に関する法律に準拠しています。アップロードされた画像は分析後すぐに削除され、別途保存されません。サービスの利用中に問題が発生した場合は、お問い合わせください",
+    "madeWith": "作成者"
+  },
+  "home": {
+    "hero": {
+      "title": "メインサービス",
+      "subtitle": "2人はどれくらい似ている？",
+      "description": "写真をアップロードしてAI技術で顔の類似度を正確に分析",
+      "badge": "InsightFaceベースの高精度分析エンジン",
+      "mainTitle": "AI顔分析サービス",
+      "mainSubtitle": "顔類似度テストから年齢予測、優男/男前分析まで",
+      "mainDescription": "写真をアップロードするだけでAIが分析します"
+    },
+    "showcase": {
+      "title": "実際の分析結果を確認",
+      "subtitle": "AIが分析した実際の使用例",
+      "ageAnalysis": "年齢予測",
+      "ageAnalysisDesc": "正確なAI年齢予測",
+      "genderAnalysis": "優男/男前分析",
+      "genderAnalysisDesc": "AIがあなたのスタイルを分析"
+    },
+    "features": {
+      "freeService": {
+        "title": "100%無料サービス",
+        "description": "有料サブスクリプションなし、課金メッセージなし<br/>すべての機能を完全無料で使用"
+      },
+      "privacyProtection": {
+        "title": "プライバシー保護",
+        "description": "個人情報の保存なし<br/>登録なしですぐに利用可能"
+      },
+      "autoDelete": {
+        "title": "写真即座削除",
+        "description": "分析後、写真を自動削除<br/>画像は保存されません"
+      },
+      "aiAnalysis": {
+        "title": "正確なAI分析",
+        "description": "最新のInsightFace技術で高精度の顔類似度分析を提供"
+      },
+      "multipleMode": {
+        "title": "さまざまな分析モード",
+        "description": "類似度テスト、年齢予測、優男/男前スタイル分析をサポートし、さまざまな楽しい洞察を提供"
+      },
+      "privacy": {
+        "title": "プライバシー保護",
+        "description": "アップロードされた画像は分析後すぐに削除され、個人情報を安全に保護"
+      }
+    },
+    "upload": {
+      "parentPhoto": "親の写真",
+      "childPhoto": "子供の写真",
+      "analyzing": "AI分析中...",
+      "startAnalysis": "類似度分析を開始"
+    },
+    "cta": {
+      "moreAnalysis": "もっと多くの分析機能をお望みですか？",
+      "moreFeatures": "最も似ている人を探す、兄弟分析など<br/>さまざまな分析ツールを試してみてください",
+      "viewMore": "もっと見る →"
+    },
+    "devCta": {
+      "title": "このサービスは気に入りましたか？",
+      "description": "AI画像モデルとWeb技術を使用して作成されたプロジェクト",
+      "link": "開発者について"
+    }
+  },
+  "analysis": {
+    "results": {
+      "firstPerson": "1人目",
+      "secondPerson": "2人目",
+      "aiConfidence": "AI分析信頼度",
+      "similarityInterpretation": "類似度の解釈",
+      "veryHighSimilarity": "70%以上：非常に高い類似度",
+      "highSimilarity": "50-70%：高い類似度",
+      "mediumSimilarity": "30-50%：中程度の類似度",
+      "lowSimilarity": "30%未満：低い類似度",
+      "mostSimilarFound": "最も似ている人を見つけました！",
+      "referencePerson": "基準人物",
+      "bestMatch": "ベストマッチ",
+      "overallRanking": "総合ランキング",
+      "candidate": "候補者{{number}}",
+      "similarity": "類似度",
+      "analyzedPhoto": "分析した写真",
+      "growthPeriodWarning": "まだ成長期のため、後で変わる可能性が高いです",
+      "ageAnalysisTitle": "AI顔分析：年齢予測結果",
+      "ageAnalysisSubtitle": "AIが年齢を予測しました",
+      "findParentsTitle": "AI顔分析：最も似ている人の結果",
+      "findParentsSubtitle": "最も似ている人を見つけました"
+    },
+    "upload": {
+      "agePhotoLabel": "年齢予測用の写真をアップロード",
+      "stylePhotoLabel": "スタイル分析用の写真をアップロード"
+    },
+    "genderEstimation": {
+      "title": "優男/男前分析",
+      "description": "AIが顔の特徴に基づいてスタイルを分析",
+      "analyzing": "スタイル分析中...",
+      "startButton": "スタイル分析を開始！"
+    },
+    "genderLevels": {
+      "male": {
+        "terminator": "ターミネーターレベルの男前",
+        "hulk": "ハルクレベルの男前",
+        "thor": "ソーレベルの男前",
+        "captain": "キャプテンレベルの男前",
+        "soft": "優男",
+        "egen": "優男",
+        "teto": "男前",
+        "strongEgen": "強い優男",
+        "strongTeto": "強い男前"
+      },
+      "female": {
+        "tough": "気の強い女性",
+        "soft": "優女",
+        "egen": "優女",
+        "teto": "気の強い女性",
+        "strongEgen": "強い優女",
+        "strongTeto": "強い気の強い女性",
+        "extremeEgen": "極めて優女",
+        "ultraEgen": "ウルトラ優女",
+        "pureEgen": "ピュア優女",
+        "softEgen": "ソフト優女",
+        "classicEgen": "クラシック優女",
+        "generalEgen": "ジェネラル優女",
+        "lightTeto": "ライト気の強い女性",
+        "proTeto": "プロ気の強い女性",
+        "warrior": "ウォリアー気の強い女性",
+        "amazon": "アマゾン気の強い女性",
+        "wonderwoman": "ワンダーウーマン気の強い女性",
+        "extreme": "エクストリーム気の強い女性"
+      },
+      "descriptions": {
+        "male": {
+          "proTeto": "決定的な男性的魅力",
+          "generalTeto": "健康的な男性らしさ",
+          "lightEgen": "強いが優しい魅力",
+          "classicEgen": "クラシックな優しいカリスマ",
+          "softEgen": "温かく親しみやすい魅力",
+          "pureEgen": "ピュアで清潔な感じ",
+          "ultraEgen": "究極の優しさ",
+          "feminine": "ソフトでエレガントな感じ"
+        },
+        "female": {
+          "extremeEgen": "極めてソフトで女性的な魅力",
+          "ultraEgen": "非常にソフトな女性らしさ",
+          "pureEgen": "ピュアで清潔な魅力",
+          "softEgen": "温かく親しみやすい魅力",
+          "classicEgen": "女性的なカリスマ",
+          "generalEgen": "バランスの取れた女性らしさ",
+          "lightTeto": "優しいが強い魅力",
+          "proTeto": "決定的な強い魅力",
+          "warrior": "戦士のようなカリスマ",
+          "amazon": "神話の戦士エネルギー",
+          "wonderwoman": "鋼のような女性の力",
+          "extreme": "圧倒的な強さ！"
+        }
+      }
+    },
+    "ageEstimation": {
+      "title": "年齢を当てよう！",
+      "description": "AIが写真の顔の年齢を予測",
+      "analyzing": "年齢予測中...",
+      "startButton": "年齢予測を開始！"
+    }
+  },
+  "similarity": {
+    "interpretation": {
+      "almostIdentical": "ほぼ同一",
+      "definiteFamily": "確実な家族",
+      "quiteSimilar": "かなり似ている",
+      "someResemblance": "いくらかの類似",
+      "uniqueCharm": "ユニークな魅力"
+    },
+    "messages": {
+      "identical": {
+        "title": "完全に同一！",
+        "message": "これは同じ人です！別の写真をご使用ください🔍"
+      },
+      "copyPaste": {
+        "title": "コピー+ペースト！",
+        "message": "これは本当に同じ人の別の写真では？😅"
+      },
+      "almostIdentical": {
+        "title": "ほぼ同一",
+        "message": "ほぼ確実に同じ人です！"
+      },
+      "perfectMatch": {
+        "title": "完璧なマッチ",
+        "message": "ここまで似ていると双子ではなく同じ人では？🤔"
+      },
+      "veryHighSimilarity": {
+        "title": "非常に高い類似度",
+        "message": "同じ人のように見えます。別の人と比較してください"
+      },
+      "extremelySimilar": {
+        "title": "極めて似ている",
+        "message": "ほぼ同じ人です！😮"
+      },
+      "uniqueStyle": {
+        "title": "ユニークなスタイル！",
+        "message": "それぞれに独自の魅力があります！✨"
+      },
+      "personalityExplosion": {
+        "title": "個性爆発！",
+        "message": "完全に異なるスタイル！素晴らしい😊"
+      },
+      "definiteFamily": {
+        "title": "確実な家族！",
+        "message": "明確な家族の類似性！類似性が見えます😊"
+      },
+      "subtleSimilarity": {
+        "title": "微妙な類似性",
+        "message": "よく見るといくらかの類似性が見つかります！🔍"
+      }
+    }
+  },
+  "actions": {
+    "copyLink": "リンクをコピー",
+    "linkCopied": "リンクがコピーされました！",
+    "linkCopyFailed": "リンクのコピーに失敗しました。"
+  },
+  "metadata": {
+    "analyze": {
+      "gender": {
+        "title": "AI優男/男前スタイル分析結果",
+        "description": "AIで分析された優男/男前スタイルを確認"
+      },
+      "age": {
+        "title": "AI年齢予測結果",
+        "description": "AIで予測された年齢を確認"
+      },
+      "parentChild": {
+        "title": "AI顔類似度テスト結果",
+        "description": "AIで分析された2人の類似度を確認"
+      },
+      "findParents": {
+        "title": "AI顔分析：最も似ている人を探す",
+        "description": "あなたに最も似ている人を見つける"
+      },
+      "whoMostSimilar": {
+        "title": "AI顔分析：類似度テスト結果",
+        "description": "似ている人を見つけました"
+      },
+      "common": {
+        "description": "AI類似度テスト、年齢予測、優男/男前分析を無料で試してみてください"
+      },
+      "keywords": "AI顔分析,顔類似度,類似度テスト,年齢予測,優男,男前,優女,気の強い女性,顔類似性,顔マッチング"
+    }
+  },
+  "privacyDisclaimer": {
+    "title": "お知らせ",
+    "items": {
+      "imageStorage": "アップロードされた写真はサーバーに保存されず、分析後すぐに削除されます",
+      "noPersonalInfo": "個人情報は一切収集しません",
+      "forEntertainment": "このサービスは楽しみとエンターテインメント目的のみです。結果は参考としてのみご利用ください"
+    }
+  }
+}

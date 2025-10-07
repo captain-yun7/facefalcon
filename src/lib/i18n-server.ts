@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
 
-export type Locale = 'ko' | 'en';
+export type Locale = 'ko' | 'en' | 'ja';
 
 // Dictionary type for type safety (supports nested objects and arrays)
 export type Dictionary = {
@@ -11,6 +11,7 @@ export type Dictionary = {
 const dictionaries = {
   ko: () => import('../../public/locales/ko/common.json').then((module) => module.default),
   en: () => import('../../public/locales/en/common.json').then((module) => module.default),
+  ja: () => import('../../public/locales/ja/common.json').then((module) => module.default),
 };
 
 // Global in-memory cache for dictionaries (persists across requests)
@@ -76,7 +77,7 @@ export function getTranslation(
 
 // Validate locale
 export function isValidLocale(locale: string): locale is Locale {
-  return locale === 'ko' || locale === 'en';
+  return locale === 'ko' || locale === 'en' || locale === 'ja';
 }
 
 // Get locale from Accept-Language header
@@ -85,6 +86,7 @@ export function getLocaleFromHeader(acceptLanguage: string | null): Locale {
 
   const browserLang = acceptLanguage.toLowerCase();
   if (browserLang.startsWith('en')) return 'en';
+  if (browserLang.startsWith('ja')) return 'ja';
   if (browserLang.startsWith('ko')) return 'ko';
 
   return 'ko'; // default

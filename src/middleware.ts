@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const locales = ['ko', 'en'];
+const locales = ['ko', 'en', 'ja'];
 const defaultLocale = 'ko';
 
 // Get locale from Accept-Language header
@@ -13,7 +13,7 @@ function getLocale(request: NextRequest): string {
     // 예: "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7" -> "ko-KR"
     const firstLang = acceptLanguage.split(',')[0].toLowerCase().trim();
 
-    // 언어 코드에서 첫 2글자 추출 (ko-KR -> ko, en-US -> en)
+    // 언어 코드에서 첫 2글자 추출 (ko-KR -> ko, en-US -> en, ja-JP -> ja)
     const langCode = firstLang.split('-')[0].split(';')[0];
 
     // 지원하는 언어인지 확인

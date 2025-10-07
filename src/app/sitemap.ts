@@ -3,11 +3,11 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
-type Locale = 'ko' | 'en'
+type Locale = 'ko' | 'en' | 'ja'
 
 // 블로그 포스트 메타데이터 추출
 function getBlogPosts(locale: Locale) {
-  const blogDir = path.join(process.cwd(), 'content', 'blog', locale === 'en' ? 'en' : '')
+  const blogDir = path.join(process.cwd(), 'content', 'blog', locale === 'en' ? 'en' : locale === 'ja' ? 'ja' : '')
 
   try {
     if (!fs.existsSync(blogDir)) {
@@ -35,7 +35,7 @@ function getBlogPosts(locale: Locale) {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'
-  const locales: Locale[] = ['ko', 'en']
+  const locales: Locale[] = ['ko', 'en', 'ja']
   const currentDate = new Date()
 
   // 다국어 페이지 정의 (경로, 우선순위, 변경빈도)
@@ -67,6 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           ko: `${baseUrl}/ko${page.path}`,
           en: `${baseUrl}/en${page.path}`,
+          ja: `${baseUrl}/ja${page.path}`,
         }
       }
     }))
@@ -84,6 +85,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           ko: `${baseUrl}/ko/blog/${post.slug}`,
           en: `${baseUrl}/en/blog/${post.slug}`,
+          ja: `${baseUrl}/ja/blog/${post.slug}`,
         }
       }
     }))
@@ -99,6 +101,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       languages: {
         ko: `${baseUrl}/ko`,
         en: `${baseUrl}/en`,
+        ja: `${baseUrl}/ja`,
       }
     }
   }

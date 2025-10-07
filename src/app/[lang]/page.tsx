@@ -198,7 +198,7 @@ export default function Home() {
               <div className="relative bg-white rounded-xl overflow-hidden">
                 <div className="aspect-[3/4] relative bg-gray-50">
                   <Image
-                    src={locale === 'en' ? '/images/estimate-age-sample-en.png' : '/images/estimate-age-sample.png'}
+                    src={locale === 'en' ? '/images/estimate-age-sample-en.png' : locale === 'ja' ? '/images/estimate-age-sample-en.png' : '/images/estimate-age-sample.png'}
                     alt="AI 나이 분석 예시"
                     fill
                     className="object-contain"
@@ -219,7 +219,7 @@ export default function Home() {
               <div className="relative bg-white rounded-xl overflow-hidden">
                 <div className="aspect-[3/4] relative bg-gray-50">
                   <Image
-                    src={locale === 'en' ? '/images/estimate-gender-sample-en.png' : '/images/estimate-gender-sample.png'}
+                    src={locale === 'en' ? '/images/estimate-gender-sample-en.png' : locale === 'ja' ? '/images/estimate-gender-sample-en.png' : '/images/estimate-gender-sample.png'}
                     alt="AI 에겐/테토 분석 예시"
                     fill
                     className="object-contain"
