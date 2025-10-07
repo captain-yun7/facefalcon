@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 interface AnalyzingAdScreenProps {
   onComplete: () => void;

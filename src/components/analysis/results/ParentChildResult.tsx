@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { UploadedImage } from '@/lib/types';
 import SimilarityGauge from '@/components/SimilarityGauge';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 interface ParentChildResultProps {
   parentImage: UploadedImage;

@@ -20,7 +20,7 @@ import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage, getFamilySimilarityMessageWithTranslation, convertAiScoreToUserPercent } from '@/lib/utils/family-messages';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
 import { analytics } from '@/components/GoogleAnalytics';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 type AnalysisType = 'parent-child' | 'who-most-similar' | 'age-estimation' | 'gender-estimation' | '';
 
@@ -419,12 +419,12 @@ export default function AnalyzePage() {
     if (selectedAnalysis !== value && selectedAnalysis !== '' && value !== '') {
       analytics.trackAnalysisTypeChange(selectedAnalysis as "parent-child" | "who-most-similar", value as "parent-child" | "who-most-similar");
     }
-    
-    // URL 업데이트
+
+    // URL 업데이트 (언어 경로 포함)
     if (value && typeMap[value]) {
-      router.push(`/analyze?type=${typeMap[value]}`, { scroll: false });
+      router.push(`/${locale}/analyze?type=${typeMap[value]}`, { scroll: false });
     }
-    
+
     setSelectedAnalysis(value);
     setIsDropdownOpen(false);
     handleReset();

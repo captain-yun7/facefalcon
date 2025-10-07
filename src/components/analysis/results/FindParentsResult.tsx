@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { UploadedImage, SimilarityResult } from '@/lib/types';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 interface FindParentsResultProps {
   childImage: UploadedImage;

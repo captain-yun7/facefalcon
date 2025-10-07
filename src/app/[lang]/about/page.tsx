@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 export default function AboutPage() {
   const { t, locale } = useTranslations();

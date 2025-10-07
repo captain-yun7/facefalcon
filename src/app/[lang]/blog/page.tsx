@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnalysisCTA from '@/components/AnalysisCTA';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 import { useState, useEffect } from 'react';
 import { BlogPostMeta } from '@/lib/blog';
 

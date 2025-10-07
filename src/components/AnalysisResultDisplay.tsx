@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import SimilarityGauge from './SimilarityGauge';
 import { PythonFamilySimilarityData } from '@/lib/python-api/client';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 interface AnalysisResultDisplayProps {
   parentImage: { preview: string };

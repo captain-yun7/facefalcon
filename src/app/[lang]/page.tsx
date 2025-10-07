@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import LocalizedLink from '@/components/LocalizedLink';
 import ImageUploader from '@/components/ImageUploader';
 import Navbar from '@/components/Navbar';
 import SimilarityGauge from '@/components/SimilarityGauge';
@@ -15,7 +15,7 @@ import { PythonFamilySimilarityData } from '@/lib/python-api/client';
 import { getFamilySimilarityMessage, getFamilySimilarityMessageWithTranslation } from '@/lib/utils/family-messages';
 import { getSimilarityLevel, formatPercentage } from '@/lib/utils/similarity-calculator';
 import { generateResultImage, downloadImage, shareResultImage, copyToClipboard, ResultImageData } from '@/lib/utils/image-generator';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 export default function Home() {
   const { t, locale } = useTranslations();
@@ -416,12 +416,12 @@ export default function Home() {
               <p className="text-gray-600 mb-4 max-w-md mx-auto">
                 <span dangerouslySetInnerHTML={{ __html: t('home.cta.moreFeatures') }} />
               </p>
-              <Link
+              <LocalizedLink
                 href="/analyze"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 {t('home.cta.viewMore')}
-              </Link>
+              </LocalizedLink>
             </div>
           </div>
 
@@ -475,12 +475,12 @@ export default function Home() {
                   <p className="text-gray-600 mb-6 max-w-md mx-auto">
                     {t('home.devCta.description')}
                   </p>
-                  <Link
+                  <LocalizedLink
                     href="/about"
                     className="px-6 py-4 bg-white text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium border border-gray-200"
                   >
                     {t('home.devCta.link')}
-                  </Link>
+                  </LocalizedLink>
                 </div>
               </div>
             </>

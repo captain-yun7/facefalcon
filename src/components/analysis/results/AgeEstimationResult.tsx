@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { UploadedImage } from '@/lib/types';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 import { getAgeCategoryKey } from '@/lib/utils/age-utils';
 
 interface AgeEstimationResultProps {

@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { useTranslations } from '@/lib/simple-i18n';
+import LocalizedLink from '@/components/LocalizedLink';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -30,24 +30,24 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">{t('footer.services.title')}</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/analyze?type=parent-child" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/analyze?type=parent-child" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.familyAnalysis')}
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link href="/analyze?type=who-most-similar" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/analyze?type=who-most-similar" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.multipleComparison')}
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link href="/analyze?type=age-estimation" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/analyze?type=age-estimation" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.ageAnalysis')}
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link href="/analyze?type=gender-estimation" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/analyze?type=gender-estimation" className="text-sm hover:text-white transition-colors">
                   {t('footer.services.genderAnalysis')}
-                </Link>
+                </LocalizedLink>
               </li>
             </ul>
           </div>
@@ -62,9 +62,9 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link href="/about" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/about" className="text-sm hover:text-white transition-colors">
                   {t('footer.support.technicalSupport')}
-                </Link>
+                </LocalizedLink>
               </li>
             </ul>
           </div>
@@ -74,14 +74,14 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">{t('footer.legal.title')}</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/privacy" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/privacy" className="text-sm hover:text-white transition-colors">
                   {t('footer.legal.privacy')}
-                </Link>
+                </LocalizedLink>
               </li>
               <li>
-                <Link href="/terms" className="text-sm hover:text-white transition-colors">
+                <LocalizedLink href="/terms" className="text-sm hover:text-white transition-colors">
                   {t('footer.legal.terms')}
-                </Link>
+                </LocalizedLink>
               </li>
             </ul>
           </div>

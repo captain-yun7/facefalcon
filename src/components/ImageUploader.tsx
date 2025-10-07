@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { validateImageFile, compressImage } from '@/lib/utils/image-processing';
 import { UploadedImage } from '@/lib/types';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 interface ImageUploaderProps {
   onImageUpload: (image: UploadedImage) => void;

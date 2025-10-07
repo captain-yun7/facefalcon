@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 interface AnalysisResultActionsProps {
   onReset: () => void;

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 import { useState, useEffect } from 'react';
 interface BlogPost {
   slug: string;

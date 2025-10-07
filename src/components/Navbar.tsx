@@ -1,9 +1,9 @@
 "use client";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import LocalizedLink from "./LocalizedLink";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { useTranslations } from "@/lib/simple-i18n";
+import { useTranslations } from "@/components/TranslationsProvider";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -23,7 +23,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <LocalizedLink href="/" className="flex items-center gap-2">
             <svg className="w-12 h-12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -47,15 +47,15 @@ export default function Navbar() {
             <span className="font-fredoka text-2xl font-bold bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent">
               FaceFalcon
             </span>
-          </Link>
+          </LocalizedLink>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             <nav className="flex items-center space-x-1">
               {navItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive = pathname.endsWith(item.href) || (item.href === "/" && pathname.match(/^\/(ko|en)\/?$/));
                 return (
-                  <Link
+                  <LocalizedLink
                     key={item.href}
                     href={item.href}
                     className={`
@@ -77,7 +77,7 @@ export default function Navbar() {
                         Click
                       </span>
                     )}
-                  </Link>
+                  </LocalizedLink>
                 );
               })}
             </nav>
@@ -87,7 +87,7 @@ export default function Navbar() {
           {/* Mobile Buttons */}
           <div className="md:hidden flex items-center gap-2">
             {/* Mobile Analyze Quick Link */}
-            <Link
+            <LocalizedLink
               href="/analyze"
               className={`
                 flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium transition-all
@@ -98,7 +98,7 @@ export default function Navbar() {
               `}
             >
               {t("navigation.analyze")}
-              <span 
+              <span
                 className="inline-block px-1.5 py-0.5 text-xs font-bold text-white bg-red-500 rounded-full animate-pulse"
                 style={{
                   transform: 'rotate(-5deg)',
@@ -107,7 +107,7 @@ export default function Navbar() {
               >
                 Click
               </span>
-            </Link>
+            </LocalizedLink>
             
             {/* Mobile Menu Button */}
             <button
@@ -145,9 +145,9 @@ export default function Navbar() {
           <div className="md:hidden py-4 border-t border-blue-100">
             <nav className="space-y-2">
               {navItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive = pathname.endsWith(item.href) || (item.href === "/" && pathname.match(/^\/(ko|en)\/?$/));
                 return (
-                  <Link
+                  <LocalizedLink
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -170,7 +170,7 @@ export default function Navbar() {
                         Click
                       </span>
                     )}
-                  </Link>
+                  </LocalizedLink>
                 );
               })}
             </nav>

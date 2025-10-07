@@ -3,7 +3,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnalysisCTA from '@/components/AnalysisCTA';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 // Note: metadata moved to layout.tsx or use Next.js Head component for client components
 

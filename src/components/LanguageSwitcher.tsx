@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { useTranslations, Locale } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import type { Locale } from '@/lib/i18n-server';
 
 interface Language {
   code: Locale;
@@ -16,9 +18,11 @@ const languages: Language[] = [
 ];
 
 export default function LanguageSwitcher() {
-  const { locale, changeLocale } = useTranslations();
+  const { locale } = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
 
@@ -39,7 +43,12 @@ export default function LanguageSwitcher() {
   }, [isOpen]);
 
   const handleLanguageChange = (langCode: Locale) => {
-    changeLocale(langCode);
+    // Replace current locale in pathname with new locale
+    const segments = pathname.split('/');
+    segments[1] = langCode; // Replace locale segment
+    const newPath = segments.join('/');
+
+    router.push(newPath);
     setIsOpen(false);
   };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 export default function PrivacyDisclaimer() {
   const { t, loading } = useTranslations();

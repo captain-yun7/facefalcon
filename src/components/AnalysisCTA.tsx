@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 interface AnalysisCTAProps {
   title?: string;

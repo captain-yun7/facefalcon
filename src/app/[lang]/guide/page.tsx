@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import AnalysisCTA from '@/components/AnalysisCTA';
-import { useTranslations } from '@/lib/simple-i18n';
+import { useTranslations } from '@/components/TranslationsProvider';
 
 export default function GuidePage() {
   const { t, locale } = useTranslations();

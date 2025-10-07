@@ -1,9 +1,39 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+const locales = ['ko', 'en'];
+const defaultLocale = 'ko';
+
+// Get locale from Accept-Language header
+function getLocale(request: NextRequest): string {
+  const acceptLanguage = request.headers.get('accept-language');
+
+  if (acceptLanguage) {
+    const browserLang = acceptLanguage.toLowerCase();
+    if (browserLang.includes('en')) return 'en';
+    if (browserLang.includes('ko')) return 'ko';
+  }
+
+  return defaultLocale;
+}
+
 export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Check if pathname already has a locale
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+
+  // Redirect to locale-prefixed URL if needed
+  if (!pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next')) {
+    const locale = getLocale(request);
+    const newPathname = `/${locale}${pathname === '/' ? '' : pathname}`;
+    return NextResponse.redirect(new URL(newPathname, request.url));
+  }
+
   const response = NextResponse.next()
-  
+
   // 보안 헤더 설정
   response.headers.set('X-Frame-Options', 'DENY')
   response.headers.set('X-Content-Type-Options', 'nosniff')
