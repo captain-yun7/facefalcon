@@ -15,6 +15,7 @@ interface Language {
 const languages: Language[] = [
   { code: 'ko', name: '한국어', flag: '/flags/kr.svg' },
   { code: 'en', name: 'English', flag: '/flags/us.svg' },
+  { code: 'ja', name: '日本語', flag: '/flags/jp.svg' },
 ];
 
 export default function LanguageSwitcher() {

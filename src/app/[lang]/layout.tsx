@@ -23,7 +23,7 @@ const inter = Inter({
 
 // Generate static params for supported locales
 export async function generateStaticParams() {
-  return [{ lang: 'ko' }, { lang: 'en' }];
+  return [{ lang: 'ko' }, { lang: 'en' }, { lang: 'ja' }];
 }
 
 // Generate dynamic metadata based on locale
@@ -56,6 +56,18 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
       twitterDescription: "Analyze face similarity, age, and style with AI",
       locale: 'en_US' as const,
     },
+    ja: {
+      title: {
+        default: "FaceFalcon - AI顔分析 | 類似度テスト、年齢予測、スタイル分析",
+        template: "%s | FaceFalcon"
+      },
+      description: "AI技術による顔の類似度テスト、年齢予測、優男/男前スタイル分析を提供する無料オンラインサービス。楽しいAI顔分析を今すぐ体験！",
+      keywords: ["AI顔分析", "顔類似度テスト", "年齢予測", "優男 男前", "顔比較", "FaceFalcon", "顔特徴分析"],
+      ogTitle: "FaceFalcon - AI顔分析サービス",
+      ogDescription: "AI技術による顔の類似度テスト、年齢予測、スタイル分析を提供する楽しい無料オンラインサービス！",
+      twitterDescription: "AIで顔の類似度、年齢、スタイルを分析する楽しいサービス",
+      locale: 'ja_JP' as const,
+    },
   };
 
   const meta = metadataByLang[lang];
@@ -78,6 +90,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
       languages: {
         'ko': '/ko',
         'en': '/en',
+        'ja': '/ja',
       },
     },
     openGraph: {
@@ -219,7 +232,7 @@ export default async function RootLayout({
         "@type": "ContactPoint",
         "contactType": "고객 지원",
         "areaServed": "KR",
-        "availableLanguage": ["Korean", "English"]
+        "availableLanguage": ["Korean", "English", "Japanese"]
       },
       "sameAs": [
         "https://www.facebook.com/facefalcon",
@@ -314,7 +327,7 @@ export default async function RootLayout({
         "@type": "ContactPoint",
         "contactType": "Customer Support",
         "areaServed": "Worldwide",
-        "availableLanguage": ["Korean", "English"]
+        "availableLanguage": ["Korean", "English", "Japanese"]
       },
       "sameAs": [
         "https://www.facebook.com/facefalcon",
@@ -360,6 +373,7 @@ export default async function RootLayout({
         {/* hreflang tags for SEO */}
         <link rel="alternate" hrefLang="ko" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/ko`} />
         <link rel="alternate" hrefLang="en" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/en`} />
+        <link rel="alternate" hrefLang="ja" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/ja`} />
         <link rel="alternate" hrefLang="x-default" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/ko`} />
       </head>
       <body
