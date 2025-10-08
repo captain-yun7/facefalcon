@@ -115,8 +115,8 @@ export default function BlogPostPage({
         <div className="max-w-4xl mx-auto">
           {/* 헤더 */}
           <div className="mb-12">
-            <Link 
-              href="/blog"
+            <Link
+              href={`/${locale}/blog`}
               className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-8 font-semibold text-lg group transition-all duration-300"
             >
               <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,8 +166,8 @@ export default function BlogPostPage({
 
           {/* 하단 네비게이션 */}
           <div className="mt-16 flex flex-col sm:flex-row gap-6 justify-between">
-            <Link 
-              href="/blog"
+            <Link
+              href={`/${locale}/blog`}
               className="inline-flex items-center px-8 py-4 bg-white/70 backdrop-blur-sm text-slate-700 rounded-2xl hover:bg-white/90 hover:shadow-lg transition-all duration-300 font-semibold border border-slate-200/50 group"
             >
               <svg className="w-5 h-5 mr-3 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,9 +175,9 @@ export default function BlogPostPage({
               </svg>
               {t('blog.backToList')}
             </Link>
-            
-            <Link 
-              href="/analyze"
+
+            <Link
+              href={`/${locale}/analyze`}
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl hover:from-blue-700 hover:to-purple-700 hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold group"
             >
               {t('blog.tryAnalysis')}
@@ -195,9 +195,9 @@ export default function BlogPostPage({
                 <h2 className="text-3xl font-black text-slate-800 mb-8 text-center">{t('blog.relatedPosts')}</h2>
                 <div className="grid md:grid-cols-2 gap-8">
                   {relatedPosts.map((relatedPost) => (
-                    <Link 
+                    <Link
                       key={relatedPost.slug}
-                      href={`/blog/${relatedPost.slug}`}
+                      href={`/${locale}/blog/${relatedPost.slug}`}
                       className="group block p-6 bg-slate-50/70 backdrop-blur-sm rounded-2xl hover:bg-white/90 hover:shadow-lg transition-all duration-300 border border-slate-200/50"
                     >
                       <div className="flex items-center justify-between mb-4">

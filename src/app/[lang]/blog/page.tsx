@@ -72,9 +72,9 @@ export default function BlogPage() {
             <div className="grid gap-10 mb-16">
               {posts.length > 0 ? (
                 posts.map((post, index) => (
-                  <Link 
+                  <Link
                     key={post.slug}
-                    href={`/blog/${post.slug}`}
+                    href={`/${locale}/blog/${post.slug}`}
                     className="group block"
                   >
                     <article className="relative bg-white/70 backdrop-blur-sm rounded-3xl p-10 shadow-xl border border-white/50 hover:shadow-2xl hover:border-blue-200/50 hover:bg-white/90 transition-all duration-500 group-hover:scale-[1.02] transform">

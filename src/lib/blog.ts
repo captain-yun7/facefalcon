@@ -6,7 +6,9 @@ import html from 'remark-html';
 
 const getPostsDirectory = (locale: string = 'ko') => {
   const baseDir = path.join(process.cwd(), 'content/blog');
-  return locale === 'en' ? path.join(baseDir, 'en') : baseDir;
+  if (locale === 'en') return path.join(baseDir, 'en');
+  if (locale === 'ja') return path.join(baseDir, 'ja');
+  return baseDir;
 };
 
 export interface BlogPost {
@@ -140,6 +142,9 @@ export async function getAllSlugs(locale: string = 'ko'): Promise<string[]> {
 export function getCategories(locale: string = 'ko'): string[] {
   if (locale === 'en') {
     return ['Science', 'Genetics', 'Tips'];
+  }
+  if (locale === 'ja') {
+    return ['科学', '遺伝学', 'ヒント'];
   }
   return ['과학 원리', '유전학 지식', '사용 팁'];
 }
