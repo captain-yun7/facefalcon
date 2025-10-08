@@ -8,6 +8,10 @@ const getPostsDirectory = (locale: string = 'ko') => {
   const baseDir = path.join(process.cwd(), 'content/blog');
   if (locale === 'en') return path.join(baseDir, 'en');
   if (locale === 'ja') return path.join(baseDir, 'ja');
+  if (locale === 'es') return path.join(baseDir, 'es');
+  if (locale === 'pt') return path.join(baseDir, 'pt');
+  if (locale === 'de') return path.join(baseDir, 'de');
+  if (locale === 'fr') return path.join(baseDir, 'fr');
   return baseDir;
 };
 
@@ -145,6 +149,18 @@ export function getCategories(locale: string = 'ko'): string[] {
   }
   if (locale === 'ja') {
     return ['科学', '遺伝学', 'ヒント'];
+  }
+  if (locale === 'es') {
+    return ['Ciencia', 'Genética', 'Consejos'];
+  }
+  if (locale === 'pt') {
+    return ['Ciência', 'Genética', 'Dicas'];
+  }
+  if (locale === 'de') {
+    return ['Wissenschaft', 'Genetik', 'Tipps'];
+  }
+  if (locale === 'fr') {
+    return ['Science', 'Génétique', 'Conseils'];
   }
   return ['과학 원리', '유전학 지식', '사용 팁'];
 }

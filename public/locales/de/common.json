@@ -1,0 +1,758 @@
+{
+  "appName": "FaceFalcon",
+  "navigation": {
+    "home": "Startseite",
+    "analyze": "Analysieren",
+    "service": "Service-Info",
+    "guide": "Benutzerhandbuch",
+    "blog": "Blog",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "title": "KI-Gesichtsanalyse",
+    "subtitle": "Wählen Sie Ihren bevorzugten Analysetyp und legen Sie sofort los"
+  },
+  "analysisSelector": {
+    "title": "Welche Art von Analyse möchten Sie?",
+    "subtitle": "Bitte wählen Sie Ihren bevorzugten Analysetyp",
+    "placeholder": "Analysetyp auswählen",
+    "parentChild": {
+      "title": "KI-Gesichtsanalyse: Ähnlichkeitstest",
+      "description": "Vergleichen Sie Fotos zweier Personen, um die Ähnlichkeit zu analysieren"
+    },
+    "whoMostSimilar": {
+      "title": "KI-Gesichtsanalyse: Ähnlichste Person finden",
+      "description": "Vergleichen Sie eine Person mit mehreren Kandidaten, um die ähnlichste Person zu finden"
+    },
+    "ageEstimation": {
+      "title": "KI-Gesichtsanalyse: Altersschätzung",
+      "description": "KI sagt das Alter anhand von Fotos voraus"
+    },
+    "genderEstimation": {
+      "title": "KI-Gesichtsanalyse: Sanft/Markant-Stil",
+      "description": "Analysieren Sie Ihren Stil als sanfter oder markanter Typ"
+    },
+    "celebrity": {
+      "title": "KI-Gesichtsanalyse: Promi-Vergleich",
+      "description": "Demnächst verfügbar",
+      "status": "Demnächst"
+    }
+  },
+  "parentChildAnalysis": {
+    "title": "Gesichtsähnlichkeitsanalyse",
+    "parentPhoto": "Erstes Foto",
+    "childPhoto": "Zweites Foto",
+    "uploadParent": "Erstes Foto hochladen",
+    "uploadChild": "Zweites Foto hochladen",
+    "analyzeButton": "Ähnlichkeitsanalyse starten",
+    "analyzing": "KI analysiert..."
+  },
+  "whoMostSimilarAnalysis": {
+    "title": "Ähnlichste Person finden",
+    "uploadChild": "Referenzfoto hochladen",
+    "uploadChildLabel": "Referenzfoto hochladen",
+    "uploadCandidates": "Kandidatenfotos hochladen (2-6 Personen)",
+    "candidateCount": "Derzeit {{count}} Kandidaten registriert.",
+    "candidateMinRequired": " (mindestens 2 erforderlich)",
+    "candidate": "Kandidat {{number}}",
+    "analyzeButton": "Ähnlichste Person finden!",
+    "analyzing": "KI sucht die ähnlichste Person..."
+  },
+  "results": {
+    "analysisComplete": "Analyse abgeschlossen",
+    "analysisResult": "Analyseergebnis",
+    "similarityResult": "Ähnlichkeitsanalyseergebnis",
+    "parentFindingResult": "Ähnlichkeitsanalyseergebnis",
+    "confidence": "Analysegenauigkeit: {{confidence}}%",
+    "parent": "Erste Person",
+    "child": "Zweite Person",
+    "similarity": "Ähnlichkeit",
+    "mostSimilar": "Ähnlichste Person",
+    "ranking": "Gesamtrangliste",
+    "rank": "{{rank}}.",
+    "tryAgain": "Erneut analysieren",
+    "downloadImage": "Bild herunterladen",
+    "shareResult": "Ergebnis teilen",
+    "imageDownloaded": "Bild erfolgreich heruntergeladen!",
+    "resultTitle": "Ähnlichkeitsergebnis",
+    "parentLabel": "Erste Person",
+    "childLabel": "Zweite Person",
+    "similarityTestTitle": "KI-Gesichtsanalyse: Ähnlichkeitstest-Ergebnis",
+    "similarityTestSubtitle": "Wir haben die Ähnlichkeit zwischen zwei Personen analysiert",
+    "findParentsTitle": "KI-Gesichtsanalyse: Ähnlichste Person gefunden",
+    "findParentsSubtitle": "Die ähnlichste Person wurde gefunden",
+    "ageAnalysisTitle": "KI-Gesichtsanalyse: Altersvorhersage-Ergebnis",
+    "ageAnalysisSubtitle": "KI hat das Alter vorhergesagt",
+    "genderMaleTitle": "KI Sanft/Markant-Typ-Analyse-Ergebnis",
+    "genderFemaleTitle": "KI Sanft/Markant-Typ-Analyse-Ergebnis",
+    "genderAnalysisSubtitle": "KI hat Ihren Stil analysiert",
+    "firstPerson": "Erste Person",
+    "secondPerson": "Zweite Person",
+    "aiConfidence": "KI-Analysegenauigkeit",
+    "similarityInterpretation": "Ähnlichkeitsinterpretation",
+    "veryHighSimilarity": "70% und höher: Sehr hohe Ähnlichkeit",
+    "highSimilarity": "50-70%: Hohe Ähnlichkeit",
+    "mediumSimilarity": "30-50%: Mittlere Ähnlichkeit",
+    "lowSimilarity": "Unter 30%: Geringe Ähnlichkeit",
+    "mostSimilarFound": "Ähnlichste Person gefunden!",
+    "referencePerson": "Referenzperson",
+    "bestMatch": "Beste Übereinstimmung",
+    "overallRanking": "Gesamtrangliste",
+    "candidate": "Kandidat {{number}}",
+    "analyzedPhoto": "Analysiertes Foto",
+    "growthPeriodWarning": "Noch in der Wachstumsphase, hohe Wahrscheinlichkeit späterer Veränderungen"
+  },
+  "imageUpload": {
+    "label": "Bild hochladen",
+    "dragDrop": "Ziehen Sie ein Bild hierher oder klicken Sie zum Auswählen",
+    "dragActive": "Bild hier ablegen",
+    "processing": "Bild wird verarbeitet...",
+    "formats": "JPEG, PNG, WebP (max. 10MB)",
+    "remove": "Bild entfernen"
+  },
+  "analyzing": {
+    "title": "KI arbeitet fleißig an der Analyse",
+    "subtitle": "Bitte warten Sie einen Moment für genaue Ergebnisse",
+    "countdown": "Ergebnisse erscheinen in {{seconds}} Sekunden..."
+  },
+  "errors": {
+    "analysisError": "Analysefehler",
+    "tryRefresh": "Falls das Problem weiterhin besteht, aktualisieren Sie bitte die Seite oder laden Sie die Bilder erneut hoch.",
+    "imageProcessingError": "Bei der Verarbeitung des Bildes ist ein Fehler aufgetreten.",
+    "noFacesDetected": "Es wurden keine analysierbaren Gesichter gefunden. Bitte verwenden Sie klare Frontalfotos mit sichtbaren Gesichtern.",
+    "analysisFailure": "Bei der Analyse ist ein Fehler aufgetreten.",
+    "imageGenerationFailed": "Bilderstellung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "shareFailed": "Teilen fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "noResultsFound": "Keine Ergebnisse gefunden."
+  },
+  "share": {
+    "clipboardCopied": "Teilen-Text wurde in die Zwischenablage kopiert!\\nBitte fügen Sie ihn in Messenger oder soziale Medien ein.",
+    "shareNotSupported": "Direktes Teilen wird in diesem Browser nicht unterstützt.\\nBitte verwenden Sie die Schaltfläche \"Bild herunterladen\".",
+    "resultText": "Unser Ähnlichkeitsanalyseergebnis: {{percent}}% ähnlich! 😊\\nAnalysieren Sie auf facefalcon.com",
+    "shareTexts": {
+      "ageEstimation": "Probieren Sie die KI-Altersvorhersage-Analyse!",
+      "genderEstimation": "Probieren Sie die Sanft/Markant-Analyse!",
+      "whoMostSimilar": "Finden Sie die ähnlichste Person mit KI-Analyse!",
+      "parentChild": "Probieren Sie den Gesichtsähnlichkeitstest!",
+      "shareResultAge": "Sehen Sie sich die KI-Altersvorhersage-Ergebnisse an!",
+      "shareResultGender": "Sehen Sie sich die Sanft/Markant-Analyse-Ergebnisse an!",
+      "shareResultSimilar": "Sehen Sie sich die Ähnlichkeitsanalyse-Ergebnisse an!",
+      "shareResultParent": "Sehen Sie sich die Gesichtsähnlichkeitsanalyse-Ergebnisse an!"
+    },
+    "defaultText": "Sehen Sie sich die KI-Gesichtsanalyse-Ergebnisse an!"
+  },
+  "age": {
+    "unit": " Jahre alt",
+    "categories": {
+      "infant": "Säugling (0-2)",
+      "toddler": "Kleinkind (3-5)",
+      "child": "Kind (6-12)",
+      "teenager": "Teenager (13-19)",
+      "youngAdult": "Junger Erwachsener (20-29)",
+      "adult": "Erwachsener (30-39)",
+      "middleAged": "Mittleres Alter (40-49)",
+      "mature": "Reif (50-59)",
+      "senior": "Senior (60-69)",
+      "elderly": "Älterer Mensch (70+)"
+    }
+  },
+  "footer": {
+    "madeWith": "Erstellt mit",
+    "copyright": "© 2024 FaceFalcon. Alle Rechte vorbehalten."
+  },
+  "pages": {
+    "about": {
+      "title": "Über den Entwickler",
+      "subtitle": "Ein Entwickler, der unterhaltsame Dienste mit KI und Webtechnologien erstellt",
+      "projectStory": {
+        "title": "Wie hat dieses Projekt begonnen?",
+        "content1": "\"Wie ähnlich sehen wir uns?\" - Es begann mit einer Frage, über die sich jeder irgendwann wundert. Ich wollte einfache Neugier mit KI-Technologie lösen und einen Webdienst schaffen, den Menschen zum Spaß nutzen können.",
+        "content2": "Während des Entwicklungsprozesses habe ich verschiedene Gesichtserkennungs-APIs getestet und die Benutzererfahrung berücksichtigt, um den aktuellen Dienst zu vervollständigen. Zu sehen, wie viele Menschen ihn täglich nutzen, gibt mir das Gefühl, dass Technologie dem Alltag Spaß hinzufügen kann."
+      },
+      "techStack": {
+        "title": "Verwendeter Tech-Stack",
+        "frontend": "Frontend",
+        "backendAI": "Backend & KI"
+      },
+      "developerInfo": {
+        "title": "Entwicklerinformationen",
+        "expertise": "Fachkenntnisse",
+        "interests": "Interessen",
+        "expertiseList": [
+          "Full-Stack-Webentwicklung",
+          "KI/ML-Dienstentwicklung",
+          "AWS Cloud und Infrastrukturaufbau",
+          "Service-Architekturdesign"
+        ],
+        "interestsList": [
+          "KI-Modellanalyse",
+          "KI/ML-Dienstentwicklung",
+          "Automatisierung"
+        ]
+      },
+      "contact": {
+        "title": "Vorträge & Freiberufliche Anfragen",
+        "services": "Angebotene Dienstleistungen",
+        "contact": "Kontakt",
+        "servicesList": [
+          "KI-Dienstentwicklung",
+          "Website- und Web-/App-Anwendungsentwicklung",
+          "Cloud-Infrastrukturaufbau und -betrieb",
+          "KI-Entwicklungs- und Cloud-Vorträge",
+          "Technisches Mentoring"
+        ]
+      },
+      "backToAnalyze": "← Zur Analyse"
+    },
+    "service": {
+      "title": "Gesichtsähnlichkeitsanalyse mit",
+      "titleGradient": "KI-Technologie",
+      "subtitle": "Erleben Sie verschiedene unterhaltsame Gesichtsanalysen, darunter Ähnlichkeitstests, Altersvorhersage und Sanft/Markant-Stilanalyse mit modernster KI-Technologie.",
+      "aiTechnology": {
+        "title": "KI-Gesichtserkennungstechnologie",
+        "description": "Nutzung des neuesten Buffalo-Modells von InsightFace zur präzisen Extraktion und Analyse wichtiger Gesichtsmerkmale.",
+        "features": [
+          "Erkennung von 68 wichtigen Gesichtsmerkmalen",
+          "Generierung hochdimensionaler Gesichtseinbettungsvektoren",
+          "Unterstützung für 3D-Gesichtsstrukturanalyse"
+        ]
+      },
+      "similarityCalculation": {
+        "title": "Genaue Ähnlichkeitsberechnung",
+        "description": "Analysieren Sie Gesichter aus mehreren Perspektiven, einschließlich Ähnlichkeit, Alter und Stilmerkmalen.",
+        "features": [
+          "Genaue Ähnlichkeitsmessung basierend auf Vektorabstand",
+          "Korrekturalgorithmus unter Berücksichtigung von Altersunterschieden",
+          "Ergebnisse mit Vertrauenswerten bereitgestellt"
+        ]
+      },
+      "howItWorks": {
+        "title": "So funktioniert der Dienst",
+        "step1": {
+          "title": "Bilder hochladen",
+          "description": "Laden Sie Frontalfotos zweier Personen hoch, die Sie vergleichen möchten."
+        },
+        "step2": {
+          "title": "KI-Analyse",
+          "description": "InsightFace-KI erkennt Gesichter und extrahiert Merkmale."
+        },
+        "step3": {
+          "title": "Ähnlichkeit berechnen",
+          "description": "Vergleichen Sie Gesichtseinbettungsvektoren zur Berechnung der Ähnlichkeit."
+        },
+        "step4": {
+          "title": "Ergebnisse bereitstellen",
+          "description": "Bietet Gesamtähnlichkeit und Vertrauenswerte zusammen."
+        }
+      },
+      "features": {
+        "privacy": {
+          "title": "Datenschutz",
+          "description": "Hochgeladene Bilder werden nach Abschluss der Analyse automatisch gelöscht und in keiner Form gespeichert."
+        },
+        "speed": {
+          "title": "Schnelle Verarbeitung",
+          "description": "Liefert schnell Analyseergebnisse mit optimiertem InsightFace-Modell."
+        },
+        "accuracy": {
+          "title": "Hohe Genauigkeit",
+          "description": "Das auf großen Datenmengen trainierte InsightFace-Modell liefert hochpräzise Analyseergebnisse."
+        }
+      }
+    },
+    "analyze": {
+      "parentPhoto": "Erstes Foto",
+      "childPhoto": "Zweites Foto",
+      "uploadChild": "Referenzfoto hochladen",
+      "uploadCandidates": "Kandidatenfotos hochladen (2-6 Personen)",
+      "candidateCount": "Derzeit {{count}} Kandidaten registriert.",
+      "candidate": "Kandidat {{number}}",
+      "analysisCompleted": "Analyse abgeschlossen",
+      "similarityResult": "Ähnlichkeitsergebnis",
+      "parentFindingResult": "Ähnlichkeitsanalyseergebnis",
+      "confidence": "Analysegenauigkeit: {{confidence}}%",
+      "parent": "Erste Person",
+      "child": "Zweite Person",
+      "childLabel": "Zweite Person",
+      "similarity": "Ähnlichkeit",
+      "mostSimilarPerson": "Ähnlichste Person",
+      "overallRanking": "Gesamtrangliste",
+      "rank": "{{rank}}.",
+      "tryAgainButton": "Erneut analysieren",
+      "downloadImage": "Bild herunterladen",
+      "shareResult": "Ergebnis teilen",
+      "analyzing": "KI analysiert...",
+      "findingParent": "KI sucht die ähnlichste Person...",
+      "startAnalysis": "Ähnlichkeitsanalyse starten",
+      "startFindingParent": "Ähnlichste Person finden!"
+    }
+  },
+  "guide": {
+    "title": "Benutzerhandbuch",
+    "subtitle": "Lernen Sie, wie Sie den FaceFalcon-Dienst effektiv nutzen und Tipps für genaue Analyseergebnisse erhalten.",
+    "quickStart": {
+      "title": "Schnellstart-Anleitung",
+      "step1Title": "Schritt 1: Fotos vorbereiten",
+      "step1": {
+        "item1": "Frontalfoto: Bereiten Sie ein Foto mit dem Gesicht nach vorne gerichtet vor",
+        "item2": "Hohe Qualität: Klares Foto mit mindestens 200x200 Pixeln",
+        "item3": "Helle Beleuchtung: Aufgenommen in einer hellen Umgebung, in der das Gesicht deutlich sichtbar ist"
+      },
+      "step2Title": "Schritt 2: Analyse durchführen",
+      "step2": {
+        "item1": "Fügen Sie Fotos zum Vergleichen zu jedem Upload-Bereich hinzu",
+        "item2": "Wählen Sie den erforderlichen Analysemodus (Einzelvergleich, Gruppenanalyse usw.)",
+        "item3": "Klicken Sie auf die Schaltfläche \"Analyse starten\" und überprüfen Sie die Ergebnisse"
+      }
+    },
+    "photoTips": {
+      "title": "Tipps für beste Fotoaufnahmen",
+      "goodPhoto": {
+        "title": "✅ Gute Fotobedingungen",
+        "items": [
+          "Natürlicher Ausdruck nach vorne blickend",
+          "Haare verdecken das Gesicht nicht",
+          "Ohne Sonnenbrille oder Hut aufgenommen",
+          "Natürliches Licht oder helle Innenbeleuchtung",
+          "Einfarbiger Hintergrund (Weiß, Grau empfohlen)"
+        ]
+      },
+      "badPhoto": {
+        "title": "❌ Zu vermeidende Fotos",
+        "items": [
+          "Seitenansichten oder schräge Ansichten",
+          "Zu dunkle oder Gegenlicht-Bedingungen",
+          "Gesicht zu klein oder verschwommen",
+          "Mehrere Personen auf dem Foto",
+          "Übermäßiges Make-up oder Filter angewendet"
+        ]
+      }
+    },
+    "understandResults": {
+      "title": "Analyseergebnisse verstehen",
+      "similarityScore": {
+        "title": "Interpretation der Ähnlichkeitswerte",
+        "low": {
+          "range": "0-40%",
+          "label": "Geringe Ähnlichkeit",
+          "description": "Unterschiedliche Merkmale"
+        },
+        "medium": {
+          "range": "41-70%",
+          "label": "Mittlere Ähnlichkeit",
+          "description": "Teilweise ähnlich"
+        },
+        "high": {
+          "range": "71-100%",
+          "label": "Hohe Ähnlichkeit",
+          "description": "Sehr ähnlich"
+        }
+      },
+      "featureComparison": {
+        "title": "Merkmals-für-Merkmals-Vergleich",
+        "eyes": {
+          "label": "Augenform",
+          "details": "Augenwinkel, Augenlider, Augengröße"
+        },
+        "nose": {
+          "label": "Nasenform",
+          "details": "Nasenrücken, Nasenlöcher, Nasenspitze"
+        },
+        "mouth": {
+          "label": "Mundform",
+          "details": "Lippendicke, Mundgröße"
+        },
+        "faceShape": {
+          "label": "Gesichtsform",
+          "details": "Kontur, Kieferlinie, Stirn"
+        }
+      }
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen (FAQ)",
+      "q1": {
+        "question": "F. Sind die Analyseergebnisse genau?",
+        "answer": "Die KI-Analyse zeigt eine hohe Genauigkeit, aber die Ergebnisse können je nach Beleuchtung, Winkel, Ausdruck, Make-up usw. variieren. Bitte verwenden Sie sie zum Spaß und zur Referenz und verwenden Sie sie nicht als medizinischen oder rechtlichen Beweis."
+      },
+      "q2": {
+        "question": "F. Werden hochgeladene Fotos gespeichert?",
+        "answer": "Nein. Hochgeladene Fotos werden nach der Analyse automatisch gelöscht und in keiner Form gespeichert. Datenschutz hat für uns oberste Priorität."
+      },
+      "q3": {
+        "question": "F. Welche Dateiformate werden unterstützt?",
+        "answer": "JPG-, PNG- und JPEG-Formate werden unterstützt. Die Dateigröße beträgt bis zu 10 MB, und für optimale Analyse werden hochwertige Bilder von etwa 1-5 MB empfohlen."
+      },
+      "q4": {
+        "question": "F. Kann ich Fotos mit mehreren Personen verwenden?",
+        "answer": "Die genauesten Ergebnisse werden erzielt, wenn nur ein Gesicht pro Foto vorhanden ist. Bei mehreren Personen wählt die KI das Hauptgesicht aus, was zu unerwünschten Ergebnissen führen kann."
+      },
+      "q5": {
+        "question": "F. Welche Beziehungen können verglichen werden?",
+        "answer": "Sie können Personen aller Beziehungen vergleichen, einschließlich Familie (Geschwister, Verwandte), Freunde, Paare, Promi-Doppelgänger usw. Es analysiert objektiv die Gesichtsähnlichkeit zwischen zwei Personen."
+      },
+      "q6": {
+        "question": "F. Die Analyse ist fehlgeschlagen. Was soll ich tun?",
+        "answer": "Bitte überprüfen Sie, ob das Gesicht auf einem Frontalfoto deutlich sichtbar ist. Wenn es immer noch nicht funktioniert, versuchen Sie es mit einem anderen Foto oder kontaktieren Sie uns unter"
+      }
+    },
+    "troubleshooting": {
+      "title": "Fehlerbehebungsanleitung",
+      "uploadIssues": {
+        "title": "Upload-Probleme",
+        "items": [
+          "Überprüfen Sie, dass die Dateigröße 10 MB nicht überschreitet",
+          "Überprüfen Sie, ob es sich um JPG-, PNG- oder JPEG-Format handelt",
+          "Internetverbindung überprüfen",
+          "Browser aktualisieren und erneut versuchen"
+        ]
+      },
+      "analysisErrors": {
+        "title": "Analysefehler",
+        "items": [
+          "Überprüfen Sie, dass das Gesicht nach vorne gerichtet ist",
+          "Überprüfen Sie, dass das Bild nicht zu dunkel ist",
+          "Stellen Sie sicher, dass das Gesicht groß genug ist",
+          "Versuchen Sie es mit einem anderen Browser"
+        ]
+      }
+    }
+  },
+  "blog": {
+    "title": "KI-Tech-Info",
+    "subtitle": "Bereitstellung von Prinzipien der Gesichtsähnlichkeitsanalyse und Familienähnlichkeitswissenschaft sowie praktischen Tipps für genaue Analysen.",
+    "readMore": "Weiterlesen",
+    "category": "Kategorie",
+    "readTime": "Min. Lesezeit",
+    "backToList": "Zurück zu KI-Tech-Info",
+    "tryAnalysis": "KI-Analyse ausprobieren",
+    "relatedPosts": "Verwandte Beiträge",
+    "cta": {
+      "title": "Neugierig?",
+      "description": "Überprüfen Sie jetzt die Ähnlichkeit zwischen zwei Personen"
+    }
+  },
+  "cta": {
+    "title": "Jetzt loslegen",
+    "description": "Überprüfen Sie die Ähnlichkeit zwischen zwei Personen mit KI-Technologie",
+    "buttonText": "Kostenlos analysieren",
+    "guideButton": "Benutzerhandbuch"
+  },
+  "footer": {
+    "siteInfo": {
+      "title": "FaceFalcon",
+      "description": "KI-gestützter Gesichtsanalysedienst, der Ähnlichkeitstests, Altersvorhersage und Sanft/Markant-Stilanalyse für unterhaltsame und aufschlussreiche Ergebnisse bietet.",
+      "security": "SSL-Sichere Verbindung"
+    },
+    "services": {
+      "title": "Dienstleistungen",
+      "familyAnalysis": "Gesichtsähnlichkeitstest",
+      "multipleComparison": "Ähnlichste Person finden",
+      "ageAnalysis": "Altersvorhersage",
+      "genderAnalysis": "Sanft/Markant-Stilanalyse"
+    },
+    "support": {
+      "title": "Kundenunterstützung",
+      "emailInquiry": "E-Mail-Anfrage",
+      "technicalSupport": "Technischer Support"
+    },
+    "legal": {
+      "title": "Rechtliche Informationen",
+      "privacy": "Datenschutzrichtlinie",
+      "terms": "Nutzungsbedingungen"
+    },
+    "copyright": "© {{year}} FaceFalcon. Alle Rechte vorbehalten.",
+    "disclaimer": "Dieser Dienst bietet Referenz-Analyseergebnisse mithilfe von KI-Technologie.",
+    "legalNotice": "Diese Website entspricht dem Datenschutzgesetz und dem Gesetz zur Förderung der Nutzung von Informations- und Kommunikationsnetzen und zum Informationsschutz. Hochgeladene Bilder werden sofort nach der Analyse gelöscht und nicht separat gespeichert. Wenn Sie bei der Nutzung des Dienstes auf Probleme stoßen, kontaktieren Sie uns bitte unter",
+    "madeWith": "Erstellt mit"
+  },
+  "home": {
+    "hero": {
+      "title": "Hauptdienst",
+      "subtitle": "Wie ähnlich sind sich zwei Personen?",
+      "description": "Laden Sie Fotos hoch, um die Gesichtsähnlichkeit präzise mit KI-Technologie zu analysieren",
+      "badge": "Hochpräzise Analyse-Engine basierend auf InsightFace",
+      "mainTitle": "KI-Gesichtsanalysedienst",
+      "mainSubtitle": "Von Gesichtsähnlichkeitstests bis zu Altersvorhersage und Sanft/Markant-Analyse",
+      "mainDescription": "Laden Sie einfach Fotos hoch und die KI analysiert sie für Sie"
+    },
+    "showcase": {
+      "title": "Sehen Sie sich echte Analyseergebnisse an",
+      "subtitle": "Reale Anwendungsfälle, die von KI analysiert wurden",
+      "ageAnalysis": "Altersvorhersage",
+      "ageAnalysisDesc": "Genaue KI-Altersvorhersage",
+      "genderAnalysis": "Sanft/Markant-Analyse",
+      "genderAnalysisDesc": "KI analysiert Ihren Stil"
+    },
+    "features": {
+      "freeService": {
+        "title": "100% Kostenloser Dienst",
+        "description": "Keine kostenpflichtigen Abonnements, keine Gebührenaufforderungen<br/>Nutzen Sie alle Funktionen vollständig kostenlos"
+      },
+      "privacyProtection": {
+        "title": "Datenschutz",
+        "description": "Keine Speicherung persönlicher Informationen<br/>Sofort verfügbar ohne Registrierung"
+      },
+      "autoDelete": {
+        "title": "Sofortige Fotolöschung",
+        "description": "Fotos werden nach der Analyse automatisch gelöscht<br/>Es werden keine Bilder gespeichert"
+      },
+      "aiAnalysis": {
+        "title": "Genaue KI-Analyse",
+        "description": "Bietet hochpräzise Gesichtsähnlichkeitsanalyse mit neuester InsightFace-Technologie"
+      },
+      "multipleMode": {
+        "title": "Verschiedene Analysemodi",
+        "description": "Unterstützt Ähnlichkeitstests, Altersvorhersage und Sanft/Markant-Stilanalyse für verschiedene unterhaltsame Einblicke"
+      },
+      "privacy": {
+        "title": "Datenschutz",
+        "description": "Hochgeladene Bilder werden sofort nach der Analyse gelöscht, um persönliche Informationen sicher zu schützen"
+      }
+    },
+    "upload": {
+      "parentPhoto": "Elternfoto",
+      "childPhoto": "Kindfoto",
+      "analyzing": "KI analysiert...",
+      "startAnalysis": "Ähnlichkeitsanalyse starten"
+    },
+    "cta": {
+      "moreAnalysis": "Möchten Sie mehr Analysefunktionen?",
+      "moreFeatures": "Finden Sie heraus, wem Sie am ähnlichsten sehen, Geschwisteranalyse usw.<br/>Probieren Sie verschiedene Analysetools aus",
+      "viewMore": "Mehr Analysen anzeigen →"
+    },
+    "devCta": {
+      "title": "Gefällt Ihnen dieser Dienst?",
+      "description": "Ein Projekt, das mit KI-Bildmodellen und Webtechnologie erstellt wurde",
+      "link": "Über den Entwickler"
+    }
+  },
+  "analysis": {
+    "results": {
+      "firstPerson": "Erste Person",
+      "secondPerson": "Zweite Person",
+      "aiConfidence": "KI-Analysegenauigkeit",
+      "similarityInterpretation": "Ähnlichkeitsinterpretation",
+      "veryHighSimilarity": "70%+: Sehr hohe Ähnlichkeit",
+      "highSimilarity": "50-70%: Hohe Ähnlichkeit",
+      "mediumSimilarity": "30-50%: Mittlere Ähnlichkeit",
+      "lowSimilarity": "Unter 30%: Geringe Ähnlichkeit",
+      "mostSimilarFound": "Ähnlichste Person gefunden!",
+      "referencePerson": "Referenzperson",
+      "bestMatch": "Beste Übereinstimmung",
+      "overallRanking": "Gesamtrangliste",
+      "candidate": "Kandidat {{number}}",
+      "similarity": "Ähnlichkeit",
+      "analyzedPhoto": "Analysiertes Foto",
+      "growthPeriodWarning": "Noch in der Wachstumsphase, hohe Wahrscheinlichkeit späterer Veränderungen",
+      "ageAnalysisTitle": "KI-Gesichtsanalyse: Altersvorhersage-Ergebnis",
+      "ageAnalysisSubtitle": "KI hat das Alter vorhergesagt",
+      "findParentsTitle": "KI-Gesichtsanalyse: Ähnlichste Person gefunden",
+      "findParentsSubtitle": "Die ähnlichste Person wurde gefunden"
+    },
+    "upload": {
+      "agePhotoLabel": "Foto für Altersvorhersage hochladen",
+      "stylePhotoLabel": "Foto für Stilanalyse hochladen"
+    },
+    "genderEstimation": {
+      "title": "Sanft/Markant-Analyse",
+      "description": "KI analysiert Ihren Stil basierend auf Gesichtsmerkmalen",
+      "analyzing": "Stil wird analysiert...",
+      "startButton": "Stilanalyse starten!"
+    },
+    "genderLevels": {
+      "male": {
+        "terminator": "Terminator-Level Markanter Typ",
+        "hulk": "Hulk-Level Markanter Typ",
+        "thor": "Thor-Level Markanter Typ",
+        "captain": "Captain-Level Markanter Typ",
+        "soft": "Sanfter Typ",
+        "egen": "Sanfter Typ",
+        "teto": "Markanter Typ",
+        "strongEgen": "Stark Sanfter Typ",
+        "strongTeto": "Stark Markanter Typ"
+      },
+      "female": {
+        "tough": "Markanter Typ",
+        "soft": "Sanfter Typ",
+        "egen": "Sanfter Typ",
+        "teto": "Markanter Typ",
+        "strongEgen": "Stark Sanfter Typ",
+        "strongTeto": "Stark Markanter Typ",
+        "extremeEgen": "Extrem Sanfter Typ",
+        "ultraEgen": "Ultra Sanfter Typ",
+        "pureEgen": "Rein Sanfter Typ",
+        "softEgen": "Sanfter Typ",
+        "classicEgen": "Klassisch Sanfter Typ",
+        "generalEgen": "Allgemein Sanfter Typ",
+        "lightTeto": "Leicht Markanter Typ",
+        "proTeto": "Profi Markanter Typ",
+        "warrior": "Krieger Markanter Typ",
+        "amazon": "Amazone Markanter Typ",
+        "wonderwoman": "Wonder Woman Markanter Typ",
+        "extreme": "Extrem Markanter Typ"
+      },
+      "descriptions": {
+        "male": {
+          "proTeto": "Definitiver maskuliner Charme",
+          "generalTeto": "Gesunde Männlichkeit",
+          "lightEgen": "Markant und doch sanfter Charme",
+          "classicEgen": "Klassisches sanftes Charisma",
+          "softEgen": "Warmer und freundlicher Charme",
+          "pureEgen": "Reines und klares Gefühl",
+          "ultraEgen": "Ultimative Sanftheit",
+          "feminine": "Sanftes und elegantes Gefühl"
+        },
+        "female": {
+          "extremeEgen": "Extrem sanfter und femininer Charme",
+          "ultraEgen": "Sehr sanfte Weiblichkeit",
+          "pureEgen": "Reiner und klarer Charme",
+          "softEgen": "Warmer und freundlicher Charme",
+          "classicEgen": "Feminines Charisma",
+          "generalEgen": "Ausgewogene Weiblichkeit",
+          "lightTeto": "Sanfter und doch starker Charme",
+          "proTeto": "Definitiver starker Charme",
+          "warrior": "Kriegerisches Charisma",
+          "amazon": "Mythische Kriegerenergie",
+          "wonderwoman": "Stahlartige feminine Kraft",
+          "extreme": "Überwältigende Stärke!"
+        }
+      }
+    },
+    "ageEstimation": {
+      "title": "Schätzen Sie das Alter!",
+      "description": "KI sagt das Alter von Gesichtern auf Fotos voraus",
+      "analyzing": "Alter wird vorhergesagt...",
+      "startButton": "Altersvorhersage starten!"
+    }
+  },
+  "similarity": {
+    "interpretation": {
+      "almostIdentical": "Fast identisch",
+      "definiteFamily": "Definitiv Familie",
+      "quiteSimilar": "Ziemlich ähnlich",
+      "someResemblance": "Einige Ähnlichkeit",
+      "uniqueCharm": "Einzigartiger Charme"
+    },
+    "messages": {
+      "identical": {
+        "title": "Völlig identisch!",
+        "message": "Das sind dieselben Personen! Bitte verwenden Sie verschiedene Fotos 🔍"
+      },
+      "copyPaste": {
+        "title": "Kopieren+Einfügen!",
+        "message": "Das ist wirklich ein anderes Foto derselben Person, oder? 😅"
+      },
+      "almostIdentical": {
+        "title": "Fast identisch",
+        "message": "Fast sicher dieselbe Person!"
+      },
+      "perfectMatch": {
+        "title": "Perfekte Übereinstimmung",
+        "message": "So ähnlich, sind sie nicht Zwillinge, sondern dieselbe Person? 🤔"
+      },
+      "veryHighSimilarity": {
+        "title": "Sehr hohe Ähnlichkeit",
+        "message": "Das sieht aus wie dieselbe Person. Bitte vergleichen Sie mit jemand anderem"
+      },
+      "extremelySimilar": {
+        "title": "Extrem ähnlich",
+        "message": "Fast dieselbe Person! 😮"
+      },
+      "uniqueStyle": {
+        "title": "Einzigartiger Stil!",
+        "message": "Jeder hat seinen eigenen Charme! ✨"
+      },
+      "personalityExplosion": {
+        "title": "Persönlichkeitsexplosion!",
+        "message": "Völlig unterschiedliche Stile! Großartig 😊"
+      },
+      "definiteFamily": {
+        "title": "Definitiv Familie!",
+        "message": "Klare Familienähnlichkeit! Man kann die Ähnlichkeit sehen 😊"
+      },
+      "subtleSimilarity": {
+        "title": "Subtile Ähnlichkeit",
+        "message": "Schauen Sie genau hin und Sie werden einige Ähnlichkeiten finden! 🔍"
+      }
+    }
+  },
+  "actions": {
+    "copyLink": "Link kopieren",
+    "linkCopied": "Link kopiert!",
+    "linkCopyFailed": "Kopieren des Links fehlgeschlagen."
+  },
+  "metadata": {
+    "analyze": {
+      "gender": {
+        "title": "KI-Sanft/Markant-Stilanalyse-Ergebnis",
+        "description": "Überprüfen Sie Ihren KI-analysierten Sanft/Markant-Stil"
+      },
+      "age": {
+        "title": "KI-Altersvorhersage-Ergebnis",
+        "description": "Überprüfen Sie Ihr KI-vorhergesagtes Alter"
+      },
+      "parentChild": {
+        "title": "KI-Gesichtsähnlichkeitstest-Ergebnis",
+        "description": "Überprüfen Sie die KI-analysierte Ähnlichkeit zwischen zwei Personen"
+      },
+      "findParents": {
+        "title": "KI-Gesichtsanalyse: Ähnlichste Person finden",
+        "description": "Finden Sie die Person, die Ihnen am ähnlichsten ist"
+      },
+      "whoMostSimilar": {
+        "title": "KI-Gesichtsanalyse: Ähnlichkeitstest-Ergebnis",
+        "description": "Ähnliche Personen gefunden"
+      },
+      "common": {
+        "description": "Probieren Sie kostenlos KI-Ähnlichkeitstests, Altersvorhersage und Sanft/Markant-Analyse"
+      },
+      "keywords": "KI-Gesichtsanalyse,Gesichtsähnlichkeit,Ähnlichkeitstest,Altersvorhersage,sanfter Typ,markanter Typ,Gesichtsähnlichkeit,Gesichtsvergleich"
+    }
+  },
+  "privacyDisclaimer": {
+    "title": "Hinweis",
+    "items": {
+      "imageStorage": "Hochgeladene Fotos werden nicht auf dem Server gespeichert und werden sofort nach der Analyse gelöscht",
+      "noPersonalInfo": "Wir sammeln keine persönlichen Informationen",
+      "forEntertainment": "Dieser Dienst dient ausschließlich Unterhaltungs- und Spaßzwecken. Bitte verwenden Sie die Ergebnisse nur als Referenz"
+    }
+  },
+  "faceMatch": {
+    "title": "Gesichtsanalysemethode wählen",
+    "subtitle": "Wählen Sie die Methode, die zu Ihrem Analysezweck passt",
+    "backToHome": "← Zurück zur Startseite",
+    "familyAnalysis": {
+      "title": "Familienähnlichkeitsanalyse",
+      "description": "Präzise Ähnlichkeitsanalyse unter Berücksichtigung von Eltern-Kind-Beziehungen",
+      "features": "Merkmale:",
+      "feature1": "• InsightFace familienspezialisierter Algorithmus",
+      "feature2": "• 512-dimensionale Gesichtsmerkmalvektor-Analyse",
+      "feature3": "• Präzise Kosinus-Ähnlichkeitsmessung",
+      "feature4": "• Gesichtsbereich und Vertrauensinformationen bereitgestellt",
+      "optimized": "Optimiert für Familienbeziehungsüberprüfung"
+    },
+    "generalComparison": {
+      "title": "Allgemeiner Gesichtsvergleich",
+      "description": "Schnelle und zuverlässige grundlegende Gesichtsähnlichkeitsmessung",
+      "features": "Merkmale:",
+      "feature1": "• AWS Rekognition Engine",
+      "feature2": "• Maschinelles Lernen basierte Gesichtsanalyse",
+      "feature3": "• Echtzeitverarbeitung und hohe Stabilität",
+      "feature4": "• Unterscheidet übereinstimmende/nicht übereinstimmende Gesichter",
+      "optimized": "Optimiert für allgemeinen Gesichtsvergleich"
+    },
+    "guide": {
+      "title": "Wann welche Methode verwenden?",
+      "familyTitle": "Familienähnlichkeitsanalyse",
+      "familyUse1": "✓ Eltern-Kind-Beziehungen überprüfen",
+      "familyUse2": "✓ Präzise Familienähnlichkeitsmessung",
+      "familyUse3": "✓ Detaillierte Gesichtsinformationen erforderlich",
+      "familyUse4": "✓ Hohe Genauigkeit erforderlich",
+      "generalTitle": "Allgemeiner Gesichtsvergleich",
+      "generalUse1": "✓ Doppelgänger finden",
+      "generalUse2": "✓ Schnelle Ergebnisse erforderlich",
+      "generalUse3": "✓ Grundlegende Ähnlichkeitsmessung",
+      "generalUse4": "✓ Stabile Verarbeitung erforderlich"
+    }
+  }
+}

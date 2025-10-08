@@ -16,6 +16,10 @@ const languages: Language[] = [
   { code: 'ko', name: '한국어', flag: '/flags/kr.svg' },
   { code: 'en', name: 'English', flag: '/flags/us.svg' },
   { code: 'ja', name: '日本語', flag: '/flags/jp.svg' },
+  { code: 'es', name: 'Español', flag: '/flags/es.svg' },
+  { code: 'pt', name: 'Português', flag: '/flags/pt.svg' },
+  { code: 'de', name: 'Deutsch', flag: '/flags/de.svg' },
+  { code: 'fr', name: 'Français', flag: '/flags/fr.svg' },
 ];
 
 export default function LanguageSwitcher() {

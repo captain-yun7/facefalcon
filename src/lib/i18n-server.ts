@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
 
-export type Locale = 'ko' | 'en' | 'ja';
+export type Locale = 'ko' | 'en' | 'ja' | 'es' | 'pt' | 'de' | 'fr';
 
 // Dictionary type for type safety (supports nested objects and arrays)
 export type Dictionary = {
@@ -12,6 +12,10 @@ const dictionaries = {
   ko: () => import('../../public/locales/ko/common.json').then((module) => module.default),
   en: () => import('../../public/locales/en/common.json').then((module) => module.default),
   ja: () => import('../../public/locales/ja/common.json').then((module) => module.default),
+  es: () => import('../../public/locales/es/common.json').then((module) => module.default),
+  pt: () => import('../../public/locales/pt/common.json').then((module) => module.default),
+  de: () => import('../../public/locales/de/common.json').then((module) => module.default),
+  fr: () => import('../../public/locales/fr/common.json').then((module) => module.default),
 };
 
 // Global in-memory cache for dictionaries (persists across requests)
@@ -77,7 +81,7 @@ export function getTranslation(
 
 // Validate locale
 export function isValidLocale(locale: string): locale is Locale {
-  return locale === 'ko' || locale === 'en' || locale === 'ja';
+  return locale === 'ko' || locale === 'en' || locale === 'ja' || locale === 'es' || locale === 'pt' || locale === 'de' || locale === 'fr';
 }
 
 // Get locale from Accept-Language header
@@ -87,6 +91,10 @@ export function getLocaleFromHeader(acceptLanguage: string | null): Locale {
   const browserLang = acceptLanguage.toLowerCase();
   if (browserLang.startsWith('en')) return 'en';
   if (browserLang.startsWith('ja')) return 'ja';
+  if (browserLang.startsWith('es')) return 'es';
+  if (browserLang.startsWith('pt')) return 'pt';
+  if (browserLang.startsWith('de')) return 'de';
+  if (browserLang.startsWith('fr')) return 'fr';
   if (browserLang.startsWith('ko')) return 'ko';
 
   return 'ko'; // default

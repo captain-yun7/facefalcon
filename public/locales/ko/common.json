@@ -718,5 +718,43 @@
       "noPersonalInfo": "개인정보는 일체 수집하지 않습니다",
       "forEntertainment": "본 서비스는 재미와 흥미를 위한 것으로, 결과는 참고용으로만 활용해 주세요"
     }
+  },
+  "faceMatch": {
+    "title": "얼굴 분석 방법 선택",
+    "subtitle": "분석 목적에 맞는 방법을 선택해주세요",
+    "backToHome": "← 홈으로 돌아가기",
+    "familyAnalysis": {
+      "title": "가족 닮음 분석",
+      "description": "부모-자녀 관계를 고려한 정밀한 유사도 분석",
+      "features": "특징:",
+      "feature1": "• InsightFace 가족 특화 알고리즘",
+      "feature2": "• 512차원 얼굴 특징 벡터 분석",
+      "feature3": "• 정밀한 코사인 유사도 측정",
+      "feature4": "• 얼굴 영역 및 신뢰도 정보 제공",
+      "optimized": "가족 관계 확인에 최적화"
+    },
+    "generalComparison": {
+      "title": "일반 얼굴 비교",
+      "description": "빠르고 안정적인 기본 얼굴 유사도 측정",
+      "features": "특징:",
+      "feature1": "• AWS Rekognition 엔진",
+      "feature2": "• 머신러닝 기반 얼굴 분석",
+      "feature3": "• 실시간 처리 및 높은 안정성",
+      "feature4": "• 매칭/비매칭 얼굴 구분",
+      "optimized": "일반적인 얼굴 비교에 최적화"
+    },
+    "guide": {
+      "title": "언제 어떤 방법을 사용할까요?",
+      "familyTitle": "가족 닮음 분석",
+      "familyUse1": "✓ 부모와 자녀 관계 확인",
+      "familyUse2": "✓ 가족 유사도 정밀 측정",
+      "familyUse3": "✓ 세부 얼굴 정보 필요",
+      "familyUse4": "✓ 높은 정확도 요구",
+      "generalTitle": "일반 얼굴 비교",
+      "generalUse1": "✓ 닮은꼴 찾기",
+      "generalUse2": "✓ 빠른 결과 필요",
+      "generalUse3": "✓ 기본적인 유사도 측정",
+      "generalUse4": "✓ 안정적인 처리 필요"
+    }
   }
 }

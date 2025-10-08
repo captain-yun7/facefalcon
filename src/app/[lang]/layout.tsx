@@ -23,7 +23,7 @@ const inter = Inter({
 
 // Generate static params for supported locales
 export async function generateStaticParams() {
-  return [{ lang: 'ko' }, { lang: 'en' }, { lang: 'ja' }];
+  return [{ lang: 'ko' }, { lang: 'en' }, { lang: 'ja' }, { lang: 'es' }, { lang: 'pt' }, { lang: 'de' }, { lang: 'fr' }];
 }
 
 // Generate dynamic metadata based on locale
@@ -68,6 +68,54 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
       twitterDescription: "AIで顔の類似度、年齢、スタイルを分析する楽しいサービス",
       locale: 'ja_JP' as const,
     },
+    es: {
+      title: {
+        default: "FaceFalcon - Análisis Facial con IA | Test de Similitud, Predicción de Edad, Análisis de Estilo",
+        template: "%s | FaceFalcon"
+      },
+      description: "Servicio en línea gratuito de análisis facial con IA que ofrece pruebas de similitud facial, predicción de edad y análisis de estilo. ¡Prueba nuestro divertido análisis facial con IA ahora!",
+      keywords: ["análisis facial IA", "test de similitud facial", "predicción de edad", "comparación facial", "FaceFalcon", "análisis de rasgos faciales"],
+      ogTitle: "FaceFalcon - Servicio de Análisis Facial con IA",
+      ogDescription: "¡Servicio en línea divertido y gratuito que ofrece pruebas de similitud facial, predicción de edad y análisis de estilo con tecnología IA!",
+      twitterDescription: "Analiza similitud facial, edad y estilo con IA",
+      locale: 'es_ES' as const,
+    },
+    pt: {
+      title: {
+        default: "FaceFalcon - Análise Facial com IA | Teste de Similaridade, Previsão de Idade, Análise de Estilo",
+        template: "%s | FaceFalcon"
+      },
+      description: "Serviço online gratuito de análise facial com IA com testes de similaridade facial, previsão de idade e análise de estilo. Experimente nossa divertida análise facial com IA agora!",
+      keywords: ["análise facial IA", "teste de similaridade facial", "previsão de idade", "comparação facial", "FaceFalcon", "análise de características faciais"],
+      ogTitle: "FaceFalcon - Serviço de Análise Facial com IA",
+      ogDescription: "Serviço online divertido e gratuito oferecendo testes de similaridade facial, previsão de idade e análise de estilo com tecnologia IA!",
+      twitterDescription: "Analise similaridade facial, idade e estilo com IA",
+      locale: 'pt_BR' as const,
+    },
+    de: {
+      title: {
+        default: "FaceFalcon - KI-Gesichtsanalyse | Ähnlichkeitstest, Altersschätzung, Stilanalyse",
+        template: "%s | FaceFalcon"
+      },
+      description: "Kostenloser Online-KI-Gesichtsanalyse-Service mit Gesichts-Ähnlichkeitstests, Altersvorhersage und Stilanalyse. Probieren Sie jetzt unsere unterhaltsame KI-gestützte Gesichtsanalyse!",
+      keywords: ["KI-Gesichtsanalyse", "Gesichtsähnlichkeitstest", "Altersvorhersage", "Gesichtsvergleich", "FaceFalcon", "Gesichtsmerkmalanalyse"],
+      ogTitle: "FaceFalcon - KI-Gesichtsanalyse-Service",
+      ogDescription: "Unterhaltsamer und kostenloser Online-Service mit KI-gestützten Gesichts-Ähnlichkeitstests, Altersvorhersage und Stilanalyse!",
+      twitterDescription: "Analysieren Sie Gesichtsähnlichkeit, Alter und Stil mit KI",
+      locale: 'de_DE' as const,
+    },
+    fr: {
+      title: {
+        default: "FaceFalcon - Analyse Faciale par IA | Test de Similarité, Prédiction d'Âge, Analyse de Style",
+        template: "%s | FaceFalcon"
+      },
+      description: "Service en ligne gratuit d'analyse faciale par IA proposant des tests de similarité faciale, prédiction d'âge et analyse de style. Essayez notre analyse faciale amusante par IA maintenant!",
+      keywords: ["analyse faciale IA", "test de similarité faciale", "prédiction d'âge", "comparaison faciale", "FaceFalcon", "analyse des traits du visage"],
+      ogTitle: "FaceFalcon - Service d'Analyse Faciale par IA",
+      ogDescription: "Service en ligne amusant et gratuit proposant des tests de similarité faciale, prédiction d'âge et analyse de style avec la technologie IA!",
+      twitterDescription: "Analysez la similarité faciale, l'âge et le style avec l'IA",
+      locale: 'fr_FR' as const,
+    },
   };
 
   const meta = metadataByLang[lang];
@@ -91,6 +139,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
         'ko': '/ko',
         'en': '/en',
         'ja': '/ja',
+        'es': '/es',
+        'pt': '/pt',
+        'de': '/de',
+        'fr': '/fr',
       },
     },
     openGraph: {
@@ -232,7 +284,7 @@ export default async function RootLayout({
         "@type": "ContactPoint",
         "contactType": "고객 지원",
         "areaServed": "KR",
-        "availableLanguage": ["Korean", "English", "Japanese"]
+        "availableLanguage": ["Korean", "English", "Japanese", "Spanish", "Portuguese", "German", "French"]
       },
       "sameAs": [
         "https://www.facebook.com/facefalcon",
@@ -327,7 +379,7 @@ export default async function RootLayout({
         "@type": "ContactPoint",
         "contactType": "Customer Support",
         "areaServed": "Worldwide",
-        "availableLanguage": ["Korean", "English", "Japanese"]
+        "availableLanguage": ["Korean", "English", "Japanese", "Spanish", "Portuguese", "German", "French"]
       },
       "sameAs": [
         "https://www.facebook.com/facefalcon",
@@ -374,6 +426,10 @@ export default async function RootLayout({
         <link rel="alternate" hrefLang="ko" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/ko`} />
         <link rel="alternate" hrefLang="en" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/en`} />
         <link rel="alternate" hrefLang="ja" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/ja`} />
+        <link rel="alternate" hrefLang="es" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/es`} />
+        <link rel="alternate" hrefLang="pt" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/pt`} />
+        <link rel="alternate" hrefLang="de" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/de`} />
+        <link rel="alternate" hrefLang="fr" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/fr`} />
         <link rel="alternate" hrefLang="x-default" href={`${process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'}/ko`} />
       </head>
       <body

@@ -3,11 +3,20 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
-type Locale = 'ko' | 'en' | 'ja'
+type Locale = 'ko' | 'en' | 'ja' | 'es' | 'pt' | 'de' | 'fr'
 
 // 블로그 포스트 메타데이터 추출
 function getBlogPosts(locale: Locale) {
-  const blogDir = path.join(process.cwd(), 'content', 'blog', locale === 'en' ? 'en' : locale === 'ja' ? 'ja' : '')
+  const blogDirs: Record<Locale, string> = {
+    ko: '',
+    en: 'en',
+    ja: 'ja',
+    es: 'es',
+    pt: 'pt',
+    de: 'de',
+    fr: 'fr'
+  }
+  const blogDir = path.join(process.cwd(), 'content', 'blog', blogDirs[locale])
 
   try {
     if (!fs.existsSync(blogDir)) {
@@ -35,7 +44,7 @@ function getBlogPosts(locale: Locale) {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com'
-  const locales: Locale[] = ['ko', 'en', 'ja']
+  const locales: Locale[] = ['ko', 'en', 'ja', 'es', 'pt', 'de', 'fr']
   const currentDate = new Date()
 
   // 다국어 페이지 정의 (경로, 우선순위, 변경빈도)
@@ -68,6 +77,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ko: `${baseUrl}/ko${page.path}`,
           en: `${baseUrl}/en${page.path}`,
           ja: `${baseUrl}/ja${page.path}`,
+          es: `${baseUrl}/es${page.path}`,
+          pt: `${baseUrl}/pt${page.path}`,
+          de: `${baseUrl}/de${page.path}`,
+          fr: `${baseUrl}/fr${page.path}`,
         }
       }
     }))
@@ -86,6 +99,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ko: `${baseUrl}/ko/blog/${post.slug}`,
           en: `${baseUrl}/en/blog/${post.slug}`,
           ja: `${baseUrl}/ja/blog/${post.slug}`,
+          es: `${baseUrl}/es/blog/${post.slug}`,
+          pt: `${baseUrl}/pt/blog/${post.slug}`,
+          de: `${baseUrl}/de/blog/${post.slug}`,
+          fr: `${baseUrl}/fr/blog/${post.slug}`,
         }
       }
     }))
@@ -102,6 +119,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ko: `${baseUrl}/ko`,
         en: `${baseUrl}/en`,
         ja: `${baseUrl}/ja`,
+        es: `${baseUrl}/es`,
+        pt: `${baseUrl}/pt`,
+        de: `${baseUrl}/de`,
+        fr: `${baseUrl}/fr`,
       }
     }
   }

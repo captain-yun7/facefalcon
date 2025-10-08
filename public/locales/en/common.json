@@ -716,5 +716,43 @@
       "noPersonalInfo": "We do not collect any personal information",
       "forEntertainment": "This service is for fun and entertainment purposes only. Please use the results for reference only"
     }
+  },
+  "faceMatch": {
+    "title": "Choose Face Analysis Method",
+    "subtitle": "Select the method that suits your analysis purpose",
+    "backToHome": "← Back to Home",
+    "familyAnalysis": {
+      "title": "Family Resemblance Analysis",
+      "description": "Precise similarity analysis considering parent-child relationships",
+      "features": "Features:",
+      "feature1": "• InsightFace family-specialized algorithm",
+      "feature2": "• 512-dimensional facial feature vector analysis",
+      "feature3": "• Precise cosine similarity measurement",
+      "feature4": "• Face region and confidence information provided",
+      "optimized": "Optimized for family relationship verification"
+    },
+    "generalComparison": {
+      "title": "General Face Comparison",
+      "description": "Fast and reliable basic facial similarity measurement",
+      "features": "Features:",
+      "feature1": "• AWS Rekognition engine",
+      "feature2": "• Machine learning-based face analysis",
+      "feature3": "• Real-time processing and high stability",
+      "feature4": "• Distinguishes matching/non-matching faces",
+      "optimized": "Optimized for general face comparison"
+    },
+    "guide": {
+      "title": "When to use which method?",
+      "familyTitle": "Family Resemblance Analysis",
+      "familyUse1": "✓ Verify parent-child relationships",
+      "familyUse2": "✓ Precise family similarity measurement",
+      "familyUse3": "✓ Detailed facial information needed",
+      "familyUse4": "✓ High accuracy required",
+      "generalTitle": "General Face Comparison",
+      "generalUse1": "✓ Find lookalikes",
+      "generalUse2": "✓ Quick results needed",
+      "generalUse3": "✓ Basic similarity measurement",
+      "generalUse4": "✓ Stable processing required"
+    }
   }
 }

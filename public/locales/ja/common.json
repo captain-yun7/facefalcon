@@ -716,5 +716,43 @@
       "noPersonalInfo": "個人情報は一切収集しません",
       "forEntertainment": "このサービスは楽しみとエンターテインメント目的のみです。結果は参考としてのみご利用ください"
     }
+  },
+  "faceMatch": {
+    "title": "顔分析方法を選択",
+    "subtitle": "分析目的に合った方法を選択してください",
+    "backToHome": "← ホームに戻る",
+    "familyAnalysis": {
+      "title": "家族類似度分析",
+      "description": "親子関係を考慮した精密な類似度分析",
+      "features": "特徴:",
+      "feature1": "• InsightFace 家族特化アルゴリズム",
+      "feature2": "• 512次元顔特徴ベクトル分析",
+      "feature3": "• 精密なコサイン類似度測定",
+      "feature4": "• 顔領域と信頼度情報を提供",
+      "optimized": "家族関係確認に最適化"
+    },
+    "generalComparison": {
+      "title": "一般顔比較",
+      "description": "高速で安定した基本顔類似度測定",
+      "features": "特徴:",
+      "feature1": "• AWS Rekognition エンジン",
+      "feature2": "• 機械学習ベースの顔分析",
+      "feature3": "• リアルタイム処理と高い安定性",
+      "feature4": "• 一致/不一致顔を区別",
+      "optimized": "一般的な顔比較に最適化"
+    },
+    "guide": {
+      "title": "どの方法をいつ使用しますか？",
+      "familyTitle": "家族類似度分析",
+      "familyUse1": "✓ 親子関係の確認",
+      "familyUse2": "✓ 家族類似度の精密測定",
+      "familyUse3": "✓ 詳細な顔情報が必要",
+      "familyUse4": "✓ 高精度が必要",
+      "generalTitle": "一般顔比較",
+      "generalUse1": "✓ そっくりさんを探す",
+      "generalUse2": "✓ 迅速な結果が必要",
+      "generalUse3": "✓ 基本的な類似度測定",
+      "generalUse4": "✓ 安定した処理が必要"
+    }
   }
 }

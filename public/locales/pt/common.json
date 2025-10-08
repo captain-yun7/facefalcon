@@ -1,0 +1,758 @@
+{
+  "appName": "FaceFalcon",
+  "navigation": {
+    "home": "Início",
+    "analyze": "Analisar",
+    "service": "Informações do Serviço",
+    "guide": "Guia do Usuário",
+    "blog": "Blog",
+    "contact": "Contato"
+  },
+  "hero": {
+    "title": "Análise Facial com IA",
+    "subtitle": "Escolha o tipo de análise que você prefere e comece agora mesmo"
+  },
+  "analysisSelector": {
+    "title": "Que tipo de análise você quer?",
+    "subtitle": "Por favor, selecione o tipo de análise de sua preferência",
+    "placeholder": "Selecione o tipo de análise",
+    "parentChild": {
+      "title": "Análise Facial com IA: Teste de Similaridade",
+      "description": "Compare fotos de duas pessoas para analisar a similaridade"
+    },
+    "whoMostSimilar": {
+      "title": "Análise Facial com IA: Encontrar Mais Parecido",
+      "description": "Compare uma pessoa com vários candidatos para encontrar a pessoa mais parecida"
+    },
+    "ageEstimation": {
+      "title": "Análise Facial com IA: Estimativa de Idade",
+      "description": "A IA prevê a idade a partir de fotos"
+    },
+    "genderEstimation": {
+      "title": "Análise Facial com IA: Estilo Suave/Forte",
+      "description": "Analise seu estilo como Cara/Garota Suave ou Cara/Garota Forte"
+    },
+    "celebrity": {
+      "title": "Análise Facial com IA: Parecido com Celebridade",
+      "description": "Em breve",
+      "status": "Em Breve"
+    }
+  },
+  "parentChildAnalysis": {
+    "title": "Análise de Similaridade Facial",
+    "parentPhoto": "Primeira Foto",
+    "childPhoto": "Segunda Foto",
+    "uploadParent": "Enviar Primeira Foto",
+    "uploadChild": "Enviar Segunda Foto",
+    "analyzeButton": "Iniciar Análise de Similaridade",
+    "analyzing": "IA Analisando..."
+  },
+  "whoMostSimilarAnalysis": {
+    "title": "Encontrar Pessoa Mais Parecida",
+    "uploadChild": "Enviar foto de referência",
+    "uploadChildLabel": "Enviar Foto de Referência",
+    "uploadCandidates": "Enviar fotos de candidatos (2-6 pessoas)",
+    "candidateCount": "Atualmente {{count}} candidatos registrados.",
+    "candidateMinRequired": " (mínimo 2 necessários)",
+    "candidate": "Candidato {{number}}",
+    "analyzeButton": "Encontrar Pessoa Mais Parecida!",
+    "analyzing": "IA está encontrando a pessoa mais parecida..."
+  },
+  "results": {
+    "analysisComplete": "Análise Completa",
+    "analysisResult": "Resultado da Análise",
+    "similarityResult": "Resultado da Análise de Similaridade",
+    "parentFindingResult": "Resultado da Análise de Similaridade",
+    "confidence": "Confiança da análise: {{confidence}}%",
+    "parent": "Primeira Pessoa",
+    "child": "Segunda Pessoa",
+    "similarity": "Similaridade",
+    "mostSimilar": "Pessoa Mais Parecida",
+    "ranking": "Classificação Geral",
+    "rank": "{{rank}}º",
+    "tryAgain": "Analisar Novamente",
+    "downloadImage": "Baixar Imagem",
+    "shareResult": "Compartilhar Resultado",
+    "imageDownloaded": "Imagem baixada com sucesso!",
+    "resultTitle": "Resultado de Similaridade",
+    "parentLabel": "Primeira Pessoa",
+    "childLabel": "Segunda Pessoa",
+    "similarityTestTitle": "Análise Facial com IA: Resultado do Teste de Similaridade",
+    "similarityTestSubtitle": "Analisamos a similaridade entre duas pessoas",
+    "findParentsTitle": "Análise Facial com IA: Resultado de Encontrar Mais Parecido",
+    "findParentsSubtitle": "Encontrada a pessoa mais parecida",
+    "ageAnalysisTitle": "Análise Facial com IA: Resultado da Previsão de Idade",
+    "ageAnalysisSubtitle": "IA previu a idade",
+    "genderMaleTitle": "Resultado da Análise de Cara Suave/Forte com IA",
+    "genderFemaleTitle": "Resultado da Análise de Garota Suave/Forte com IA",
+    "genderAnalysisSubtitle": "IA analisou seu estilo",
+    "firstPerson": "Primeira Pessoa",
+    "secondPerson": "Segunda Pessoa",
+    "aiConfidence": "Confiança da Análise da IA",
+    "similarityInterpretation": "Interpretação da Similaridade",
+    "veryHighSimilarity": "70% ou mais: Similaridade muito alta",
+    "highSimilarity": "50-70%: Similaridade alta",
+    "mediumSimilarity": "30-50%: Similaridade média",
+    "lowSimilarity": "Abaixo de 30%: Similaridade baixa",
+    "mostSimilarFound": "Pessoa mais parecida encontrada!",
+    "referencePerson": "Pessoa de Referência",
+    "bestMatch": "Melhor Correspondência",
+    "overallRanking": "Classificação Geral",
+    "candidate": "Candidato {{number}}",
+    "analyzedPhoto": "Foto Analisada",
+    "growthPeriodWarning": "Ainda em fase de crescimento, alta possibilidade de mudança mais tarde"
+  },
+  "imageUpload": {
+    "label": "Enviar Imagem",
+    "dragDrop": "Arraste e solte uma imagem ou clique para selecionar",
+    "dragActive": "Solte a imagem aqui",
+    "processing": "Processando imagem...",
+    "formats": "JPEG, PNG, WebP (máx 10MB)",
+    "remove": "Remover imagem"
+  },
+  "analyzing": {
+    "title": "IA está trabalhando duro para analisar",
+    "subtitle": "Por favor, aguarde um momento para resultados precisos",
+    "countdown": "Os resultados aparecerão em {{seconds}} segundos..."
+  },
+  "errors": {
+    "analysisError": "Erro de Análise",
+    "tryRefresh": "Se o problema persistir, por favor atualize a página ou faça o upload das imagens novamente.",
+    "imageProcessingError": "Ocorreu um erro ao processar a imagem.",
+    "noFacesDetected": "Nenhum rosto analisável foi encontrado. Por favor, use fotos frontais claras com rostos visíveis.",
+    "analysisFailure": "Ocorreu um erro durante a análise.",
+    "imageGenerationFailed": "Falha na geração da imagem. Por favor, tente novamente.",
+    "shareFailed": "Falha ao compartilhar. Por favor, tente novamente.",
+    "noResultsFound": "Nenhum resultado encontrado."
+  },
+  "share": {
+    "clipboardCopied": "Texto de compartilhamento foi copiado para a área de transferência!\\nPor favor, cole no mensageiro ou nas redes sociais.",
+    "shareNotSupported": "Compartilhamento direto não é suportado neste navegador.\\nPor favor, use o botão \"Baixar Imagem\".",
+    "resultText": "Nosso resultado de análise de similaridade: {{percent}}% parecidos! 😊\\nAnalise em facefalcon.com",
+    "shareTexts": {
+      "ageEstimation": "Experimente a análise de previsão de idade com IA!",
+      "genderEstimation": "Experimente a análise Suave/Forte!",
+      "whoMostSimilar": "Encontre a pessoa mais parecida com análise de IA!",
+      "parentChild": "Experimente o teste de similaridade facial!",
+      "shareResultAge": "Confira os resultados da análise de previsão de idade com IA!",
+      "shareResultGender": "Confira os resultados da análise Suave/Forte!",
+      "shareResultSimilar": "Confira os resultados da análise de similaridade!",
+      "shareResultParent": "Confira os resultados da análise de similaridade facial!"
+    },
+    "defaultText": "Confira os resultados da análise facial com IA!"
+  },
+  "age": {
+    "unit": " anos",
+    "categories": {
+      "infant": "Bebê (0-2)",
+      "toddler": "Criança Pequena (3-5)",
+      "child": "Criança (6-12)",
+      "teenager": "Adolescente (13-19)",
+      "youngAdult": "Jovem Adulto (20-29)",
+      "adult": "Adulto (30-39)",
+      "middleAged": "Meia-Idade (40-49)",
+      "mature": "Maduro (50-59)",
+      "senior": "Idoso (60-69)",
+      "elderly": "Idoso (70+)"
+    }
+  },
+  "footer": {
+    "madeWith": "Feito com",
+    "copyright": "© 2024 FaceFalcon. Todos os direitos reservados."
+  },
+  "pages": {
+    "about": {
+      "title": "Sobre o Desenvolvedor",
+      "subtitle": "Um desenvolvedor que cria serviços divertidos usando IA e tecnologias web",
+      "projectStory": {
+        "title": "Como este projeto começou?",
+        "content1": "\"Quão parecidos somos?\" - Começou com uma pergunta que todos se fazem em algum momento. Eu queria resolver a curiosidade simples com tecnologia de IA e criar um serviço web que as pessoas pudessem usar por diversão.",
+        "content2": "Durante o processo de desenvolvimento, testei várias APIs de reconhecimento facial e considerei a experiência do usuário para completar o serviço atual. Vendo muitas pessoas usando todos os dias, sinto que a tecnologia pode adicionar diversão ao cotidiano."
+      },
+      "techStack": {
+        "title": "Tecnologias Utilizadas",
+        "frontend": "Frontend",
+        "backendAI": "Backend e IA"
+      },
+      "developerInfo": {
+        "title": "Informações do Desenvolvedor",
+        "expertise": "Especialidades",
+        "interests": "Interesses",
+        "expertiseList": [
+          "Desenvolvimento web full-stack",
+          "Desenvolvimento de serviços de IA/ML",
+          "Nuvem AWS e construção de infraestrutura",
+          "Design de arquitetura de serviços"
+        ],
+        "interestsList": [
+          "Análise de modelos de IA",
+          "Desenvolvimento de serviços de IA/ML",
+          "Automação"
+        ]
+      },
+      "contact": {
+        "title": "Palestras e Consultas Freelance",
+        "services": "Serviços Oferecidos",
+        "contact": "Contato",
+        "servicesList": [
+          "Desenvolvimento de serviços de IA",
+          "Desenvolvimento de sites e aplicações web/app",
+          "Construção e operação de infraestrutura em nuvem",
+          "Palestras sobre desenvolvimento de IA e nuvem",
+          "Mentoria técnica"
+        ]
+      },
+      "backToAnalyze": "← Ir para Análise"
+    },
+    "service": {
+      "title": "Análise de Similaridade Facial com",
+      "titleGradient": "Tecnologia de IA",
+      "subtitle": "Experimente várias análises faciais divertidas, incluindo testes de similaridade, previsão de idade e análise de estilo Suave/Forte com tecnologia de IA de ponta.",
+      "aiTechnology": {
+        "title": "Tecnologia de Reconhecimento Facial com IA",
+        "description": "Utilizando o modelo Buffalo mais recente do InsightFace para extrair e analisar com precisão as principais características faciais.",
+        "features": [
+          "Detecção de 68 pontos faciais principais",
+          "Geração de vetores de incorporação facial de alta dimensão",
+          "Suporte para análise de estrutura facial 3D"
+        ]
+      },
+      "similarityCalculation": {
+        "title": "Cálculo Preciso de Similaridade",
+        "description": "Analise rostos de várias perspectivas, incluindo similaridade, idade e características de estilo.",
+        "features": [
+          "Medição precisa de similaridade baseada em distância vetorial",
+          "Algoritmo de correção considerando diferenças de idade",
+          "Resultados fornecidos com pontuações de confiança"
+        ]
+      },
+      "howItWorks": {
+        "title": "Como o Serviço Funciona",
+        "step1": {
+          "title": "Enviar Imagens",
+          "description": "Envie fotos frontais de duas pessoas que você deseja comparar."
+        },
+        "step2": {
+          "title": "Análise da IA",
+          "description": "A IA InsightFace detecta rostos e extrai características."
+        },
+        "step3": {
+          "title": "Calcular Similaridade",
+          "description": "Compare vetores de incorporação facial para calcular a similaridade."
+        },
+        "step4": {
+          "title": "Fornecer Resultados",
+          "description": "Fornece similaridade geral e pontuações de confiança juntas."
+        }
+      },
+      "features": {
+        "privacy": {
+          "title": "Proteção de Privacidade",
+          "description": "Imagens enviadas são automaticamente excluídas imediatamente após a conclusão da análise e não são armazenadas de forma alguma."
+        },
+        "speed": {
+          "title": "Processamento Rápido",
+          "description": "Fornece rapidamente resultados de análise com modelo InsightFace otimizado."
+        },
+        "accuracy": {
+          "title": "Alta Precisão",
+          "description": "O modelo InsightFace treinado em dados de larga escala fornece resultados de análise altamente precisos."
+        }
+      }
+    },
+    "analyze": {
+      "parentPhoto": "Primeira Foto",
+      "childPhoto": "Segunda Foto",
+      "uploadChild": "Enviar foto de referência",
+      "uploadCandidates": "Enviar fotos de candidatos (2-6 pessoas)",
+      "candidateCount": "Atualmente {{count}} candidatos registrados.",
+      "candidate": "Candidato {{number}}",
+      "analysisCompleted": "Análise Completa",
+      "similarityResult": "Resultado de Similaridade",
+      "parentFindingResult": "Resultado da Análise de Similaridade",
+      "confidence": "Confiança da análise: {{confidence}}%",
+      "parent": "Primeira Pessoa",
+      "child": "Segunda Pessoa",
+      "childLabel": "Segunda Pessoa",
+      "similarity": "Similaridade",
+      "mostSimilarPerson": "Pessoa Mais Parecida",
+      "overallRanking": "Classificação Geral",
+      "rank": "{{rank}}º",
+      "tryAgainButton": "Analisar Novamente",
+      "downloadImage": "Baixar Imagem",
+      "shareResult": "Compartilhar Resultado",
+      "analyzing": "IA Analisando...",
+      "findingParent": "IA está encontrando a pessoa mais parecida...",
+      "startAnalysis": "Iniciar Análise de Similaridade",
+      "startFindingParent": "Encontrar Pessoa Mais Parecida!"
+    }
+  },
+  "guide": {
+    "title": "Guia do Usuário",
+    "subtitle": "Aprenda como usar efetivamente o serviço FaceFalcon e obtenha dicas para resultados de análise precisos.",
+    "quickStart": {
+      "title": "Guia de Início Rápido",
+      "step1Title": "Passo 1: Preparar Fotos",
+      "step1": {
+        "item1": "Foto frontal: Prepare uma foto com o rosto de frente",
+        "item2": "Alta qualidade: Foto clara de pelo menos 200x200 pixels",
+        "item3": "Iluminação clara: Tirada em ambiente claro onde o rosto seja claramente visível"
+      },
+      "step2Title": "Passo 2: Executar Análise",
+      "step2": {
+        "item1": "Adicione fotos para comparar em cada área de upload",
+        "item2": "Selecione o modo de análise necessário (comparação individual, análise de grupo, etc.)",
+        "item3": "Clique no botão \"Iniciar Análise\" e verifique os resultados"
+      }
+    },
+    "photoTips": {
+      "title": "Melhores Dicas para Tirar Fotos",
+      "goodPhoto": {
+        "title": "✅ Condições de Boa Foto",
+        "items": [
+          "Expressão natural olhando para frente",
+          "Cabelo não cobrindo o rosto",
+          "Tirada sem óculos de sol ou chapéu",
+          "Luz natural ou iluminação interna clara",
+          "Fundo sólido (branco, cinza recomendado)"
+        ]
+      },
+      "badPhoto": {
+        "title": "❌ Fotos a Evitar",
+        "items": [
+          "Vistas laterais ou anguladas",
+          "Condições muito escuras ou com luz de fundo",
+          "Rosto muito pequeno ou desfocado",
+          "Várias pessoas na foto",
+          "Maquiagem excessiva ou filtros aplicados"
+        ]
+      }
+    },
+    "understandResults": {
+      "title": "Entendendo os Resultados da Análise",
+      "similarityScore": {
+        "title": "Interpretando Pontuações de Similaridade",
+        "low": {
+          "range": "0-40%",
+          "label": "Similaridade Baixa",
+          "description": "Características diferentes"
+        },
+        "medium": {
+          "range": "41-70%",
+          "label": "Similaridade Média",
+          "description": "Parcialmente similar"
+        },
+        "high": {
+          "range": "71-100%",
+          "label": "Similaridade Alta",
+          "description": "Muito similar"
+        }
+      },
+      "featureComparison": {
+        "title": "Comparação Característica por Característica",
+        "eyes": {
+          "label": "Formato dos Olhos",
+          "details": "Cantos dos olhos, pálpebras, tamanho dos olhos"
+        },
+        "nose": {
+          "label": "Formato do Nariz",
+          "details": "Ponte do nariz, narinas, ponta do nariz"
+        },
+        "mouth": {
+          "label": "Formato da Boca",
+          "details": "Espessura dos lábios, tamanho da boca"
+        },
+        "faceShape": {
+          "label": "Formato do Rosto",
+          "details": "Contorno, linha da mandíbula, testa"
+        }
+      }
+    },
+    "faq": {
+      "title": "Perguntas Frequentes (FAQ)",
+      "q1": {
+        "question": "P. Os resultados da análise são precisos?",
+        "answer": "A análise da IA mostra alta precisão, mas os resultados podem variar dependendo da iluminação, ângulo, expressão, maquiagem, etc. Por favor, use para diversão e referência, e não use como evidência médica ou legal."
+      },
+      "q2": {
+        "question": "P. As fotos enviadas são salvas?",
+        "answer": "Não. As fotos enviadas são automaticamente excluídas imediatamente após a análise e não são salvas de forma alguma. A proteção da privacidade é nossa prioridade máxima."
+      },
+      "q3": {
+        "question": "P. Quais formatos de arquivo são suportados?",
+        "answer": "Os formatos JPG, PNG e JPEG são suportados. O tamanho do arquivo é de até 10MB, e imagens de alta qualidade de cerca de 1-5MB são recomendadas para análise ideal."
+      },
+      "q4": {
+        "question": "P. Posso usar fotos com várias pessoas?",
+        "answer": "Os resultados mais precisos são obtidos quando há apenas um rosto por foto. Se houver várias pessoas, a IA seleciona o rosto principal, o que pode produzir resultados indesejados."
+      },
+      "q5": {
+        "question": "P. Que relações podem ser comparadas?",
+        "answer": "Você pode comparar pessoas de todas as relações, incluindo família (irmãos, parentes), amigos, casais, parecidos com celebridades, etc. Analisa objetivamente a similaridade facial entre duas pessoas."
+      },
+      "q6": {
+        "question": "P. A análise falhou. O que devo fazer?",
+        "answer": "Por favor, verifique se o rosto está claramente visível em uma foto frontal. Se ainda não funcionar, tente novamente com uma foto diferente ou entre em contato conosco em"
+      }
+    },
+    "troubleshooting": {
+      "title": "Guia de Solução de Problemas",
+      "uploadIssues": {
+        "title": "Problemas de Upload",
+        "items": [
+          "Verifique se o tamanho do arquivo não excede 10MB",
+          "Verifique se é formato JPG, PNG ou JPEG",
+          "Verifique a conexão com a internet",
+          "Atualize o navegador e tente novamente"
+        ]
+      },
+      "analysisErrors": {
+        "title": "Erros de Análise",
+        "items": [
+          "Verifique se o rosto está de frente",
+          "Verifique se a imagem não está muito escura",
+          "Certifique-se de que o rosto é grande o suficiente",
+          "Tente um navegador diferente"
+        ]
+      }
+    }
+  },
+  "blog": {
+    "title": "Informações sobre Tecnologia de IA",
+    "subtitle": "Fornecendo princípios de análise de similaridade facial e ciência de semelhança familiar, e dicas práticas para análise precisa.",
+    "readMore": "Leia Mais",
+    "category": "Categoria",
+    "readTime": "min de leitura",
+    "backToList": "Voltar para Informações sobre Tecnologia de IA",
+    "tryAnalysis": "Experimente a Análise com IA",
+    "relatedPosts": "Posts Relacionados",
+    "cta": {
+      "title": "Curioso?",
+      "description": "Verifique a similaridade entre duas pessoas agora mesmo"
+    }
+  },
+  "cta": {
+    "title": "Comece Agora",
+    "description": "Verifique a similaridade entre duas pessoas com tecnologia de IA",
+    "buttonText": "Analisar Gratuitamente",
+    "guideButton": "Guia do Usuário"
+  },
+  "footer": {
+    "siteInfo": {
+      "title": "FaceFalcon",
+      "description": "Serviço de análise facial alimentado por IA oferecendo testes de similaridade, previsão de idade e análise de estilo Suave/Forte para resultados divertidos e perspicazes.",
+      "security": "Conexão Segura SSL"
+    },
+    "services": {
+      "title": "Serviços",
+      "familyAnalysis": "Teste de Similaridade Facial",
+      "multipleComparison": "Encontrar Pessoa Mais Parecida",
+      "ageAnalysis": "Previsão de Idade",
+      "genderAnalysis": "Análise de Estilo Suave/Forte"
+    },
+    "support": {
+      "title": "Suporte ao Cliente",
+      "emailInquiry": "Consulta por E-mail",
+      "technicalSupport": "Suporte Técnico"
+    },
+    "legal": {
+      "title": "Informações Legais",
+      "privacy": "Política de Privacidade",
+      "terms": "Termos de Serviço"
+    },
+    "copyright": "© {{year}} FaceFalcon. Todos os direitos reservados.",
+    "disclaimer": "Este serviço fornece resultados de análise de referência usando tecnologia de IA.",
+    "legalNotice": "Este site está em conformidade com a Lei de Proteção de Informações Pessoais e a Lei de Promoção da Utilização de Redes de Informação e Comunicação e Proteção de Informação. As imagens enviadas são imediatamente excluídas após a análise e não são armazenadas separadamente. Se você encontrar algum problema ao usar o serviço, entre em contato",
+    "madeWith": "Feito com"
+  },
+  "home": {
+    "hero": {
+      "title": "Serviço Principal",
+      "subtitle": "Quão parecidas são duas pessoas?",
+      "description": "Envie fotos para analisar com precisão a similaridade facial com tecnologia de IA",
+      "badge": "Motor de análise de alta precisão baseado no InsightFace",
+      "mainTitle": "Serviço de Análise Facial com IA",
+      "mainSubtitle": "De testes de similaridade facial a previsão de idade e análise Suave/Forte",
+      "mainDescription": "Simplesmente envie fotos e a IA irá analisá-las para você"
+    },
+    "showcase": {
+      "title": "Confira resultados de análise reais",
+      "subtitle": "Exemplos de casos de uso reais analisados pela IA",
+      "ageAnalysis": "Previsão de Idade",
+      "ageAnalysisDesc": "Previsão de idade precisa com IA",
+      "genderAnalysis": "Análise Suave/Forte",
+      "genderAnalysisDesc": "IA analisa seu estilo"
+    },
+    "features": {
+      "freeService": {
+        "title": "Serviço 100% Gratuito",
+        "description": "Sem assinaturas pagas, sem cobranças<br/>Use todos os recursos completamente grátis"
+      },
+      "privacyProtection": {
+        "title": "Proteção de Privacidade",
+        "description": "Sem armazenamento de informações pessoais<br/>Disponível imediatamente sem registro"
+      },
+      "autoDelete": {
+        "title": "Exclusão Instantânea de Fotos",
+        "description": "Fotos automaticamente excluídas após análise<br/>Nenhuma imagem é armazenada"
+      },
+      "aiAnalysis": {
+        "title": "Análise Precisa com IA",
+        "description": "Fornece análise de similaridade facial de alta precisão com a mais recente tecnologia InsightFace"
+      },
+      "multipleMode": {
+        "title": "Vários Modos de Análise",
+        "description": "Suporta testes de similaridade, previsão de idade e análise de estilo Suave/Forte para várias percepções divertidas"
+      },
+      "privacy": {
+        "title": "Proteção de Privacidade",
+        "description": "Imagens enviadas são imediatamente excluídas após a análise para proteger com segurança as informações pessoais"
+      }
+    },
+    "upload": {
+      "parentPhoto": "Foto dos Pais",
+      "childPhoto": "Foto da Criança",
+      "analyzing": "IA Analisando...",
+      "startAnalysis": "Iniciar Análise de Similaridade"
+    },
+    "cta": {
+      "moreAnalysis": "Quer mais recursos de análise?",
+      "moreFeatures": "Encontre com quem você se parece mais, análise de irmãos, etc.<br/>Experimente várias ferramentas de análise",
+      "viewMore": "Ver Mais Análises →"
+    },
+    "devCta": {
+      "title": "Você gosta deste serviço?",
+      "description": "Um projeto criado usando modelos de imagem de IA e tecnologia web",
+      "link": "Sobre o Desenvolvedor"
+    }
+  },
+  "analysis": {
+    "results": {
+      "firstPerson": "Primeira Pessoa",
+      "secondPerson": "Segunda Pessoa",
+      "aiConfidence": "Confiança da Análise da IA",
+      "similarityInterpretation": "Interpretação da Similaridade",
+      "veryHighSimilarity": "70%+ : Similaridade Muito Alta",
+      "highSimilarity": "50-70% : Similaridade Alta",
+      "mediumSimilarity": "30-50% : Similaridade Média",
+      "lowSimilarity": "Abaixo de 30% : Similaridade Baixa",
+      "mostSimilarFound": "Pessoa mais parecida encontrada!",
+      "referencePerson": "Pessoa de Referência",
+      "bestMatch": "Melhor Correspondência",
+      "overallRanking": "Classificação Geral",
+      "candidate": "Candidato {{number}}",
+      "similarity": "Similaridade",
+      "analyzedPhoto": "Foto Analisada",
+      "growthPeriodWarning": "Ainda em fase de crescimento, alta possibilidade de mudança mais tarde",
+      "ageAnalysisTitle": "Análise Facial com IA: Resultado da Previsão de Idade",
+      "ageAnalysisSubtitle": "IA previu a idade",
+      "findParentsTitle": "Análise Facial com IA: Resultado de Encontrar Mais Parecido",
+      "findParentsSubtitle": "Encontrada a pessoa mais parecida"
+    },
+    "upload": {
+      "agePhotoLabel": "Enviar foto para previsão de idade",
+      "stylePhotoLabel": "Enviar foto para análise de estilo"
+    },
+    "genderEstimation": {
+      "title": "Análise Suave/Forte",
+      "description": "IA analisa seu estilo com base nas características faciais",
+      "analyzing": "Analisando estilo...",
+      "startButton": "Iniciar Análise de Estilo!"
+    },
+    "genderLevels": {
+      "male": {
+        "terminator": "Cara Forte nível Exterminador",
+        "hulk": "Cara Forte nível Hulk",
+        "thor": "Cara Forte nível Thor",
+        "captain": "Cara Forte nível Capitão",
+        "soft": "Cara Suave",
+        "egen": "Cara Suave",
+        "teto": "Cara Forte",
+        "strongEgen": "Cara Suave Forte",
+        "strongTeto": "Cara Forte Forte"
+      },
+      "female": {
+        "tough": "Garota Forte",
+        "soft": "Garota Suave",
+        "egen": "Garota Suave",
+        "teto": "Garota Forte",
+        "strongEgen": "Garota Suave Forte",
+        "strongTeto": "Garota Forte Forte",
+        "extremeEgen": "Garota Extremamente Suave",
+        "ultraEgen": "Garota Ultra Suave",
+        "pureEgen": "Garota Puramente Suave",
+        "softEgen": "Garota Suave",
+        "classicEgen": "Garota Suave Clássica",
+        "generalEgen": "Garota Suave Geral",
+        "lightTeto": "Garota Levemente Forte",
+        "proTeto": "Garota Profissionalmente Forte",
+        "warrior": "Garota Guerreira Forte",
+        "amazon": "Garota Amazona Forte",
+        "wonderwoman": "Garota Mulher Maravilha Forte",
+        "extreme": "Garota Extremamente Forte"
+      },
+      "descriptions": {
+        "male": {
+          "proTeto": "Charme masculino definitivo",
+          "generalTeto": "Masculinidade saudável",
+          "lightEgen": "Charme forte porém gentil",
+          "classicEgen": "Carisma gentil clássico",
+          "softEgen": "Charme caloroso e amigável",
+          "pureEgen": "Sensação pura e clara",
+          "ultraEgen": "Gentileza definitiva",
+          "feminine": "Sensação suave e elegante"
+        },
+        "female": {
+          "extremeEgen": "Charme feminino extremamente suave",
+          "ultraEgen": "Feminilidade muito suave",
+          "pureEgen": "Charme puro e claro",
+          "softEgen": "Charme caloroso e amigável",
+          "classicEgen": "Carisma feminino",
+          "generalEgen": "Feminilidade equilibrada",
+          "lightTeto": "Charme gentil porém forte",
+          "proTeto": "Charme forte definitivo",
+          "warrior": "Carisma de guerreira",
+          "amazon": "Energia de guerreira mítica",
+          "wonderwoman": "Poder feminino de aço",
+          "extreme": "Força avassaladora!"
+        }
+      }
+    },
+    "ageEstimation": {
+      "title": "Adivinhe a idade!",
+      "description": "IA prevê a idade de rostos em fotos",
+      "analyzing": "Prevendo idade...",
+      "startButton": "Iniciar Previsão de Idade!"
+    }
+  },
+  "similarity": {
+    "interpretation": {
+      "almostIdentical": "Quase idêntico",
+      "definiteFamily": "Família definitiva",
+      "quiteSimilar": "Bastante similar",
+      "someResemblance": "Alguma semelhança",
+      "uniqueCharm": "Charme único"
+    },
+    "messages": {
+      "identical": {
+        "title": "Completamente Idêntico!",
+        "message": "Essas são a mesma pessoa! Por favor, use fotos diferentes 🔍"
+      },
+      "copyPaste": {
+        "title": "Copiar+Colar!",
+        "message": "Esta é realmente outra foto da mesma pessoa, certo? 😅"
+      },
+      "almostIdentical": {
+        "title": "Quase Idêntico",
+        "message": "Quase certamente a mesma pessoa!"
+      },
+      "perfectMatch": {
+        "title": "Combinação Perfeita",
+        "message": "Tão parecidos, não são gêmeos mas a mesma pessoa? 🤔"
+      },
+      "veryHighSimilarity": {
+        "title": "Similaridade Muito Alta",
+        "message": "Isto parece a mesma pessoa. Por favor, compare com outra pessoa"
+      },
+      "extremelySimilar": {
+        "title": "Extremamente Similar",
+        "message": "Quase a mesma pessoa! 😮"
+      },
+      "uniqueStyle": {
+        "title": "Estilo Único!",
+        "message": "Cada um tem seu próprio charme! ✨"
+      },
+      "personalityExplosion": {
+        "title": "Explosão de Personalidade!",
+        "message": "Estilos completamente diferentes! Incrível 😊"
+      },
+      "definiteFamily": {
+        "title": "Família Definitiva!",
+        "message": "Semelhança familiar clara! Você pode ver a similaridade 😊"
+      },
+      "subtleSimilarity": {
+        "title": "Similaridade Sutil",
+        "message": "Olhe com atenção e você encontrará alguma semelhança! 🔍"
+      }
+    }
+  },
+  "actions": {
+    "copyLink": "Copiar Link",
+    "linkCopied": "Link copiado!",
+    "linkCopyFailed": "Falha ao copiar link."
+  },
+  "metadata": {
+    "analyze": {
+      "gender": {
+        "title": "Resultado da Análise de Estilo Suave/Forte com IA",
+        "description": "Verifique seu estilo Suave/Forte analisado pela IA"
+      },
+      "age": {
+        "title": "Resultado da Previsão de Idade com IA",
+        "description": "Verifique sua idade prevista pela IA"
+      },
+      "parentChild": {
+        "title": "Resultado do Teste de Similaridade Facial com IA",
+        "description": "Verifique a similaridade analisada pela IA entre duas pessoas"
+      },
+      "findParents": {
+        "title": "Análise Facial com IA: Encontrar Pessoa Mais Parecida",
+        "description": "Encontre a pessoa mais parecida com você"
+      },
+      "whoMostSimilar": {
+        "title": "Análise Facial com IA: Resultado do Teste de Similaridade",
+        "description": "Pessoas parecidas encontradas"
+      },
+      "common": {
+        "description": "Experimente testes de similaridade, previsão de idade e análise Suave/Forte com IA gratuitamente"
+      },
+      "keywords": "análise facial com IA,similaridade facial,teste de similaridade,previsão de idade,cara suave,cara forte,garota suave,garota forte,similaridade facial,correspondência facial"
+    }
+  },
+  "privacyDisclaimer": {
+    "title": "Aviso",
+    "items": {
+      "imageStorage": "Fotos enviadas não são armazenadas no servidor e são imediatamente excluídas após a análise",
+      "noPersonalInfo": "Não coletamos nenhuma informação pessoal",
+      "forEntertainment": "Este serviço é apenas para fins de diversão e entretenimento. Por favor, use os resultados apenas como referência"
+    }
+  },
+  "faceMatch": {
+    "title": "Escolher Método de Análise Facial",
+    "subtitle": "Selecione o método adequado ao seu objetivo de análise",
+    "backToHome": "← Voltar ao Início",
+    "familyAnalysis": {
+      "title": "Análise de Semelhança Familiar",
+      "description": "Análise de similaridade precisa considerando relações pai-filho",
+      "features": "Recursos:",
+      "feature1": "• Algoritmo InsightFace especializado em família",
+      "feature2": "• Análise de vetor de características faciais de 512 dimensões",
+      "feature3": "• Medição precisa de similaridade cosseno",
+      "feature4": "• Informações de região facial e confiança fornecidas",
+      "optimized": "Otimizado para verificação de relações familiares"
+    },
+    "generalComparison": {
+      "title": "Comparação Facial Geral",
+      "description": "Medição de similaridade facial básica rápida e confiável",
+      "features": "Recursos:",
+      "feature1": "• Motor AWS Rekognition",
+      "feature2": "• Análise facial baseada em aprendizado de máquina",
+      "feature3": "• Processamento em tempo real e alta estabilidade",
+      "feature4": "• Distingue rostos correspondentes/não correspondentes",
+      "optimized": "Otimizado para comparação facial geral"
+    },
+    "guide": {
+      "title": "Quando usar qual método?",
+      "familyTitle": "Análise de Semelhança Familiar",
+      "familyUse1": "✓ Verificar relações pai-filho",
+      "familyUse2": "✓ Medição precisa de similaridade familiar",
+      "familyUse3": "✓ Informações faciais detalhadas necessárias",
+      "familyUse4": "✓ Alta precisão necessária",
+      "generalTitle": "Comparação Facial Geral",
+      "generalUse1": "✓ Encontrar sósias",
+      "generalUse2": "✓ Resultados rápidos necessários",
+      "generalUse3": "✓ Medição de similaridade básica",
+      "generalUse4": "✓ Processamento estável necessário"
+    }
+  }
+}
