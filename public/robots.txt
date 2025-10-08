@@ -1,0 +1,23 @@
+# FaceFalcon - AI Face Analysis Service
+# https://facefalcon.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://facefalcon.com/sitemap.xml
+
+# Crawl optimization
+Crawl-delay: 1
+
+# Disallow paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /monitoring/
+
+# Allow social media crawlers
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /

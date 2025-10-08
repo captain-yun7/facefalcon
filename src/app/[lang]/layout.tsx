@@ -26,12 +26,8 @@ export async function generateStaticParams() {
   return [{ lang: 'ko' }, { lang: 'en' }, { lang: 'ja' }, { lang: 'es' }, { lang: 'pt' }, { lang: 'de' }, { lang: 'fr' }];
 }
 
-// Generate dynamic metadata based on locale
-export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
-  const { lang } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com';
-
-  const metadataByLang = {
+// Metadata configuration for each language
+const metadataByLang = {
     ko: {
       title: {
         default: "FaceFalcon - AI 얼굴 분석 | 닮은꼴 테스트, 나이 맞히기, 에겐/테토 분석",
@@ -116,8 +112,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
       twitterDescription: "Analysez la similarité faciale, l'âge et le style avec l'IA",
       locale: 'fr_FR' as const,
     },
-  };
+};
 
+// Generate dynamic metadata based on locale
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com';
   const meta = metadataByLang[lang];
 
   return {
@@ -136,6 +136,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
     alternates: {
       canonical: `/${lang}`,
       languages: {
+        'x-default': '/en',
         'ko': '/ko',
         'en': '/en',
         'ja': '/ja',
@@ -224,6 +225,22 @@ export default async function RootLayout({
 }>) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
+
+  // Locale mapping for schema
+  const localeMap: Record<Locale, { code: string; currency: string; area: string }> = {
+    ko: { code: 'ko', currency: 'KRW', area: 'KR' },
+    en: { code: 'en', currency: 'USD', area: 'US' },
+    ja: { code: 'ja', currency: 'JPY', area: 'JP' },
+    es: { code: 'es', currency: 'EUR', area: 'ES' },
+    pt: { code: 'pt', currency: 'BRL', area: 'BR' },
+    de: { code: 'de', currency: 'EUR', area: 'DE' },
+    fr: { code: 'fr', currency: 'EUR', area: 'FR' },
+  }
+
+  const schemaLocale = localeMap[lang]
+
+  // Get metadata for current language
+  const meta = metadataByLang[lang]
 
   // JSON-LD structured data
   const structuredData = lang === 'ko' ? [
@@ -327,14 +344,15 @@ export default async function RootLayout({
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "FaceFalcon",
-      "description": "Free online AI face analysis service featuring face similarity tests, age prediction, and style analysis",
+      "description": metadataByLang[lang].description,
       "url": process.env.NEXT_PUBLIC_APP_URL || 'https://facefalcon.com',
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Web Browser",
+      "inLanguage": schemaLocale.code,
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD",
+        "priceCurrency": schemaLocale.currency,
         "description": "Free AI face analysis service"
       },
       "provider": {
@@ -359,7 +377,6 @@ export default async function RootLayout({
       "softwareVersion": "1.0",
       "datePublished": "2024-01-01",
       "dateModified": new Date().toISOString().split('T')[0],
-      "inLanguage": "en",
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
@@ -378,7 +395,7 @@ export default async function RootLayout({
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "Customer Support",
-        "areaServed": "Worldwide",
+        "areaServed": schemaLocale.area,
         "availableLanguage": ["Korean", "English", "Japanese", "Spanish", "Portuguese", "German", "French"]
       },
       "sameAs": [
