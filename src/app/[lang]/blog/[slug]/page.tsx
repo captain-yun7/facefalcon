@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
 import { useTranslations } from '@/components/TranslationsProvider';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import BlogPostingSchema from '@/components/seo/BlogPostingSchema';
 
@@ -34,11 +34,12 @@ interface BlogPostMeta {
   excerpt: string;
 }
 
-export default function BlogPostPage({ 
-  params 
-}: { 
-  params: { slug: string } 
+export default function BlogPostPage({
+  params
+}: {
+  params: Promise<{ slug: string }>
 }) {
+  const unwrappedParams = use(params);
   const { t, locale } = useTranslations();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPostMeta[]>([]);
@@ -47,10 +48,10 @@ export default function BlogPostPage({
   useEffect(() => {
     const loadPost = async () => {
       if (!locale) return;
-      
+
       setLoading(true);
       try {
-        const response = await fetch(`/api/blog/${params.slug}?locale=${locale}`);
+        const response = await fetch(`/api/blog/${unwrappedParams.slug}?locale=${locale}`);
         if (!response.ok) {
           if (response.status === 404) {
             notFound();
@@ -58,7 +59,7 @@ export default function BlogPostPage({
           }
           throw new Error('Failed to fetch post');
         }
-        
+
         const data = await response.json();
         setPost(data.post);
         setRelatedPosts(data.relatedPosts);
@@ -71,7 +72,7 @@ export default function BlogPostPage({
     };
 
     loadPost();
-  }, [params.slug, locale]);
+  }, [unwrappedParams.slug, locale]);
 
   if (loading) {
     return (
